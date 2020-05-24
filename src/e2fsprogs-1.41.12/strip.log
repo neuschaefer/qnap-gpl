@@ -1,0 +1,297 @@
+config/install-sh:stripprog="${STRIPPROG-strip}"
+config/install-sh:stripcmd=""
+config/install-sh:	-s) stripcmd="$stripprog"
+config/install-sh:	if [ x"$stripcmd" != x ]; then $doit $stripcmd $dst; else true ; fi &&
+config/install-sh:	if [ x"$stripcmd" != x ]; then $doit $stripcmd $dsttmp; else true;fi &&
+config.log:configure:9915: checking for strip
+config.log:configure:9931: found /usr/bin/strip
+configure:  # Extract the first word of "${ac_tool_prefix}strip", so it can be a program name with args.
+configure:set dummy ${ac_tool_prefix}strip; ac_word=$2
+configure:    ac_cv_prog_STRIP="${ac_tool_prefix}strip"
+configure:  # Extract the first word of "strip", so it can be a program name with args.
+configure:set dummy strip; ac_word=$2
+configure:# ${srcdir} and @srcdir@ from VPATH if srcdir is ".", strip leading and
+configure.in:AC_CHECK_TOOL(STRIP, strip, :)
+configure.old:  # Extract the first word of "${ac_tool_prefix}strip", so it can be a program name with args.
+configure.old:set dummy ${ac_tool_prefix}strip; ac_word=$2
+configure.old:    ac_cv_prog_STRIP="${ac_tool_prefix}strip"
+configure.old:  # Extract the first word of "strip", so it can be a program name with args.
+configure.old:set dummy strip; ac_word=$2
+configure.old:    ac_cv_prog_ac_ct_STRIP="strip"
+configure.old:# ${srcdir} and @srcdir@ from VPATH if srcdir is ".", strip leading and
+debian/attic/libs/rules:	dh_strip -a
+debian/rules:#ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+debian/rules:	dh_strip -k -Xlib64ext2fs-nopic.a
+debian/rules:	dh_strip -k
+debian/control.in:Description: stripped down universally unique id library, for debian-installer
+debian/control.in:Description: stripped down block device id library, for debian-installer
+debian/control.in:Description: stripped-down versions of e2fsprogs, for debian-installer
+debian/changelog:    it to populate the superblock stride and stripe sizes and warn if
+debian/changelog:  * Clarify stripe-width and stride-size in mke2fs man page.  (Closes: #487849)
+debian/changelog:      printing the RAID stride and stripe width.
+debian/changelog:  * Fix bogus strip permission errors when building under Debian
+debian/changelog:  * Support for DEB_BUILD_OPTIONS debug/nostrip for policy 3.2
+debian/changelog:  * Converted to debstd - let it do the stripping stuff.
+debian/changelog:      Files in /lib are now stripped of all unneeded symbols (Bug#5121)
+debugfs/Makefile: ifeq ($(strip $(V)),)
+debugfs/Makefile:install-strip: install
+debugfs/Makefile.in:install-strip: install
+debugfs/set_fields.c:	{ "raid_stripe_width", &set_sb.s_raid_stripe_width, 4, parse_uint },
+doc/Makefile: ifeq ($(strip $(V)),)
+doc/texinfo.tex:% If a _delimited_ argument is enclosed in braces, they get stripped; so
+doc/texinfo.tex:% that a pair of braces would be stripped.
+doc/texinfo.tex:% aux file.  We strip off the -title and look up \XRLABEL-lof, which
+e2fsck/super.c: * backup, the extended attributes in the filesystem will be stripped
+e2fsck/Makefile: ifeq ($(strip $(V)),)
+e2fsck/Makefile:install-strip: install
+e2fsck/Makefile.in:install-strip: install
+e2fsck/profile.c:static void strip_line(char *line)
+e2fsck/profile.c:	strip_line(line);
+ext2ed/Makefile: ifeq ($(strip $(V)),)
+intl/Makefile: ifeq ($(strip $(V)),)
+intl/Makefile:install-strip: install
+intl/Makefile:install-shlibs-strip:
+intl/Makefile.in:@ifGNUmake@ ifeq ($(strip $(V)),)
+intl/Makefile.in:install-strip: install
+intl/Makefile.in:install-shlibs-strip:
+intl/finddomain.c:     looked for.  The various parts will be stripped off according to
+lib/Makefile.elf-lib:install-strip: install
+lib/Makefile.elf-lib:	$(Q) $(STRIP) --strip-unneeded --remove-section=.comment \
+lib/Makefile.elf-lib:install-shlibs-strip: install-shlibs
+lib/Makefile.elf-lib:	$(Q) $(STRIP) --strip-unneeded --remove-section=.comment \
+lib/blkid/Makefile: ifeq ($(strip $(V)),)
+lib/blkid/read.c:static char *strip_line(char *line)
+lib/blkid/read.c:	p = strip_line(*cp);
+lib/blkid/read.c:	*name = strip_line(*cp);
+lib/blkid/read.c:	*name = strip_line(*cp);
+lib/blkid/probe.h:	__u32   s_raid_stripe_width;
+lib/blkid/probe.h: * room to translate 14 chunks with 3 stripes each.
+lib/blkid/probe.h:	 * to allowr for stripe alignment in the future
+lib/blkid/probe.h:	__u32 stripesize;
+lib/et/Makefile: ifeq ($(strip $(V)),)
+lib/ext2fs/Makefile: ifeq ($(strip $(V)),)
+lib/ext2fs/tst_super_size.c:	check_field(s_raid_stripe_width);
+lib/ext2fs/ext2_fs.h:	__u32   s_raid_stripe_width;    /* blocks on all data disks (N*stride)*/
+lib/ext2fs/initialize.c:	set_field(s_raid_stripe_width, 0);	/* default stripe width: 0 */
+lib/ext2fs/jfs_dat.h: * jfs_dat.h --- stripped down header file which only contains the JFS
+lib/Makefile.solaris-lib:install-strip: install
+lib/Makefile.solaris-lib:install-shlibs-strip: install-shlibs
+lib/uuid/Makefile: ifeq ($(strip $(V)),)
+lib/Makefile.darwin-lib:install-strip: install
+lib/Makefile.darwin-lib:install-shlibs-strip: install-shlibs
+lib/e2p/Makefile: ifeq ($(strip $(V)),)
+lib/e2p/ls.c:	if (sb->s_raid_stripe_width)
+lib/e2p/ls.c:		fprintf(f, "RAID stripe width:        %u\n",
+lib/e2p/ls.c:			sb->s_raid_stripe_width);
+lib/Makefile.bsd-lib:install-strip: install
+lib/Makefile.bsd-lib:install-shlibs-strip: install-shlibs
+lib/ss/Makefile: ifeq ($(strip $(V)),)
+Makefile: ifeq ($(strip $(V)),)
+Makefile:install-strip: subs all-libs-recursive install-strip-progs-recursive \
+Makefile:  install-shlibs-strip-libs-recursive install-doc-libs
+Makefile:all-progs-recursive install-progs-recursive install-strip-progs-recursive \
+Makefile:all-libs-recursive install-libs-recursive install-strip-libs-recursive \
+Makefile:  install-shlibs-strip-libs-recursive uninstall-shlibs-libs-recursive:
+Makefile.in:install-strip: subs all-libs-recursive install-strip-progs-recursive \
+Makefile.in:  install-shlibs-strip-libs-recursive install-doc-libs
+Makefile.in:all-progs-recursive install-progs-recursive install-strip-progs-recursive \
+Makefile.in:all-libs-recursive install-libs-recursive install-strip-libs-recursive \
+Makefile.in:  install-shlibs-strip-libs-recursive uninstall-shlibs-libs-recursive:
+MCONFIG: ifeq ($(strip $(V)),)
+MCONFIG.in:@ifGNUmake@ ifeq ($(strip $(V)),)
+misc/mke2fs.c:	       s->s_raid_stride, s->s_raid_stripe_width);
+misc/mke2fs.c:		} else if (strcmp(token, "stripe-width") == 0 ||
+misc/mke2fs.c:			   strcmp(token, "stripe_width") == 0) {
+misc/mke2fs.c:			param->s_raid_stripe_width = strtoul(arg, &p, 0);
+misc/mke2fs.c:			if (*p || (param->s_raid_stripe_width == 0)) {
+misc/mke2fs.c:					_("Invalid stripe-width parameter: %s\n"),
+misc/mke2fs.c:			"\tstripe-width=<RAID stride * data disks in blocks>\n"
+misc/mke2fs.c:	    (param->s_raid_stripe_width % param->s_raid_stride) != 0)
+misc/mke2fs.c:		fprintf(stderr, _("\nWarning: RAID stripe-width %u not an even "
+misc/mke2fs.c:			param->s_raid_stripe_width, param->s_raid_stride);
+misc/mke2fs.c: * Sets the geometry of a device (stripe/stride), and returns the
+misc/mke2fs.c:	fs_param->s_raid_stripe_width = opt_io / blocksize;
+misc/Makefile: ifeq ($(strip $(V)),)
+misc/Makefile:install-strip: install
+misc/fsck.c:static void strip_line(char *line)
+misc/fsck.c:	strip_line(line);
+misc/e4defrag.c:	__le32  s_raid_stripe_width;    /* blocks on all data disks (N*stride)*/
+Binary file misc/e4defrag matches
+misc/Makefile.in:install-strip: install
+misc/tune2fs.c:static int stride, stripe_width;
+misc/tune2fs.c:static int stride_set, stripe_width_set;
+misc/tune2fs.c:		} else if (strcmp(token, "stripe-width") == 0 ||
+misc/tune2fs.c:			   strcmp(token, "stripe_width") == 0) {
+misc/tune2fs.c:			stripe_width = strtoul(arg, &p, 0);
+misc/tune2fs.c:			if (*p || (stripe_width == 0)) {
+misc/tune2fs.c:					_("Invalid RAID stripe-width: %s\n"),
+misc/tune2fs.c:			stripe_width_set = 1;
+misc/tune2fs.c:			"\tstripe_width=<RAID stride*data disks in blocks>\n"
+misc/tune2fs.c:	if (stripe_width_set) {
+misc/tune2fs.c:		sb->s_raid_stripe_width = stripe_width;
+misc/tune2fs.c:		printf(_("Setting stripe width to %d\n"), stripe_width);
+misc/mke2fs.8.in:.BI stripe-width= stripe-width
+misc/mke2fs.8.in:.I stripe-width
+misc/mke2fs.8.in:filesystem blocks per stripe. This is typically stride-size * N, where
+misc/mke2fs.8.in:parity in a RAID stripe if possible when the data is written.
+misc/tune2fs.8.in:.BI stripe_width= stripe-width
+misc/tune2fs.8.in:.I stripe-width
+misc/tune2fs.8.in:filesystem blocks per stripe. This is typically be stride-size * N, where
+misc/tune2fs.8.in:parity in a RAID stripe if possible when the data is written.
+po/sv.po:msgid "Invalid stripe-width parameter: %s\n"
+po/sv.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/sv.po:"\tstripe-width=<RAID-kliv ∑ datadiskar i block>\n"
+po/sv.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/sv.po:msgid "Invalid RAID stripe-width: %s\n"
+po/sv.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/sv.po:"\tstripe_width=<RAID-kliv∑datadiskar i block>\n"
+po/sv.po:msgid "Setting stripe width to %d\n"
+po/ca.po:msgid "Invalid stripe-width parameter: %s\n"
+po/ca.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/ca.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/ca.po:msgid "Invalid RAID stripe-width: %s\n"
+po/ca.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/ca.po:msgid "Setting stripe width to %d\n"
+po/nl.po:msgstr "'stride'=%u blokken, 'stripe'-breedte=%u blokken\n"
+po/nl.po:msgid "Invalid stripe-width parameter: %s\n"
+po/nl.po:msgstr "Ongeldig argument van 'stripe_width': %s\n"
+po/nl.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/nl.po:"    stripe_width=<aantal blokken per stripe> (meestal stride √ó aantal schijven)\n"
+po/nl.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/nl.po:"Waarschuwing: 'stripe'-breedte %u is geen even veelvoud van 'stride' %u.\n"
+po/nl.po:msgid "Invalid RAID stripe-width: %s\n"
+po/nl.po:msgstr "Ongeldig argument van 'stripe_width': %s\n"
+po/nl.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/nl.po:"    stripe_width=<aantal blokken per stripe> (meestal stride √ó aantal schijven)\n"
+po/nl.po:msgid "Setting stripe width to %d\n"
+po/nl.po:msgstr "De 'stripe'-breedte is op %d gezet\n"
+po/Makefile:install-strip: install
+po/Makefile.in:install-strip: install
+Binary file po/fr.gmo matches
+po/vi.po:msgid "Invalid stripe-width parameter: %s\n"
+po/vi.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/vi.po:"\tstripe-width=<RAID stride * c√°c ƒëƒ©a d·ªØ li·ªáu theo kh·ªëi>\n"
+po/vi.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/vi.po:"C·∫£nh b√°o : chi·ªÅu r·ªông s·ªçc (stripe-width) RAID %u kh√¥ng ph·∫£i l√† m·ªôt b·ªôi s·ªë "
+po/vi.po:msgid "Invalid RAID stripe-width: %s\n"
+po/vi.po:msgstr "Tham s·ªë chi·ªÅu r·ªông s·ªçc (stripe-width) RAID kh√¥ng h·ª£p l·ªá: %s\n"
+po/vi.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/vi.po:"\tstripe-width=<RAID stride*c√°c ƒëƒ©a d·ªØ li·ªáu theo kh·ªëi>\n"
+po/vi.po:msgid "Setting stripe width to %d\n"
+po/vi.po:msgstr "ƒêang ƒë·∫∑t chi·ªÅu r·ªông s·ªçc (stripe width) th√†nh %d\n"
+po/es.po:msgid "Invalid stripe-width parameter: %s\n"
+po/es.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/es.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/es.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/es.po:msgid "Invalid RAID stripe-width: %s\n"
+po/es.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/es.po:msgid "Setting stripe width to %d\n"
+po/id.po:msgstr "Stride=%u blok, Lebar stripe=%u blok\n"
+po/id.po:msgid "Invalid stripe-width parameter: %s\n"
+po/id.po:msgstr "Parameter stripe-width tidak valid: %s\n"
+po/id.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/id.po:"\tstripe-width=<RAID stride * data disk dalam blok>\n"
+po/id.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/id.po:"Peringatan: RAID stripe-width %u bukan sebuah even multiple dari stride %u.\n"
+po/id.po:msgid "Invalid RAID stripe-width: %s\n"
+po/id.po:msgstr "Invalid RAID stripe-width: %s\n"
+po/id.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/id.po:"\tstripe-width=<RAID stride*data disk dalam blok>\n"
+po/id.po:msgid "Setting stripe width to %d\n"
+po/id.po:msgstr "Menset lebar stripe ke %d\n"
+po/Makefile.in.in:install-strip: install
+Binary file po/cs.gmo matches
+po/zh_CN.po:msgid "Invalid stripe-width parameter: %s\n"
+po/zh_CN.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/zh_CN.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/zh_CN.po:msgid "Invalid RAID stripe-width: %s\n"
+po/zh_CN.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/zh_CN.po:msgid "Setting stripe width to %d\n"
+Binary file po/de.gmo matches
+po/e2fsprogs.pot:msgid "Invalid stripe-width parameter: %s\n"
+po/e2fsprogs.pot:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/e2fsprogs.pot:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/e2fsprogs.pot:msgid "Invalid RAID stripe-width: %s\n"
+po/e2fsprogs.pot:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/e2fsprogs.pot:msgid "Setting stripe width to %d\n"
+Binary file po/sv.gmo matches
+po/pl.po:msgid "Invalid stripe-width parameter: %s\n"
+po/pl.po:msgstr "B≥Ídny parametr stripe-width: %s\n"
+po/pl.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/pl.po:"\tstripe-width=<RAID stride * liczba dyskÛw danych w blokach>\n"
+po/pl.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/pl.po:"Uwaga: RAID stripe-width %u nie jest parzyst± wielokrotno∂ci± stride %u.\n"
+po/pl.po:msgid "Invalid RAID stripe-width: %s\n"
+po/pl.po:msgstr "B≥Ídny parametr RAID stripe-width: %s\n"
+po/pl.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/pl.po:"\tstripe_width=<RAID stride * liczba dyskÛw danych w blokach>\n"
+po/pl.po:msgid "Setting stripe width to %d\n"
+po/pl.po:msgstr "Ustawianie szeroko∂ci stripe na na %d\n"
+Binary file po/nl.gmo matches
+po/it.po:msgid "Invalid stripe-width parameter: %s\n"
+po/it.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/it.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/it.po:msgid "Invalid RAID stripe-width: %s\n"
+po/it.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/it.po:msgid "Setting stripe width to %d\n"
+Binary file po/pl.gmo matches
+po/cs.po:msgid "Invalid stripe-width parameter: %s\n"
+po/cs.po:msgstr "Neplatn√Ω parametr ≈°√≠≈ôka-p√°su (stripe-width): %s\n"
+po/cs.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/cs.po:"\tstripe-width=<krok (stride) RAIDu * datov√Ωch disk≈Ø v¬†bloc√≠ch>\n"
+po/cs.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/cs.po:msgid "Invalid RAID stripe-width: %s\n"
+po/cs.po:msgstr "Neplatn√° ≈°√≠≈ôka pruhu RAIDu (stripe-width): %s\n"
+po/cs.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/cs.po:"\tstripe_width=<krok (stride) RAIDu * datov√Ωch disk≈Ø v¬†bloc√≠ch>\n"
+po/cs.po:msgid "Setting stripe width to %d\n"
+po/cs.po:msgstr "Nastavuji ≈°√≠≈ôku pruhu (stripe width) na %d\n"
+po/tr.po:msgid "Invalid stripe-width parameter: %s\n"
+po/tr.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/tr.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/tr.po:msgid "Invalid RAID stripe-width: %s\n"
+po/tr.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/tr.po:msgid "Setting stripe width to %d\n"
+Binary file po/id.gmo matches
+po/de.po:msgid "Invalid stripe-width parameter: %s\n"
+po/de.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/de.po:"\tstripe-width=<RAID Stride * Datenplatten in Bl√∂cken>\n"
+po/de.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/de.po:msgid "Invalid RAID stripe-width: %s\n"
+po/de.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/de.po:"\tstripe-width=<RAID Stride*Datenplatten in Bl√∂cken>\n"
+po/de.po:msgid "Setting stripe width to %d\n"
+Binary file po/vi.gmo matches
+po/fr.po:msgid "Invalid stripe-width parameter: %s\n"
+po/fr.po:msgstr "ParamËtre ´†stripe-width†ª invalide†: %s\n"
+po/fr.po:"\tstripe-width=<RAID stride * data disks in blocks>\n"
+po/fr.po:"\tstripe-width=<stride RAID * nombre de disques en blocs>\n"
+po/fr.po:"Warning: RAID stripe-width %u not an even multiple of stride %u.\n"
+po/fr.po:"Attention†: le ´†stripe-width†ª RAID %u n'est pas multiple impair du ´†stride†ª %u.\n"
+po/fr.po:msgid "Invalid RAID stripe-width: %s\n"
+po/fr.po:msgstr "ParamËtre ´†stripe-width RAID†ª invalide†: %s\n"
+po/fr.po:"\tstripe_width=<RAID stride*data disks in blocks>\n"
+po/fr.po:"\tstripe-width=<stride RAID * nombre de disques en blocs>\n"
+po/fr.po:msgid "Setting stripe width to %d\n"
+po/fr.po:msgstr "DÈfinition de la taille du ´†stripe width†ª ‡ %d\n"
+RELEASE-NOTES:use it to populate the superblock stride and stripe sizes.  It will
+RELEASE-NOTES:Add support for setting RAID stride and stripe-width via mke2fs and
+RELEASE-NOTES:Fix bogus strip permission errors when building under Debian.  When
+RELEASE-NOTES:building the e2fsprogs dpkg's, the dh_strip command emits a large
+RELEASE-NOTES:So run dh_fixperms before running dh_strip.
+RELEASE-NOTES:Add support for the install-strip and install-shlibs-strip targets, as
+RELEASE-NOTES:strips the binaries which are installed.
+RELEASE-NOTES:scripts to deal with BK's stripping CR characgters from text files,
+RELEASE-NOTES:of the RAID stripe.
+RELEASE-NOTES:won't be concentrated in one or two disks in RAID/striping setups.
+resize/Makefile: ifeq ($(strip $(V)),)
+resize/Makefile:install-strip: install
+resize/Makefile.in:install-strip: install
+tests/Makefile: ifeq ($(strip $(V)),)
+tests/progs/Makefile: ifeq ($(strip $(V)),)
+tests/progs/Makefile:install-strip:
+tests/progs/Makefile.in:install-strip:
+util/Makefile: ifeq ($(strip $(V)),)
+Binary file x86_64_bin/dumpe2fs matches
+Binary file x86_64_bin/mke2fs matches
+Binary file x86_64_bin/tune2fs matches

@@ -1,0 +1,20 @@
+#!/sbin/runscript
+# Copyright 1999-2002 Gentoo Technologies, Inc.
+# Distributed under the terms of the GNU General Public License, v2 or later
+# $Header: /home/cvsroot/NasX86/SysUtil/apcupsd-3.10.15/platforms/gentoo/apcupsd.in,v 1.1.1.1 2008/01/17 10:51:55 ricky Exp $
+
+APCPID=@PIDDIR@/apcupsd.pid
+APCUPSD=@sbindir@/apcupsd
+
+start() {
+	rm -f /etc/apcupsd/powerfail
+	ebegin "Starting APC UPS daemon"
+	start-stop-daemon --start --quiet --exec $APCUPSD -- 1>&2
+	eend $?
+}
+ 
+stop() {
+	ebegin "Stopping APC UPS daemon"
+	start-stop-daemon --stop --quiet --pidfile $APCPID
+	eend $?
+} 

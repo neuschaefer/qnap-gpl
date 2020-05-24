@@ -1,0 +1,169 @@
+#
+# external actions
+# ----------------
+#
+# Every section starts with a line containing the "%action <name>",
+# "%pre-send <name>", "%pre-receive <name>" or "%manual <name>" text.
+# Please note that the <name> of any kind is necessary. It mustn't be
+# empty. Inside it the following parameters can be used:
+#
+# event
+# -----
+# Can be "msg", "sms", "url", "online", "offline", "auth",
+#	"contacts" or "notification".
+#
+# The latter means CenterIM's own notifications, such as birthday reminders,
+# away messages, and other stuff. Specifying several event types is
+# also allowed. "all" stands for all the event types.
+#
+# proto
+# -----
+# Can be "icq", "yahoo", "aim", "irc", "msn", "lj", "rss" or "jab". Or
+# combination of these words. "all" can be used as a synonym for all of
+# them.
+#
+# status
+# ------
+# Can be "online", "away", "dnd", "na", "occupied", "ffc" or "invisible".
+# Specifying several ones is possible. "all" stands for all of possible
+# status modes.
+#
+# options
+# -------
+# Possible options for an action are:
+#
+#       stdin           The incoming message text is to be passed to
+#                       stdin of the script to be executed.
+#
+#       stdout          The script output is to be sent as a reply
+#                       message (if not empty).
+#
+#       nowait          Don't wait for the script to finish. Obviously, the
+#                       stdout option won't make sense if this one is used.
+#
+# Then, the section named "%exec" should follow. It contains a piece of
+# script to be executed being copied to a file first.
+#
+
+%action         Simple auto-responder
+
+event           msg
+
+proto           all
+
+status          all
+
+options         stdin stdout
+
+%exec
+#!/bin/sh 
+queryDone=0
+validUser=0
+msg=`cat`
+msgarg=`echo $msg`
+lmsgarg=`/usr/bin/lowercase "$msgarg"`
+COMMAND="cpu sys model hd vol uptime"
+HOSTNAME=`/bin/hostname`
+MSNCONTACT=`/sbin/getcfg msn contact -d none -f /etc/config/centerim/default.conf`
+PLATFORM=`cat /etc/default_config/BOOT.conf`
+if [ "x${MSNCONTACT}" != "x" ]; then
+	COUNT=1
+	CONTACT="init"
+	until [ "x${CONTACT}" = "x" ]; do
+		CONTACT=`echo "${MSNCONTACT}" | cut -d ',' -f ${COUNT}`
+		if [ "x${CONTACT}" = "x${CONTACT_NICK}" ]; then
+			validUser=1
+		fi
+		COUNT=`/usr/bin/expr ${COUNT} + 1`
+	done
+fi
+
+if [ $validUser != 1 ]; then
+	echo "I am sorry, I am not authorized to talk to you."
+	exit 1
+fi
+
+echo "$lmsgarg" | grep '^info-' 1>>/dev/null 2>>/dev/null
+if [ $? -eq 0 ]; then
+	query=`echo "$lmsgarg" | cut -d '-' -f 2`
+	queryDone=1
+	for cmd in $COMMAND; do
+		if [ x$cmd = x$query ]; then
+			[ -z $HOSTNAME ] || echo $HOSTNAME
+			break
+		fi
+	done
+	case $query in
+		cpu)
+			if [ "x${PLATFORM}" = "xTS-NASARM" ]; then
+				echo -n "I am sorry, this information is not available on this model."
+			else
+				echo -n `/sbin/getsysinfo cputmp`
+			fi
+		;;
+		sys)
+			echo "system temperature: "`/sbin/getsysinfo systmp`
+			loop=`/sbin/getsysinfo sysfannum`
+			start=1
+			while [ ${start} -le ${loop} ]; do		
+				echo -n "system fan ${start}: "
+				echo `/sbin/getsysinfo sysfan ${start}`	
+				start=`/usr/bin/expr ${start} + 1`
+			done
+		;;
+		model) echo -n `/sbin/getsysinfo model`;;
+		hd) 
+			query2=`echo "$lmsgarg" | cut -d '-' -f 3`
+			if [ "x${query2}" = "x" ]; then 
+				echo -n "There are "
+				echo -n `/sbin/getsysinfo hdnum`
+				echo -n " disk slots in your system"
+			else
+				echo "Hard Disk ${query2} Info:"
+				echo "    temperature: "`/sbin/getsysinfo hdtmp ${query2}`
+				# echo "    capacity: "`/sbin/getsysinfo hdcapacity ${query2}`
+				echo "    smart status: "`/sbin/getsysinfo hdsmart ${query2}`
+				# echo "    status: "`/sbin/getsysinfo hdstatus ${query2}`
+			fi
+		;;
+		vol)
+			query2=`echo "$lmsgarg" | cut -d '-' -f 3`
+			if [ "x${query2}" = "x" ]; then 
+				echo -n "There are "
+				echo -n `/sbin/getsysinfo sysvolnum`
+				echo -n " volumes in your system"
+			else
+				echo "Volume ${query2} Info:"
+				query2=`/usr/bin/expr ${query2} - 1`
+				echo "    description: "`/sbin/getsysinfo vol_desc ${query2}`
+				echo "    file system: "`/sbin/getsysinfo vol_fs ${query2}`
+				echo "    total size: "`/sbin/getsysinfo vol_totalsize ${query2}`
+				echo "    free size: "`/sbin/getsysinfo vol_freesize ${query2}`
+				echo "    status: "`/sbin/getsysinfo vol_status ${query2}`				
+			fi
+		;;
+		uptime) echo -n `uptime`;;
+		*) queryDone=0;;
+	esac
+fi
+
+echo "$lmsgarg" | grep '^help' 1>>/dev/null 2>>/dev/null
+if [ $? -eq 0 ]; then
+	echo "Usage: 'info-[command]-[options...]'"
+	echo "For example, 'info-sys' to show system info, 'info-hd-1' to show info on hard disk 1"
+	echo
+	echo "Available commands:"
+	if [ "x${PLATFORM}" != "xTS-NASARM" ]; then
+		echo "    cpu - get CPU temperature"
+		echo "    sys - get system temperature and fan speeds"
+	else
+		echo "    sys - get system temperature"
+	fi
+	echo "    model - get NAS model number"
+	echo "    hd [hd number] - get hard disk info"
+	echo "    vol [vol number] - get volume info"
+elif [ $queryDone = 1 ]; then
+	echo -n " "
+else
+	echo -n "I don't understand what you are asking, please type 'help' for more info on existing commands"
+fi

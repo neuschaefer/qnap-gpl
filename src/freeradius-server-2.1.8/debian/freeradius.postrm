@@ -1,0 +1,24 @@
+#! /bin/sh
+
+set -e
+
+case "$1" in
+        remove)
+               ;;
+        purge)
+               update-rc.d -f freeradius remove >/dev/null
+
+               # Remove dangling links from sites-enabled.
+               for link in /etc/freeradius/sites-enabled/*; do
+                 if [ -L "$link" ] && [ ! -e "$link" ]; then
+                   rm -f "$link"
+                 fi
+               done
+
+               rm -f /var/log/freeradius/radius.log* /var/log/freeradius/radwtmp*
+               ;;
+esac
+
+#DEBHELPER#
+
+exit 0

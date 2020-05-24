@@ -1,0 +1,14 @@
+<samba:parameter name="q use receivefile"
+                 context="S"
+                 type="boolean"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+		
+<related>min receivefile size</related>
+
+<value type="default">yes</value>
+</samba:parameter>

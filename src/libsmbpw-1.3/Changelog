@@ -1,0 +1,10 @@
+1.0   Oct 12 1999   Initial revision/release. atp (atp@mssl.ucl.ac.uk)
+                    Basic get/set/end/put pwent routines.
+      
+1.1   Oct 14 1999   Bugfixes/Cleanups from Simon Murcott (mrMoon@subdimension.com) 
+                    Makefile now makes shared library as well.
+		    Include files handled better.
+		    Internal function prototypes added.
+		    Misc typos/typedefs fixed.
+		    Man pages for getsmbpwent/putsmbpwent
+		    Update README/CREDITS.

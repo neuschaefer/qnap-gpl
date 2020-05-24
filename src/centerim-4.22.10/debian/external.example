@@ -1,0 +1,162 @@
+# File /$HOME/.centericq/external
+#
+# External actions
+# ----------------
+#
+# Every section starts with a line containing the "%action <name>",
+# "%pre-send <name>", "%pre-receive <name>" or "%manual <name>" text.
+# Please note that the <name> of any kind is necessary. It musn't be
+# empty. Inside it the following parameters can be used:
+#
+# event
+# -----
+# Can be "msg", "sms", "url", "online", "auth", "contacts" or "notification".
+# The latter means centericq's own notifications, such as birthday reminders,
+# away messages, and other stuff. Specifying several event types is
+# also allowed. "all" stands for all the event types.
+#
+# proto
+# -----
+# Can be "icq", "yahoo", "msn", "aim", "irc" or "jabber". Or combination
+# of these words. "all" can be used as a synonim for all of them.
+#
+# status
+# ------
+# Can be "online", "away", "dnd", "na", "occupied", "ffc" or "invisible".
+# Specifying several ones is possible. "all" stands for all of possible
+# status modes.
+#
+# options
+# -------
+# Possible options for an action are:
+#
+#       stdin           The incoming message text is to be passed to
+#                       stdin of the script to be executed.
+#
+#       stdout          The script output is to be sent as a reply
+#                       message (if not empty).
+#
+#       nowait          Don't wait for the script to finish. Obviously, the
+#                       stdout option won't make sense if this one is used.
+#
+# Then, the section named "%exec" should follow. It contains a piece of
+# script to be executed being copied to a file first.
+#
+#
+#Also, the script from the %exec section when executed has the following
+#environment variables imported by centericq:
+#
+#EVENT_TYPE
+#
+#    The type of the received event. Can be "msg", "sms", "url",
+#    "online", "auth", "contacts" or "notification".
+#
+#EVENT_NETWORK
+#
+#    The IM network name through which the event was received. Can be
+#    "icq", "msn", "yahoo", "aim", "irc" or "jabber".
+#
+#CONTACT_UIN
+#
+#    If an event is received through ICQ equals to the other party's UIN.
+#    Otherwise empty.
+#
+#CONTACT_NICK
+#
+#    Set to other party's real nickname. Real means that even if you
+#    renamed the user in your contact list, this parameter will be equal
+#    to the original one, and not to what you set.
+#
+#CONTACT_INFODIR
+#
+#    The most intresting parameter. Using it, you can access further
+#    information about the user. Every time an external action is
+#    executed it is set to the user's information directory under your
+#    ~/.centericq/ directory. It makes it easier to access "about" and
+#    "info" files under it. Fetching lines from certain positions of the
+#    latter allows to get details. It's enough to take a look at an
+#    "info" file of any user to find out what lines mean. Here I'll
+#    describe the most useful ones:
+#
+#    - the 2nd and 3rd lines contain user's first and last names
+#       respectively;
+#    - the 4th one contains user's e-mail address;
+#    - the 7th has the home city;
+#    - the 8th is used for the home state name;
+#    - the 9th is used for the home phone number;
+#    - the user's home country resides in the 14th line;
+#    - etc;
+#
+#To read a certain line from the info file I recommend to use the
+#following shell command: "head -n <N> $CONTACT_INFODIR/info | tail -n 1",
+#where N is the line number. Below the real examples go.
+#
+#    fname=`head -n 2 $CONTACT_INFODIR/info | tail -n 1`
+#    # to fetch contact's first name
+#
+#    lname=`head -n 3 $CONTACT_INFODIR/info | tail -n 1`
+#    # to fetch contact's last name
+
+%manual         Host Lookup
+proto           icq
+# Only ICQ shows up IP addresses
+%exec
+#!/bin/sh
+ip=`head -n 45 $CONTACT_INFODIR/info | tail -n 1`
+for i in $ip; do ip=$i; break; done
+host $ip
+
+%action eLiza ChatBot
+event msg
+proto all
+status occupied na dnd
+options stdin stdout
+%exec
+elizatalk
+
+#%action         Simple auto-responder
+#event           msg
+## Reacts only on events of message type ..
+#proto           icq yahoo
+## .. only for icq and yahoo protocols
+#status          away na
+## .. when we are in away or n/a status
+#options         stdin stdout
+## .. the external commands text (below) reads the message from
+## stdin, then its stdout output is sent as a response to a
+## remote user.
+#%exec
+#msg=`cat`
+#echo "hello. this is auto-responder. your message was: $msg"
+
+#%action         Answering machine
+#event           msg
+#proto           all
+#status          away na
+#options         stdout
+#%exec
+##!/bin/sh
+#fname=`head -n 2 $CONTACT_INFODIR/info | tail -n 1`
+#lname=`head -n 3 $CONTACT_INFODIR/info | tail -n 1`
+#cat <<EOF
+#Hello, $fname $lname!
+#
+#Unfortunatelly, I'm not near my box now, but I'll certainly contact you
+#as soon as I get here.
+#
+#--
+#me
+#EOF
+
+#%action         Remote control
+#event           msg
+#proto           all
+#status          all
+#options         stdin stdout
+#%exec
+##!/bin/sh
+#case `cat` in
+#    ls) ls -l ~/.centericq/;;
+#    df) df -h;;
+#    uptime) uptime;;
+#esac

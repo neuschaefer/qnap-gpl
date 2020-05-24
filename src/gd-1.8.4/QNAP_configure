@@ -1,0 +1,1 @@
+CC=powerpc-linux-gcc AR=powerpc-linux-ar LD=powerpc-linux-ld RANLIB=powerpc-linux-ranlib CPPFLAGS=-I/opt/cross-project/TS-101/tools/include LDFLAGS=-L/opt/cross-project/TS-101/tools/lib ./configure --without-x --enable-jpeg --prefix=/opt/cross-project/TS-101/tools

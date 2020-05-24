@@ -1,0 +1,15 @@
+VERSION=2.12q
+CC=x86_64-QNAP-linux-gnu-gcc
+CFLAGS=-D_GNU_SOURCE -fPIC -DQNAP
+LDFLAGS=-L/root/daily_build/64_01/4.4.1/LinkFS/lib -L/root/daily_build/64_01/4.4.1/LinkFS/usr/lib -L/root/daily_build/64_01/4.4.1/LinkFS/usr/lib64 -L/root/daily_build/64_01/4.4.1/LinkFS/lib64
+HAVE_UUID=no
+HAVE_RAW_H=yes
+HAVE_NCURSES=no
+HAVE_TERMCAP=no
+NEED_LIBCRYPT=yes
+HAVE_XGETTEXT=no
+HAVE_OPENPTY=yes
+HAVE_PIVOT_ROOT=yes
+HAVE_GOOD_RPC=yes
+HAVE_ZLIB=no
+HAVE_BLKID=no

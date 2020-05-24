@@ -1,0 +1,611 @@
+#!/bin/sh
+if [ -f /etc/sysconfig/usb ]; then
+	. /etc/sysconfig/usb
+fi
+
+cd /etc/hotplug
+.      /etc/hotplug/hotplug.functions
+
+if [ "$ACTION" = "" ]; then
+	echo "Bad USB agent invocation, no action" >> /tmp/usbdebug
+	exit 1
+fi
+DEFAULT_IFS="$IFS"
+USBDEVPATH=/sys$DEVPATH
+
+usb_convert_vars ()
+{
+	# work around 2.2.early brokenness
+	# munges the usb_bcdDevice such that it is a integer rather
+	# than a float: e.g. 1.0 become 0100
+	PRODUCT=`echo $PRODUCT | sed -e "s+\.\([0-9]\)$+.\10+" -e "s/\.$/00/" \
+								-e "s+/\([0-9]\)\.\([0-9][0-9]\)+/0\1\2+" \
+				-e "s+/\([0-9][0-9]\)\.\([0-9][0-9]\)+/\1\2+"`
+	set `echo $PRODUCT | awk -F/ '{print "0x" $1, "0x" $2, "0x" $3 }'` ''
+	usb_idVendor=$1
+	usb_idProduct=$2
+	usb_bcdDevice=$3
+	#echo $1 $2 $3 >> /tmp/qnap
+	
+	if [ "$TYPE" != "" ]; then
+		IFS=/
+		set $TYPE ''
+		usb_bDeviceClass=$1
+		usb_bDeviceSubClass=$2
+		usb_bDeviceProtocol=$3
+		IFS="$DEFAULT_IFS"
+	elif [ -r $SYSFS/$DEVPATH/bDeviceClass ]; then
+		usb_bDeviceClass=$(cat $SYSFS/$DEVPATH/bDeviceClass)
+		usb_bDeviceSubClass=$(cat $SYSFS/$DEVPATH/bDeviceSubClass)
+		usb_bDeviceProtocol=$(cat $SYSFS/$DEVPATH/bDeviceProtocol)
+	else
+		# out-of-range values
+		usb_bDeviceClass=1000
+		usb_bDeviceSubClass=1000
+		usb_bDeviceProtocol=1000
+	fi
+
+	if [ "$INTERFACE" != "" ]; then
+		IFS=/
+		set $INTERFACE ''
+		usb_bInterfaceClass=$1
+		usb_bInterfaceSubClass=$2
+		usb_bInterfaceProtocol=$3
+		IFS="$DEFAULT_IFS"
+	elif [ -r $SYSFS/$DEVPATH/bInterfaceClass ]; then
+		usb_bInterfaceClass=$(cat $SYSFS/$DEVPATH/bInterfaceClass)
+		usb_bInterfaceSubClass=$(cat $SYSFS/$DEVPATH/bInterfaceSubClass)
+		usb_bInterfaceProtocol=$(cat $SYSFS/$DEVPATH/bInterfaceProtocol)
+	else
+		# out-of-range values
+		usb_bInterfaceClass=1000
+		usb_bInterfaceSubClass=1000
+		usb_bInterfaceProtocol=1000
+	fi
+}
+
+check_ups_device()
+{
+	local cur_vid=$1
+	local cur_pid=$2
+	local v=""
+	local p=""
+	echo "$$::check_ups_device($1, $2)" >> /tmp/usbdebug
+	UPS_DRIVER=""
+	[ "$cur_vid" = "0x" ] && exit 1
+	[ "$cur_vid" = "" ] && exit 1
+	local curver=`/sbin/getcfg "" version -d 0 -f /etc/config/ups/upsdrv.map`
+	local defver=`/sbin/getcfg "" version -d 1 -f /etc/default_config/ups/upsdrv.map`
+	if [ "$curver" != "$defver" ] || [ ! -f /etc/config/ups/upsdrv.map ]; then
+		/bin/cp /etc/default_config/ups/upsdrv.map /etc/config/ups >/dev/null 2>&1
+	fi
+	while read LINE; do
+		v=`echo "$LINE"|/bin/awk -F ',' '{print $1}'`
+		if [ "$cur_vid" != "$v" ]; then
+			continue;
+		fi
+		p=`echo "$LINE"|/bin/awk -F ',' '{print $2}'`
+		if [ "$p" != "" ] && [ "$cur_pid" != "$p" ]; then
+			continue;
+		fi
+		UPS_DRIVER=`echo "$LINE"|/bin/awk -F ',' '{print $3}'`
+		if [ "$UPS_DRIVER" = "NOT_UPS" ] || [ "$UPS_DRIVER" = "" ]; then
+			echo "USB $v:$p is not UPS" >> /tmp/usbdebug
+			break;
+		fi
+		echo "UPS:$UPS_DRIVER" >> /tmp/usbdebug
+		break;
+	done < /etc/config/ups/upsdrv.map
+}
+set_usb_map()
+{
+	[ -f $USBDEVPATH/manufacturer ] || return 1
+	[ -f $USBDEVPATH/product ] || return 1
+	local vendor=`/bin/cat $USBDEVPATH/manufacturer`
+	local product=`/bin/cat $USBDEVPATH/product`
+	[ -f /var/run/usbid.map ] || /bin/touch /var/run/usbid.map
+	/sbin/setcfg "$usb_idVendor:$usb_idProduct" Vendor "$vendor" -f /var/run/usbid.map
+	/sbin/setcfg "$usb_idVendor:$usb_idProduct" Product "$product" -f /var/run/usbid.map
+}
+uptime=`cat /proc/uptime | awk -F. '{ print $1 }'`
+#wait for USB UPS ready when system boot
+
+
+uptime=`cat /proc/uptime | awk -F. '{ print $1 }'`
+#command by bug#71019 because bug#56603 redundant filter.
+#if [ "x$INTERFACE" = "x" ] && [ "x$SUBSYSTEM" = "xusb" ]; then
+#  exit 0
+#fi
+
+usb_convert_vars
+
+SpecUPSVid=(0xd9f)
+SpecUPSPid=(0x4)
+SpecDev=0
+for (( i=0; i<${#SpecUPSVid[@]}; i=i+1 ))
+do
+        if [ "${SpecUPSVid[$i]}" = "$usb_idVendor" ] && [ "${SpecUPSPid[$i]}" = "$usb_idProduct" ]; then
+                echo ${SpecUPSVid[$i]} ${SpecUPSPid[$i]} "SpecDev!" >> /tmp/usbdebug
+                UPS_LAST_ACTION="/var/lock/usb_ups_${usb_idVendor}_${usb_idProduct}.seq"
+                SpecDev=1
+                break;
+        fi
+done
+if [ $uptime -lt 240 ];then
+  echo "SpecDev  $uptime" >> /tmp/usbdebug
+	if [ $SpecDev = "1" ]; then
+		if [ -f ${UPS_LAST_ACTION} ]; then 
+			SpecUPSACtion=`/bin/cat ${UPS_LAST_ACTION} 2>/dev/null`
+      SpecUPSACtion=$((SpecUPSACtion + 1)) 
+    else
+      SpecUPSACtion="1"
+		fi
+    echo $SpecUPSACtion > $UPS_LAST_ACTION
+	fi
+  
+	sleep 210
+  
+	if [ $SpecDev = "1" ]; then
+		SpecUPSACtionLast=`/bin/cat ${UPS_LAST_ACTION} 2>/dev/null`
+    if [ "$SpecUPSACtion" -ge "$SpecUPSACtionLast" ]; then
+      /bin/rm -f ${UPS_LAST_ACTION}
+    else
+      exit 0
+    fi 
+	fi  
+fi
+
+if [ -f ${UPS_LAST_ACTION} ]; then
+  /bin/rm -f ${UPS_LAST_ACTION}
+fi 
+usb_convert_vars
+
+check_ups_device "$usb_idVendor" "$usb_idProduct"
+if [ "$UPS_DRIVER" != "NOT_UPS" ] && [ "$UPS_DRIVER" != "" ]; then
+	DEVNAME="hiddev0"
+fi
+
+YEC__USBTORS232_Vid=(0x403)
+YEC__USBTORS232_Pid=(0x6001)
+
+if [ "$YEC__USBTORS232_Vid" = "$usb_idVendor" ] && [ "$YEC__USBTORS232_Pid" = "$usb_idProduct" ]; then
+                        DEVNAME="YEC"
+                        #echo "Find USB UPS, set DEVNAME to YEC" >> /tmp/usbdebug
+                        break;
+fi
+
+#//rearrange the supported devices //WFWu
+#//WFWu: add some new, remove some wrong
+RT2500_Vid=(0x1044)
+RT2500_Pid=(0x8007)
+RT2870_Vid=(0x148f 0x148f 0x7b8 0x7b8 0xdf6 0xdf6 0x83a 0x789 0x789 0x789 0x177f 0xb05 0xb05 0xb05 0xdf6 0xdf6 0xdf6 0xdf6 0x14b2 0x14b2 0x2019 0x7d1 0x7d1 0x14b2 0x50d 0x14b2 0x14b2 0x7aa 0x7aa 0x7aa 0x1044 0x15a9 0x83a 0x83a 0x83a 0x83a 0xcde 0x586 0xcde 0x1740 0x1740 0x471 0x14b2 0x13d3 0x83a 0x15c5 0xe66 0xe66 0x129b 0x157e 0x50d 0x50d 0x1482 0x14b2 0x4e8 0x1690 0x5a57 0x5a57 0x7392 0x7392 0x1737 0x1737 0x411 0x50d 0x100d 0xdb0 0x50d 0xb05 0xb05 0x411 0x411 0x7aa 0x7d1 0x7392 0x2019 0x2019 0x157e 0x15a9 0x586 0x411 0x411 0x7aa 0x7d1 0x1737 0x586)
+RT2870_Pid=(0x2770 0x2870 0x2870 0x2770 0x39 0x3f 0x7512 0x162 0x163 0x164 0x302 0x1731 0x1732 0x1742 0x17 0x2b 0x2c 0x2d 0x3c06 0x3c28 0xed06 0x3c09 0x3c11 0x3c07 0x8053 0x3c23 0x3c27 0x2f 0x3c 0x3f 0x800b 0x6 0xb522 0xa618 0x8522 0x7522 0x22 0x3416 0x25 0x9701 0x9702 0x200f 0x3c25 0x3247 0x6618 0x8 0x1 0x3 0x1828 0x300e 0x805c 0x815c 0x3c09 0x3c09 0x2018 0x740 0x280 0x282 0x7718 0x7717 0x70 0x71 0xe8 0x815c 0x9031 0x6899 0x825a 0x1731 0x825a 0x148 0xe8 0x42 0x3c13 0x7718 0xed10 0xab25 0x300e 0x6 0x3416 0x12e 0x150 0x3f 0x3c11 0x71 0x3418)
+RT3572_Vid=(0x148f 0xb05 0x1740 0x1740 0xdf6 0xdf6 0x4bb 0x1690 0x1690 0x5a57 0x167b 0x1690 0x930 0x1690 0x13b1 0x1737 0xdf6 0xdf6 0xdf6 0xdf6)
+RT3572_Pid=(0x3572 0x179d 0x600 0x9801 0x41 0x42 0x944 0x740 0x744 0x284 0x4001 0x764 0xa07 0x761 0x2f 0x79 0x62 0x65 0x66 0x68)
+RT3573_Vid=(0x148f 0x7392 0xdf6 0x1875 0xe66 0x2019 0xb05 0x50d 0x2001 0x4bb 0x13b1 0x789 0x409 0x846 0x148f 0x586)
+RT3573_Pid=(0x3573 0x7733 0x0067 0x7733 0x21 0xed19 0x17ad 0x1103 0x3c1f 0x94e 0x3b 0x16b 0x2f2 0x9012 0x3573 0x3421)
+RT3070_Vid=(0x148f 0x148f 0x148f 0xdb0 0xdb0 0xdb0 0xdb0 0xdb0 0xdf6 0xdf6 0xdf6 0xdf6 0xdf6 0x14b2 0x18c5 0x83a 0x83a 0x83a 0x1740 0x1740 0x1740 0x1740 0x1740 0x1740 0x13d3 0x13d3 0x1044 0x2019 0x2019 0x7b8 0x7b8 0x7b8 0x7392 0x7392 0x1a32 0x1eda 0x1eda 0x7d1 0x7d1 0x7d1 0x7d1 0x7d1 0x7d1 0x1d4d 0x1d4d 0x1d4d 0x5a57 0x5a57 0x4bb 0x4bb 0x4bb 0x203d 0x20b8 0xb05 0x203d 0xdb0 0xdb0 0xdb0 0xdb0 0xdb0 0xdb0 0xdb0 0xdb0 0xdb0 0xdb0 0x5a57 0x83a 0x13d3 0x13d3 0x13d3 0x7fa 0x789 0x586 0x586 0x586 0x1eda 0x1eda 0x2001 0x83a 0x411 0x1737 0x411 0x586 0x586)
+RT3070_Pid=(0x3070 0x3071 0x3072 0x3820 0x871c 0x822c 0x871b 0x822b 0x3e 0x42 0x48 0x47 0x5f 0x3c12 0x12 0x7511 0xa701 0xa702 0x9703 0x9705 0x9706 0x9707 0x9708 0x9709 0x3273 0x3305 0x800d 0xab25 0x5201 0x3070 0x3071 0x3072 0x7711 0x4085 0x304 0x2012 0x2310 0x3c0a 0x3c0d 0x3c0e 0x3c0f 0x3c16 0x3c17 0xc 0xe 0x11 0x5257 0x283 0x945 0x947 0x948 0x1480 0x8888 0x1784 0x14a9 0x899a 0x3870 0x870a 0x6899 0x3822 0x3871 0x871a 0x822a 0x3821 0x821a 0x282 0xa703 0x3307 0x3321 0x3329 0x7712 0x166 0x341a 0x341e 0x343e 0x2012 0x2210 0x3c1b 0xb511 0x1a2 0x77 0x15d 0x341a 0x341e)
+RT5370_Vid=(0x13d3 0x13d3 0x2001 0x2001 0x2001 0x2001 0x43e 0x43e 0x43e 0x43e 0x4da 0x4da 0x4da 0x471 0x471 0x471 0x471 0x471 0x2001 0x2001)
+RT5370_Pid=(0x3365 0x3329 0x3c15 0x3c19 0x3c1c 0x3c1d 0x7a12 0x7a22 0x7a32 0x7a42 0x1800 0x1801 0x23f6 0x2104 0x2180 0x2181 0x2182 0x2126 0x3c1e 0x3c20)
+RT5572_Vid=(0x148f 0x43e 0x2001 0x2001 0x411 0x57c)
+RT5572_Pid=(0x5572 0x7a32 0x3c1a 0x3c21 0x241 0x8501)
+RTL8712_Vid=(0xbda 0xbda 0xbda 0xbda 0xbda 0x83a 0x7b8 0xb05 0xb05 0x50d 0x50d 0x50d 0x50d 0x7aa 0x2001 0x7d1 0x7d1 0x7d1 0x7d1 0x14b2 0x14b2 0x14b2 0x7392 0x7392 0x7392 0x1740 0x1740 0x6f8 0xe66 0xe66 0x6f8 0x6f8 0x789 0x2019 0x2019 0xdf6 0xdf6 0xdf6 0xdf6 0xdf6 0xdf6 0xdf6 0x177F 0xbda 0x1690 0x20f4 0x83a 0x25d4 0x25d4 0xbda 0xbda 0xeb0 0xbda 0x13d3 0x13d3 0x13d3 0x13d3 0x13d3 0x13d3 0x13d3 0x13d3 0x50d 0x7d1 0x7d1 0x7d1 0x7392 0x1740 0x6f8 0xe66 0x13d3 0x2019 0x2019 0xdf6 0xdf6 0xdf6 0xdf6 0x14b2 0x14b2 0x14b2 0x4f2 0x4f2 0x4f2 0x13d3 0x13d3 0x13d3 0x13d3 0x13d3 0xbda 0x50d 0x7aa 0x7392 0x409)
+RTL8712_Pid=(0x8171 0x8173 0x8712 0x8713 0xc512 0xc512 0x8188 0x1786 0x1791 0x815f 0x945a 0x845a 0x11f1 0x47 0x3306 0x3306 0x3303 0x3302 0x3300 0x3300 0x3301 0x3302 0x7611 0x7612 0x7622 0x9603 0x9605 0xe031 0x16 0x15 0xe034 0xe032 0x167 0xab28 0xed16 0x57 0x45 0x59 0x4b 0x63 0x5b 0x5d 0x154 0x5077 0x752 0x646b 0xc512 0x4ca1 0x4Cab 0x8172 0x8192 0x9061 0x8172 0x3323 0x3311 0x3342 0x3333 0x3334 0x3335 0x3336 0x3309 0x815f 0x3302 0x3300 0x3303 0x7612 0x9605 0xe031 0x15 0x3306 0xed18 0x4901 0x58 0x49 0x4C 0x64 0x3300 0x3301 0x3302 0xaff2 0xaff5 0xaff6 0x3339 0x3340 0x3341 0x3310 0x3325 0x8174 0x845a 0x51 0x7622 0x2B6)
+RTL8192CU_Vid=(0xbda 0x586 0xbda 0xbda 0xbda 0xbda 0xbda 0xbda 0xbda 0xbda 0xbda 0xbda 0xbda 0xbda 0xbda 0x2019 0xdf6 0x7392 0x7b8 0xeb0 0x6f8 0x103C 0x2001 0x50d 0x2019 0x20f4 0x4855 0x13d3 0xdf6 0xbda 0x4856 0x2019 0x2019 0xbda 0x13d3 0x13d3 0x4f2 0x4f2 0x4f2 0x4f2 0x4f2 0x4f2 0x2019 0x2001 0x2001 0x2001 0x586 0x7392 0x2019 0x7b8 0x7aa 0x4855 0x2001 0x50d 0x50d 0x20f4 0xdf6 0xb05 0x846 0xe66 0xbda 0x846 0x2001 0xcdab 0xb05 0xbda 0x4bb 0xcdab 0xbda 0x846 0xe66 0x50d 0xbda 0x2357 0x6f8 0x4bb 0xdf6 0x789)
+RTL8192CU_Pid=(0x8191 0x341f 0x8176 0x8170 0x817e 0x817a 0x817b 0x817d 0x8754 0x817f 0x818a 0x18a 0x8177 0x8178 0x817c 0xed17 0x52 0x7811 0x8189 0x9071 0xe033 0x1629 0x3308 0x1102 0xab2a 0x648b 0x90 0x3357 0x5C 0x5088 0x91 0x4902 0xab2e 0x317f 0x3359 0x3358 0xaff7 0xaff9 0xaffa 0xaff8 0xaffb 0xaffc 0x1201 0x3307 0x330a 0x3309 0x341f 0x7822 0xab2b 0x8178 0x56 0x91 0x3307 0x2102 0x2103 0x624d 0x61 0x17ab 0x9021 0x19 0x8186 0x9041 0x330b 0x8010 0x17ba 0x1e1e 0x94c 0x8011 0xa8a 0xf001 0x20 0x1004 0x2e2e 0x100 0xe035 0x950 0x70 0x16d)
+MT7601U_Vid=(0x148f 0x148f 0x2717 0x7392)
+MT7601U_Pid=(0x6370 0x7601 0x4106 0x7710)
+AR9170_Vid=(0xcf3 0xcf3 0xcf3 0xcf3 0xcf3 0xcace 0x7d1 0x7d1 0x7d1 0x846 0x846 0x846 0xace 0x1435 0x1435 0x586 0xcde 0xcde 0xcde 0x83a 0x2019 0x4bb 0x409 0x409 0x57c 0x57c 0x1668 0x1b75)
+AR9170_Pid=(0x9170 0x1001 0x1002 0x1010 0x1011 0x300 0x3c10 0x3a09 0x3a0f 0x9040 0x9010 0x9001 0x1221 0x804 0x326 0x3417 0x23 0x26 0x27 0xf522 0x5304 0x93f 0x249 0x2b4 0x8401 0x8402 0x1200 0x9170)
+AR9271_Vid=(0xcf3 0xcf3 0x846 0x7d1 0x13d3 0x13d3 0x13d3 0x13d3 0x13d3 0x13d3 0x4ca 0x40d 0xcf3 0x57c 0xcf3 0x1668 0xcf3 0x846 0x83a 0x411 0xcf3)
+AR9271_Pid=(0x9271 0x1006 0x9030 0x3a10 0x3327 0x3328 0x3346 0x3348 0x3349 0x3350 0x4605 0x3801 0xb003 0x8403 0x7015 0x1200 0x7010 0x9018 0xa704 0x17f 0x20ff)
+RTL8188EU_Vid=(0xbda)
+RTL8188EU_Pid=(0x8179)
+RTL8192DU_Vid=(0x2001)
+RTL8192DU_Pid=(0x330c)
+RTL8812AU_Vid=(0x2001 0x2001 0xbda 0x2357 0xb05 0x50d 0x2001 0x7392 0xdf6 0x4bb 0x789 0x409 0xe66 0x586 0x2001 0x1058 0x13b1 0x1740 0x2019 0x7b8 0x2001 0x20f4)
+RTL8812AU_Pid=(0x3314 0x3315 0x8812 0x101 0x17d2 0x1106 0x330e 0xa822 0x74 0x952 0x16e 0x408 0x22 0x3426 0x3313 0x632 0x3f 0x100 0xab30 0x8812 0x3316 0x805b)
+MT7610U_Vid=(0xb05 0x148f 0xe8d 0xe8d 0xe8d)
+MT7610U_Pid=(0x17d1 0x7610 0x7610 0x7630 0x7650)
+
+
+echo $usb_idVendor $usb_idProduct >> /tmp/usbdebug
+
+
+# Script is called twice, but the second time INTERFACE is empty. 
+# We use that to avoid duplicate calls.
+
+if [ -n "$INTERFACE" ]; then
+
+for (( i=0; i<${#RT2500_Vid[@]}; i=i+1 ))
+do
+        if [ "${RT2500_Vid[$i]}" = "$usb_idVendor" ] && [ "${RT2500_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RT2870_Vid[$i]} ${RT2870_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RT2500"
+                break;
+        fi
+done
+for (( i=0; i<${#MT7601U_Vid[@]}; i=i+1 ))
+do
+        if [ "${MT7601U_Vid[$i]}" = "$usb_idVendor" ] && [ "${MT7601U_Pid[$i]}" = "$usb_idProduct" ]; then
+		#echo ${MT7601U_Vid[$i]} ${MT7601U_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_MT7601U"
+                break;
+        fi
+done
+
+for (( i=0; i<${#AR9170_Vid[@]}; i=i+1 ))
+do
+        if [ "${AR9170_Vid[$i]}" = "$usb_idVendor" ] && [ "${AR9170_Pid[$i]}" = "$usb_idProduct" ]; then
+		#echo ${AR9170_Vid[$i]} ${AR9170_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_AR9170"
+                break;
+        fi
+done
+for (( i=0; i<${#AR9271_Vid[@]}; i=i+1 ))
+do
+        if [ "${AR9271_Vid[$i]}" = "$usb_idVendor" ] && [ "${AR9271_Pid[$i]}" = "$usb_idProduct" ]; then
+		#echo ${AR9271_Vid[$i]} ${AR9271_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_AR9271"
+                break;
+        fi
+done
+
+
+for (( i=0; i<${#RT2870_Vid[@]}; i=i+1 ))
+do
+        if [ "${RT2870_Vid[$i]}" = "$usb_idVendor" ] && [ "${RT2870_Pid[$i]}" = "$usb_idProduct" ]; then
+		#echo ${RT2870_Vid[$i]} ${RT2870_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RT2870"
+                break;
+        fi
+done
+
+for (( i=0; i<${#RT3070_Vid[@]}; i=i+1 ))
+do
+	if [ "${RT3070_Vid[$i]}" = "$usb_idVendor" ] && [ "${RT3070_Pid[$i]}" = "$usb_idProduct" ]; then
+		#echo ${RT3070_Vid[$i]} ${RT3070_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+		DEVNAME="WIFI_RT3070"
+		break;
+	fi
+done
+
+for (( i=0; i<${#RT5370_Vid[@]}; i=i+1 ))
+do
+        if [ "${RT5370_Vid[$i]}" = "$usb_idVendor" ] && [ "${RT5370_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RT5370_Vid[$i]} ${RT5370_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RT5370"
+                break;
+        fi
+done
+
+for (( i=0; i<${#RT5572_Vid[@]}; i=i+1 ))
+do
+        if [ "${RT5572_Vid[$i]}" = "$usb_idVendor" ] && [ "${RT5572_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RT5572_Vid[$i]} ${RT5572_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RT5572"
+                break;
+        fi
+done
+
+for (( i=0; i<${#RT3572_Vid[@]}; i=i+1 ))
+do
+        if [ "${RT3572_Vid[$i]}" = "$usb_idVendor" ] && [ "${RT3572_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RT3572_Vid[$i]} ${RT3572_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RT3572"
+                break;
+        fi
+done
+
+for (( i=0; i<${#RT3573_Vid[@]}; i=i+1 ))
+do
+        if [ "${RT3573_Vid[$i]}" = "$usb_idVendor" ] && [ "${RT3573_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RT3573_Vid[$i]} ${RT3573_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RT3573"
+                break;
+        fi
+done
+
+for (( i=0; i<${#RTL8192CU_Vid[@]}; i=i+1 ))
+do
+        if [ "${RTL8192CU_Vid[$i]}" = "$usb_idVendor" ] && [ "${RTL8192CU_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RTL8192CU_Vid[$i]} ${RTL8192CU_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RTL8192CU"
+                break;
+        fi
+done
+
+
+for (( i=0; i<${#RTL8188EU_Vid[@]}; i=i+1 ))
+do
+        if [ "${RTL8188EU_Vid[$i]}" = "$usb_idVendor" ] && [ "${RTL8188EU_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RTL8188EU_Vid[$i]} ${RTL8188EU_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RTL8188EU"
+                break;
+        fi
+done
+
+for (( i=0; i<${#RTL8192DU_Vid[@]}; i=i+1 ))
+do
+        if [ "${RTL8192DU_Vid[$i]}" = "$usb_idVendor" ] && [ "${RTL8192DU_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RTL8192DU_Vid[$i]} ${RTL8192DU_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RTL8192DU"
+                break;
+        fi
+done
+
+for (( i=0; i<${#RTL8812AU_Vid[@]}; i=i+1 ))
+do
+        if [ "${RTL8812AU_Vid[$i]}" = "$usb_idVendor" ] && [ "${RTL8812AU_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RTL8812AU_Vid[$i]} ${RTL8812AU_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RTL8812AU"
+                break;
+        fi
+done
+
+for (( i=0; i<${#MT7610U_Vid[@]}; i=i+1 ))
+do
+        if [ "${MT7610U_Vid[$i]}" = "$usb_idVendor" ] && [ "${MT7610U_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${MT7610U_Vid[$i]} ${MT7610U_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_MT7610U"
+                break;
+        fi
+done
+
+/bin/uname -a | /bin/grep x86_64
+if [ $? != 0 ]; then
+for (( i=0; i<${#RTL8712_Vid[@]}; i=i+1 ))
+do
+        if [ "${RTL8712_Vid[$i]}" = "$usb_idVendor" ] && [ "${RTL8712_Pid[$i]}" = "$usb_idProduct" ]; then
+                #echo ${RTL8712_Vid[$i]} ${RTL8712_Pid[$i]} "MATCH!!!" >> /tmp/usbdebug
+                DEVNAME="WIFI_RTL8712"
+                break;
+        fi
+done
+fi
+fi
+
+case "$DEVNAME" in
+    WIFI_*)
+	    [ `/sbin/getcfg ENCLOSURE PCIE_WIFI -d FALSE -f "/var/.system.info"` == TRUE ] && exit 1
+        ;;
+esac
+
+case $ACTION in
+
+add)
+	set_usb_map
+	case "$DEVNAME" in
+		hiddev0)
+			echo "$$::usb_ups.sh start $UPS_DRIVER" >> /tmp/usbdebug
+			/etc/init.d/usb_ups.sh start "$UPS_DRIVER"
+		;;
+		WIFI_MT7610U)
+			#echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+		;;
+		WIFI_RTL8188EU)
+			#echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+		;;
+		WIFI_RTL8192DU)
+			#echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+		;;
+		WIFI_RTL8812AU)
+			#echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+		;;						
+		WIFI_MT7601U)
+			#echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+		;;		
+		WIFI_AR9170)
+			#echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+		;;
+		WIFI_AR9271)
+			#echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+		;;				                
+		WIFI_RT2870)
+			#echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+		;;
+		WIFI_RT3070)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+                ;;
+                WIFI_RT5370)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+                        [ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+                ;;
+                WIFI_RT5572)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+                        [ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+                ;;
+                WIFI_RT3572)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+                ;;
+                WIFI_RTL8192CU)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+                        [ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+                ;;
+                WIFI_RT2500)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+                        /sbin/insmod /usr/local/modules/led-class.ko
+			/sbin/insmod /usr/local/modules/wifi/rt2x00lib.ko
+			/sbin/insmod /usr/local/modules/wifi/rt2x00usb.ko
+			/sbin/insmod /usr/local/modules/wifi/rt2500usb.ko
+			if [ "$?" = "0" ]; then        
+                        /bin/sleep 1
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless.sh auto_connect
+			fi
+                ;;
+                WIFI_RTL8712)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh start $DEVNAME
+                ;;
+                YEC)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+                        /sbin/insmod /lib/modules/others/usbserial.ko
+			/sbin/insmod /lib/modules/others/ftdi_sio.ko
+                        if [ "$?" = "0" ]; then
+			/bin/mknod /dev/ttyUSB0 c 188 0
+                        /bin/sleep 1
+                        #/sbin/ups_yec 
+			if [ -e /var/._viostor_ ]; then
+				/sbin/daemon_mgr ups_yec start "/sbin/ups_yec &"
+			fi
+                        fi
+                ;;
+		*)
+			if [ "$UPS_DRIVER" = "" ]; then
+				echo "$$::try ups drivers" >> /tmp/usbdebug
+				/etc/init.d/usb_ups.sh start "" "$usb_idVendor" "$usb_idProduct"
+			fi
+
+			echo "$$::try MTP drivers" >> /tmp/usbdebug
+			/etc/init.d/mtp_run.sh
+
+			#echo "DEVNAME(${DEVNAME}) is not usb disk or printer." >> /tmp/usbdebug
+			echo "DEVNAME(${DEVNAME}) is not usb disk or printer." >> /dev/null
+		;;
+	esac
+	;;
+
+remove)
+	case "$DEVNAME" in
+		hiddev0)
+			/etc/init.d/usb_ups.sh stop "$usb_idVendor" "$usb_idProduct"
+		;;
+                WIFI_MT7610U)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_RTL8188EU)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_RTL8192DU)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_RTL8812AU)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+		;;
+                WIFI_MT7601U)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_AR9170)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_AR9271)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;                		
+                WIFI_RT2870)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_RT3070)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_RT5370)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+                        [ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_RT5572)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+                        [ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_RT3572)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                WIFI_RTL8192CU)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+                        [ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+		WIFI_RT2500)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless.sh stop
+                        /bin/sleep 1
+                        /sbin/rmmod /usr/local/modules/wifi/rt2500usb.ko
+			/sbin/rmmod /usr/local/modules/wifi/rt2x00usb.ko
+			/sbin/rmmod /usr/local/modules/wifi/rt2x00lib.ko
+			/sbin/rmmod /usr/local/modules/led-class.ko
+                ;;
+                WIFI_RTL8712)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			[ -f "/tmp/.boot_done" ] && /etc/init.d/wireless_modules.sh stop $DEVNAME
+                ;;
+                YEC)
+                        #echo $DEVNAME $ACTION >> /tmp/usbdebug
+			#killall ups_yec
+			if [ -e /var/._viostor_ ]; then
+				/sbin/daemon_mgr ups_yec stop "/sbin/ups_yec &"
+			fi
+			/bin/rm /tmp/ups_temp
+			/sbin/rmmod ftdi_sio
+                        /sbin/rmmod usbserial
+                ;;
+		*)
+			echo "$$::try MTP drivers" >> /tmp/usbdebug
+			/etc/init.d/mtp_run.sh
+
+			#echo "DEVNAME(${DEVNAME}) is not usb disk or printer." >> /tmp/usbdebug
+			echo "DEVNAME(${DEVNAME}) is not usb disk or printer." >> /dev/null
+		;;
+	esac
+	;;
+
+*)
+	#echo "USB $ACTION event not supported" >> /tmp/usbdebug
+	exit 1
+	;;
+
+esac
+
+# create sound device nodes
+SND_DEV_PATH=/sys/class/sound
+SND_LOG=/tmp/usb_snd_dbg.log
+[ -f ${SND_LOG} ] && rm -f ${SND_LOG}
+FILTER_SND_DEVS=(audio card0 card1 card2 card3 card4 card5 card6 card7 card8 card9 dsp mixer seq sequencer sequencer2 timer)
+for snd_dev in `ls -Ll ${SND_DEV_PATH} | cut -d'/' -f1 | cut -d':' -f2 | cut -d' ' -f2`
+do
+    filter=0
+
+    for (( i=0; i<${#FILTER_SND_DEVS[@]}; i=i+1 ))
+    do
+        if [ "$snd_dev" = ${FILTER_SND_DEVS[$i]} ]; then
+            echo Filter device: ${snd_dev} >> ${SND_LOG}
+            filter=1
+            break;
+        fi
+    done
+
+    [ ${filter} = 1 ] && continue;
+
+    if [ -f ${SND_DEV_PATH}/${snd_dev}/dev ]; then
+        dev_node=`cat ${SND_DEV_PATH}/${snd_dev}/dev`
+        echo snd_dev=$snd_dev dev_id=${dev_node}
+        major=${dev_node%:*}
+        minor=${dev_node#*:}
+
+        if [ -z `echo ${snd_dev} | egrep 'controlC|pcmC'` ];then
+            [ ! -c "/dev/${snd_dev}" ] && echo "Cr: /dev/${snd_dev}" >> ${SND_LOG} && mknod /dev/${snd_dev} --mode=600 c ${major} ${minor}
+        else
+            [ ! -c "/dev/snd/${snd_dev}" ] && echo "Cr: /dev/snd/${snd_dev}" >> ${SND_LOG} && mknod /dev/snd/${snd_dev} --mode=600 c ${major} ${minor}
+        fi
+    else
+        echo "snd_dev=$snd_dev and no dev file"  >> ${SND_LOG}
+    fi
+done
+

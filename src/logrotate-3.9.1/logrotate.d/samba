@@ -1,0 +1,11 @@
+/usr/local/samba/var/log.samba {
+        rotate 2
+        size 10k
+        missingok
+        sharedscripts
+        notifempty
+        postrotate
+                kill -HUP `pidof samba smbd nmbd winbindd` >/dev/null 2>&1
+        endscript
+}
+

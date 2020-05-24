@@ -1,0 +1,54 @@
+'\" t
+.\"     Title: faillog
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 05/10/2009
+.\"    Manual:  File Formats and Conversions
+.\"    Source:  File Formats and Conversions
+.\"  Language: English
+.\"
+.TH "FAILLOG" "5" "05/10/2009" "File Formats and Conversions" "File Formats and Conversions"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+faillog \- login failure logging file
+.SH "DESCRIPTION"
+.PP
+/var/log/faillog
+maintains a count of login failures and the limits for each account\&. The file is fixed length record, indexed by numerical UID\&. Each record contains the count of login failures since the last successful login; the maximum number of failures before the account is disabled; the line the last login failure occurred on; the date the last login failure occurred; and the time in seconds how long the account will be locked after a failure\&.
+.PP
+The structure of the file is:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+struct	faillog {
+	short   fail_cnt;
+	short   fail_max;
+	char    fail_line[12];
+	time_t  fail_time;
+	long    fail_locktime;
+};
+.fi
+.if n \{\
+.RE
+.\}
+.SH "FILES"
+.PP
+/var/log/faillog
+.RS 4
+Failure logging file\&.
+.RE
+.SH "SEE ALSO"
+.PP
+
+\fBfaillog\fR(8)

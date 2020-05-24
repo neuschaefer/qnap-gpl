@@ -1,0 +1,63 @@
+Source: centerim
+Section: net
+Priority: optional
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Anibal Avelar <aavelar@cofradia.org>
+Uploaders: Dmitry E. Oboukhov <unera@debian.org>
+Build-Depends: debhelper (>= 4.0),
+ libncurses5-dev, gettext (>= 0.10), libfribidi-dev (>= 0.10.4-4),
+ autotools-dev, libgnutls-dev, perl, libncursesw5-dev, libcurl4-gnutls-dev,
+ libgpgme11-dev (>= 1.0.1), automake1.4, liblzo2-dev, libtool
+Build-Conflicts: libglib1.2-dev, libcurl4-openssl-dev, libcurl3-openssl-dev
+Homepage: http://www.centerim.org/
+Standards-Version: 3.8.1
+VCS-Browser: http://git.debian.org/?p=collab-maint/centerim.git;a=summary
+VCS-Git: git://git.debian.org/collab-maint/centerim.git
+
+Package: centerim-common
+Replaces: centericq (<< 4.6.9-5), centericq-common
+Architecture: all
+Depends: ${shlibs:Depends}
+Description: A text-mode multi-protocol instant messenger client (data files)
+ Centerim is a fork of the centericq instant messaging client
+ .
+ Centerim is a text mode menu- and window-driven IM client program that
+ supports the ICQ2000, Yahoo!, AIM, MSN, IRC and Jabber protocols.
+ .
+ This package provides the common files for centerim and centerim-fribidi
+ binary packages (manpages, locales and documentation).
+
+Package: centerim
+Recommends: firefox | abrowser | www-browser, sox
+Architecture: any
+Depends: ${shlibs:Depends}, centerim-common
+Description: A text-mode multi-protocol instant messenger client
+ Centerim is a fork of the centericq instant messaging client
+ .
+ Centerim is a text mode menu- and window-driven IM client program that
+ supports the ICQ2000, Yahoo!, AIM, MSN, IRC and Jabber protocols.
+
+Package: centerim-utf8
+Recommends: firefox | abrowser | www-browser, sox
+Architecture: any
+Depends: ${shlibs:Depends}, centerim-common
+Description: A text-mode multi-protocol instant messenger client
+ Centerim is a fork of the centericq instant messaging client
+ .
+ Centerim is a text mode menu- and window-driven IM client program that
+ supports the ICQ2000, Yahoo!, AIM, MSN, IRC and Jabber protocols.
+ .
+ This is a version of centerim linked with libncursesw5. It may be buggy.
+
+Package: centerim-fribidi
+Recommends: firefox | abrowser | www-browser, sox
+Architecture: any
+Depends: ${shlibs:Depends}, centerim-common
+Description: A text-mode multi-protocol instant messenger client (Hebrew)
+ Centerim is a fork of the centericq instant messaging client
+ .
+ Centerim is a text mode menu- and window-driven IM client program that
+ supports the ICQ2000, Yahoo!, AIM, MSN, IRC and Jabber protocols.
+ .
+ Binary in this package is compiled with fribidi support. Add support for
+ displaying Hebrew and Arabic texts.

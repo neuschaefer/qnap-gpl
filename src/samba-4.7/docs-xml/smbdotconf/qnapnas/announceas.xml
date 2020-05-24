@@ -1,0 +1,13 @@
+<samba:parameter name="announce as"
+                 type="enum"
+                 context="G"
+                 enumlist="enum_announce_as"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters. Merge from earlier samba parameters.
+	</para>
+</description>
+
+<value type="example">NT Workstation</value>
+</samba:parameter>

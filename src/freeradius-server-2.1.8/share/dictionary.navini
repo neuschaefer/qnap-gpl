@@ -1,0 +1,20 @@
+# -*- text -*-
+#
+# dictionary.navini
+#
+#               By
+#               "Paul Shields" <pshields@navini.com>
+#
+# Version:      $Id: dictionary.navini,v 1.1.1.1 2010/03/11 07:11:43 richardchang Exp $
+#
+
+VENDOR		Navini				6504
+
+#
+#       Standard attribute
+#
+BEGIN-VENDOR	Navini
+
+ATTRIBUTE	Navini-AVPair				1	string
+
+END-VENDOR	Navini

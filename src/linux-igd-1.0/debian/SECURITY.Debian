@@ -1,0 +1,37 @@
+  SECURITY NOTE
+  -------------
+
+  This SOFTWARE IS A BETA RELEASE AND NO CLAIMS ARE MADE TO ITS SECURITY
+  OR ITS FUNCTIONALITY.
+
+  See http://linux-igd.sourceforge.net/documentation.php .
+
+  Be aware that, even if this software and the upnp libraries all prove
+  to be bug free and completely secure, the Microsoft Internet Gateway
+  Device is designed to allow any computer that has access to the daemon
+  to open up any ports on your firewall and give incoming port forwarding
+  to any other port on any internal computer (possibly also external,
+  I haven't tested that).
+
+  This means that a PC or game console which you want to allow to
+  forward ports to itself can also open and redirect any ports to any
+  other machine.
+
+  You can restrict the ranges of access by limiting access to your
+  configured IGD uPnP chains through further iptables rules or chains,
+  but you cannot make linux-igd secure because IGD is insecure by design.
+  It may in future be possible to restrict use of linux-igd but this
+  has not yet been done.  I am sure contributions will be welcome.
+
+  Also, some uPnP features may allow computers to execute programs
+  on the uPnP gateway, so you should think about running upnpd in a
+  chroot containing no other binaries.  I do not know whether this was
+  uPnP's intention but it seems to be a risk with some implementations.
+  Using a chroot is doubly important since linux-igd by default runs as
+  root in order to manipulate netfilter iptables.
+
+  The 'jailer' package is one of several simple ways of setting up chroots
+  with Debian, and a conffile fragment is included to help with this.
+
+ -- Nick Leverton <nick@leverton.org>  Tue, 17 Jun 2008 12:51:29 +0100
+

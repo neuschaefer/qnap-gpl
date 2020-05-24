@@ -1,0 +1,15 @@
+<samba:parameter name="usb users"
+                 context="S"
+                 type="cmdlist"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+
+<related>valid users</related>
+
+<value type="default"><comment>no usb users</comment></value>
+<value type="example">root fred admin @wheel</value>
+</samba:parameter>

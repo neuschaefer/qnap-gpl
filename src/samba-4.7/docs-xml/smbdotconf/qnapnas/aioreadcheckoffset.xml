@@ -1,0 +1,13 @@
+<samba:parameter name="aio read check offset"
+                 context="S"
+                 type="boolean"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+		
+<related>aio read size</related>
+<value type="default">yes</value>
+</samba:parameter>

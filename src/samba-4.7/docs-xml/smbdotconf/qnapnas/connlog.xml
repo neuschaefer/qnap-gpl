@@ -1,0 +1,12 @@
+<samba:parameter name="conn log"
+                 context="G"
+                 type="boolean"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+
+<value type="default">no</value>
+</samba:parameter>

@@ -1,0 +1,9 @@
+GenLinkedList.lo: GenLinkedList.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h GenLinkedList.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+GenLinkedList.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h:

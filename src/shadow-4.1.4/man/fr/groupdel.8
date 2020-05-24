@@ -1,0 +1,108 @@
+'\" t
+.\"     Title: groupdel
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10/05/2009
+.\"    Manual: Commandes de gestion du syst\(`eme
+.\"    Source: Commandes de gestion du syst\(`eme
+.\"  Language: French
+.\"
+.TH "GROUPDEL" "8" "10/05/2009" "Commandes de gestion du syst\(`em" "Commandes de gestion du syst\(`em"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOM"
+groupdel \- Supprimer un groupe
+.SH "SYNOPSIS"
+.HP \w'\fBgroupdel\fR\ 'u
+\fBgroupdel\fR \fIgroupe\fR
+.SH "DESCRIPTION"
+.PP
+La commande
+\fBgroupdel\fR
+modifie les fichiers d\'administration des comptes du syst\(`eme, en supprimant les entr\('ees qui se r\('ef\(`erent \(`a
+\fIgroupe\fR\&. Le groupe indiqu\('e doit exister\&.
+.PP
+Vous devez v\('erifier vous\-m\(^eme qu\'aucun fichier poss\('ed\('e par le groupe ne subsiste sur tous les syst\(`emes de fichiers\&.
+.SH "AVERTISSEMENTS"
+.PP
+Vous ne pouvez pas supprimer le groupe primaire d\'un utilisateur existant\&. Vous devez supprimer l\'utilisateur auparavant\&.
+.SH "CONFIGURATION"
+.PP
+The following configuration variables in
+/etc/login\&.defs
+change the behavior of this tool:
+.PP
+\fBMAX_MEMBERS_PER_GROUP\fR (nombre)
+.RS 4
+Nombre maximum de membres par entr\('ee de groupe\&. Lorsque le maximum est atteint, une nouvelle entr\('ee de groupe (ligne) est d\('emarr\('ee dans
+/etc/group
+(avec le m\(^eme nom, m\(^eme mot de passe, et m\(^eme GID)\&.
+.sp
+La valeur par d\('efaut est 0, ce qui signifie qu\'il n\'y a pas de limites pour le nombre de membres dans un groupe\&.
+.sp
+Cette fonctionnalit\('e (groupe d\('ecoup\('e) permet de limiter la longueur des lignes dans le fichier de groupes\&. Ceci est utile pour s\'assurer que les lignes pour les groupes NIS ne sont pas plus grandes que 1024 caract\(`eres\&.
+.sp
+Si vous avez besoin de fixer cette limite, vous pouvez utiliser 25\&.
+.sp
+Note: split groups may not be supported by all tools (even in the Shadow toolsuite)\&. You should not use this variable unless you really need it\&.
+.RE
+.SH "FICHIERS"
+.PP
+/etc/group
+.RS 4
+Informations sur les groupes\&.
+.RE
+.PP
+/etc/gshadow
+.RS 4
+Informations s\('ecuris\('ees sur les groupes\&.
+.RE
+.SH "VALEURS DE RETOUR"
+.PP
+La commande
+\fBgroupdel\fR
+retourne les valeurs suivantes en quittant\ \&:
+.PP
+\fI0\fR
+.RS 4
+succ\(`es
+.RE
+.PP
+\fI2\fR
+.RS 4
+erreur de syntaxe
+.RE
+.PP
+\fI6\fR
+.RS 4
+le groupe sp\('ecifi\('e n\'existe pas
+.RE
+.PP
+\fI8\fR
+.RS 4
+impossible de supprimer le groupe primaire d\'un utilisateur existant
+.RE
+.PP
+\fI10\fR
+.RS 4
+impossible de mettre \(`a jour le fichier des groupes
+.RE
+.SH "VOIR AUSSI"
+.PP
+\fBchfn\fR(1),
+\fBchsh\fR(1),
+\fBpasswd\fR(1),
+\fBgpasswd\fR(8),
+\fBgroupadd\fR(8),
+\fBgroupmod\fR(8),
+\fBuseradd\fR(8),
+\fBuserdel\fR(8),
+\fBusermod\fR(8)

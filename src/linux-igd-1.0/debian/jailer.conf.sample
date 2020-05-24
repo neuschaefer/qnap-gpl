@@ -1,0 +1,11 @@
+# Sample jailer.conf fragment - 'apt-get install jailer' and read the docs
+
+<upnpd>
+Root: /var/chroot/upnpd
+Debs: linux-igd
+Conf: /etc/upnp* /etc/linuxigd/*
+Junk: /bin/* /usr/bin/* /sbin/* /usr/sbin/*
+Extra: /usr/sbin/upnpd /sbin/iptables /dev/null /dev/log /etc/hosts /etc/localtime /etc/resolv.conf /etc/nsswitch.conf
+# Don't forget to add "-a /var/chroot/upnpd/dev/log" to the SYSLOGD startup options in /etc/default/syslogd
+</upnpd>
+

@@ -1,0 +1,62 @@
+- configure script should check for lex and yacc (or flex and bison)
+
+- dhcp6c can pull an IA_NA and an IA_TA, but doesn't configure the interface
+  with that information
+
+- dhcp6c does not honor server preference on responses from servers
+
+- Do all of the headers that get installed need to be installed?
+
+- Can hash.c be replaced with a standard system offering?
+
+- Replace all .l files with a single lexer with multiple state paths depending
+  on what we're reading.
+
+- Improve config file formats
+
+- Replace both .y files with a single parser with multiple state paths for
+  the tokens we're parsing.
+
+- Clean up TRACE() messages, they are all over the place.
+
+- Define all DHCPv6 options and states more clearly.  Fix up server component
+  to handle all possible options.
+
+- Add command line switches to the server and client to define an alternate
+  config file path, lease database path, and so on (like ISC software)
+
+- Output timestamps using this format: http://www.w3.org/TR/NOTE-datetime
+
+- Port to MacOS X (???)
+      - rm: conftest.dSYM is a directory
+      - replacement for netlink calls
+      - We should not have to pass -D_GNU_SOURCE
+      - Would need a libnl workalike
+
+- Support information refresh time option in client and server
+
+- Support lease query in client and server
+
+- Support IA_TA in the server
+
+- Fix the log output
+
+- Do not return NotOnLink for inforeq from client
+
+- Do not trust the client with rapid-commit, if server conf does not have it,
+  don't allow it
+
+- dhcp6s does not work multiple relay servers, only one
+
+- Use getopt() in dhcp6r, update usage() screen to match client and server
+
+- Update dhcp6r man page after usage() screen update
+
+- Fix the debug=1 and debug=2 log output
+
+- Support ddns updates in dhcp6c somehow (need to figure out how ddns works)
+
+- valgrind and gcc -Wall checks
+
+- For default locations (/var/run files and stuff), inherit the ./configure
+  paths by default.

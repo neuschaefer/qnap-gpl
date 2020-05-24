@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# DRM hotplug agent
+#
+#	ACTION=change
+#	DEVPATH=/devices/pci0000:00/0000:00:02.0/drm/card0
+#
+
+cd /etc/hotplug
+. ./hotplug.functions
+
+case $ACTION in
+
+change)
+	if [ "$HOTPLUG" == "1" ]; then
+		kill -1 `pidof checkvga`
+	fi
+    ;;
+
+*)
+    debug_mesg DRM $ACTION event not supported
+    exit 1
+    ;;
+
+esac

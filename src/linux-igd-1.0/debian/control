@@ -1,0 +1,16 @@
+Source: linux-igd
+Section: net
+Priority: optional
+Homepage: http://linux-igd.sourceforge.net/
+Maintainer: Nick Leverton <nick@leverton.org>
+Build-Depends: debhelper (>= 5), quilt, libupnp3-dev | libupnp-dev, iptables-dev, pkg-config
+Standards-Version: 3.8.0
+
+Package: linux-igd
+Architecture: any
+Depends: iptables, lsb-base, ${shlibs:Depends}, ${misc:Depends}
+Description: Linux UPnP Internet Gateway Device
+ This is a daemon which emulates Microsoft's Internet Connection Service (ICS).
+ It implements the UPnP Internet Gateway Device specification (IGD) and allows
+ UPnP aware clients, such as MSN Messenger or games consoles, to work
+ properly from behind a NAT firewall.

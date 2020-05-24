@@ -1,0 +1,156 @@
+.TH SGM_DD "8" "May 2002" "sg3_utils-1.00" SG3_UTILS
+.SH NAME
+sgm_dd \- copies data to and from sg and raw devices
+.SH SYNOPSIS
+.B sgm_dd
+[\fIbpt=<n>\fR] [\fIbs=<n>\fR] [\fIcdbsz=6|10|12|16\fR] [\fIcount=<n>\fR]
+[\fIdio=0|1\fR] [\fIfua=0|1|2|3\fR] [\fIibs=<n>\fR] [\fIif=<ifile>\fR]
+[\fIobs=<n>\fR] [\fIof=<ofile>\fR] [\fIseek=<n>\fR] [\fIskip=<n>\fR]
+[\fIsync=0|1\fR] [\fItime=0|1\fR] [\fI--version\fR]
+.SH DESCRIPTION
+.\" Add any additional description here
+.PP
+Copy data to and from Linux SCSI generic (sg) and raw devices
+using memory mapped IO. Similar syntax and semantics to 
+.B dd(1) 
+but does not perform any conversions.
+.TP
+bpt=BLOCKS
+each IO transaction will be made using this number of blocks (or less if 
+near the end of count). Default is 128.
+.TP
+bs=BYTES
+this
+.B must
+be the block size of the physical device. Note that this differs from
+.B dd(1)
+which permits "bs" to be an integral multiple. Default is 512 which
+is usually correct for disks but incorrect for cdroms (which normally
+have 2048 byte blocks).
+.TP
+count=BLOCKS
+copy this number of blocks. Default is the minimum number that sg devices
+return from READ CAPACITY. Other device types (e.g. normal files)
+are _not_ probed for their size. Thus if neither device (i.e. 'if'
+nor 'of') is an sg device and count is not given then the command will fail
+with an error message requesting a count value.
+.TP
+dio=0 | 1
+permits direct IO to be selected on the write-side (i.e. "of"). Only
+allowed when the read-side (i.e. "if") is a sg device. When 1 there
+may be a "zero copy" copy (i.e. mmap-ed IO on the read into the user
+space and direct IO from there on the write, potentially two DMAs and
+no data copying from the CPU). Default is 0
+.TP
+fua=0 | 1 | 2 | 3
+force unit access bit. When 3, fua is set on both "if" and "of", when 2, fua
+is set on "if", when 1, fua is set on "of", when 0 (the default), fua is
+cleared on both. 6 byte SCSI READ and WRITE commands (cdbsz=6) do not 
+support the fua bit. Only active for sg device file names.
+.TP
+ibs=BYTES
+if given must be the same as bs
+.TP
+if=FILE
+read from FILE instead of stdin. A file name of - is taken to be stdin
+.TP
+obs=BYTES
+if given must be the same as bs
+.TP
+of=FILE
+write to FILE instead of stdout. A file name of - is taken to be stdout.
+If FILE is /dev/null then no actual writes are performed. If FILE is .
+(period) then it is treated the same way as /dev/null (this is a
+shorthand notation)
+.TP
+seek=BLOCKS
+skip BLOCKS bs-sized blocks at start of output
+.TP
+skip=BLOCKS
+skip BLOCKS bs-sized blocks at start of input
+.TP
+sync=0 | 1
+when 1, does SYNCHRONIZE CACHE command on "of" at the end of the transfer.
+Only active when "of" is a sg device file name
+.TP
+time=0 | 1
+when 1, times transfer and does throughput calculation, outputting the
+results (to stderr) at completion. When 0 (default) doesn't perform timing
+.TP
+--version
+outputs version number information and exits
+.PP
+A raw device must be bound to a block device prior to using sgm_dd.
+See
+.B raw(8)
+for more information about binding raw devices. To be safe, the sg device
+mapping to SCSI block devices should be checked with "cat /proc/scsi/scsi"
+before use.
+.PP
+The count is only deduced for sg devices (minimum > 0 if both input and
+output are sg devices) otherwise it defaults to 0. This is for safety!
+Raw device partition information can often be found with
+.B fdisk(8)
+[the "-ul" argument is useful in this respect].
+.PP
+BYTES and BLOCKS may be followed by the following multiplicative suffixes:
+c C *1; b B *512; k *1,024; K *1,000; m *1,048,576; M *1,000,000;
+g *1,073,741,824; G *1,000,000,000; t *1,099,511,627,776 and
+T *1,000,000,000,000 (the latter two can only be used for count, skip
+and seek values).
+.PP
+Alternatively numerical values can be given in hexadecimal preceded by
+either "0x" or "0X". When hex numbers are given multipliers cannot be
+used.
+.PP
+The count, skip and seek parameters can take 64 bit values (i.e. very
+big numbers). Other values are limited to what can fit in a signed
+32 bit number.
+.PP
+Data usually gets to the user space in a 2 stage process: first the
+SCSI adapter DMAs into kernel buffers and then the sg driver copies
+this data into user memory (write operations reverse this sequence).
+With memory mapped IO a kernel buffer reserved by sg is memory mapped
+(see the 
+.B mmap(2) 
+system call) into the user space. When this is done
+the second (redundant) copy from kernel buffers to user space is
+not needed. Hence the transfer is faster and requires less "grunt"
+from the CPU.
+.PP
+All informative, warning and error output is sent to stderr so that
+dd's output file can be stdout and remain unpolluted. If no options
+are given, then the usage message is output and nothing else happens.
+.SH EXAMPLES
+.PP
+See the examples given in the man page for 
+.B sg_dd(8).
+.SH NOTE
+For sg devices this command issues READ_10 and WRITE_10 SCSI commands which
+are appropriate for disks and CDROM players. Those commands are not
+formatted correctly for tape devices so sgm_dd should not be used on
+tape devices.
+.SH SIGNALS
+The signal handling has been borrowed from dd: SIGINT, SIGQUIT and
+SIGPIPE output the number of remaining blocks to be transferred and
+the records in + out counts; then they have their default action.
+SIGUSR1 causes the same information to be output yet the copy continues.
+All output caused by signals is sent to stderr.
+.SH AUTHORS
+Written by Doug Gilbert and Peter Allworth.
+.SH "REPORTING BUGS"
+Report bugs to <dgilbert@interlog.com>.
+.SH COPYRIGHT
+Copyright \(co 2000-2002 Douglas Gilbert
+.br
+This software is distributed under the GPL version 2. There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+.SH "SEE ALSO"
+The simplest variant of this command is called
+.B sg_dd.
+A POSIX threads version of this command called
+.B sgp_dd
+is in the sg3_utils package. The lmbench package contains
+.B lmdd
+which is also interesting.
+.B raw(8), dd(1)

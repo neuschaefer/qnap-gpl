@@ -1,0 +1,26 @@
+libavahi_common_la-i18n.lo: i18n.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h ../config.h \
+ i18n.h /root/CT/x86_64-QNAP-linux-gnu/fs/include/libintl.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+../config.h:
+
+i18n.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/libintl.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h:

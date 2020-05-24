@@ -1,0 +1,142 @@
+#!/usr/bin/make -f
+#                                                       -*- makefile -*-
+# debian/rules file for the Debian/GNU Linux centerim package
+# Copyright 2002-2007 by Julien Lemoine <speedblue@debian.org>
+# 2007 Modified by Anibal Avelar <aavelar@cofradia.org>
+
+# include /usr/share/dpatch/dpatch.make
+
+DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+
+CXXFLAGS = -Wall -g
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+  CXXFLAGS += -O0
+else
+  CXXFLAGS += -O1
+endif
+ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+  INSTALL_PROGRAM += -s
+endif
+
+source          := $(shell head -1 debian/changelog | \
+                        perl -nle 'm/^([a-z]+)/ and print $$1')
+package         := $(shell head -1 debian/changelog | \
+                        perl -nle 'm/^(\S+)\s+/ and print $$1')
+version         := $(shell head -1 debian/changelog | \
+                        perl -nle 'm/\S+\s+\((\S+)-\S+\)/ and print $$1')
+major           := $(shell head -1 debian/changelog | perl -nle \
+                        'm/\S+\s+\((\d\.\d)\.\d+-\S+\)/ and print $$1')
+pcommon=$(package)-common
+pfribidi=$(package)-fribidi
+putf8=$(package)-utf8
+
+config.status: configure
+	autoconf -v
+	dh_testdir
+	cp centerim.1 centerim-fribidi.1
+	cp centerim.1 centerim-utf8.1
+	CFLAGS="$(CXXFLAGS)" CXXFLAGS="$(CXXFLAGS)" ./configure	\
+	--host=$(DEB_HOST_GNU_TYPE)				\
+	--build=$(DEB_BUILD_GNU_TYPE)				\
+	--prefix=/usr --mandir=\$${prefix}/share/man		\
+	--infodir=\$${prefix}/share/info			\
+	--with-included-gettext --with-ssl --with-openssl=no    \
+	--with-gpgme --without-ncursesw
+
+build: config.status build-stamp
+
+build-stamp: 
+	dh_testdir
+	$(MAKE)
+	mv src/centerim src/centerim-normal
+	cd kkconsui; $(MAKE) clean
+	perl -pi -e "s:<ncurses.h>:<ncursesw/ncurses.h>:" 	\
+	  kkconsui/include/conscommon.h
+	$(MAKE) distclean
+	CFLAGS="$(CXXFLAGS)" CXXFLAGS="$(CXXFLAGS)" ./configure	\
+	--host=$(DEB_HOST_GNU_TYPE)				\
+	--build=$(DEB_BUILD_GNU_TYPE)				\
+	--prefix=/usr --mandir=\$${prefix}/share/man		\
+	--infodir=\$${prefix}/share/info			\
+	--with-included-gettext --with-ssl --with-openssl=no    \
+	--with-gpgme
+	$(MAKE)
+	cd ..
+	mv src/centerim src/centerim-utf8
+	cd kkconsui; $(MAKE) clean
+	perl -pi -e "s:<ncursesw/ncurses.h>:<ncurses.h>:" 	\
+	   kkconsui/include/conscommon.h
+	cd ..
+	$(MAKE) distclean
+	CFLAGS="$(CXXFLAGS)" CXXFLAGS="$(CXXFLAGS)" ./configure	\
+	--host=$(DEB_HOST_GNU_TYPE)				\
+	--build=$(DEB_BUILD_GNU_TYPE)				\
+	--mandir=\$${prefix}/share/man --prefix=/usr		\
+	--infodir=\$${prefix}/share/info			\
+	--with-included-gettext --with-fribidi=/usr             \
+	--with-ssl --with-openssl=no
+	--with-gpgme --disable-ncursesw
+	perl -p -i -e "s:^LIBS = (.*)$$:LIBS = \1 -lfribidi:" src/Makefile
+	$(MAKE)
+	mv src/centerim src/centerim-fribidi
+	touch build-stamp 
+
+clean: 
+	dh_testdir
+	dh_testroot
+	[ ! -f Makefile ] || $(MAKE) distclean
+	rm -f build-stamp intl/libintl.h src/centerim-normal	\
+	src/centerim-fribidi centerim-fribidi.1 		\
+	src/centerim-utf8 centerim-utf8.1 \
+	.version
+#	po/centerim.pot po/cat-id-tbl.c po/*.gmo
+	find ./ -name config.status -delete
+	find ./ -name config.log -delete
+#	find ./ -name config.sub -delete
+#	find ./ -name config.guess -delete
+	find ./ -name config.cache -delete
+	find ./ -name config.h -delete
+	find ./ -name Makefile -delete
+	find ./ -name stamp-h -delete
+	rm -f src/git-version.h
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k
+	dh_installdirs
+	$(MAKE) install-data prefix=$(CURDIR)/debian/$(pcommon)/usr
+	mv src/centerim-normal src/centerim
+	install -m 755 src/centerim $(CURDIR)/debian/$(package)/usr/bin/
+	install -m 755 src/centerim-fribidi $(CURDIR)/debian/$(pfribidi)/usr/bin
+	install -m 755 src/centerim-utf8 $(CURDIR)/debian/$(putf8)/usr/bin
+	rm -rf $(CURDIR)/debian/$(pcommon)/usr/share/man/man1/
+	rm -rf $(CURDIR)/debian/$(pcommon)/usr/include
+	install -m 755 misc/cimconv $(CURDIR)/debian/$(pcommon)/usr/bin
+
+binary-indep: build install
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installdocs
+	dh_installman -p$(pcommon) debian/cimconv.1
+	dh_installman -p$(package) centerim.1
+	dh_installman -p$(pfribidi) centerim-fribidi.1
+	dh_installman -p$(putf8) centerim-utf8.1
+	dh_installchangelogs ChangeLog
+	dh_installexamples debian/external.example
+	dh_link -a
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install

@@ -1,0 +1,101 @@
+'\" t
+.\"     Title: chsh
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10/05/2009
+.\"    Manual: Commandes utilisateur
+.\"    Source: Commandes utilisateur
+.\"  Language: French
+.\"
+.TH "CHSH" "1" "10/05/2009" "Commandes utilisateur" "Commandes utilisateur"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOM"
+chsh \- Changer l\'interpr\('eteur de commandes initial
+.SH "SYNOPSIS"
+.HP \w'\fBchsh\fR\ 'u
+\fBchsh\fR [\fIoptions\fR] [\fILOGIN\fR]
+.SH "DESCRIPTION"
+.PP
+The
+\fBchsh\fR
+command changes the user login shell\&. This determines the name of the user\'s initial login command\&. A normal user may only change the login shell for her own account, the superuser may change the login shell for any account\&.
+.SH "OPTIONS"
+.PP
+Les options applicables \(`a la commande
+\fBchsh\fR
+sont\ \&:
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Afficher un message d\'aide et quitter\&.
+.RE
+.PP
+\fB\-s\fR, \fB\-\-shell\fR \fIINTERPR\('ETEUR\fR
+.RS 4
+Nom du nouvel interpr\('eteur de commandes initial (\(Fo\ \&login shell\ \&\(Fc) de l\'utilisateur\&. Si ce champ est vide, le syst\(`eme s\('electionnera l\'interpr\('eteur de commandes initial par d\('efaut\&.
+.RE
+.PP
+Quand l\'option
+\fB\-s\fR
+n\'est pas s\('electionn\('ee,
+\fBchsh\fR
+op\(`ere de fa\(,con interactive, demandant \(`a l\'utilisateur quel doit \(^etre le nouvel interpr\('eteur de commandes initial (\(Fo\ \&login shell\ \&\(Fc)\&. L\'utilisateur pourra entrer une nouvelle valeur pour modifier l\'interpr\('eteur, ou laisser la ligne blanche pour conserver l\'interpr\('eteur actuel\&. L\'interpr\('eteur actuel est indiqu\('e entre crochets (\fI[\ \&]\fR)\&.
+.SH "NOTE"
+.PP
+The only restriction placed on the login shell is that the command name must be listed in
+/etc/shells, unless the invoker is the superuser, and then any value may be added\&. An account with a restricted login shell may not change her login shell\&. For this reason, placing
+/bin/rsh
+in
+/etc/shells
+is discouraged since accidentally changing to a restricted shell would prevent the user from ever changing her login shell back to its original value\&.
+.SH "CONFIGURATION"
+.PP
+The following configuration variables in
+/etc/login\&.defs
+change the behavior of this tool:
+.PP
+\fBCHSH_AUTH\fR (boolean)
+.RS 4
+If
+\fIyes\fR, the
+\fBchsh\fR
+program will require authentication before making any changes, unless run by the superuser\&.
+.RE
+.PP
+\fBLOGIN_STRING\fR (string)
+.RS 4
+La cha\(^ine de caract\(`eres utilis\('ee pour l\'invite de mot de passe\&. La valeur par d\('efaut est d\'utiliser "Password: " (\(Fo\ \&mot de passe\ \&:\ \&\(Fc), ou une traduction de cette cha\(^ine\&. Si vous d\('efinissez cette variable, l\'invite ne sera pas traduit\&.
+.sp
+Si la cha\(^ine contient
+\fI%s\fR, ces caract\(`eres seront remplac\('es par le nom de l\'utilisateur\&.
+.RE
+.SH "FICHIERS"
+.PP
+/etc/passwd
+.RS 4
+Informations sur les comptes des utilisateurs\&.
+.RE
+.PP
+/etc/shells
+.RS 4
+Liste des interpr\('eteurs de commandes initiaux valables\&.
+.RE
+.PP
+/etc/login\&.defs
+.RS 4
+Configuration de la suite des mots de passe cach\('es \(Fo\ \&shadow password\ \&\(Fc\&.
+.RE
+.SH "VOIR AUSSI"
+.PP
+\fBchfn\fR(1),
+\fBlogin.defs\fR(5),
+\fBpasswd\fR(5)\&.

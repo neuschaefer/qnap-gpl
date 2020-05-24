@@ -1,0 +1,53 @@
+--- linux-igd-1.0+cvs20070630.orig/iptc.c
++++ linux-igd-1.0+cvs20070630/iptc.c
+@@ -22,9 +22,9 @@
+ struct ipt_entry_match *get_udp_match(const char *sports, const char *dports, unsigned int *nfcache);
+ struct ipt_entry_target *get_dnat_target(const char *input, unsigned int *nfcache);
+ 
+-static u_int16_t parse_port(const char *port);
++static u_int16_t my_parse_port(const char *port);
+ static void parse_ports(const char *portstring, u_int16_t *ports);
+-static int service_to_port(const char *name);
++static int my_service_to_port(const char *name);
+ 
+ static void parse_range(const char *input, struct ip_nat_range *range);
+ static struct ipt_natinfo *append_range(struct ipt_natinfo *info, const struct ip_nat_range *range);
+@@ -338,11 +338,11 @@
+ /* Copied and modified from libipt_tcp.c and libipt_udp.c */
+ 
+ static u_int16_t
+-parse_port(const char *port)
++my_parse_port(const char *port)
+ {
+ 	unsigned int portnum;
+ 
+-	if ((portnum = service_to_port(port)) != -1) {
++	if ((portnum = my_service_to_port(port)) != -1) {
+ 		return (u_int16_t)portnum;
+ 	}
+ 	else {
+@@ -358,19 +358,19 @@
+ 
+ 	buffer = strdup(portstring);
+ 	if ((cp = strchr(buffer, ':')) == NULL)
+-		ports[0] = ports[1] = parse_port(buffer);
++		ports[0] = ports[1] = my_parse_port(buffer);
+ 	else {
+ 		*cp = '\0';
+ 		cp++;
+ 
+-		ports[0] = buffer[0] ? parse_port(buffer) : 0;
+-		ports[1] = cp[0] ? parse_port(cp) : 0xFFFF;
++		ports[0] = buffer[0] ? my_parse_port(buffer) : 0;
++		ports[1] = cp[0] ? my_parse_port(cp) : 0xFFFF;
+ 	}
+ 	free(buffer);
+ }
+ 
+ static int
+-service_to_port(const char *name)
++my_service_to_port(const char *name)
+ {
+ 	struct servent *service;
+ 
+

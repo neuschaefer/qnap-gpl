@@ -1,0 +1,11 @@
+rtpgsttransmitter.lo: rtpgsttransmitter.cpp \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h \
+ rtpgsttransmitter.h rtpconfig.h rtpconfig_unix.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+rtpgsttransmitter.h:
+
+rtpconfig.h:
+
+rtpconfig_unix.h:

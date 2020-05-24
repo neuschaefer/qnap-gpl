@@ -1,0 +1,9 @@
+diacrit.o: diacrit.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h config.h \
+ diacrit.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+config.h:
+
+diacrit.h:

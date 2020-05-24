@@ -1,0 +1,20 @@
+# -*- text -*-
+##############################################################################
+#
+#	Audiocodes
+#
+#	http://www.audiocodes.com/filehandler.ashx?fileid=36358
+#
+#	$Id: dictionary.audiocodes,v 1.1.1.1 2010/03/11 07:11:43 richardchang Exp $
+#
+##############################################################################
+
+VENDOR		AudioCodes			5003
+BEGIN-VENDOR	AudioCodes
+
+ATTRIBUTE	ACL-Auth-Level				35	integer
+VALUE	ACL-Auth-Level			ACL-Auth-UserLevel	50
+VALUE	ACL-Auth-Level			ACL-Auth-AdminLevel	100
+VALUE	ACL-Auth-Level			ACL-Auth-SecurityAdminLevel 200
+
+END-VENDOR	AudioCodes

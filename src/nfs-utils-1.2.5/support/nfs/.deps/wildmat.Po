@@ -1,0 +1,46 @@
+wildmat.o: wildmat.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h \
+ ../../support/include/config.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/ctype.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/xlocale.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+../../support/include/config.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/ctype.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/xlocale.h:

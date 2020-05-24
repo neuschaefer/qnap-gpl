@@ -1,0 +1,189 @@
+'\" t
+.\"     Title: grpck
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 05/10/2009
+.\"    Manual: Команды управления системой
+.\"    Source: Команды управления системой
+.\"  Language: Russian
+.\"
+.TH "grpck" "8" "05/10/2009" "Команды управления системой" "Команды управления системой"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "НАЗВАНИЕ"
+grpck \- проверяет корректность файлов групп
+.SH "СИНТАКСИС"
+.HP \w'\fBgrpck\fR\ 'u
+\fBgrpck\fR [\-r] [\fIгруппа\fR\ [\ \fIshadow\fR\ ]]
+.HP \w'\fBgrpck\fR\ 'u
+\fBgrpck\fR [\-s] [\fIгруппа\fR\ [\ \fIshadow\fR\ ]]
+.SH "ОПИСАНИЕ"
+.PP
+The
+\fBgrpck\fR
+command verifies the integrity of the system authentication information\&. All entries in
+/etc/group
+and /etc/gshadow
+are checked to see that the entry has the proper format and valid data in each field\&. The user is prompted to delete entries that are improperly formatted or which have other uncorrectable errors\&.
+.PP
+Выполняются следующие проверки:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+правильное количество полей
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+уникальность имени группы
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+корректный список членов и администраторов
+.RE
+.PP
+Ошибки в количестве полей и уникальности имён групп невосстановимы\&. Если запись содержит неверное число полей, пользователя попросят подтвердить удаление всей записи\&. Если пользователь ответит отрицательно, дальнейшая проверка выполняться не будет\&. При ошибке повторения имени группы также возникает запрос на удаление, но в случае отказа проверка будет продолжена\&. Обо всех остальных ошибках выводится предупреждение и пользователю предлагается запустить команду
+\fBgroupmod\fR
+чтобы исправить ошибку\&.
+.PP
+Команды, которые работают с файлом
+/etc/group
+не способны изменить повреждённые или дублирующиеся записи\&. Как раз в этом случае и нужно использовать
+\fBgrpck\fR
+для удаления испорченной записи\&.
+.SH "ПАРАМЕТРЫ"
+.PP
+The options which apply to the
+\fBgrpck\fR
+command are:
+.PP
+\fB\-r\fR
+.RS 4
+Execute the
+\fBgrpck\fR
+command in read\-only mode\&. This causes all questions regarding changes to be answered
+\fIno\fR
+without user intervention\&.
+.RE
+.PP
+\fB\-s\fR
+.RS 4
+Sort entries in
+/etc/group
+and /etc/gshadow
+by GID\&.
+.RE
+.PP
+By default,
+\fBgrpck\fR
+operates on
+/etc/groupand /etc/gshadow\&. The user may select alternate files with the
+\fIgroup\fR
+and \fIshadow\fR parameters\&.
+.SH "CONFIGURATION"
+.PP
+The following configuration variables in
+/etc/login\&.defs
+change the behavior of this tool:
+.PP
+\fBMAX_MEMBERS_PER_GROUP\fR (number)
+.RS 4
+Maximum members per group entry\&. When the maximum is reached, a new group entry (line) is started in
+/etc/group
+(with the same name, same password, and same GID)\&.
+.sp
+The default value is 0, meaning that there are no limits in the number of members in a group\&.
+.sp
+This feature (split group) permits to limit the length of lines in the group file\&. This is useful to make sure that lines for NIS groups are not larger than 1024 characters\&.
+.sp
+If you need to enforce such limit, you can use 25\&.
+.sp
+Note: split groups may not be supported by all tools (even in the Shadow toolsuite)\&. You should not use this variable unless you really need it\&.
+.RE
+.SH "ФАЙЛЫ"
+.PP
+/etc/group
+.RS 4
+содержит информацию о группах
+.RE
+.PP
+/etc/gshadow
+.RS 4
+содержит защищаемую информацию о группах
+.RE
+.PP
+/etc/passwd
+.RS 4
+содержит информацию о пользователях
+.RE
+.SH "СМОТРИТЕ ТАКЖЕ"
+.PP
+
+\fBgroup\fR(5),
+\fBgroupmod\fR(8),
+\fBgshadow\fR(5)
+\fBpasswd\fR(5),
+\fBpwck\fR(8),
+\fBshadow\fR(5)\&.
+.SH "ВОЗВРАЩАЕМЫЕ ЗНАЧЕНИЯ"
+.PP
+Команда
+\fBgrpck\fR
+завершая работу, возвращает следующие значения:
+.PP
+\fI0\fR
+.RS 4
+успешное выполнение
+.RE
+.PP
+\fI1\fR
+.RS 4
+ошибка в параметрах команды
+.RE
+.PP
+\fI2\fR
+.RS 4
+есть одна или более неправильных записей групп
+.RE
+.PP
+\fI3\fR
+.RS 4
+не удалось открыть файл групп
+.RE
+.PP
+\fI4\fR
+.RS 4
+не удалось заблокировать файл групп
+.RE
+.PP
+\fI5\fR
+.RS 4
+не удалось изменить файл групп
+.RE

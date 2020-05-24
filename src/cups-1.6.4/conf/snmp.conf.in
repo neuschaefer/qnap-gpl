@@ -1,0 +1,13 @@
+#
+# "$Id: snmp.conf.in,v 1.1.1.1 2013/10/15 06:58:46 aixchou Exp $"
+#
+#   Sample SNMP configuration file for CUPS.  See "man cups-snmp.conf" for a
+#   complete description of this file.
+#
+
+@CUPS_SNMP_ADDRESS@
+@CUPS_SNMP_COMMUNITY@
+
+#
+# End of "$Id: snmp.conf.in,v 1.1.1.1 2013/10/15 06:58:46 aixchou Exp $".
+#

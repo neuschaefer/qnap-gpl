@@ -1,0 +1,19 @@
+# -*- text -*-
+##############################################################################
+#
+#	Clavister VSAs
+#
+#	$Id: dictionary.clavister,v 1.1.1.1 2010/03/11 07:11:43 richardchang Exp $
+#
+##############################################################################
+
+VENDOR		Clavister			5089
+
+#
+# User group attribute
+#
+BEGIN-VENDOR	Clavister
+
+ATTRIBUTE	Clavister-User-Group			1	string
+
+END-VENDOR	Clavister

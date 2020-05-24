@@ -1,0 +1,64 @@
+md4.c:
+static uint32 F(uint32 X, uint32 Y, uint32 Z)
+static uint32 G(uint32 X, uint32 Y, uint32 Z)
+static uint32 H(uint32 X, uint32 Y, uint32 Z)
+static uint32 lshift(uint32 x, int s)
+static void mdfour64(uint32 *M)
+static void copy64(uint32 *M, unsigned char *in)
+static void copy4(unsigned char *out,uint32 x)
+void mdfour(unsigned char *out, unsigned char *in, int n)
+
+smbdes.c:
+static void permute(char *out, char *in, uchar *p, int n)
+static void l_char_shift(char *d, int count, int n)
+static void concat(char *out, char *in1, char *in2, int l1, int l2)
+static void xor(char *out, char *in1, char *in2, int n)
+static void dohash(char *out, char *in, char *key, int forw)
+static void str_to_key(unsigned char *str,unsigned char *key)
+static void smbhash(unsigned char *out, unsigned char *in, unsigned char *key, int forw)
+void E_P16(unsigned char *p14,unsigned char *p16)
+void E_P24(unsigned char *p21, unsigned char *c8, unsigned char *p24)
+void D_P16(unsigned char *p14, unsigned char *in, unsigned char *out)
+void E_old_pw_hash( unsigned char *p14, unsigned char *in, unsigned char *out)
+void cred_hash1(unsigned char *out,unsigned char *in,unsigned char *key)
+void cred_hash2(unsigned char *out,unsigned char *in,unsigned char *key)
+void cred_hash3(unsigned char *out,unsigned char *in,unsigned char *key, int forw)
+void SamOEMhash( unsigned char *data, unsigned char *key, int val)
+
+smbencrypt.c:
+void SMBOWFencrypt(uchar passwd[16], uchar *c8, uchar p24[24]);
+void strupper (unsigned char *string);
+void SMBencrypt(uchar *passwd, uchar *c8, uchar *p24)
+static int _my_wcslen(int16 *str)
+static int _my_mbstowcs(int16 *dst, uchar *src, int len)
+void E_md4hash(uchar *passwd, uchar *p16)
+void nt_lm_owf_gen(char *pwd, uchar nt_p16[16], uchar p16[16])
+void SMBOWFencrypt(uchar passwd[16], uchar *c8, uchar p24[24])
+void NTLMSSPOWFencrypt(uchar passwd[8], uchar *ntlmchalresp, uchar p24[24])
+void SMBNTencrypt(uchar *passwd, uchar *c8, uchar *p24)
+void strupper (unsigned char *string)
+
+smbpwd.c:
+unsigned short int pdb_decode_acct_ctrl(const char *p);
+char *pdb_encode_acct_ctrl(unsigned short int acct_ctrl, size_t length);
+int pdb_gethexpwd(char *p, char *pwd);
+FILE *opensmbpw(void)
+struct smb_passwd *getsmbpwent(void)
+void setsmbpwent(void)
+void endsmbpwent(void)
+int putsmbpwent(const struct smb_passwd *smbpw, FILE * stream)
+int setsmbfilepath(char *suggestedpath)
+void pdb_sethexpwd(char *p, char *pwd, unsigned short int acct_ctrl)
+int pdb_gethexpwd(char *p, char *pwd)
+unsigned short int pdb_decode_acct_ctrl(const char *p)
+static time_t get_time_from_string(const char *p)
+time_t pdb_get_last_set_time(const char *p)
+char *pdb_encode_acct_ctrl(unsigned short int acct_ctrl, size_t length)
+
+smbpwd.h:
+struct smb_passwd *getsmbpwent(void);
+void setpwent(void);
+void endpwent(void);
+int putpwent(const struct smb_passwd *p, FILE *stream);
+int setsmbfilepath(char *path);
+void smbcrypt (unsigned char *plain, unsigned char nt_pass[16], unsigned char smb_pass[16]);

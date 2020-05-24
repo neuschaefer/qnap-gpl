@@ -1,0 +1,115 @@
+.TH SYSLOG-NG 8
+.SH NAME
+syslog-ng \- logs system messages
+.SH SYNOPSIS
+
+NOTE: This file is not up to date. Please refer to the html documentation.
+
+.B syslog-ng
+[
+.B \-dFsvV
+] [
+.B \-f
+<\fIconfig-filename\fP>
+] [
+.B \-p
+<\fIpid-filename\fP>
+] [
+.B \-C 
+<\fIchroot-dir\fP>
+] [
+.B \-u 
+<\fIuser\fP>
+] [
+.B \-g 
+<\fIgroup\fP>
+]
+.SH DESCRIPTION
+.PP
+\fBsyslog-ng\fP reads and logs messages to the system console, log files,
+other machines and/or users as specified by its configuration file.
+.PP
+The configuration file is read at startup and is reread after receipt
+of a hangup (HUP) signal.  When reloading the configuration file, all
+destination files are closed and reopened as appropriate. For more 
+information about the configuration file, see syslog-ng.conf(5).
+.PP
+Typically messages are sent to \fBsyslog-ng\fP via a Unix domain socket
+(\fB/dev/log\fP) or via UDP, to port 514 or to whatever \fBsyslog/udp\fP
+is defined to be in \fI/etc/services\fP.  To receieve messages from the
+kernel, \fB/dev/klog\fP is opened for reading.
+.PP
+Messages sent to \fBsyslog-ng\fP should be an entire line, prefixed by a
+priority code in between '<' and '>'.  Definititions of the recognised
+values can be found in the include file \fI<sys/syslog.h>\fP.
+.PP
+\fBsyslog-ng\fP can be configured to pass messages on to other \fBsyslog-ng's\fP
+and when doing so, it sends the message on with the priority as a prefix.
+.PP
+It is not necessary to terminate a message with a line feed or carriage return.
+
+.SH OPTIONS
+.TP
+.B \-C \0<directory>, \-\-chroot=<directory>
+Chroot to directory.
+.TP
+.B \-d, \-\-debug
+Set "debug mode".  Prints out various messages to aid in debugging and stops
+it from becoming a daemon.  To activate debugging in the yacc parser, either
+use this option twice or combine with \fB-v\fP.
+.TP
+.B \-F, \-\-foreground
+Don't fork into background.
+.TP
+.B \-f \0<filename>, \-\-cfgfile=<filename>
+Instead of reading the normal \fB/etc/syslog-ng/syslog-ng.conf\fP file for
+configuration information, use the filename given instead.
+.TP
+.B \-g \0<group>, \-\-group=<group>
+Switch to group.
+.TP
+.B \-p \0<filename>, \-\-pidfile=<filename>
+Write the current PID information to the specified file.
+Defaults to \fB/var/run/syslog-ng.pid\fP.
+.TP
+.B \-s, \-\-syntax\-only
+Only read and parse the configuration file.  See also the option \fB-f\fP.
+.TP
+.B \-u \0<user>, \-\-group=<user>
+Switch to user.
+.TP
+.B \-v, \-\-verbose
+Enable verbose mode.  Process will not become a daemon.  Prints out
+fewer messages, compared to \fB-d\fP.
+.TP
+.B \-V, \-\-version
+Print the version number.
+.SH DIAGNOSTICS
+It is expected that \fBsyslog-ng\fP will run as root, however, if not running
+on a priviledged port of it it owned its own log directories, etc, it might
+run as a non-root user.
+.SH SEE ALSO
+.BR syslog-ng.conf (5),
+.BR logger (1),
+.BR syslog (2),
+.BR syslog (3),
+.BR services (5),
+.BR syslog.conf (5),
+.BR klogd (8),
+.BR syslogd (8),
+.BR sysklogd (8)
+.SH FILES
+.TP
+.I /etc/syslog-ng/syslog-ng.conf
+Configuration file for
+.BR syslog\-ng .
+See
+.BR syslog\-ng.conf (5)
+for more information.
+.TP
+.I /var/run/syslog-ng.pid
+The file containing the process id of
+.BR syslog-ng .
+.SH BUGS
+.PP
+If you find any, please send email to the syslog-ng mailing list at syslog-ng@lists.balabit.hu

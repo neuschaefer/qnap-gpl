@@ -1,0 +1,1 @@
+using gcc : x86_64 : x86_64-QNAP-linux-gnu-g++ ;

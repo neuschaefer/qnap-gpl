@@ -1,0 +1,53 @@
+'\" t
+.\"     Title: faillog
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10/05/2009
+.\"    Manual: Formats et conversions de fichiers
+.\"    Source: Formats et conversions de fichiers
+.\"  Language: French
+.\"
+.TH "FAILLOG" "5" "10/05/2009" "Formats et conversions de fich" "Formats et conversions de fich"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOM"
+faillog \- journal des \('echecs de connexion
+.SH "DESCRIPTION"
+.PP
+/var/log/faillog
+maintient un compteur des \('echecs de connexion ainsi que les limites associ\('ees \(`a chaque compte\&. Le fichier est constitu\('e d\'enregistrements de longueur fixe, index\('es par l\'identifiant num\('erique des utilisateurs (UID)\&. Chaque enregistrement comprend le nombre d\'\('echecs de connexion depuis la derni\(`ere connexion r\('eussie, le nombre maximal d\'\('echecs avant que le compte ne soit d\('esactiv\('e, la ligne correspondant au dernier \('echec de connexion, la date du dernier \('echec, et le temps en secondes apr\(`es lequel le compte sera bloqu\('e apr\(`es un \('echec\&.
+.PP
+La structure du fichier est la suivante\ \&:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+struct	faillog {
+	short   fail_cnt;      /* compteur des \('echecs */
+	short   fail_max;      /* nb max avant d\('esactivation */
+	char    fail_line[12]; /* ligne du dernier \('echec */
+	time_t  fail_time;     /* date du dernier \('echec */
+	long    fail_locktime;};
+.fi
+.if n \{\
+.RE
+.\}
+.SH "FICHIERS"
+.PP
+/var/log/faillog
+.RS 4
+Journal des \('echecs de connexion\&.
+.RE
+.SH "VOIR AUSSI"
+.PP
+
+\fBfaillog\fR(8)

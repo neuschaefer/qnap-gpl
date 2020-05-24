@@ -1,0 +1,4 @@
+libntfs_la-compat.lo: compat.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:

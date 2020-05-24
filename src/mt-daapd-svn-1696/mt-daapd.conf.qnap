@@ -1,0 +1,22 @@
+[general]
+web_root = /usr/local/mt-daapd/admin-root
+port = 3689
+admin_pw = admin
+db_type = sqlite3
+db_parms = /mnt/HDA_ROOT/.db_dir
+mp3_dir = /share/Multimedia
+servername = NAS
+runas = admin
+extensions = .mp3,.m4a,.m4p,.aif,.wav,.mp4,.m4b,.m4v,.mpg,.mpeg,.mp1,.mp2,.m1a,.m2a,.mov
+scan_type = 0
+always_scan = 0
+rescan_interval = 180
+compdirs = 1
+
+[plugins]
+plugin_dir = /usr/local/mt-daapd/plugins
+
+[scanning]
+process_playlists = 1
+process_itunes = 1
+process_m3u = 1

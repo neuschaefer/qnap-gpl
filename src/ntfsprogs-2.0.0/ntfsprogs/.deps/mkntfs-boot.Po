@@ -1,0 +1,6 @@
+mkntfs-boot.o: boot.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h boot.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+boot.h:

@@ -1,0 +1,11 @@
+rtppollthread.lo: rtppollthread.cpp \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h rtppollthread.h \
+ rtpconfig.h rtpconfig_unix.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+rtppollthread.h:
+
+rtpconfig.h:
+
+rtpconfig_unix.h:

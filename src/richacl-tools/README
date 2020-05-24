@@ -1,0 +1,12 @@
+Richacl package README
+______________________
+
+See the file doc/INSTALL for build, installation and post-
+install configuration steps.
+
+The extended attributes and access control list project is
+located at:
+	http://acl.bestbits.at/
+
+For more information on the build process, please refer to
+doc/PORTING.

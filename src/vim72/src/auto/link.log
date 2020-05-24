@@ -1,0 +1,12 @@
+  x86_64-QNAP-linux-gnu-gcc   -L/root/daily_build/64_01/4.4.1/LinkFS/lib -L/root/daily_build/64_01/4.4.1/LinkFS/usr/lib -L/usr/local/lib 	-o vim objects/buffer.o objects/charset.o objects/diff.o objects/digraph.o objects/edit.o objects/eval.o objects/ex_cmds.o objects/ex_cmds2.o objects/ex_docmd.o objects/ex_eval.o objects/ex_getln.o objects/fileio.o objects/fold.o objects/getchar.o objects/hardcopy.o objects/hashtab.o  objects/if_cscope.o objects/if_xcmdsrv.o objects/main.o objects/mark.o objects/memfile.o objects/memline.o objects/menu.o objects/message.o objects/misc1.o objects/misc2.o objects/move.o objects/mbyte.o objects/normal.o objects/ops.o objects/option.o objects/os_unix.o objects/pathdef.o objects/popupmnu.o objects/quickfix.o objects/regexp.o objects/screen.o objects/search.o objects/spell.o objects/syntax.o  objects/tag.o objects/term.o objects/ui.o objects/undo.o objects/window.o           objects/version.o       -lm  -lncurses -ldl        
+  x86_64-QNAP-linux-gnu-gcc   -L/root/daily_build/64_01/4.4.1/LinkFS/lib -L/root/daily_build/64_01/4.4.1/LinkFS/usr/lib -L/usr/local/lib 	-o vim objects/buffer.o objects/charset.o objects/diff.o objects/digraph.o objects/edit.o objects/eval.o objects/ex_cmds.o objects/ex_cmds2.o objects/ex_docmd.o objects/ex_eval.o objects/ex_getln.o objects/fileio.o objects/fold.o objects/getchar.o objects/hardcopy.o objects/hashtab.o  objects/if_cscope.o objects/if_xcmdsrv.o objects/main.o objects/mark.o objects/memfile.o objects/memline.o objects/menu.o objects/message.o objects/misc1.o objects/misc2.o objects/move.o objects/mbyte.o objects/normal.o objects/ops.o objects/option.o objects/os_unix.o objects/pathdef.o objects/popupmnu.o objects/quickfix.o objects/regexp.o objects/screen.o objects/search.o objects/spell.o objects/syntax.o  objects/tag.o objects/term.o objects/ui.o objects/undo.o objects/window.o           objects/version.o       -lm  -lncurses 
+objects/os_unix.o: In function `mch_libcall':
+os_unix.c:(.text+0x3f81): undefined reference to `dlerror'
+os_unix.c:(.text+0x3f92): undefined reference to `dlopen'
+os_unix.c:(.text+0x3fa2): undefined reference to `dlerror'
+os_unix.c:(.text+0x401e): undefined reference to `dlsym'
+os_unix.c:(.text+0x4027): undefined reference to `dlerror'
+os_unix.c:(.text+0x4091): undefined reference to `dlsym'
+os_unix.c:(.text+0x409a): undefined reference to `dlerror'
+os_unix.c:(.text+0x41d5): undefined reference to `dlclose'
+collect2: error: ld returned 1 exit status

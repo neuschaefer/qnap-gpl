@@ -1,0 +1,101 @@
+linux-igd for Debian
+--------------------
+
+You have to edit /etc/default/linux-igd and specify your external and
+internal interface names, otherwise the daemon will not be started.
+
+System Preparation before starting 
+----------------------------------
+
+1. In order for device discovery to function properly, you must add a 
+multicast route to the internal interface like so:
+
+    # ip route add 224.0.0.0/4 dev eth0               # (or whatever your internal
+                                                        interface name is - here
+                                                        eth0)
+
+If you set ALLOW_MULTICAST=yes in /etc/default/linux-igd, the Debian
+package will attempt to do this for you on daemon startup.
+
+This is optional and defaults to "no", for two reasons:  it might
+conflict with an existing multicast routing setup, if you are using
+multicast for other purposes such as Zeroconf/Avahi or media streaming,
+and also the route if made this way does not persist across ifdown/ifup.
+
+A better approach for "the Debian way" would be to edit
+/etc/network/interfaces and make it add the route each time your internal
+interface is brought up, like the following example:
+
+    iface eth0 inet <whatever>
+        address <whatever>
+        netmask <whatever>
+        network <whatever>
+        broadcast <whatever>
+        up ip route add 224.0.0.0/4 dev eth0   # add a line similar to this
+
+
+2. If your internal interface is firewalled, then allow multicast packets, eg:
+
+    # iptables -t filter -I INPUT 1 -s 224.0.0.0/4 -j ACCEPT
+    # iptables -t filter -I INPUT 1 -d 224.0.0.0/4 -j ACCEPT
+
+The Debian package does not do this, it politely considers that it cannot
+take responsibility for configuring your firewall.
+
+If you are using Shorewall then, assuming your local trusted zone is named
+'loc', the appropriate rules would be
+
+    ACCEPT  loc                 $FW:224.0.0.0/4     all
+    ACCEPT  $FW:224.0.0.0/4     loc                 all
+
+See http://www.shorewall.net/UPnP.html for further information on using
+linux-igd with Shorewall.
+
+3. Also, if you'd like to see debug information, and please do, as it helps us 
+resolve your conflicts, perform the following steps:
+
+A. Add the following lines to bottom of your /etc/syslog.conf file
+
+    # UPnP IGD messages
+    local6.!=debug					/var/log/messages
+    local6.*						/var/log/upnpd
+
+This will send all non-debug output to /var/log/messages, and all output including
+debug output to /var/log/upnpd. Modify as you like.
+
+B.  invoke-rc.d sysklogd restart  
+
+(or if you have a different syslog daemon installed, restart that in the
+way that it prefers).
+
+
+Daemon Startup
+--------------
+
+Configure the daemon in /etc/upnpd.conf and /etc/default/linux-igd.
+
+Now you should be ready to run the daemon.  Start it with the following
+command line:
+
+    invoke-rc.d linux-igd start
+
+Where the daemon isn't starting correctly, or exiting soon after with an
+error, you can run it in the foreground with 'upnpd -f <ext_ifname> <int_ifname>',
+preventing it daemonizing into the background; error messages will be sent
+to stderr also - this is good for testing, but don't forget to have the
+multicast route setup for it to accept multicast requests.
+
+To check and see if everything starts up ok, in /var/log/debug you should see 
+a few debug messages followed by Advertisements Sent, and possibly some 
+GetNATRSIPStatus and other messages.
+
+Another way to check this is to look in your Windows XP or later client
+under Network Conections.  Provided that you have installed the Internet
+Gateway Client software on Windows, you should see an icon for Internet
+Connection set to enabled in there.  If for some reason you don't,
+first try restarting the linux-igd daemon, which will cause it to send
+out its advertisements again.
+
+
+-- 
+Installation note Debianised 2008-04-05 by Nick Leverton <nick@leverton.org>

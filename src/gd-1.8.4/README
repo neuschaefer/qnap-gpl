@@ -1,0 +1,22 @@
+GD 1.8.4_patch
+
+This is a patched version of Tom Boutell's GD library version 1.8.4.
+It uses the GNU Autoconfig system to make it easier to compile libgd
+as a shared library, as well as to locate the correct link libraries.
+Compiling libgd as a shared library will make it easier to run the
+Perl GD interface in some cases.
+
+Please see INSTALL and readme.txt for full instructions.
+
+Installation Synopsis
+---------------------
+
+ % ./configure --enable-jpeg --enable-freetype2 --enable-xmp
+ % make
+ % make install
+
+Questions relating to the Perl GD module and to the functioning of
+this patch should be directed to Lincoln Stein (lstein@cshl.org).  All
+other questions relating to libgd should be directed to Tom Boutell
+(boutell@boutell.com).
+

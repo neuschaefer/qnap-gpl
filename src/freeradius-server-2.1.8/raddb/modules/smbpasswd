@@ -1,0 +1,16 @@
+# -*- text -*-
+#
+#  $Id: smbpasswd,v 1.1.1.1 2010/03/11 07:11:43 richardchang Exp $
+
+#  An example configuration for using /etc/smbpasswd.
+#
+#  See the "passwd" file for documentation on the configuration items
+#  for this module.
+#
+passwd smbpasswd {
+	filename = /etc/smbpasswd
+	format = "*User-Name::LM-Password:NT-Password:SMB-Account-CTRL-TEXT::"
+	hashsize = 100
+	ignorenislike = no
+	allowmultiplekeys = no
+}

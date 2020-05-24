@@ -1,0 +1,1339 @@
+Sat Oct 27 21:10:34 2007 Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.h: UTF8 runtime detection now disabled by default
+	-e3.asm: removed ugly hack (introduced in #210)
+	-Makefile: removed destinations statc, dync, dync2
+	 and added adjustments for linking on 32/64 bit
+	 and current YASM and NASM versions with different 
+	 command line syntax, added 2 make destinations,
+	 see release notes (in README) for details.
+	-e3_nasm_yasm.sed: extended script to avoid 
+	 later syntax errors in nasm 
+	-e3.c: added Christian Ostheimer's patch for gcc 4.1
+	 (thank you -- and sorry for delay!)
+	#215
+	***** FINAL RELEASE v2.7.1 *****
+------------------------------------------------------------
+Mon Jan 23 18:14:21 2006  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: bugfixed ^T key in empty file (WS edit mode)
+	#214
+	***** released as v2.7.0 *****
+-----------------------------------------------------------	
+Wed Jan 11 20:00:00 2006  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: various changes:
+	 *replace variable errno with _errno 
+	  for "make statc" working again
+	 * changed max filesize to 1024000
+	 * bugfix handling ascii character 127
+	-Makefile: removed make distination dync and dync2
+	#213
+------------------------------------------------------------
+Sun Jan  8 20:00:00 2006  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: added UTF8 switcher at cost of 90 byte.
+	This turns the editor from UTF-8 mode to 7 bit mode
+	and back. Use the special keys:
+	^KU in WS mode / ^QV in Pico mode / ^Y in Nedit mode
+	^U  in Emacs mode / ESC:u  in vi mode
+	#212
+------------------------------------------------------------
+Sat Jan  7 20:31:02 2006  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: improved handling of bad formated text 
+	 on UTF8 Unicode console (by complete ignoring this
+	 characters).
+	 Also added comments about some unused UTF8-runtime
+	 switcher code.
+	#211
+--------------------------------------------------------------
+Wed Nov 23 17:41:00 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: for error free assembling with current YASM
+	 releases added "section .data", also in "make debug"
+	#210
+-------------------------------------------------------------
+Mon Oct 31 11:41:00 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm, e3.h: on NetBSD we are now using some
+	 newer modern system calls: fstat (=279), lseek(=199)
+	#208,#209
+--------------------------------------------------------------
+Wed Oct 19 20:17:14 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm for NetBSD: replaced linux emulation with
+	 native NetBSD interface
+	 * changed push before int 80h
+	 * added special .note.netbsd.ident (just like openbsd)
+	#207
+	***** released as v2.6.3 *****
+--------------------------------------------------------------
+Sun Oct  2 17:53:34 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: added a "near" prefix to a jump 
+	 inside InputString (preventing jump distance overflow)
+	-e3.asm, e3.h, Makefile added special stuff
+	 for running on newer NetBSD (1.6 or 2.0 )
+	 Edit in Makefile: OS=NETBSD  now possible.
+	    (Thanks to Gabor Z. Papp for bug report.)
+	#206
+--------------------------------------------------------------
+Wed Aug 31 20:00:42 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: bugfix re-introducing missing error messages
+	 (AMD-64 version only)
+
+Wed Aug 31 xx:xx:xx 2005  Christian Ostheimer
+	-e3.c: adapted to mipsel (fritz box fon)
+
+	#205 (Thanks to Christian Ostheimer !!!)
+--------------------------------------------------------------
+Sun Feb 27 01:04:56 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm added runtime checking of console status
+	 (started this in #195). This solves some problems
+	 running e3/UTF8 in non-UTF8-terminals like "rxvt".
+	 [ We are trying to keep together the UTF-8 bytes 
+	   for 1 character also on non UTF-8 terminals. ]
+	#204
+--------------------------------------------------------------
+Sun Feb 20 10:30:02 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm bugfix: added forgotten line counter trigger
+	 at four special keys (^S,^D,^A,^F).
+	 Thanks for bug report to Pedro Gimeno Fortea !
+	-e3.asm: added check against empty string in filename
+	 additional to checking arguments counter. This avoids
+	 a problem of invoking e3 by Midnight Commander
+	 (usually by pressing F14 in mc for editing a new file).
+	#203
+	***** released as v2.6.2 *****
+--------------------------------------------------------------
+Wed Jan 26 17:32:47 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm,e3.h: bugfixes in system calls for wait4, 
+	 execve, fstat, utime: moved data structure to 64bit
+	#202
+------------------------------------------------------------
+Mon Jan 24 21:36:38 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm, e3.h: changed kernel interfacing on AMD-64 code
+	 for Linux from "int 80h" to syscall. The signal handler
+	 is now set via "rt_sigaction" (was old "sigaction"), 
+	 because "sigaction" doesn't seem available.
+	 Now e3-64bit can be traced with 'strace' again (no more
+	 'strace32').
+	#201 
+------------------------------------------------------------- 
+Sun Jan  9 19:13:39 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: repaired missing signal handler on 
+	 Linux/AMD-64 version. Thx to Andi Kleen.
+	#200
+-------------------------------------------------------------
+Mon Jan  3 18:00:48 2005  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm, e3.h: continued 64 bit version, i. e.
+	 fixed bugs in commandline reading and numerics
+	-e3.asm:added push ecx / pop ecx pair to save register ECX
+	 during the Wait4 system call: 
+	 Linux kernel 2.6.8 seems to need that (unlike 2.6.5)
+	 This crashed sed filtering, e.g. by ^KP in WS mode.
+	#199
+	***** released as v2.6.1 *****
+-------------------------------------------------------------
+Mon Dec 27 11:43:41 2004  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm, e3.h, Makefile: prepared e3.asm for generating
+	 64 bit files by using the YASM 0.4 assembler for the
+	 AMD-64 CPU (Linux only.)
+	-The AMD-64 code is built from e3.asm by running 
+	 sed converter script "e3_yasm_yasm64.sed"
+	 This script is now part of e3 distribution archive.
+	 *** Use it by entering  "make yasm64" ***
+	#198
+-------------------------------------------------------------
+Sun Oct 03 17:00:00 2004  Albrecht Kleine  <kleine@ak.sax.de>
+
+	- e3.asm, Makefile: prepared e3.asm for YASM assembler.
+	 Due ugly problems in jecxz op by "near jmp" vs "short jmp"
+	 we need a sed converter script: so added file
+	 "e3_nasm_yasm.sed" to distribution
+	 *** Use it by entering  "make yasm" ***
+	#197
+-------------------------------------------------------------
+Sun Jun 27 21:34:00 2004  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: clean up for next release
+	#196
+	***** released as v2.6.0 *****
+-------------------------------------------------------------
+Sun Jun 18 19:45:00 2004  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: trial for runtime detection of UTF-8 console
+	(switch via %ifdef UTF8RTS) ** not yet continued **
+	#195
+-------------------------------------------------------------
+Fri Jun 18 21:14:55 2004  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: optimizing previous builds
+	#194
+-------------------------------------------------------------	
+Thu Jun  3 20:50:17 2004  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm,e3.h: special cursor control, switch it via
+	%define NEW_CURSOR_MGNT in e3.h
+	see also:
+	/usr/src/linux/Documentation/VGA-softcursor.txt
+	#192,#193
+-------------------------------------------------------------
+Thu Jun  3 20:50:17 2004  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: added initial UNICODE UTF-8 
+	 stuff via checking the bits 7 and 8
+	#190,#191
+-------------------------------------------------------------
+Mon Apr 12 09:44:27 2004  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: for easier line input just added some 
+	 readline edit functions in InputString: 
+	 home / end / insert / delete / go_left / go_right
+	-Makefile: removed default usage of "gzexe":
+	 seems to be broken
+	 #189
+	***** released as v2.5 *****
+-------------------------------------------------------------
+Sun Apr  4 21:29:07 2004  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.h,e3.asm: make e3/OpenBSD work again by adding
+	 some ELF file specials needed for OpenBSD version 4.3.
+	 Many thanks to Benjamin Pineau!
+	 #188
+-------------------------------------------------------------
+Fri Nov 14 00:00:00 2003  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: a patch for Scott Swanson's vt420
+		use via %ifdef VT420SPECIAL
+	 #187
+-------------------------------------------------------------
+Fri Aug 09 00:00:00 2003  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: check file name linkage also in dynamic linked
+	 file versions
+	 #186
+-------------------------------------------------------------
+Mon Apr 21 18:22:36 2003  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: bugfix (a certain combination of
+	 sed-piping followed by UNDO operation could cause a
+	 crash with core dump)
+	 Many thanks for bug report to:
+	 basti at a181213.studnetz.uni-leipzig.de
+	 #185
+	***** released as v2.43 *****
+-------------------------------------------------------------
+Mon Mar 24 17:17:17 2003  Albrecht Kleine  <kleine@ak.sax.de>
+
+	- e3-16.asm: fixed bug in IsShowBlock
+	  replaced "cmp dword ...."   with    "cmp word ....."
+	  This makes e3-16 running on elks at old 8086 PC.
+	- e3-16.asm: LESSWRITEOPS are now switched on by default.
+	- e3.asm: added fchmod call to prevent file
+	  permissions modified by umask
+	  (was bug report on freshmeat site)
+	#184
+	***** released as v2.42 *****
+-------------------------------------------------------------
+Sat Mar  1 10:00:00 2003  Albrecht Kleine  <kleine@ak.sax.de>
+
+	- e3.asm: fixed heavy bug in FreeBSD version of e3,
+	  (core dump with newer FreeBSD kernels due ugly 
+	   workaround in e3 / now replaced by a real solution
+	   for sed child program piping, see also:
+	  http://www.freebsd.org/cgi/query-pr.cgi?pr=ports/47505 )
+	  Thanks to joseph at randomnetworks dot com for 
+	  his patience and assistance.
+	#183
+	***** released as v2.41 *****
+-------------------------------------------------------------
+Tue Oct  8 20:55:00 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	- e3.asm: fixed bug in Pico mode
+	  (repeated search&replace could hang e3: 
+	  Thanks for bug report to Roy Sutton!)
+	- added NO_AUTO_INDENT assemble time option
+	#182
+	***** released as v2.4 *****
+-------------------------------------------------------------
+Sat Oct  5 18:13:13 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	- NEW: added e3.s to the e3 distribution
+	  (NATIVE StrongARM assembler code for gnu assembler)
+	  Also included helper macros and emulayer.s.
+	  Also adjusted Makefile.
+
+	- e3-16.asm: added a %define for bypassing BIOS int 10h,
+	  function 1302h. Very slow, but running on some 
+	  very old 1980's PC.
+	#181
+-------------------------------------------------------------
+Sat Sep 14 15:44:02 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm/e3.h: initial assembler version for
+		the ARM CPU produced (for gnu-as,gnu-ld)
+		and running on the Zaurus PDA
+		(control by %define ARMCPU)
+
+Wed Jul 31 00.00.00 2002  Albrecht Kleine  <kleine@ak.sax.de>
+	e3-16.asm: changed some opcodes to pure 16 bit
+	e.g. replaced pusha with a sequence of 
+	push ax,push bx,.... etc for running on 8088 CPU.
+	#180
+-------------------------------------------------------------
+Sun May 19 17:30:59 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm:	bug fixed: search in Pico mode could
+		cause inf-loop if string was not found
+		MANY thanks to Robin Green!
+	#179
+	***** released as v2.33 *****
+-------------------------------------------------------------
+Thu May  2 09:01:11 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3c.c, e3c/Makefile : patch for running on PDAs
+	 running Linux on the StrongARM CPU
+	#178a
+	***** ARM binary released as v2.32 *****
+-------------------------------------------------------------
+Sat Apr 20 21:44:31 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: some adjustments to assemble again in Win9x
+	-e3-16.asm: added ^QI key (go line#) 
+		to the ELKS and DOS versions
+	-Makefile, e3.asm, e3.h changed variable errno to ErrNo
+		for better linking to libc, if desired.
+		Now this is also in FreeBSD possible,
+		see build #169 for make details.
+	#178
+	***** released as v2.31 *****
+-------------------------------------------------------------
+Tue Apr 16 20:31:28 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm	refined cursor position after vi's p and P cmds
+	-e3.asm vi mode: now also cmd x and X pasteable
+	-e3.asm bugfix in WS ^QY (introduced in #175
+		due vi command D changing)
+	-e3-16.asm: removed most of useless screen redrawing
+		for the ELKS version
+	#177
+-------------------------------------------------------------
+Sat Apr 13 20:57:41 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3-16.asm bugfix (^KR did not work in ELKS)
+		added special handling code of lseek
+		offset (32 bit arg #2) via I/O-pointer
+	-e3-16.asm bugfix (^KV did not work in ELKS and DOS)
+		(Tnx for report to Tim Pearce)
+	-e3.asm [libc versions] fixed bug in error handling: 
+		now using extern [_errno]
+	-e3.asm added UNDO information collector for Emacs ^T
+	#176
+-------------------------------------------------------------
+Wed Apr 10 18:11:42 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm added command dw (delete word) in vi mode 
+		(by Matthias's suggestion)
+	-e3.asm after pasting now changing cursor position
+		by using [EmaKiSize] (old was call CountToLineEnd)
+	-e3.asm	vi command mode
+		added cursor left motion after D command
+	-e3.asm	bugfix: vi command r was not undoable
+		(Tnx for report to Tim Pearce)
+	#175	
+-------------------------------------------------------------
+Sun Apr  7 19:30:36 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3-16:	added color support for e3-16/ELKS (*) ,
+		bugfixes and clean up for release
+	(*) ELKS (==Embeddable Linux Kernel Subset, 16 bit)
+	The 16 bit version has currently the label v0.1.
+	Build it via "make elks".
+	#174 
+	***** released as v2.3 *****
+-------------------------------------------------------------
+Wed Apr  3 20:30:33 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-initial 16 bit version having both ELKS and DOS
+	 in one source file  (control by %ifdef ELKS),
+	 supporting only WS keys, but not yet no ^KR
+	#173
+-------------------------------------------------------------
+Sat Mar 30 14:00:00 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-TASM->NASM conversion of old e2dos 16 bit stuff, 
+	 review and improving: now we can "official" support
+	 DOS, having e3-16.com and e3-16e.exe
+	-enhanced W32 file make.bat for using 16bit e3stub.exe
+	 as PE EXE stub for e3.exe.
+	 Now we have TWO different editor executables in ONE file,
+	 doing something useful instead of complaining about 
+	 "it can run only under Win32".
+	#172
+-------------------------------------------------------------
+Sun Mar 17 10:05:40 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-Makefile: fixed a nasty NASM version conflict 
+	 NASM 0.98.08 claims to use -O2 by default, but does not
+	 NASM 0.98    does not yet know the -O2 switch
+	-added special extension (via %define USE_EXT_MOVE):
+	 get cursor move operation a little bit smarter:
+	 double pressing of ^QD, for example, should return 
+	 cursor to original place, similar ^QC, ^QR, ^QS .
+	 This not yet activated by default.
+	 Tnx to Oleg Bartunov for suggestion.
+	#171
+	***** released as v2.21 *****
+-------------------------------------------------------------
+Sat Mar 16 12:54:50 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added some code in e3.asm and Makefile for running 
+	 an initial self test by running:
+	  # make test
+	 Self test is controlled by reading redirected input
+	 from files e3.h and tests/e3test0
+	-removed Atheos binaries from distribution,
+	 but of course e3 will stil run under AtheOS
+	#170
+--------------------------------------------------------------
+Thu Mar 14 19:16:02 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-prepared e3.asm code for dynamic linking in LINUX
+	-added 3 new make destinations for building 
+	 LINUX executables linked against libc:
+	  # make statc
+	  # make dync
+	  # make dync2
+	 (that are: static, dynamic_via_gcc, dynamic_via_ldd)
+	-some other byte squeeeeeeeeezed out of new UNDO code	 
+	#169
+--------------------------------------------------------------
+Sat Mar  9 13:43:25 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-rewrote UNDO for avoiding situations where undo
+	 could be impossible: 
+	 done by using an external undo storage file, 
+	 if neccessary (and dropped dialog from #167).
+	 Now at least undoing ONE level is _always_ possible,
+	 see new man page for details.
+	-added external sed-pipe (WS:  ^KP) to the 
+	 UNDOable operations.
+	-adjusted man page and html help file
+	-removed QNX and BeOS binaries from distribution,
+	 see special README in bin/BeOS and bin/QNX
+	#168
+	***** released as v2.2 *****
+-------------------------------------------------------------
+Tue Mar 05 19:20:21 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added info on available UNDO info
+	 in 1st column of status line (later removed again)
+	-added 'rollback' function for UNDOing all changes
+	 as long undo info on stack (for internal testing only)
+	-replaced word 'through' with 'thru' saving 
+	 at all 12 byte :-))
+	-added warning dialog if UNDO is impossible in 
+	 certain situations
+	#167
+-------------------------------------------------------------
+Sun Mar 03 18:00:01 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-improved UNDO-concept by using a ring buffer stack
+	#166 (pre-released as v2.2alpha)
+-------------------------------------------------------------
+Sat Mar 02 11:44:10 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-initial study for basic UNDO. 
+	 Many thanks for idea to Terry Loveall!
+	 Note: don't forget to visit his very nice 
+	 editor info page at:
+	       http://www.users.qwest.net/~loveall/Twee.htm
+	#165
+-------------------------------------------------------------
+Sun Feb 24 09:19:40 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added ^Z key (^KZ in WS) for the AtheOS
+	-bugfix: added missing RestCursPos call for ^Z
+	-bugfix: shown_as_dot chars in Linux now 80h...9Fh
+	 (old was 80h...0AFh)
+	-bugfix: 0d0a Return/linefeed problem on W32 fixed
+	#164
+	***** released as v2.11 *****
+-------------------------------------------------------------
+Tue Feb 19 18:08:23 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added patch useful for some LEAF project users,
+	 see contrib/
+	-added bugfix: never let edi go below start_of_text
+	-added bugfix against too much inserts in indent mode
+	 (pressing RET in a line w pending tab characters: i.e.:
+	 <BOL><tab><cursor><tab><tab><tab>.....<NewLine><EOL>
+	  old e3 could insert 3 chars too much)
+	#163
+-------------------------------------------------------------
+Sat Feb  9 12:16:15 2002  David Douthitt <DDouthitt@cuna.com>
+
+	-added option for COMPRESSing in Makefile
+	 (Set this to gzexe or upx if you want compression)
+	-clean target in Makefile removes e3~ backups 
+
+Sat Feb  9 12:16:15 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-control helptext depending on USE_MATH, 
+	 moved "^KM Set mode" message for WS mode
+	#162
+------------------------------------------------------------
+Sun Feb  3 10:55:23 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-changed edi,esi register usage in FreeBSD
+	-now using old lseek in FreeBSD for more common code
+	-removed unused error messages
+	-added more %ifdef for helptexts depending what is
+	 available on each OS and what is %defined by user
+	-at all more than 800 byte removed in #154..#161
+	#161
+	***** released as v2.1 *****
+-----------------------------------------------------------
+Mon Jan 28 00:00:00 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-more optimisation by size (e.g. with "movzx")
+	-fixed SetEditMode
+	-removed usage of gid,uid variables
+	-intro of "call ShowBl0"
+	-opt of EmaCtrl.. usage 
+	-moved error message texts to e3.h
+	-more reorg of %ifdef code
+	#158,#159,#160
+-------------------------------------------------------------
+Thu Jan 17 00:00:00 2002  Albrecht Kleine  <kleine@ak.sax.de>
+	-moved ELF header stuff into ORGheader macro in e3.h
+	-optimized startup var initialisation (InitSomeVars)
+	-replaced fstsw [x87] with fnstsw [x87], saving 1 byte ;-)
+	-more optimisation by size, more "short" jumps
+	-intro of IsEmMode,IsViMode (also saves space)
+	-reduced system dependen parts (%ifdef W32.....)
+	#157
+------------------------------------------------------------
+Sun Jan 13 00:00:00 2002  Albrecht Kleine  <kleine@ak.sax.de>
+	-moved lots of constants to e3.h
+	-heavy optimisation of GetHelpText
+	-rearranged code for replacing many "near" jumps 
+	 by "short" ones
+	-intro of utimbuf struc
+	#156
+------------------------------------------------------------
+Thu Jan 10 00:00:00 2002  Albrecht Kleine  <kleine@ak.sax.de>
+	-intro of fstatbuf structure
+	-intro of symbolic constants for each OS version
+	 (e.g. SYS_exit vs. 1)
+	-removed some dummy calls when sys call is not supported
+	 (%ifdef ATHEOS / xor eax,eax / ret / %else / .......)
+	-FreeBSD replaced call 7:0 by int 80h, is shorter ;)
+	#155
+------------------------------------------------------------
+Sun Jan  6 19:01:19 2002  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-new file e3.h: started moving system dependend stuff
+	 into header file
+	-bugfix in OpenBSD (system call #342 not available)
+	 (tnx for report to rmm@cynexus.net)
+	-e3.asm: added option to suppress sed/ex pipe
+	 introduced in #109 (to save 500 byte if neccessary)
+	#154
+--------------------------------------------------------------
+Sat Dec 22 20:35:12 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: changed support of Atheos OS to direct 
+	 kernel calls, no more libc usage
+	#153
+	***** released as v2.01 (ATHEOS ONLY) *****	
+-------------------------------------------------------------
+Fri Dec 21 20:01:57 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: initial support of Atheos OS (via libc)
+	#152
+-------------------------------------------------------------
+Tue Dec 18 19:30:22 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added vi's M command (jmp to middle of screen pos)
+	-now set cursor to last line when suspending via ^Z
+	#151
+	***** released as v2.0 *****
+--------------------------------------------------------------
+Fri Dec 14 20:30:12 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm/W32 version:
+	 * added clipboard functions for the Nedit version:
+	   i.e. ^C,^X,^V are working as usual in Win9x
+	   and can cut&copy&paste texts via Win9x-clipboard
+	 * characters 0x80-0x9F are shown again (in W32)
+	#150
+--------------------------------------------------------------
+Wed Dec 12 20:30:53 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: added "cursor_left" motion for e3vi
+	 when switching into COMMAND MODE. This makes
+	 e3vi once more act a bit like original vi.
+	 Does work for Linux, FreeBSD, Win9x, QNX
+	 but not for BeOS (due missing select syscall)
+	-Bugfix in SaveBlock for the BeOS version
+	 (could not existing file overwrite in ^KW)
+	-replaced finit with fninit, saving 1 byte ;-)
+	-e3.c: fixed some comparisations with prefix
+	 "unsigned long"
+	#149
+--------------------------------------------------------------
+Thu Dec  6 20:04:35 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-bugfix ^SPACE in the Win32 version
+	 (this makes e3em,e3ne more useable in W32)
+	-bugfix wrong %ifdef...%else...%endif for BEOS
+	-some experiments using Win32-clipboard,
+	 but not yet ready for release
+	#148	 
+	***** released as v1.9 *****
+--------------------------------------------------------------
+Sun Dec  2 16:59:43 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: added SIGNAL HANDLING (see #146) to the
+	 FreeBSD version
+	-e3.asm: optimized handling of NE helptext
+	-added a note in contrib/README about the usage of
+	 the "tinlink & 624 super duper" self compressor
+	 tools
+	-adjusted e3.html, e3.man
+	#147
+--------------------------------------------------------------
+Thu Nov 29 22:12:26 2001   Albrecht Kleine  <kleine@ak.sax.de>
+	=the day the great George Harrison died :-(
+	
+	-added code to prevent editing non-regular files
+	 on FreeBSD (because different kernel "read"
+	 behaviour in Linux vs FreeBSD)
+	-added SIGNAL HANDLING acting on ^Z for job control
+	 (for vi,emacs,pico,nedit modes, but ^KZ for WStar).
+	 This does work currently for LINUX only, 
+	 the main problem was screen redrawing at SIGCONT.
+	#146
+--------------------------------------------------------------
+Mon Nov 26 20:06:50 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-hide return character 0dh on W32 version (expecting 
+	 0d0a line delimiter)  /  control via %define W32LF
+	 So the W32 version of e3 can edit texts with 0d0a
+	 and single 0ah correctly. The Linux/*BSD/BeOS/QNX-
+	 versions will continue showing 0dh characters as 
+	 single dots.
+	#145
+--------------------------------------------------------------
+Wed Nov 21 19:15:58 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added Makefiles and ported binaries to distribution 
+	 archive for the OpenBSD and NetBSD operating systems
+	#144
+	***** released as v1.82 *****
+--------------------------------------------------------------
+Sat Nov 10 20:05:05 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-continued QNX stuff (cursor key handling etc.)
+
+Thu Nov 08 17:03:00 2001   Terry Loveall  <loveall@qwest.net>
+
+	-added 19 short prefixes to jumps for assembling with newer
+	 NASM versions (w/o using special command line switches)
+	#143
+	***** released as v1.81 *****
+--------------------------------------------------------------
+Thu Nov 08 16:50:17 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added initial basic support for QNX 6.1 Realtime OS
+	 done by dynamic linking with /usr/lib/libc.so.1,
+	 this is controled by %ifdef QNX
+	#142
+--------------------------------------------------------------
+Fri Nov 02 16:47:00 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-cleanup for release
+	-Makefile: added desination "w32lst" for 
+	 cross assembling w32 versions on Linux
+	-man page: updated for W32 versions
+	-added e3.html as manual page substitute for W32 systems
+	#141
+	***** released as v1.8 *****
+--------------------------------------------------------------
+Sun Oct 28 21:12:44 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-bugfix ^F WStar (did not stop at line begin)
+	-Win9x: enhanced screen redrawing with colors
+	 (select via %define W32_EXTENDED_IO)
+	#140     
+--------------------------------------------------------------
+Sun Oct 21 16:09:58 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	rewrote key handling (for alt- and cursor keys) on Win9x
+	#139
+--------------------------------------------------------------
+Sat Oct 20 13:09:36 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	initial port to Win9x 
+	(no cursor keys, no Alt keys, no colors & very slow)
+	#138
+--------------------------------------------------------------
+Sun Oct 14 18:34:18 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-rewrote the vi mode marker commands:
+	 ma ,  d'a and  y'a .  Added 'a  (=jmp to marker).
+	 Tnx to Matthias Kopfermann for bug report.
+	-added mulinux patch by Philipe Corbes. Tnx.
+	#137
+	***** released as v1.71 *****
+--------------------------------------------------------------
+Tue Aug 21 15:02:46 2001 Charles Steinkuehler <charles@steinkuehler.net>
+
+	-added :x command to the vi emulation mode of e3
+	#136a
+--------------------------------------------------------------
+Sun Jul  8 18:44:08 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added variable 'r' and constant 'p' to calc module:
+	 r is for using last result in next calculation,
+	 p is PI (more precise than simply using 3.141593)
+	#136
+	****** released as v1.7 ******	
+--------------------------------------------------------------
+Mon Jun 25 20:37:45 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-completed arithmetics by adding parenthesis ()
+	 to calc parser
+	-added build option BUILTINHELP on top of e3.asm
+	 (undefine if you really don't need help,
+	  but saves 30% space in uncompressed version)
+	  and 18% in gzexe-compressed version)
+	-added arithmetics to man page
+	#135
+--------------------------------------------------------------
+Tue Jun 19 21:18:14 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-completed arithmetics by adding signs to parser
+	-premium bugfix in subtraction: a-b-c now a+(-b)+(-c)
+	#133,#134
+	****** released as v1.62 ******
+---------------------------------------------------------------
+Sun Jun 10 14:57:38 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-bugfix tabulator in very long lines
+	-bugfix: helptext vi
+	-bugfix: characters 0x80-0x9F now shown as a dot
+	-horizontal scrolling in long lines now earlier
+	#132
+	****** released as v1.61 ******
+		including different binaries for BeOS, FreeBSD)
+--------------------------------------------------------------
+Mon May 28 20:23:00 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added another wrapper script   (see contrib directory)
+	 thanks to Tito <farmatito@tiscalinet.it>
+	-e3.asm:
+	 initial try for simple arithmetics with +-*/
+	 using a recursive descent parser 
+	 #127-#131, several steps
+	 ****** released as v1.6 ******
+--------------------------------------------------------------
+Sun May 6 21:36:46 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: improved WStar mode:
+	-added ^Z, ^W for scrolling up/down 
+	 (cursor tries to stay at his original line)
+	-changed ^J to help page
+	-changed ^A,^F in WStar mode for skipping by word
+	 (thanks for note to Dan Strychalski)
+	#126  (released as v1.51, 
+		including 3 different compressed binaries)
+--------------------------------------------------------------
+Sun Apr 22 13:04:06 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: removed line wrapping in vi mode 
+	(fixing vi mode command keys l,h,a)
+	
+Tue Apr 17 13:35:05 2001   David Douthitt <n9ubh@callsign.net>
+	README file: review and update
+	Makefile: fixed upx compressor usage
+	#125  ****** released as v1.5 *********
+-------------------------------------------------------------
+Tue Apr 17 20:25:10 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added experimental beeping in case of unsupported
+	 VI command letters (but not at EOF,BOF,EOL,BOL)
+	 [ configured via  %define BEEP_IN_VI ]
+	-added experimental beeping if child process 'sed'
+	 complains about a wrong input command line   
+	 Also avoids writing sed's STDERR to our edit screen.
+	 [ configured via  %define CAPTURE_STDERR ]
+	#124
+-------------------------------------------------------------
+Mon Apr 16 21:38:06 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: vi emulaton mode:
+	-added 'yy' key binding
+	-added variable "VInolinebased" for controling 
+	 line based pasting
+	-improved d'a y'a (re-numbering, cursor position etc.)
+	#123
+---------------------------------------------------------------
+Sun Apr 15 20:58:16 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: added 'D','C' key binding for vi command mode
+	#122
+--------------------------------------------------------------
+Sun Mar 25 12:16:15 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: added 'r' key binding for vi command mode
+	#121
+--------------------------------------------------------------
+Sat Mar 24 22:11:22 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: adding a carriage return to the end of the 
+	 file if there isn't any (vi mode only)
+	-e3.asm: bugfix in vi mode :w! command:
+	 no more writing files named '!'
+	(thanks for report to David Douthitt)	  
+	
+Fri Mar 16 01:53:38 2001  Adrian Bunk <bunk@fs.tum.de>
+	Makefile: replaced upx compresor with gzexe
+	(save more than 1024 bytes in executable)
+
+Thu Feb 15 19:01:09 2001 Hilton Chiang <hilton_chiang@ipmental.com.tw>
+	e3.c: changed 'columns' setting in e3.c to fix it to 80x24
+	 (due portability problems)
+	#120
+-------------------------------------------------------------
+Mon Jan  1 12:00:00 2001   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-tested for running in Linux ak 2.4.0-test7: ok
+	-adjusted 'ex' path to more common '/usr/bin/ex'
+	-extended backup copy procedure (preserve change time)
+	#119  ****** released as v1.4 *********
+--------------------------------------------------------------
+Wed Dec 27 19:08:08 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-fixed handling of Del key in FreeBSD
+	-added specials for FreeBSD for piping via sed or ex
+	-Pico mode: added ^JT for repeating ^T (search&replace)
+
+Fri Dec 22 10:54:02 2000   Zas <lmonin@metaconcept.com>
+	-Pico mode: added ^JP for buffer piping like in vi mode
+	#118
+--------------------------------------------------------------
+Sat Dec 23 13:56:22 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-divide (via readlink) between files and symlinks 
+	 for back-up method (rename or copy old file)
+	-added initial backup copy procedure
+	-added changes for making error free assembling 
+	 on FreeBSD and BeOS :  thanks for note to 
+	 Joseph Scott <joseph@randomnetworks.com>
+	#117
+--------------------------------------------------------------
+Tue Dec 19 18:07:00 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added access to vi's EX cmdline to WStar and 
+	 Emacs modes using either ^KP or ^X^P
+	-bugfix in esi parameter to "wait4" kernel call
+	-bugfix line re-numbering after deleting in pipe
+	-bugfix checking cursor position after pipe errors
+	#116  ****** released as v1.3 *********
+--------------------------------------------------------------
+Sun Dec 17 18:22:12 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-vi mode only: added a way for child process running 
+	 /bin/ex instead of /bin/sed (have different interfaces)
+	 (Use ex by setting EXMODE to EX in makefile!)
+	#115
+--------------------------------------------------------------
+Sat Dec 16 11:34:28 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-ask before saving in Emacs mode key ^X^F, 
+	 ditto Nedit mode keys ^N and ^O
+	-prevent buffer mark problems if start editing
+	 another file
+	#114
+-------------------------------------------------------------
+Fri Dec 15 21:45:03 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added buffer overflow protection in sed piping
+	-added internal EOF marker handling in sed piping
+	-checked bad values before try to paste
+	#113
+--------------------------------------------------------------
+Wed Dec 13 20:21:15 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-improvements nedit mode ^A,^W
+	-added error checking to sed piping process
+	#111,#112  ****** released as v1.2 *********
+--------------------------------------------------------------
+Sun Dec 10 16:48:45 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added nedit-similar new mode
+	 due request by Denis <jido@respublica.fr>
+	-improvements in sed pipe
+	-e3.c: 	removed usage of multibyte chars because not 
+		portable to mips systems
+	#110
+--------------------------------------------------------------
+Sat Dec  9 20:05:05 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-initial piping through /bin/sed using a helper file
+	 (vi mode under Linux only) / (thanks Michele for idea)
+	-bugfix vi mode: exchanged ^U and ^D
+	 (thanks for report to David Duffy <davidD@qimr.edu.au>)
+	-bugfix vi mode: search is now case sensitive
+	 (thanks for report to David Douthitt)
+	-re-added e3c to the distribution, but separated
+	#109
+--------------------------------------------------------------
+Sat Dec  9 20:05:04 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-very fruitless experiments for bidirectional piping 
+	 through /bin/sed
+	-introduction of using UPX packer in Makefile
+	 see http://wildsau.idv.uni-linz.ac.at/mfx/upx.html
+	#107,#108
+--------------------------------------------------------------
+Mon Dec  4 19:33:07 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-fixed a bug in optslen (only for vi :e,:w of interest)
+	 (tnx bug report Aaron Lehmann <aaronl@vitelus.com>)
+	-changed Makefile for FreeBSD and BeOS (ELF header build)
+	#106 (v1.1a released)
+--------------------------------------------------------------
+Sun Dec  3 10:51:19 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added :e <file>  command for the vi-friends
+	-added "edit mode switching" to the list of 
+	 documented commands (^KM, ^QM, ; , altX)
+	#105 ****** released as v1.1 *********
+--------------------------------------------------------------
+Sat Dec  2 17:41:31 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added e, G, 1G  and  ma, d'a, y'a   commands for 
+	 the vi-friends (as recommended by David Douthitt)
+	 attention: <n>G is not yet available!
+	-bugfix in P and p (vi paste)
+	#104
+--------------------------------------------------------------
+Wed Nov 22 17:37:15 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added 'z.' and ':w <file>' commands for the vi-friends
+	 (now using cripled ELF header by default, compare #62)
+	#103
+---------------------------------------------------------------
+Sun Nov 19 10:25:15 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added bugfix for buffer overflow protection (e3pi,e3em)
+	 (tnx report to Zas <lmonin@metaconcept.com>)
+	-squeezed some byte using 'short' attributes etc.
+	-setting block variable and emacs killbuffer size to 0
+	 avoiding side effects for save online edit-mode switching
+	-added 'ZZ' command for the vi-friends
+	#102 (v1.02 released)
+--------------------------------------------------------------
+Sun Nov 12 10:35:35 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-squeezed ca.16 byte from KeyHelp, LookPageUp
+	 added :w for vi mode, completed vi mode help
+	-bugfix dd/^K for vi/pico modes (crash if last line)
+	 (tnx report Sergei Viznyuk <sviznyuk@hotmail.com>)
+
+Sat Nov 11 10:00:29 2000 David Douthitt 
+			<ddouthitt@mennonite.minister.net>
+	-added wrapper script for sequential editing of files
+	#101 (v1.01 released)
+--------------------------------------------------------------
+Fri Nov 10 18:00:00 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	bugfixes & last minute changes & clean up
+	#100 ****** released as v1.0 *********
+---------------------------------------------------------------
+Wed Nov  8 19:51:57 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added S,X for vi cmd mode, bugfix :<line> vi mode
+	-another patch for serial connections (tnx LRP folks)
+	-updated manpage+README
+	-bugfix in Alt-X (and friends)
+	-bugfix in ^QF (and friends)
+	#99
+--------------------------------------------------------------
+Tue Nov  7 21:11:11 2000   Albrecht Kleine  <kleine@ak.sax.de>
+
+	-MERGED ALL editor emulations TOGETHER
+	-moved "equ" to top for shorter code
+	-added online help+initial help pages
+	-tons of bugfixes for #96,#97
+	-removed e3c.c from distribution and Makefile
+	-removed e2dos from distribution and Makefile
+	#98
+--------------------------------------------------------------
+Wed Nov  1 21:57:00 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm finished limited vi mode by adding this 
+	 	commands: ^D,^U,^,/,?,p,P and changed 'I'
+	-e3.asm extendend PICO mode for some 
+		^Q Quick move
+		^J Junk - operations
+	-e3.asm chg. exit choices to save: select between Y,n,l
+		(Y)es is default, l means "save+load_new_file"
+	-e3.asm WS mode: bugfix for ^QH
+	-e3.asm added %define MAKE_BACKUP (default is ON)
+	-e3.asm differ between ^J and ^M via terminal control
+	 removing "icrnl" terminal property
+	-added/rewrote help texts
+	#97 branded v0.98
+-------------------------------------------------------------
+Tue Oct 24 21:14:32 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: added initial PICO emulation mode: 
+	differs from PICO as follows
+		^O save (not save_as)
+		^S save_as
+		^XL save & load a new file
+		^T search & replace, not 'to spell'
+	#96
+-------------------------------------------------------------
+Fri Oct 20 21:14:43 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-e3.asm: bugfix missing ^QZ, renamed ALL_IN_ONE
+		 with HELPFILES_INCLUDED
+	-e3.asm: intro some basics of the VI emulation mode
+	-e3.asm: bugfix ^S Emacs mode
+	#95   ******* released as v0.9 ********
+-------------------------------------------------------------
+Sun Oct 15 19:41:09 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-asm+c:  bugfix ^QP in wordstar mode
+	-e3c.c:  bugfix ^KC (if cursor is inside block)
+	-renamed help text files for handling both (emacs+ws)
+	-e3.asm: some finetuning emacs mode, added ^X^W
+	#94
+-------------------------------------------------------------
+Wed Oct 11 21:00:00 2000  Albrecht Kleine  <kleine@ak.sax.de>
+	-e3.asm: now wrapping cursor around at left and 
+		 right margin (like joe, emacs etc)
+	-e3.asm: EMACS mode: add/rewrote ^K, region stuff, 
+		 ^L, alt F, alt B
+	#93
+-------------------------------------------------------------
+Sun Oct  8 19:07:34 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: added basic EMACS emulation mode using most
+	important 8 Alt-keys, 5 Ctrl-X-keys, 20 Ctrl-keys
+	Compile it via %define EMACS
+	Problems: ^K works different+confusion with WS blocks
+	#92
+------------------------------------------------------------
+Sun Oct  1 11:42:50 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: rewrote cursor key and control key handling
+	using another XLAT table (saves another 32 byte)
+	#91
+-------------------------------------------------------------
+Sun Sep 24 11:35:53 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.asm: sqeezed once more 32 byte from executable,
+	mostly by replacing inc/dec 8 bit with 32 bit version
+	#90   ******* released as v0.8 ********
+-------------------------------------------------------------
+Sun Sep 17 11:39:14 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-Added 'make special' to Makefile: this will produce
+	 an e3 executable with helper file contents inside 
+	 *one* file via defining ALL_IN_ONE.
+	-Sqeezed e3.res for this purpose and adjusted e3.c .
+	-Added Make_helper_inc script (using Perl) for 
+	 converting e3.res and e3.hlp into NASM syntax.
+	-e3.c bugfix in MoveBlock
+	-e3.hlp, e3.man added forgotten help text for ^KV
+	#89
+-------------------------------------------------------------
+Mon Sep  4 17:36:09 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.c: removed usage of CY and ZR flags 
+	(resulting better performance and less size)
+	Makefile: added '-fomit-frame-pointer' to gcc options
+	#88
+-------------------------------------------------------------
+Sun Sep  3 10:07:42 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.c: removed 8 bit sub-register usage (al,bl,..),
+	started removing flag register usage
+	#87
+-------------------------------------------------------------
+Sat Sep  2 20:45:15 2000  Albrecht Kleine  <kleine@ak.sax.de>	
+	e3.asm,e3.c: removed old keybard scancode values 
+	(heritage from old DOS version)
+	#86
+-------------------------------------------------------------
+Sat Sep  2 13:07:04 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3c: removed any side effects resulting in al,ah 
+	as part of eax,bl,bh part of ebx ... etc. etc. 
+	now no more register unions, made variables local
+	#85
+-------------------------------------------------------------
+Fri Sep  1 22:00:00 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.c: some steps to improve C version
+	#82,#83,#84
+-------------------------------------------------------------
+Wed Aug 23 20:31:26 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.c: changed usage of flags (sf,cy)
+	#81   ******* released as v0.7 ********
+-------------------------------------------------------------
+Sun Aug 19 20:31:26 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	e3.c: bugfix in Delete, also removed some useless 
+	sf() calls,  bugfix for #ifdef,  added missing h files
+	#80 
+-------------------------------------------------------------
+Sat Aug 19 21:03:08 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-some clean up for releasing
+	-adjusted makefile
+	-e3.asm: replaced one jl with jb
+	-e3.c: removed some useless sf() calls,
+	 bugfix: unsigned char vs. char
+	 bugfix in ^QB
+	#79
+-------------------------------------------------------------
+Fri Aug 18 19:12:44 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added support of VT300 terminal keys (not available
+	 on asm version to keep tiny)
+	-added changes for running on OSF/1 Unix (64 bit 
+	 Alpha CPU machines) related to data alignment errors.
+	#78 (C-version only)
+-------------------------------------------------------------
+Thu Aug 17 22:00:10 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added a C written version (!!!) of e3 for 
+	 generic platforms. This is a functional copy
+	 of #76, with minor changes in system interfaces
+	 (kernel calls and termios handling).
+	#77 (C-version only)
+-------------------------------------------------------------
+Wed Aug 16 18:55:00 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-bugfix: added check for ioctl/TIOCGWINSZ syscall 
+	 aginst size 0/0 (so using 80x24 in case of problems)
+	 tnx bug report to Urs Rau <urs.rau@uk.om.org>
+	-bugfix: replaced one forgotten di with edi
+	-removed 3 unused labels
+	#76
+-------------------------------------------------------------
+Sun Jun 18 21:20:03 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-bugfix: empty replace string is allowed (in ^QA)
+	#75
+-------------------------------------------------------------
+Sat Jun 10 10:19:28 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-bugfix for Ctrl-L (was bug if already searched and 
+	 later empty search string)
+	-bugfix for bugfix in #71 (redisplay problem)
+	-sqeezed some byte for BeOS to keep < 5000 byte
+	#74
+-------------------------------------------------------------
+Sat Jun  3 14:58:22 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-workaround for 'crontab -e' problem 
+	 (no more RenameFile in /tmp files)
+	#73   ******* released as v0.6 ********
+-------------------------------------------------------------
+Sat Jun  3 12:32:24 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-enhanced BeOS support
+	 (now supporting all e3 functions, the syscalls are 
+	  working completely, but in some cases sometimes 
+	  I don't know why ;)
+	-bugfix showing line numbers in BeOS
+	-bugfix setting block begin mark (bug intro in #69)
+	#72
+-------------------------------------------------------------
+Fri Jun  2 13:00:00 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-bugfix for missing redisplay in function Inputstring 
+	 (set new cursor position) if ' ' [=chr(32)] entered.
+	 (This bug was introduced in build #63.)	
+	#71
+-------------------------------------------------------------
+Fri Jun  2 12:27:24 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added initial support for BeOS (PE 5)
+	 (all except ^KR supported)
+	#70
+------------------------------------------------------------
+Tue May 30 20:10:40 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	reorganized Inserting/Deleting (squeezed 66 byte)
+	#69
+-------------------------------------------------------------
+Sat May 27 19:31:37 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-replaced some mov eax,.. with xchg eax,... 
+	 single_byte opcode
+	#68   ******* released as v0.5 ********
+------------------------------------------------------------
+Thu May 25 19:42:29 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added missing chown/chgrp handling
+	-bugfix in NewFile
+	#67
+-------------------------------------------------------------
+Wed May 24 19:27:29 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	sqeezed another 15 byte around ESC sequence functions
+	SetInverseStatus, SetColor and SetColor2 
+	#66
+-------------------------------------------------------------
+Wed May 24 19:01:31 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	added protection against screenbuffer overflow
+	#65
+-------------------------------------------------------------
+Tue May 23 21:06:43 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	now reducing useless cursor movements also
+	#64
+-------------------------------------------------------------	
+Mon May 22 19:20:55 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-reduced counts of useless writes, but still some
+	 useless cursor movements
+	-recuced sys_writeSL byte write count by 1
+	#63 
+-------------------------------------------------------------
+Sun May 21 12:04:40 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-built an editor version using crippled ELF header 
+	 (saving 220 byte) inspired by an idea in "A Whirlwind 
+	 Tutorial on Creating Really Teensy ELF Executables 
+	 for Linux"  by Tiny Software BR903.
+	 You can create it by "make crip install" using Linux.
+	 If you want debug, then better build a "standard"-e3!
+	#62
+-------------------------------------------------------------
+Tue Apr 04 20:04:14 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-some experiments to reduce screen redrawing
+	 (later discarded: heavy increases filesize)	
+-------------------------------------------------------------
+Sun Apr 02 21:21:00 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added bugfix (FreeBSD errno)
+	#61
+-------------------------------------------------------------
+Fri Mar 31 21.58.52 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-experimental usage of esc[K to clear to eol
+	-squeezing some more byte from excutable
+	-added spec file to ./contrib/ for later RPM support
+	#60  released as v0.4
+-------------------------------------------------------------
+Sat Mar 25 16.32.12 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added old e2 for DOS to distribution
+	-bugfixes/enhancements in Makefile,
+	-initial e3.spec for providing RPM archives
+	 thanks to Urs Rau <urs.rau@uk.om.org>
+	#59
+-------------------------------------------------------------
+Fri Mar 24 23:00:02 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	- removed bug in setting file permissions of existing 
+	  files using fstat system calls
+	#58
+--------------------------------------------------------------
+Sun Mar 19 17:38:41 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-release 0.3:
+	 *sqeezed some more byte
+	 *bugfixes
+	 *initial support for FreeBSD
+	#57  released as v0.3
+-------------------------------------------------------------
+Thu Mar 16 21:13:09 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added initial early support for FreeBSD
+	#56
+-------------------------------------------------------------
+Wed Mar 15 21:00:00 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-bugfix in ^QE
+	-bugfix in KeyDel in empty files:
+	 thanks to Mark Zealey <mark@itsolve.co.uk>
+	#55
+-------------------------------------------------------------	
+Sat Mar 11 21:08:21 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-sqeezed some more 44 byte
+	#54
+-------------------------------------------------------------
+Sun Mar  5 21:12:26 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-added special inverse cursor handling on linux terminals
+	 (to mark INS mode, but standard cursor for OVR mode)
+	-added BAK file (*~) producer code
+	#53,  released as v0.2
+-------------------------------------------------------------
+Sun Mar  5 12:00:01 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-rewrote InputString: no more simple read from stdin,
+	 although current is not much better, but we avoid unwanted
+	 scrolling and abort via ^U (like WStar)
+	#52
+-------------------------------------------------------------
+Sat Mar  4 11:11:30 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-removed "fline,fcol" data assuming text window always 
+	 will start upper left at 0,0 (saves 72 byte)
+	-continued status line optimization (saves 20 byte)
+	-squeezed INT calls
+	-removed some mov ebx,std..
+	#51
+-------------------------------------------------------------
+Thu Mar  2 20:58:00 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-removed unused instruction in ^KY
+	-touched ^QB,^QK
+	-squeezed around status line and sys_writeSLColors functions
+	 (at all 34 byte)
+	#50
+-------------------------------------------------------------	
+Tue Feb 29 21:09:54 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	-bugfix (handling ^C in file name & line number input)
+	-bugfix too less buffer space for small files
+	-rewrote IntegerToAscii (squeezing 20 byte)
+	-replaced some mov eax,.. with xchg eax,..
+	#49
+-------------------------------------------------------------
+Tue Feb 27 19:00:00 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	public release 0.1, file #48
+-------------------------------------------------------------
+Tue Jan 11 21:06:02 2000  Albrecht Kleine  <kleine@ak.sax.de>
+
+	started port of my old 1990 editor EDDI (was DOS v2.81) 
+	to Linux
+	file #01
+	

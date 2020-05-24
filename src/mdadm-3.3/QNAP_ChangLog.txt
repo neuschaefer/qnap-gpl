@@ -1,0 +1,52 @@
+1. add -DQNAPNAS
+   - Related files: Makefile
+
+2. Fixed bug 19463
+   To make version 0.9 can support up to about 4TB
+   Change to unsigned int to support up to 4TB
+   - Compile switch: QNAPNAS
+   - Related files: Detail.c, md_u.h, super0.c
+
+3. Fix bug 16554, 16611
+   array size overflow
+   - Compile switch: QNAPNAS
+   - Related files: Manage.c
+
+4. Patch QNAP RAID Recovery function
+   mdadm --q-examine
+   - Compile switch: QNAPNAS
+   - Related files: Examine.c, mdadm.c, mdadm.h, ReadMe.c, super0.c, super1.c
+
+5. Modified by KenChen 20071101
+   Force return "0" if failed to find backup of critical section
+   - Compile switch: QNAPNAS
+   - Related files: Grow.c
+
+6. Use KiloByte instead of sector size for the unit of "Used Dev Size"
+   - mdadm had already changed this unit to KB since 2.6.9
+   - Related files: Detail.c (Don't need to patch it for this item.)
+
+7. If --homehost doesn't be specified by creation,
+   the hostname will be prefixed to the array name in mdadm-3.2.5.
+   That will impact the original design of NAS library.
+   - Compile switch: QNAPNAS
+   - Related files: mdadm.c
+
+8. Fix compiler warning due to "warnings being treated as errors".
+   - Related files: config.c
+
+9. Add TMPFS_MAGIC and RAMFS_MAGIC for compiler happy.
+   - Related files: util.c
+
+10. Support to fail/remove non-existent device.
+   - Related files: Manage.c
+
+11. Task #7333:
+    Set default MD metadata to 1.0 if no --metadata or -e is specified.
+   - Related files: super1.c
+12. Fix bugzilla#99578
+    Merge the patch from mdadm release.
+    https://github.com/neilbrown/mdadm/commit/ada38ebbcb9b28c4f865e77c736a7a467d0fb967
+    Grow: retry when writing 'reshape' to 'sync_action' is EBUSY.
+   - Related files: Grow.c
+

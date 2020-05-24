@@ -1,0 +1,8 @@
+#!/bin/sh -e
+# $Id: prerm,v 1.1.1.1 2010/04/15 06:46:10 kent Exp $
+
+if [ "$1" = remove ] || [ "$1" = deconfigure ]; then
+	update-alternatives --remove ftp /usr/bin/netkit-ftp
+fi
+
+#DEBHELPER#

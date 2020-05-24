@@ -1,0 +1,33 @@
+This package was debianized by José Fonseca <j_r_fonseca@yahoo.co.uk> on
+Sun,  5 Mar 2006 13:51:39 +0000.
+
+It was downloaded from http://linux-igd.sourceforge.net/
+
+It is now maintained by Nick Leverton <nick@leverton.org>.
+with thanks to Jochen Friedrich for help and contributions.
+
+Daniel Blueman clarified the licensing in email as follows:
+ "Yes, linuxigd was understood to be under the GPLv2 license, so I
+ clearly need to fix it to ensure there is no doubt."
+
+Copyright 2002,2003 Glover George <dime@gulfsales.com> and contributors.
+Copyright 2006-2008 Daniel J Blueman <daniel.blueman@gmail.com> and contributors.
+
+License:
+
+   This package is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, version 2.
+
+   This package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this package; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+On Debian systems, the complete text of the GNU General Public License
+version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+

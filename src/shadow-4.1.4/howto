@@ -1,0 +1,1 @@
+CFLAGS="-DQNAPNAS -I${TARGET_PREFIX}/include -I${TARGET_PREFIX}/usr/include" LDFLAGS="-L${TARGET_PREFIX}/lib -L${TARGET_PREFIX}/usr/lib" ./configure --without-libpam --disable-shadowgrp --without-sha-crypt --without-nscd

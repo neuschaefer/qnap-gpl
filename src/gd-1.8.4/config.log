@@ -1,0 +1,56 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:576: checking for a BSD compatible install
+configure:629: checking whether build environment is sane
+configure:686: checking whether make sets ${MAKE}
+configure:732: checking for working aclocal
+configure:745: checking for working autoconf
+configure:758: checking for working automake
+configure:771: checking for working autoheader
+configure:784: checking for working makeinfo
+configure:801: checking for gcc
+configure:914: checking whether the C compiler (powerpc-linux-gcc  -L/opt/cross-project/TS-101/tools/lib) works
+configure:930: powerpc-linux-gcc -o conftest  -I/opt/cross-project/TS-101/tools/include -L/opt/cross-project/TS-101/tools/lib conftest.c  1>&5
+configure:956: checking whether the C compiler (powerpc-linux-gcc  -L/opt/cross-project/TS-101/tools/lib) is a cross-compiler
+configure:961: checking whether we are using GNU C
+configure:989: checking whether powerpc-linux-gcc accepts -g
+configure:1021: checking for POSIXized ISC
+configure:1117: checking host system type
+configure:1138: checking build system type
+configure:1158: checking for ranlib
+configure:1197: checking for ld used by GCC
+configure:1259: checking if the linker (powerpc-linux-ld) is GNU ld
+configure:1275: checking for BSD-compatible nm
+configure:1311: checking whether ln -s works
+ltconfig:603: checking for object suffix
+ltconfig:604: powerpc-linux-gcc -c -g -O2 -I/opt/cross-project/TS-101/tools/include conftest.c 1>&5
+ltconfig:776: checking if powerpc-linux-gcc PIC flag -fPIC works
+ltconfig:777: powerpc-linux-gcc -c -g -O2 -fPIC -DPIC -I/opt/cross-project/TS-101/tools/include conftest.c 1>&5
+ltconfig:829: checking if powerpc-linux-gcc supports -c -o file.o
+ltconfig:830: powerpc-linux-gcc -c -g -O2 -o out/conftest2.o -I/opt/cross-project/TS-101/tools/include conftest.c 1>&5
+ltconfig:862: checking if powerpc-linux-gcc supports -c -o file.lo
+ltconfig:863: powerpc-linux-gcc -c -g -O2 -c -o conftest.lo -I/opt/cross-project/TS-101/tools/include conftest.c 1>&5
+ltconfig:914: checking if powerpc-linux-gcc supports -fno-rtti -fno-exceptions
+ltconfig:915: powerpc-linux-gcc -c -g -O2 -fno-rtti -fno-exceptions -c conftest.c -I/opt/cross-project/TS-101/tools/include conftest.c 1>&5
+ltconfig:958: checking if powerpc-linux-gcc static flag -static works
+ltconfig:959: powerpc-linux-gcc -o conftest -g -O2 -I/opt/cross-project/TS-101/tools/include -L/opt/cross-project/TS-101/tools/lib -static conftest.c  1>&5
+GNU ld version 2.15.91.0.2 20040727
+ltconfig:1653: checking if global_symbol_pipe works
+ltconfig:1654: powerpc-linux-gcc -c -g -O2 -I/opt/cross-project/TS-101/tools/include conftest.c 1>&5
+ltconfig:1657: eval "/usr/bin/nm -B conftest.o | sed -n -e 's/^.*[ 	]\([ABCDGISTW]\)[ 	][ 	]*\(\)\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2\3 \3/p' > conftest.nm"
+ltconfig:1709: powerpc-linux-gcc -o conftest -g -O2 -fno-builtin -I/opt/cross-project/TS-101/tools/include -L/opt/cross-project/TS-101/tools/lib conftest.c conftstm.o 1>&5
+configure:1507: checking for a BSD compatible install
+configure:1560: checking how to run the C preprocessor
+configure:1644: checking for X
+configure:1878: checking for main in -lm
+configure:1922: checking for deflate in -lz
+configure:1970: checking for png_check_sig in -lpng
+configure:2026: checking for jpeglib.h
+configure:2064: checking for jpeg_start_compress in -ljpeg
+configure:2409: checking for ANSI C header files
+configure:2516: checking for malloc.h
+configure:2516: checking for unistd.h
+configure:2556: checking for zlib.h
+configure:2597: checking for png.h
+configure:2636: checking for working const

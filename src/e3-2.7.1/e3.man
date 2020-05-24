@@ -1,0 +1,310 @@
+.TH E3 1
+
+.SH NAME
+E3 \- A mini text editor
+
+.SH SYNOPSIS
+.B e3[ws|em|pi|vi|ne]
+[\fifilename]
+
+.SH DESCRIPTION
+.PP
+\fIe3\fP is a complete mini application written fully in assembler,
+with a code size less than 10000 byte. There is a status & input line,
+where you can enter filenames, blocknames, find-texts and line numbers.
+The editor commands are similary the families of \fIWordstar\fP-like 
+or \fIEmacs\fP or \fIPico\fP or \fIvi\fP or \fINedit\fP editors.  
+For online help press ESC:h in vi mode, else Alt-H.
+This man page describes Wordstar key bindings only.
+
+.SH KEYBOARD COMMANDS FOR WS
+.PP
+.TP
+\fB^A
+Go word left
+.TP
+\fB^C
+Go page down
+.TP
+\fB^D
+Go right
+.TP
+\fB^E
+Go up
+.TP
+\fB^F
+Go word right
+.TP
+\fB^G
+Delete current character
+.TP
+\fB^H
+Delete left character
+.TP
+\fB^I
+Tabulator
+.TP
+\fB^J
+Get online help
+.TP
+\fB^KB
+Set block start marker
+.TP
+\fB^KC
+Copy current block
+.TP
+\fB^KD
+Save file and load a new one
+.TP
+\fB^KK
+Set block end marker
+.TP
+\fB^KQ
+Abort editing and exit. Confirm with Y or y that your changes are lost.
+.TP
+\fB^KR
+Insert a file as a new block
+.TP
+\fB^KS
+Save file and continue editing
+.TP
+\fB^KV
+Move current block inside file
+.TP
+\fB^KW
+Save a block into a file
+.TP
+\fB^KX
+Save file and exit
+.TP
+\fB^KY
+Delete text a block
+.TP
+\fB^KZ
+Suspend (simple ^Z in other editor modes)
+.TP
+\fB^L
+Repeat last ^QF or ^QA
+.TP
+\fB^M
+Enter new line  
+.TP
+\fB^QA
+Search & Replace (a prompt appears). For options compare ^QF. 
+.TP
+\fB^QB
+Go to block begin
+.TP
+\fB^QC
+Go to end of file
+.TP
+\fB^QD
+Go to end of line
+.TP
+\fB^QE
+Go to top of screen: 1st columne, 1st line
+.TP
+\fB^QF
+Find a text string (a prompt appears). Valid options are \fIC\fPase sensitive and \fIB\fPackward.
+You could abort via pressing ^U . This options are equal to \fIe3em\fP, \fIe3pi\fP, \fIe3ne\fP,
+but their abort keys are ^G and ^C.
+.TP
+\fB^QG
+Delete character under cursor
+.TP
+\fB^QG
+Delete character left of cursor
+.TP
+\fB^QH,^Q(Del)
+Delete up to line begin
+.TP
+\fB^QI
+Go to line number (prompt appears)
+.TP
+\fB^QK
+Go to block end
+.TP
+\fB^QR
+Go to file begin
+.TP
+\fB^QS
+Go to line begin
+.TP
+\fB^QV
+Go to last postion of find
+.TP
+\fB^QW
+Go to previous word
+.TP
+\fB^QX
+Go to bottom of window (last line, end of line)
+.TP
+\fB^QY
+Delete to line end
+.TP
+\fB^QZ
+Go to next word
+.TP
+\fB^R
+Go page up
+.TP
+\fB^S
+Go left
+.TP
+\fB^T
+Delete to next word
+.TP
+\fB^U
+Undo the last operation. Also abort input in status line (this is used for ^QI,^QF,^KR,^KW etc.)
+.TP
+\fB^V
+Toggle insert mode
+.TP
+\fB^W
+Scroll up
+.TP
+\fB^X
+Go down
+.TP
+\fB^Y
+Delete current line
+.TP
+\fB^Z
+Scroll down
+
+
+.SH UNDO OPERATION DETAILS
+.PP
+\fIe3\fP has an UNDO mode starting in v2.2. There is no predefined
+UNDO level count. You can expect to UNDO at least \fIone\fP last insert-,
+delete-, overwrite- or sed_pipe-operation, but in most cases there 
+are \fIlots\fP of UNDO stages available. e3 has a fixed size undo buffer 
+and will use an external helper file if some deleted data is bigger 
+sized than the undo buffer.  This buffer is organized as a ring, 
+overwriting older UNDO information if neccessary. So one never can 
+say exactly how many UNDO operations are possible. 
+For using the UNDO press one of:
+.TP
+\fB^U
+in Wordstar mode
+.TP
+\fB^QU
+in Pico mode
+.TP
+\fB^_
+in Emacs mode
+.TP
+\fBu
+in vi command mode
+.TP
+\fB^U
+in Nedit mode
+
+.SH BUILT IN CALCULATOR
+.PP
+\fIe3\fP has an arithmetic calculator built in for some simple 
+arithmetic calculations inside your text. Place cursor at 
+begin of the task i.e. something like:  -3.002*-(2--3)=   
+and press one of:
+.TP
+\fB^KN
+in Wordstar mode
+.TP
+\fB^QC
+in Pico mode
+.TP
+\fB^X^N
+in Emacs mode
+.TP
+\fB#
+in vi command mode
+.TP
+\fB^K
+in Nedit mode
+.PP
+This will insert the result into text.
+Use the values between -999999999999.999999 ... 999999999999.999999 
+with up to 6 decimal digits and the operators +-*/  and parenthesis ( ).
+Also available are p for constant PI and r for accessing the result
+of last calculation
+
+
+.SH RUNTIME MODE SWITCHING
+.PP
+You can switch to other editor mode by pressing one of:
+.TP
+\fB^KM
+in Wordstar mode
+.TP
+\fB^QM
+in Pico mode
+.TP
+\fBaltX
+in Emacs mode
+.TP
+\fB<ESC>;
+in vi command mode
+.TP
+\fB^E
+in Nedit mode
+.PP
+e3 will set a prompt \fISET MODE\fP . Now enter one of e3ws, e3em, e3pi, e3vi, e3ne 
+for setting \fIWordstar\fP-like or \fIEmacs\fP or \fIPico\fP or \fIvi\fP or \fINedit\fP style.
+
+
+
+.SH OPTIONS
+.PP
+e3 accepts a filename for text editing. Switch the editor mode
+depending of the binary name, one of \fIe3ws\fP, \fIe3em\fP, \fIe3pi\fP, \fIe3vi\fP, \fIe3ne\fP
+
+
+.SH FILES
+.PP
+.TP
+\fBe3 
+is an assembled executable for Linux, FreeBSD, NetBSD, OpenBSD, BeOS(tm), QNX(tm).
+\fIe3ws\fP, \fIe3em\fP, \fIe3pi\fP, \fIe3vi\fP, \fIe3ne\fP are symbolic links to e3.
+.TP
+\fBe3.exe
+is an assembled executable for 32 bit Win versions like 95/98/ME/etc.
+.TP
+\fBe3c
+is a 'C' compiled executable for some other platforms, optional built,
+supporting WS key bindings only.
+.TP
+\fBe3arm
+is a new experimental (alpha code quality) assembled executable for ARM Linux,
+optional built (identical e3, but no arithmetics and no UNDO available).
+.TP
+\fBe3.hlp
+help text file (for e3c only)
+.TP
+\fBe3.res
+error message text file (for e3c only)
+.TP
+\fBe3-16
+\fIe3-16\fP, \fIe3-16.com\fP, \fIe3-16e.exe\fP
+are special bonus files for 16 bit operating systems
+ELKS (==Embeddable Linux Kernel Subset) and DOS,
+supporting WS key bindings only.
+
+.SH COPYRIGHT
+e3 is Copyright (c) 2000,01,02,03 Albrecht Kleine
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+
+.SH BUGS
+There probably are some, but I don't know what they are yet.

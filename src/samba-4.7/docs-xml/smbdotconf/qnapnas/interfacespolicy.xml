@@ -1,0 +1,15 @@
+<samba:parameter name="interfaces policy"
+                 context="G"
+                 type="cmdlist"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+<related>use interfaces policy</related>
+
+<value type="example">eth0 eth2@list=1 eth3@bitmask=0xf4</value>
+
+<value type="default"/>
+</samba:parameter>

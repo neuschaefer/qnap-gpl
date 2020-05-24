@@ -1,0 +1,88 @@
+Index: linux-igd-1.0+cvs20070630/Makefile
+===================================================================
+--- linux-igd-1.0+cvs20070630.orig/Makefile	2008-06-24 21:02:03.000000000 +0100
++++ linux-igd-1.0+cvs20070630/Makefile	2008-06-24 21:16:48.000000000 +0100
+@@ -1,10 +1,12 @@
+ PREFIX=/usr
+-LIBUPNP_PREFIX=/usr
+ #LIBIPTC_PREFIX=/usr
+ 
++# libupnp version for use with pkgconfig
++LIBUPNP=libupnp
++
+ CC=gcc
+-INCLUDES= -I$(LIBUPNP_PREFIX)/include -I../include
+-LIBS= -lpthread -lupnp -lixml -lthreadutil -L$(LIBUPNP_PREFIX)/lib -L../libs
++INCLUDES=$(shell pkg-config --cflags $(LIBUPNP))
++LIBS=$(shell pkg-config --libs $(LIBUPNP))
+ FILES= main.o gatedevice.o pmlist.o util.o config.o
+ 
+ CFLAGS += -Wall -g -O2
+@@ -23,7 +25,7 @@
+ all: upnpd
+ 
+ upnpd: $(FILES)
+-	$(CC) $(CFLAGS) $(FILES) $(LIBS) -o $@
++	$(CC) $(CFLAGS) $(LDFLAGS) $(FILES) $(LIBS) -o $@
+ 	@echo "make $@ finished on `date`"
+ 
+ %.o:	%.c
+Index: linux-igd-1.0+cvs20070630/gatedevice.c
+===================================================================
+--- linux-igd-1.0+cvs20070630.orig/gatedevice.c	2008-06-24 21:02:03.000000000 +0100
++++ linux-igd-1.0+cvs20070630/gatedevice.c	2008-06-24 21:15:09.000000000 +0100
+@@ -1,11 +1,11 @@
+ #include <syslog.h>
+ #include <stdlib.h>
+-#include <upnp/ixml.h>
+ #include <string.h>
+ #include <time.h>
+-#include <upnp/upnp.h>
+-#include <upnp/upnptools.h>
+-#include <upnp/TimerThread.h>
++#include <ixml.h>
++#include <upnp.h>
++#include <upnptools.h>
++#include <TimerThread.h>
+ #include "globals.h"
+ #include "gatedevice.h"
+ #include "pmlist.h"
+Index: linux-igd-1.0+cvs20070630/gatedevice.h
+===================================================================
+--- linux-igd-1.0+cvs20070630.orig/gatedevice.h	2008-06-24 21:02:03.000000000 +0100
++++ linux-igd-1.0+cvs20070630/gatedevice.h	2008-06-24 21:15:09.000000000 +0100
+@@ -1,7 +1,7 @@
+ #ifndef _GATEDEVICE_H_
+ #define _GATEDEVICE_H_ 1
+ 
+-#include <upnp/upnp.h>
++#include <upnp.h>
+ 
+ /* interface statistics */
+ typedef enum {
+Index: linux-igd-1.0+cvs20070630/main.c
+===================================================================
+--- linux-igd-1.0+cvs20070630.orig/main.c	2008-06-24 21:02:03.000000000 +0100
++++ linux-igd-1.0+cvs20070630/main.c	2008-06-24 21:15:09.000000000 +0100
+@@ -9,7 +9,7 @@
+ #include <sys/resource.h>
+ #include <time.h>
+ #include <net/if.h>
+-#include <upnp/upnp.h>
++#include <upnp.h>
+ #include "globals.h"
+ #include "config.h"
+ #include "gatedevice.h"
+Index: linux-igd-1.0+cvs20070630/pmlist.c
+===================================================================
+--- linux-igd-1.0+cvs20070630.orig/pmlist.c	2008-06-24 21:02:03.000000000 +0100
++++ linux-igd-1.0+cvs20070630/pmlist.c	2008-06-24 21:15:09.000000000 +0100
+@@ -1,7 +1,7 @@
+ #include <stdlib.h>
+ #include <sys/wait.h>
+ #include <unistd.h>
+-#include <upnp/upnp.h>
++#include <upnp.h>
+ #include "globals.h"
+ #include "config.h"
+ #include "pmlist.h"

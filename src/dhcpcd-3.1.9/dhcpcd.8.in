@@ -1,0 +1,388 @@
+.TH DHCPCD 8 "18 Jul 2007" "dhcpcd 3.1"
+.SH NAME
+dhcpcd \- DHCP client daemon
+.SH SYNOPSIS
+dhcpcd
+\%[\-dknpAEGHMLNRTY]
+\%[\-c\ script]
+\%[\-h\ hostname]
+\%[\-i\ vendorClassID]
+\%[\-l\ leasetime]
+\%[\-m\ metric]
+\%[\-r\ ipaddr]
+\%[\-s\ ipaddr[/cidr]]
+\%[\-t\ timeout]
+\%[\-u\ userClass]
+\%[\-F\ none | ptr | both ]
+\%[\-I\ clientID ]
+\%[interface]
+.SH DESCRIPTION
+.B dhcpcd
+is an implementation of the DHCP client specified in
+.B RFC 2131.
+
+It gets the host information (IP address, netmask, broadcast address,
+etc.) from a DHCP server and configures the network interface of the
+machine on which it is running. It also tries to renew the lease time
+according to
+.B RFC 2131.
+
+If
+.B dhcpcd
+fails to get a lease then we attempt Dynamic Configuration of IPv4
+Link-Local Addresses unless the
+.B \-L
+option is given.
+
+.SH OPTIONS
+.TP
+.BI interface
+Specifies the network interface name (eth0, eth1, etc.).
+.TP
+.BI \-c \ script
+.B dhcpcd
+will try to execute
+.I script
+instead of the default script
+.I /etc/dhcpcd.sh
+every time it configures or brings down the interface. See the
+description of
+.I dhcpcd.sh
+script in
+.B FILES
+section below.
+.TP
+.BI \-d
+Echos debugging and information messages to the console.
+Subsequent debug options stop \fBdhcpcd\fR from daemonising.
+.TP
+.BI \-h \ hostname
+specifies a string used for the hostname option field when
+.B dhcpcd
+sends DHCP messages. Some DHCP servers, notably those used by
+@Home Networks, require the hostname option
+field containing a specific string in the DHCP messages from clients.
+When combined with the -F switch, specifies the string used for the
+FQDN option field instead of the hostname option field.
+We send the current hostname by default. To send no hostname, use -h ''.
+.TP
+.BI \-i \ vendorClassID
+Specifies the vendor class identifier string. The default is dhcpcd-<version>.
+.TP
+.BI \-k
+Sends
+.B SIGHUP
+signal to the
+.B dhcpcd
+process associated with the specified interface if one is currently running. If
+.B dhcpcd
+receives
+.B SIGHUP
+it will send
+.B DHCP_RELEASE
+message to the server and destroy dhcpcd cache. In a case
+.B dhcpcd
+receives
+.B SIGTERM
+which is normally used by
+.B shutdown(8)
+when rebooting the system
+.B dhcpcd
+will not send
+.B DHCP_RELEASE
+and will not destroy cache. When system boots
+.B dhcpcd
+will use cache to request the same IP address
+from DHCP server which was assigned before the
+system went down. (see also
+.B -p
+)
+.TP
+.BI \-l \ leasetime
+Specifies (in seconds) the recommended lease time to the server. (Note
+that the server can override this value if it sees fit). This value is
+used in the
+.B DHCP_DISCOVER
+message. Use -1 for an infinite lease time. We don't request a specific
+lease time by default. If we do not receive a lease time in the
+.B DHCP_OFFER
+message then we default to 1 hour.
+.TP
+.BI \-m \ metric
+Routes will be added with the given metric. The default is 0.
+On some systems such as FreeBSD the interface is given the metric.
+.TP
+.BI \-n
+Sends
+.B SIGALRM
+signal to the
+.B dhcpcd
+process that is currently running which
+forces
+.B dhcpcd
+to try to renew the lease. If dhcpcd is not running, the flag
+is ignored and
+.B dhcpcd
+follows the normal startup procedure.
+.TP
+.BI \-p
+Stops
+.B dhcpcd
+from removing the interface configuration when it is terminated with the
+.B SIGTERM
+signal. This is useful when a host is running with an NFS-mounted root
+filesystem over an interface controlled by DHCP. It should not be used
+except in those circumstances, since if 
+.B dhcp
+is stopped it can no longer down an interface at the end of its
+lease period when the lease is not renewed.
+.TP
+.BI \-r \ ipaddr
+Sends
+.B DHCP_REQUEST
+message requesting to lease IP address ipaddr.
+The ipaddr parameter must be in the form xxx.xxx.xxx.xxx.
+If we are not given an ipaddr then we try to use the first one assigned
+to the interface if present, otherwise the last address we leased for the
+interface, otherwise we return an error.
+This effectively doubles the timeout period, as if we fail to get
+this IP address then we enter the INIT state and try to get any
+IP address.
+.TP
+.BI \-s \ ipaddr[/cidr]
+Exactly like \fB-r\fR, but sends DHCP_INFORM instead. This requires the
+interface to be configured with the ipaddr/cidr first.
+When we DHCP_INFORM, we don't request or respect any lease times.
+However, we do re-inform by the lease time specified by
+.BI \-l
+if given.
+.TP
+.BI \-t \ timeout
+Specifies (in seconds ) for how long
+.B dhcpcd
+will try to get an IP address. The default is 20 seconds.
+.B dhcpcd
+will not fork into background until it gets a valid IP address
+in which case dhcpcd will return 0 to the parent process.
+In a case
+.B dhcpcd
+times out before receiving a valid IP address from DHCP server
+.B dhcpcd
+will return exit code 1 to the parent process. Setting the timeout to
+zero disables it: dhcp will keep trying forever to get a lease, and if
+the lease is lost, it will try forever to get another.
+.TP
+.BI \-u \ userClass
+Tags the  DHCP message with the specified user class. DHCP servers can use
+these fields to send back different information instead of grouping by
+fixed hardware addresses. You can specify more than one user class, but the
+total length must be less than 255 characters, -1 character for each user
+class.
+.TP
+.BI \-x
+Sends
+.B SIGTERM
+signal to the
+.B dhcpcd
+process associated with the specified interface if one is currently running. If
+.B dhcpcd
+receives
+.B SIGTERM
+it will stop running, de-configure the interface and exit.
+(see also
+.B -k
+and
+.B -p
+)
+.TP
+.BI \-A
+Don't do an
+.B ARP
+check on the IP address. 
+.TP
+.BI \-E
+Will read 
+.I %%INFODIR%%/dhcpcd-<interface>.info
+file and use last known good lease if
+.B dhcpcd
+is unable to reach the DHCP server and the lease has not expired.
+This puts \fBdhcpcd\fR into the BOUND or REBINDING state depending on
+how long the lease has until expiry.
+.TP
+.BI \-F \ none | ptr | both
+Forces
+.B dhcpcd
+to request the DHCP server update the DNS using the FQDN option
+instead of the Hostname option. The name used by this option
+is specified with the \fB-h\fP switch, which must be present. If
+the \fB-h\fP switch is not present, the FQDN option is ignored.
+The name should be fully qualified, although servers usually
+accept a simple name.
+.I both
+requests that the DHCP server update both the A and PTR
+records in the DNS.
+.I ptr
+requests that the DHCP server updates only the PTR record in
+the DNS.
+.I none
+requests that the DHCP server perform no updates.
+.B dhcpcd
+does not perform any DNS update, even when the server is
+requested to perform no updates.  This can be easily
+implemented outside the client; all the necessary
+information is recorded in the
+.I %%INFODIR%%/dhcpcd-<interface>.info
+file.
+.TP
+.BI \-G
+Prevents
+.B dhcpcd
+from installing default routes provided by DHCP server.
+.TP
+.BI \-H
+Forces
+.B dhcpcd
+to set hostname of the host to the hostname option supplied by DHCP server.
+By default
+.B dhcpcd
+will NOT set hostname of the host to the hostname option
+received from DHCP server unless the current hostname is blank, (none) or
+localhost. If no hostname is returned by the DHCP server then we attempt
+to lookup the hostname via DNS.
+More -H's control what we do with the FQDN returned by DNS.
+.IP
+.BI \-H
+set hostname to the full FQDN
+.br
+.BI \-HH
+strip the domain if it matches a given domain in our DHCP message
+.br
+.BI \-HHH
+strip the domain regardless
+.br
+.BI \-HHHH
+force hostname lookup even if given a hostname in our DHCP message
+.br
+.BI \-HHHHH
+same as above, but strip the domain if it matches
+.br
+.BI \-HHHHHH
+same as above, but strip the domain regardless
+.TP
+.BI \-I \ clientID
+Specifies the client identifier string. If not specified then
+.B dhcpcd
+will attempt to create a client identifier according to \fBRFC 4361\fR
+and store the DUID part in
+.I %%INFODIR%%/dhcpcd.duid\fR, otherwise
+.B dhcpcd
+uses the MAC address of the network interface. If \fB-I\fR is not given
+an option then we use the MAC address of the network interface.
+.TP
+.BI \-L
+Prevents dhcpcd from probing for IPV4LL addresses. IPV4LL is otherwise
+known as ZeroConf or APIPA and is \fBRFC 3927\fR.
+.TP
+.BI \-M
+Prevents
+.B dhcpcd
+from setting the \fIMTU\fR provided by the DHCP server.
+.TP
+.BI \-N
+Prevents
+.B dhcpcd
+from replacing
+.I /etc/ntp.conf
+.TP
+.BI \-R
+Prevents
+.B dhcpcd
+from replacing
+.I /etc/resolv.conf
+or using resolvconf.
+.TP
+.BI \-T
+dhcpcd sends out a DHCP_DISCOVER message and then prints the values returned to
+stdout. It does not configure the interface or touch the .info files.
+.TP
+.BI \-Y
+Prevents
+.B dhcpcd
+from replacing
+.I /etc/yp.conf
+
+.SH FILES
+.TP
+.BI /etc/dhcpcd.sh
+script file, which
+.B dhcpcd
+will try to execute whenever it configures or brings down the interface. The
+path to this executable script can be changed with
+.I \-c \ script 
+option.
+.B dhcpcd
+passes 3 parameters to
+.I dhcpcd.sh
+script:
+.TP
+.I dhcpcd.sh infofile [up | down | new]
+The first parameter infofile is the path to a file containing all DHCP
+information we have. The second parameter value
+.I up | down | new
+mean the interface has been brought up with the same IP address as before ("up"), or
+with the new IP address ("new"), or the interface has been brought down ("down").
+.TP
+.BI /etc/resolv.conf
+file created by
+.B dhcpcd
+when the client receives DNS and domain name options.
+If resolvconf is present on the system then we send the data to it instead
+of overwriting resolv.conf
+.TP
+.BI /etc/yp.conf
+file created by
+.B dhcpcd
+when the client receives NIS options.
+.TP
+.BI /etc/ntp.conf
+file created by
+.B dhcpcd
+when the client receives NTP options.
+.TP
+.BI /var/run/dhcpcd-<interface>.pid
+file containing the process id of
+.B dhcpcd.
+The word
+.I <interface>
+is actually replaced with the network interface name like
+.I eth0
+to which
+.B dhcpcd
+is attached.
+.TP
+.BI %%INFODIR%%/dhcpcd.duid
+file containing the generated DUID for dhcpcd to use.
+.TP
+.BI %%INFODIR%%/dhcpcd-<interface>.info
+file containing information provided by the DHCP server than can be used in
+shell scripts.
+.SH SEE ALSO
+.LP
+.I Dynamic Host Configuration Protocol,
+RFC 2131
+.LP
+.I DHCP Options and BOOTP Vendor Extensions,
+RFC 2132
+.LP
+.I Dynamic Configuration of IPv4 Link-Local Addresses, 
+RFC 3927
+.LP
+.I DHCP FQDN Option specification,
+RFC 4702
+
+.SH BUGS
+Please report them to http://bugs.marples.name 
+.PD 0
+
+.SH AUTHORS
+Roy Marples <roy@marples.name>

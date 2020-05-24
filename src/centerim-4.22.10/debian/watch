@@ -1,0 +1,3 @@
+version=3
+http://www.centerim.org/download/releases/ \
+	centerim(?:-|_)(\d+(?:\.\d+){2,3})\.t(?:ar\.gz|ar\.bz2|gz)

@@ -1,0 +1,15 @@
+DNSDigest.lo: DNSDigest.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h \
+ mDNSEmbeddedAPI.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h \
+ mDNSDebug.h DNSCommon.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+mDNSEmbeddedAPI.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h:
+
+mDNSDebug.h:
+
+DNSCommon.h:

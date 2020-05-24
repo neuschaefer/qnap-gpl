@@ -1,0 +1,1237 @@
+centerim (4.22.10-1ubuntu1) natty; urgency=low
+
+  * Merge from debian unstable (LP: #681368). Remaining changes:
+    - Packages that Depend/Recommend/Suggest firefox (metapackage) must
+      must alternatively Depend/Recommend/Suggest abrowser.
+
+ -- Angel Abad <angelabad@ubuntu.com>  Thu, 25 Nov 2010 13:18:14 +0100
+
+centerim (4.22.10-1) unstable; urgency=low
+
+  * New upstream version, closes CVE-2009-3720.
+
+ -- Dmitry E. Oboukhov <unera@debian.org>  Wed, 24 Nov 2010 10:39:36 +0300
+
+centerim (4.22.9-1ubuntu1) lucid; urgency=low
+
+  * Merge from debian testing, Ubuntu remaining changes:
+    - Packages that Depend/Recommend/Suggest firefox (metapackage) must
+      must alternatively Depend/Recommend/Suggest abrowser.
+  * This release also fixed LP: #504427.
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Wed, 27 Jan 2010 00:39:23 +0100
+
+centerim (4.22.9-1) unstable; urgency=high
+
+  * Added myself to uploaders list, centerim shouldn't be removed from
+    debian, closes: #564803.
+  * New upstream version (closes CVE-2008-4776), closes: #559782,
+    thanks for Michael Gilbert <michael.s.gilbert@gmail.com>.
+  * Standards-Version bumped to 3.8.3.
+  * Fixed warn-spam in section clean.
+
+ -- Dmitry E. Oboukhov <unera@debian.org>  Tue, 12 Jan 2010 10:57:29 +0300
+
+centerim (4.22.7-1.1ubuntu1) karmic; urgency=low
+
+  * Merge from debian unstable, Ubuntu remaining changes:
+    - Packages that Depend/Recommend/Suggest firefox (metapackage) must
+      must alternatively Depend/Recommend/Suggest abrowser.
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Wed, 30 Sep 2009 01:49:15 +0200
+
+centerim (4.22.7-1ubuntu1) jaunty; urgency=low
+
+  * Merge from debian unstable, Ubuntu remaining changes:
+    - Packages that Depend/Recommend/Suggest firefox (metapackage) must
+      must alternatively Depend/Recommend/Suggest abrowser.
+  * Bugfix-only release, fixed bugs: LP: #146308 and LP: #186381.
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Thu, 26 Mar 2009 19:51:53 +0100
+
+centerim (4.22.7-1) unstable; urgency=low
+
+  [ Anibal Avelar ]
+  * New upstream version release (Closes: #517173):
+    + Fix AIM logon
+    + Fix ICQ protocol change, patch by Alexandr Zeinalov
+    + Added possibility to turn on PGP for ICQ
+    + Fixed a lot of bugs
+    + Updated translations
+  * Updated the debian/copyright with the extended authors list
+  * Fixed the missing licenses in debian/copyright (Closes: #520376)
+  * Updated the debian/compat file from 4 to 5.
+  * Updated with Standards-Version 3.8.1
+  [ unera ]
+  * full source was added under git.
+  * added vcs-* records to debian/control.
+  * created pristine-tar branch under git.
+
+ -- Anibal Avelar <aavelar@cofradia.org>  Sat, 21 Mar 2009 19:16:00 -0600
+
+centerim (4.22.5-1ubuntu3) jaunty; urgency=low
+
+  * Drop recommends on firefox-3; packages that Depend/Recommend/Suggest
+    firefox (metapackage) must alternatively Depend/Recommend/Suggest abrowser.
+
+ -- Alessio Treglia <quadrispro@ubuntu.com>  Wed, 25 Feb 2009 23:17:19 +0100
+
+centerim (4.22.5-1ubuntu2) intrepid; urgency=low
+
+  * No-change rebuild for libgnutls13 -> libgnutls26 transistion.
+
+ -- Steve Kowalik <stevenk@ubuntu.com>  Sat, 11 Oct 2008 01:28:52 +1100
+
+centerim (4.22.5-1ubuntu1) intrepid; urgency=low
+
+  * Merge from Debian unstable (LP #228731), Ubuntu remaining changes:
+    - debian/control:
+      + Use firefox-3.0 in Recommends
+      + Updated maintainer field
+  * debian/patches/CVE-2008-1467.dpatch: Removed, merged upstream
+
+ -- Pedro Fragoso <emberez@gmail.com>  Thu, 01 May 2008 03:10:58 +0100
+
+centerim (4.22.5-1) unstable; urgency=low
+
+  * New upstream version release:
+    + Ready for Yahoo protocol changed since April 2, 2008.
+      (Closes: #469835, #474223)
+    + Removed the debian/patches/CVE-2008-1467.dpatch patch because the 
+      new upstream version fixed it directly.
+    + Fixed the Bug 49: icq contacts all show as offline.
+      (Closes: #453189)
+    + Fixed the Bug 69: incorrect user name when using~/.centerim/external
+      (Closes: #459927)
+    + Fixed the Bug 39: icq contacts all show as offline
+      (Closes: #453189)
+    + Fixed the problem when CIM was unable to do file xfers, 
+      tested in ICQ and Y! (Closes: #209195)
+  * Fixed a little problem in the debian/watch file.  
+    Thank you Dmitry E. Oboukhov (Closes: #472309)
+  * Removed the OTR (Off-the-Record Messaging) support 
+    because it resulted some buggy.
+  * Removed the dependencies with the libotr2-dev package in the   
+    debian/control file due to the same reasons described above.
+  * Removed the transitional packages: centericq, centericq-utf8 and
+    centericq-fribidi because all are obsolete now. Its function was
+    fulfilled. 
+  * Removed the fields Replaces and Provides from the binary packages
+    sections in debian/control due to the sames reasons described above.
+
+ -- Anibal Avelar <aavelar@cofradia.org>  Tue, 08 Apr 2008 22:01:20 +0200
+
+centerim (4.22.3-1) unstable; urgency=high
+
+  * New upstream version.	
+  * Added GPG (GNU privacy guard) support.
+  * Added OTR (Off-the-Record Messaging) support.
+  * Added the new dependencies	with libotr2-dev and libgpgme11-dev
+    in the debian/control file.
+  * Fixed centerim: CVE-2008-1467 remote command execution via crafted URL
+    (Closes: #472649)
+  * Added a debian/watch file.  Thank you Dmitry E. Oboukhov
+    (Closes: #472309)
+  * Removed the Vcs-* fields in debian/control file should point to  
+    repository where debian package is maintained, not to upstream  
+    repository. (Closes: #465040)
+  * Fixed centerim-common: package should be arch: all.
+    (Closes: #466180)
+  * Fixed the bug for Anti-spam feature.
+    (Closes: #420491,#271307)
+  * Fixed centericq: takes 100% of the CPU but still works.
+    (Closes: #218929)
+  * Fixed centericq: offline-messages get an incorrect timestamp.
+    (Closes: #221592)
+  * Fixed centericq: Incorrect handling of /nick, /msg and /mode in IRC.
+    The new firetalk version fixed it. (Closes: #234672)
+  * Fixed the request for feature for IRC server password support.
+    (Closes: #167611)
+  * Changed the mantainer name with a more short format.
+
+ -- Anibal Avelar <aavelar@cofradia.org>  Thu, 27 Mar 2008 00:42:20 +0200
+
+centerim (4.22.2-1ubuntu2) hardy; urgency=low
+
+  * SECURITY UPDATE: user-assisted arbitrary code execution via crafted URL.
+    (LP: #212088)
+    - debian/patches/CVE-2008-1467.dpatch: Ensure that the URL is properly
+      quoted before launching the browser. Patch from upstream.
+    - References:
+      + CVE-2008-1467
+
+ -- William Grant <william@qeuni.net>  Sat, 05 Apr 2008 16:56:52 +1100
+
+centerim (4.22.2-1ubuntu1) hardy; urgency=low
+
+  * Merge from Debian unstable, remaining changes:
+    - debian/control:
+      + Use firefox-3.0 in Recommends.
+      + Update maintainer field.
+
+ -- Michele Angrisano <micheleangrisano@ubuntu.com>  Wed, 06 Feb 2008 16:34:25 +0100
+
+centerim (4.22.2-1) unstable; urgency=low
+
+  * New upstream version release
+  * This release  doesn't fix the bug #453189 completely but at least lets to
+    change the severity from grave to important.
+  * Fixed centericq crazily consumes characters created before backspace
+    button bashed (Closes: #349132)
+  * Fixed Segmentation fault in centericq (Closes: #269848)
+  * Fixed Segfaults instead of connecting to Yahoo (Closes: #447535)
+  * Fixed autoaway/na status lost when server connection is lost
+    (Closes: #198473)
+  * Fixed to unable to see messages after winding back clock
+    (Closes: #304954)
+  * Fixed FTBFS with GCC 4.3: missing #includes (Closes: #455620)
+  * Added the field Homepage inside Source stanza in debian/control file.
+  * Added the fields Vcs-Browser and Vcs-Git in the debian/control file.
+  * Fixed Russian language is bugged (Closes: #429825). 
+  * Fixed centericq: the bug of input the text in non-English coding 
+    (Closes: #435845)
+  * Removed the dependencie with libotr2-dev package in debian/control.
+  * Fixed inside debian/rules file to link to ncurses5-dev for centerim 
+    and ncurses5w-dev to centerim-utf8.
+  * Updated with Standards-Version 3.7.3
+  * Added a patch on configure.ac for libncurses5-dev and libncurses5w-dev 
+    works separately.
+  * Added the dependencie with libtool for the patch applied to configure.ac 
+    works.
+
+ -- Anibal Avelar (Fixxxer) <aavelar@cofradia.org>  Sat, 08 Dec 2007 23:22:20 +0200
+
+centerim (4.22.1.20071022-1ubuntu1) hardy; urgency=low
+
+  * use firefox-3.0 in Recommends
+    - update debian/control
+  * update maintainer field according to ubuntu/motu policy
+    - update debian/control
+
+ -- Alexander Sack <asac@ubuntu.com>  Tue, 05 Feb 2008 16:54:09 +0100
+
+centerim (4.22.1.20071022-1) unstable; urgency=low
+
+  * Updated with the master branch development from 2007-10-22
+  * Fixed the bug when the connection to MSN server starts (Closes: #447419)
+  * Fixed the bug of input the text in non-English coding 
+    (Closes: #435845, #435833)
+  * Fixed centerim in Russian language (Closes: #429825)
+  * Fixed centerim problems with german umlauts and utf-8 on amd64 
+    (Closes: #309984)
+  * Fixed Segmetation fault in centericq (Closes: #269848)
+  * Fixed transports and conferences cannot be deleted from roster with
+    centericq (Closes: #305222)
+
+ -- Anibal Avelar (Fixxxer) <aavelar@cofradia.org>  Tue, 23 Oct 2007 22:37:20 +0200
+
+centerim (4.22.1.20071003-1) unstable; urgency=low
+
+  * Updated with the master branch development from 2007-10-03
+  * Removed the patch to build the package; it was built with the 
+    centerim-20071003.tar.gz file, the latest mob branch snapshot.
+  * Updated with NMU security patch for CVE-2007-3713 report
+  * Fixed the FTBFS bug with GCC 4.3: missing some 'includes' (Closes: #417132)
+  * Fixed the FTBFS if build twice in a row (Closes: #442523, #424153, #442525)
+  * Fixed centericq segfault on some circustance (Closes: #363272)
+  * Fixed centericq failed with CPP error message (Closes: #295808)
+  * Fixed centericq: Cannot connect to AIM (Closes: #325456)
+  * Fixed centericq clumsily concocts creations where word wrap 
+    wantonly works wrongly (Closes: #349133)
+  * Fixed centericq: users with blank names corrupt contact list 
+    (Closes: #239263)
+  * Fixed centericq: CenterICQ fiendishly devours apostrophes sent from 
+     users of Trillian (Closes: #266214)
+  * Fixed centericq: Yahoo contacts not deleted on the server side i
+    (Closes: #303071)
+  * Fixed centericq: AIM shows some characters as HTML entities 
+    (Closes: #263383)
+  * Fixed centericq: SSL support on Jabber (Closes: #223537)
+
+ -- Anibal Avelar (Fixxxer) <aavelar@cofradia.org>  Sun, 30 Sep 2007 20:15:20 +0200
+
+centerim (4.22.1-2.1) unstable; urgency=high
+
+  * Non-maintainer upload by testing security team.
+  * Included fedora-security-patch (Thanks to Tristan Seligmann)
+    to fix CVE-2007-3713 (Closes: #438511).
+
+ -- Nico Golde <nion@debian.org>  Sun, 26 Aug 2007 13:15:20 +0200
+
+centerim (4.22.1-2) unstable; urgency=low
+
+  * Synchronize with centerim's git repository taken from Jul 29, 2007
+    Was generated a patch to avoid the original source code 4.22.1 be modified
+  * Fixed centerim-utf8 undeclared overlap with centerim  (Closes: #435586)
+  * Fixed centericq: realloc() implicitly converted to pointer (Closes: #431612)
+  * Fixed problems with special characters receiving messages in utf-8 mode 
+    (Closes: #315380)
+  * Fixed centerim: Some IRC messages conversion error (Closes: #429518)
+  * Fixed centerim: Russian language is bugged (Closes: #429825)
+  * Fixed centericq: Too long dialog start-up (Closes: #429508)
+  * Fixed centericq: Some IRC messages conversion error (Closes: #432882)
+  * Fixed centericq: message pane is not refreshed when a contact goes offline
+    (Closes: #391882)
+  * Fixed fails to clean up the contact window (Closes: #435192)
+  * Fixed jabber doesn't work in centerim (Closes: #429943)
+  * Fixed sort out liblzo situation (Closes: #435585)
+  * Fixed centericq-utf8: Segfault on yahoo login for 4.20.0-7 (Closes: #318357)
+  * Fixed centericq: ability to type in chat mode when chat is full screen 
+    (Closes: #391679)
+  * Fixed centericq-utf8: MSN users not using groups cannot add users to 
+    their contact list  (Closes: #267100)
+  * Fixed centericq: Yahoo contacts show up as offline no matter what
+    (Closes: #295164)
+  * Fixed other minor didn't report bugs.
+
+ -- Anibal Avelar (Fixxxer) <aavelar@cofradia.org>  Thu, 02 Aug 2007 00:20:00 +0100
+
+centerim (4.22.1-1) unstable; urgency=low
+
+  * New upstream version (Closes: #416205)
+  * Changed the package name
+  * Were remove all references to openssl (Closes: #424654)
+
+ -- Anibal Avelar (Fixxxer) <aavelar@cofradia.org>  Sat,  24 Jul 2007 14:45:00 +0100
+
+centericq (4.21.0-20) unstable; urgency=low
+
+  * New mantainer, Closes: #416958 
+  * Changed to libcurl4-gnutls instead libcurl4-openssl due to non-compatible
+    license, Closes: #424654
+  * Was proved that the libmsn update (3.1.1 to 3.2) contained in new-msn.dpatch
+    fixed some open bugs, Closes: #393522
+  * The SSL support for jabber and gadu-gadu don't work for now due to them were
+    removed to avoid the *openssl dependencies. It will be fixed in the new 
+    package centerim.
+
+ -- Anibal Avelar (Fixxxer) <aavelar@cofradia.org>  Sun,  08 Jun 2007 13:24:47 -0500
+
+centericq (4.21.0-19) unstable; urgency=low
+
+  * Orphan package
+
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 31 Mar 2007 19:37:56 +0200
+
+centericq (4.21.0-18) unstable; urgency=high
+
+  * Fixed potential segmentation fault in jabber
+    (output of strstr was not checked)
+    Closes: #406982
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 16 Jan 2007 08:01:03 +0100
+
+centericq (4.21.0-17) unstable; urgency=high
+
+  * Fixed buffer overflow found in liverjournal support.
+    http://lists.grok.org.uk/pipermail/full-disclosure/2007-January/051663.html
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon,  8 Jan 2007 18:46:40 +0100
+
+centericq (4.21.0-16) unstable; urgency=low
+
+  * Applied patch from Charles Plessy to fix connection to some jabber servers.
+    (Closes: #347846)
+  * Applied patch from Sebastien Delafond to add user setting to display 
+    timestamps up to the second.
+  
+ -- Julien Lemoine <speedblue@debian.org>  Wed,  4 Oct 2006 23:42:06 +0200
+
+centericq (4.21.0-15) unstable; urgency=low
+
+  * Applied libmsn patch from centericq.de (centericq-cvs-20060722-msn.patch)
+    Fixed MSN login problem and segmentation fault
+    (Closes: #364765, #311295)
+    Fixed synchronization problems
+    (Closes: #231799, #296879, #302239, #303068, #312695)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 24 Aug 2006 22:46:27 +0200
+
+centericq (4.21.0-14) unstable; urgency=low
+
+  * Added build depend on automake1.4 to fix build failure
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 24 Aug 2006 11:01:29 +0200
+
+centericq (4.21.0-13) unstable; urgency=low
+
+  * Fixed build failure (Closes: #384292)
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 23 Aug 2006 23:17:02 +0200
+
+centericq (4.21.0-12) unstable; urgency=low
+
+  * updated to follow the last version of Debian Policy
+  * updated depends to add alternative to www-browser
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 22 Aug 2006 12:45:50 +0200
+
+centericq (4.21.0-11) unstable; urgency=low
+
+  * Added a note about aplay command in README.Debian (Closes: #351261)
+
+ -- Julien Lemoine <speedblue@debian.org>  Sun, 19 Feb 2006 17:13:25 +0100
+
+centericq (4.21.0-10) unstable; urgency=low
+
+  * Applied patch from <temnota@kmv.ru> to fix segv in libjabber when 
+    registering new account (Closes: #344301)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 22 Dec 2005 16:16:05 +0100
+
+centericq (4.21.0-9) unstable; urgency=low
+
+  * Removed build depends on libkrb5-dev (was a workaround for a broken 
+    curl upload) (Closes: #342257)
+  * Removed multi lines Build Dep on control file
+
+ -- Julien Lemoine <speedblue@debian.org>  Sun, 18 Dec 2005 18:58:58 +0100
+
+centericq (4.21.0-8) unstable; urgency=low
+
+  * Update libmsn to last version : 3.2.
+    This update can fix msn connection problem for some users.
+
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 17 Dec 2005 11:00:01 +0100
+
+centericq (4.21.0-7) unstable; urgency=low
+
+  * Added build depend on libkrb5-dev 
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 30 Nov 2005 16:32:58 +0100
+
+centericq (4.21.0-6) unstable; urgency=high
+
+  * Fixed compilation error (assume that libc is used to avoid static 
+    redefinition of stpcpy, memcpy, ...) 
+    (Closes: 340790)
+  * SECURITY: Fixed buffer overflow in embedded ktools library by replacing 
+    vsprintf by vsnprintf (Waiting for a better patch from upstream)
+    CVE-2005-3863
+    (Closes: #340959)
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 30 Nov 2005 08:43:49 +0100
+
+centericq (4.21.0-5) unstable; urgency=low
+
+  * Fixed compilation error (redefinition of stpcpy)
+    (Closes: #340790)
+
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 26 Nov 2005 15:52:12 +0100
+
+centericq (4.21.0-4) unstable; urgency=high
+
+  * Applied two patchs from Steve Langasek <vorlon@debian.org> :
+    * Fix for ICQ direct client handler, which fails to handle undersized
+      requests from remote hosts, leading to a segfault (closes: #334089).
+    * Miscellaneous other memory handling clean-ups
+
+ -- Julien Lemoine <speedblue@debian.org>  Sun, 20 Nov 2005 12:02:52 +0100
+
+centericq (4.21.0-3) unstable; urgency=low
+
+  * Applied patch from Guillaume Libersat <glibersat@hurdfr.org>
+    to fix build failure on hurd (Closes: #330699)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 29 Sep 2005 21:47:32 +0200
+
+centericq (4.21.0-2) unstable; urgency=low
+
+  * Updated config.guess and config.sub to fix build failure on GNU/K*BSD
+    (Closes: #326539)x
+
+ -- Julien Lemoine <speedblue@debian.org>  Sun,  4 Sep 2005 12:41:41 +0200
+
+centericq (4.21.0-1) unstable; urgency=low
+
+  * New upstream release (aim connection fixed, Closes: #312034)
+  * Upgraded ssl support with libgnutls12 instead of libgnutls11
+  * updated to follow the last version of Debian Policy
+
+ -- Julien Lemoine <speedblue@debian.org>  Sat,  3 Sep 2005 11:28:36 +0200
+
+centericq (4.20.0-10) unstable; urgency=low
+
+  * Applied patch from Ian Johannesen <ij@perlpimp.dk> to fix connection
+    problem to google talk. (This makes sure that CenterICQ honours the 
+    server setting despite a username in the form user@domain is used)
+  * backported CVS patch in firetalk library to fix aim problem
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 26 Aug 2005 21:05:09 +0200
+
+centericq (4.20.0-9) unstable; urgency=high
+
+  * Fix endianess errors (may allow remote attackers to cause a denial of 
+    service), CAN-2005-2448
+  * Fix memory alignment errors (may allows remote attackers to cause a 
+    denial of service (bus error) on
+    certain architectures such as SPARC via an incoming message, CAN-2005-2370
+  * Fix Multiple integer signedness errors (may allow remote attackers to 
+    cause a denial of service or execute arbitrary code.), CAN-2005-2369
+    (Closes: #323185)
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 23 Aug 2005 16:40:55 +0200
+
+centericq (4.20.0-8) unstable; urgency=low
+
+  * Fixed segv in msn module (array overflow)
+    (Closes: #316559)
+  * Replaced -O2 by -O1 because -O2 optims produces segfault 
+    with gcc 4.0 on amd64 architecture
+    (Closes : #318357)
+  * Added a brief explanation in desription field on 
+    the reason of 'sox' in recommands field
+    (Closes: #312050)
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon, 18 Jul 2005 08:55:37 +0200
+
+centericq (4.20.0-7) unstable; urgency=high
+
+  * Applied patch from Joey Schulze <joey@debian.org> to fix 
+    insecure temporary file vulnerability (CAN-2005-1914)
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed,  6 Jul 2005 22:04:29 +0200
+
+centericq (4.20.0-6) unstable; urgency=low
+
+  * Applied patch from aniel Parthey <debian-bts@spambox.dyndns.org> to fix
+    decryption problem with messages containing several x tags
+    (Closes: #309923)
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed,  1 Jun 2005 08:09:06 +0200
+
+centericq (4.20.0-5) unstable; urgency=low
+
+  * Applied patch found at 
+    http://article.gmane.org/gmane.network.centericq/3173 to fix 
+    segmentation fault when doing search/add on amd64
+    (Closes: #309750, #309535)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 19 May 2005 22:25:25 +0200
+
+centericq (4.20.0-4) unstable; urgency=low
+
+  * Fix jabber login problem on amd64 (Applied patch from Daniel Parthey)
+    (Closes: #208670)
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon, 16 May 2005 07:14:33 +0200
+
+centericq (4.20.0-3) unstable; urgency=low
+
+  * Applied patch from Andreas Jochens <aj@andaco.de> to fix amd64 buid 
+    problems (g++ 4.0 compilation errors) (Closes: #303937)
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 20 Apr 2005 21:34:12 +0200
+
+centericq (4.20.0-2) unstable; urgency=low
+
+  * Cvs backport to fix Jabber/PGP decrypt problem when 
+    receiving multiple <x> tags (Closes: 295469)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 17 Feb 2005 22:09:12 +0100
+
+centericq (4.20.0-1) unstable; urgency=low
+
+  * New upstream release, added gpg support for jabber (added build 
+    depend on gpgme)
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri,  4 Feb 2005 08:45:23 +0100
+
+centericq (4.14.0-1) unstable; urgency=low
+
+  * New upstream release (includes cvs backport of 4.13.0-2)
+  * Use sox instead of esound to play wave file (Closes: #290965)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 20 Jan 2005 08:46:44 +0100
+
+centericq (4.13.0-2) unstable; urgency=low
+
+  * Backport cvs patch to fixes the 'u' disappearing issue
+    (Closes: #288226)
+  * Backport cvs patch to fixed memory leak problem
+    (Closes: #261055)
+
+ -- Julien Lemoine <speedblue@debian.org>  Sun,  2 Jan 2005 21:42:16 +0100
+
+centericq (4.13.0-1) unstable; urgency=low
+
+  * New upstream release 
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon, 20 Dec 2004 21:24:00 +0100
+
+centericq (4.12.0-3) unstable; urgency=low
+
+  * Fixed compilation error with gcc 3.4 (applied patch from gentoo.org)
+    (Closes: #274181)
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon, 18 Oct 2004 22:57:45 +0200
+
+centericq (4.12.0-2) unstable; urgency=low
+
+  * Changed build-dep from fribidi-dev to fribidi-dev (>= 0.10.4-4)
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 13 Oct 2004 00:02:36 +0200
+
+centericq (4.12.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 28 Sep 2004 22:46:23 +0200
+
+centericq (4.11.0-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu,  5 Aug 2004 23:29:43 +0200
+
+centericq (4.10.0-3) unstable; urgency=low
+
+  * Rebuild centericq with libgnutls11
+    (Closes: #263664)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu,  5 Aug 2004 19:58:47 +0200
+
+centericq (4.10.0-2) unstable; urgency=low
+
+  * Applied patch from Paul Hampson <Paul.Hampson@anu.edu.au> to fix 
+    MSN server disconnection (Closes: #257899)
+  * Added a message for double escape (Closes: #258036)
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon, 19 Jul 2004 20:50:20 +0200
+
+centericq (4.10.0-1) unstable; urgency=low
+
+  * New upstream release
+    problem with non us characters fixed (Closes: #232014, #253170)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu,  1 Jul 2004 07:10:56 +0200
+
+centericq (4.9.12-5) unstable; urgency=low
+
+  * Replaced recommand on mozilla by www-browser
+    (Closes: #256058, #254646)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 26 Jun 2004 14:45:09 +0200
+
+centericq (4.9.12-4) unstable; urgency=low
+
+  * recompile with --enable-locales-fix
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue,  8 Jun 2004 22:02:53 +0200
+
+centericq (4.9.12-3) unstable; urgency=low
+
+  * Recompilation with libgcc1 3.3.1 (4.9.12-2 was compiled with libgcc1 3.4.0)
+    Thanks to David B. Harris.
+  
+ -- Julien Lemoine <speedblue@debian.org>  Sun,  9 May 2004 23:43:35 +0200
+
+centericq (4.9.12-2) unstable; urgency=low
+
+  * Fixed error in --help command (wrong list of protocol) 
+    (Closes: #244630)
+
+ -- Julien Lemoine <speedblue@debian.org>  Sun,  9 May 2004 03:40:38 +0200
+
+centericq (4.9.12-1) unstable; urgency=low
+
+  * New upstream release
+  * [Upstream] Fixed segv in MSN module (Closes: #235148, #235741, #236262)
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 13 Apr 2004 23:32:19 +0200
+
+centericq (4.9.11-2) unstable; urgency=low
+
+  * Remove libicq2000 headers file from centericq-common
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 23 Mar 2004 22:50:41 +0100
+
+centericq (4.9.11-1) unstable; urgency=low
+
+  * New upstream release
+  * Now use libgnutls10 (patched libgadu to allow use of libgnutls)
+  * [Upstream] Configurable key bindings patch by Daniel Kraus was applied
+    (Closes: #152915)
+  * [Upstream] Reply button reappears
+    (Closes: #232622)
+  * [Upstream] Centericq can scroll a message in the full-screen
+    (Closes: #235625)
+  * [Upstream] Fixed timestamp problem
+    (Closes: #221592)
+  * [Upstream] Fixed lj integration bug
+    (Closes: #224386)
+  * [Upstream] Fixed contact deletion synchronisation bug
+    (Closes: #231801, #225125, #238886)
+  * [Upstream] Fixed utf8 bug
+    (Closes: #232014)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Mon, 22 Mar 2004 22:53:51 +0100
+
+centericq (4.9.10-3) unstable; urgency=low
+
+  * Unofficial version with a test to fix multiple segv in msn part...
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 17 Mar 2004 21:59:30 +0100
+
+centericq (4.9.10-2) unstable; urgency=low
+
+  * Fix segfault when connecting to Msn messager and jabber with ssl
+    (Closes: #229129, #234382)
+  * Fix segv when pressing 'c' key on 'Online' or 'Offline' tree item
+  
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 24 Feb 2004 20:05:53 +0100
+
+centericq (4.9.10-1) unstable; urgency=low
+
+  * New upstream release (Closes: #229660)
+  * Fix yahoo connection problem (Closes: #227489)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Fri,  6 Feb 2004 22:26:38 +0100
+
+centericq (4.9.9-3) unstable; urgency=low
+
+  * Allow user to select HTTP browser in configuration dialog 
+    (Closes: #225699)
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon,  5 Jan 2004 14:50:12 +0100
+
+centericq (4.9.9-2) unstable; urgency=low
+
+  * Fixed a bug in MSN support (added a missing memset in connection string)
+    (Closes: #223577)
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon, 15 Dec 2003 00:26:16 +0100
+
+centericq (4.9.9-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 25 Nov 2003 14:48:12 +0100
+
+centericq (4.9.8-3) unstable; urgency=low
+
+  * Re-apply MSN patch
+    * Fixed FTBFS when automake wasn't installed
+  * Changed build dep on libgnutls7-dev (>= 0.8.12-2)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 30 Oct 2003 18:40:50 +0100
+
+centericq (4.9.8-2) unstable; urgency=low
+
+  * Do not apply msn patch because it does not work and it cause build
+    failure on m68k (Closes: #217882)
+  * Removed MSN from description
+
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 25 Oct 2003 19:23:53 +0200
+
+centericq (4.9.8-1) unstable; urgency=low
+
+  * New upstream release
+  * Applied centericq 4.9.7 msn patch (Closes: #209076(
+
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 25 Oct 2003 14:40:58 +0200
+
+centericq (4.9.7-2) unstable; urgency=low
+
+  * Applied patch from "Wim Cools" <w.cools@chello.nl> to support new MSN
+    protocol (Closes: #207728, #209076)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 23 Oct 2003 13:36:23 +0200
+
+centericq (4.9.7-1) unstable; urgency=low
+
+  * New upstream release
+  * [Upstream] fixed Yahoo! IM support (Closes: #213261)
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri,  3 Oct 2003 00:41:06 +0200
+
+centericq (4.9.6-4) unstable; urgency=low
+
+  * Fixed segmentation fault in Alt-F (Closes: #210718)
+  * Added example of ~/.centericq/external file
+  
+ -- Julien Lemoine <speedblue@debian.org>  Sun, 14 Sep 2003 02:05:47 +0200
+
+centericq (4.9.6-3) unstable; urgency=low
+
+  * Fixed typo in description (Closes: #208973)
+
+ -- Julien Lemoine <speedblue@debian.org>  Sat,  6 Sep 2003 23:32:31 +0200
+
+centericq (4.9.6-2) unstable; urgency=low
+
+  * Added a centericq-utf8 package linked with libncursesw5 instead of
+    libncurses5 (Closes: #207373)
+  * Updated to Standards-Version 3.6.1
+  
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 27 Aug 2003 14:21:02 +0200
+
+centericq (4.9.6-1) unstable; urgency=low
+
+  * New upstream release
+  * Removed patches/namespace.dpatch and patches/configure.dpatch, they are
+    now included in upstream tarball
+  * Removed patches/appearence.dpatch
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 22 Aug 2003 13:26:23 +0200
+
+centericq (4.9.5-3) unstable; urgency=low
+
+  * Removed build-dep on automake/autoconf (was to prevent an autoconf bug 
+    in upstream releases) (Closes: #205982)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 21 Aug 2003 12:38:36 +0200
+
+centericq (4.9.5-2) unstable; urgency=low
+
+  * Use libgnutls7 instead of libgnutls5
+  * Recompile only kkconsui for centericq-fribidi
+  * Updated to Standards-Version 3.6.0
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 18 Jul 2003 12:38:18 +0200
+
+centericq (4.9.5-1) unstable; urgency=low
+
+  * New upstream release
+  * Updated to Standards-Version 3.5.10
+  
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 16 Jul 2003 09:19:17 +0200
+
+centericq (4.9.4-2) unstable; urgency=low
+
+  * Clean up debian/ directory (removed unused file)
+  * Removed NEWS.gz since it is useless (Closes: #200590)
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed,  9 Jul 2003 13:44:29 +0200
+
+centericq (4.9.4-1) unstable; urgency=low
+
+  * New upstream release (bug fix release)
+  * Fixed typo in icqface.cc (Closes: #192722)
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon, 12 May 2003 20:45:08 +0200
+
+centericq (4.9.3-2) unstable; urgency=low
+
+  * Re-enabled ssl support with gnutls5 (was a configuration problem)
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri,  9 May 2003 18:20:10 +0200
+
+centericq (4.9.3-1) unstable; urgency=low
+
+  * New upstream release
+  * Removed flush-log, man, yahoohook, emacs patches (now shipped upstream).
+  * Removed libglib1.2-dev from build-depends 
+    (Glib is not needed to build the program anymore).
+  * Disabled ssl support for the moment, when enabled centericq freeze, 
+    this is probably a gnutls problem.
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu,  8 May 2003 03:56:16 +0200
+
+centericq (4.9.2-5) unstable; urgency=low
+
+  * Apply new patch from Romain FRANCOISE <romain@orebokech.com> to add
+    more emacs bindings :
+    o M-< : go to the beginning of the buffer
+    o M-> : go to the end of the buffer
+    o M-b : move one word backwards
+    o M-f : move one word forwards
+    o M-d : delete one word
+    o C-t : transpose two characters
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 23 Apr 2003 01:24:05 +0200
+
+centericq (4.9.2-4) unstable; urgency=low
+
+  * Apply patch from Romain FRANCOISE <romain@orebokech.com> to add 
+    c-u and c-k emacs-bindings (Closes: #189597)
+  * Fixed cicqsync manpage (was manpage of cicqconv)
+  * Change http://centericq.net to http://konst.org.ua/centericq/ 
+    since centericq.net site is not accessible
+  
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 19 Apr 2003 12:46:46 +0200
+
+centericq (4.9.2-3) unstable; urgency=low
+
+  * Added an option in centericq configuration to Enable/Disable
+    Emacs-binding (sent patch to upstream)
+  * clean-up package (now use dpatch)
+  * Updated to Standards-Version 3.5.9
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 16 Apr 2003 18:55:23 +0200
+
+centericq (4.9.2-2) unstable; urgency=low
+
+  * Fixed typos in man pages
+  * Fixed segv with yahoo contacts actives (Closes: #180381)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 15 Feb 2003 23:29:10 +0100
+
+centericq (4.9.2-1) unstable; urgency=low
+
+  * New upstream release
+  * [upstream] Jabber treats correctly all the data encoded in UTF-8
+    (Closes: #174718)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 21 Jan 2003 07:17:06 +0100
+
+centericq (4.9.1-4) unstable; urgency=low
+
+  * Added emacs binding in texteditor
+    (support for c-d c-a c-e c-p c-n c-b c-f and c-k)
+    (Closes: #155707)
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 10 Jan 2003 15:26:01 +0100
+
+centericq (4.9.1-3) unstable; urgency=low
+
+  * Fixed problem with Recommends section
+
+ -- Julien Lemoine <speedblue@debian.org>  Sun, 29 Dec 2002 03:32:33 +0100
+
+centericq (4.9.1-2) unstable; urgency=low
+
+  * Fixed compilation problem with g++ >= 3.0 
+    (std namespace problem)
+
+ -- Julien Lemoine <speedblue@debian.org>  Sun, 29 Dec 2002 00:29:29 +0100
+
+centericq (4.9.1-1) unstable; urgency=low
+
+  * New upstream release
+  * [Upstream] splits offline messages into pieces 450 bytes each
+    (Closes: #169205)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 28 Dec 2002 14:10:42 +0100
+
+centericq (4.9.0-2) unstable; urgency=low
+
+  * Changed description
+    (Closes: #172830)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 12 Dec 2002 23:25:33 +0100
+
+centericq (4.9.0-1) unstable; urgency=low
+
+  * New upstream release
+  * compile with libgnutls (enable ssl support for jabber protocole)
+    (Closes: #170842)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 12 Dec 2002 20:59:36 +0100
+
+centericq (4.8.9-1) unstable; urgency=low
+
+  * New upstream release
+  * Updated description
+  * Removed build-depend on libsigc++ (see upstream ChangeLog for details)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Mon,  2 Dec 2002 21:25:39 +0100
+
+centericq (4.8.8-1) unstable; urgency=low
+
+  * New upstream release
+  * [Upstream] Support for the 6th protocol - Jabber, was added
+    (Closes: #132991) 
+  * updated to follow the last version of Debian Policy
+  
+ -- Julien Lemoine <speedblue@debian.org>  Mon, 25 Nov 2002 22:28:19 +0100
+
+centericq (4.8.7-4) unstable; urgency=low
+
+  * Applied 2 patchs from http://centericq.de/archive/contrib/patches/
+    fetch-by-one-touch and status-all-on-top
+    (Closes: #170046)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 22 Nov 2002 11:57:42 +0100
+
+centericq (4.8.7-3) unstable; urgency=low
+
+  * Added fr.po from Emmanuel le Chevoir <manu42@free.fr>
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 15 Nov 2002 09:44:02 +0100
+
+centericq (4.8.7-2) unstable; urgency=low
+
+  * Applied patch from David Murn <scuffer@hups.net> to fix
+    mail check problem (Closes: #168197)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu,  7 Nov 2002 23:50:55 +0100
+
+centericq (4.8.7-1) unstable; urgency=low
+
+  * New upstream release
+  * [UPSTREAM] added IRC server password support
+    (Closes: #167611)
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon,  4 Nov 2002 09:39:46 +0100
+
+centericq (4.8.6-5) unstable; urgency=low
+
+  * Added -lstdc++ on final ld
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 24 Oct 2002 20:01:36 +0200
+
+centericq (4.8.6-4) unstable; urgency=low
+
+  * Added -lstdc++ in configure tests
+    This should fix compilation problem on hppa
+  * Added -lstdc++ in final link
+    This should fix compilation problem on S/390
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 24 Oct 2002 16:59:09 +0200
+
+centericq (4.8.6-3) unstable; urgency=low
+
+  * Added more output on compilation problem with hppa 
+    (seem to be a libsgic++ problem)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 24 Oct 2002 14:28:01 +0200
+
+centericq (4.8.6-2) unstable; urgency=low
+
+  * Added build dep on libncurses (will fix compilation pb on hppa)
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 24 Oct 2002 09:38:52 +0200
+
+centericq (4.8.6-1) unstable; urgency=low
+
+  * New upstream release
+  * [Upstream] Fixed the segfault problem in the Yahoo module.
+    (Closes: #161309)
+  
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 18 Oct 2002 20:10:38 +0200
+
+centericq (4.8.5-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue,  8 Oct 2002 22:44:14 +0200
+
+centericq (4.8.4-2) unstable; urgency=low
+
+  * Add flush on log to save logfile immediately
+   (Closes: #161305)
+  * Added documentation in centericq and centericq-fribidi
+   (Closes: #161466)
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 20 Sep 2002 14:42:29 +0200
+
+centericq (4.8.4-1) unstable; urgency=low
+
+  * New upstream release
+  * updated to follow the last version of Debian Policy (4.5.7.0)
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 10 Sep 2002 21:28:57 +0200
+
+centericq (4.8.3-2) unstable; urgency=low
+
+  * Changed second default navigator from netscape to galeon
+  * Changed default sound player from play to esdplay
+  * Added recommends on mozilla | galeon, 
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue,  3 Sep 2002 16:20:25 +0200
+
+centericq (4.8.3-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Julien Lemoine <speedblue@debian.org>  Thu, 29 Aug 2002 12:42:39 +0200
+
+centericq (4.8.2-4) unstable; urgency=low
+
+  * recompiled to fix 'undefined symbol: _ZTIN4SigC6ObjectE'
+
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 24 Aug 2002 12:49:05 +0200
+
+centericq (4.8.2-3) unstable; urgency=low
+
+  * fixed compilation problem with g++-3.1 and g++-3.2 
+    (patch sent to upstream)
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 23 Aug 2002 12:30:44 +0200
+
+centericq (4.8.2-2) unstable; urgency=low
+
+  * updated to follow the last version of Debian Policy
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 21 Aug 2002 15:46:20 +0200
+
+centericq (4.8.2-1) unstable; urgency=low
+
+  * New upstream version
+  * Improve clean rule
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 20 Aug 2002 15:10:53 +0200
+
+centericq (4.8.0-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri,  9 Aug 2002 20:44:43 +0200
+
+centericq (4.7.8-3) unstable; urgency=low
+
+  * Applied patch from David Murn
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 17 Jul 2002 03:28:37 +0200
+
+centericq (4.7.8-2) unstable; urgency=low
+
+  * Fixed bug in libmsn (Closes: #149096)
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 16 Jul 2002 16:45:03 +0200
+
+centericq (4.7.8-1) unstable; urgency=low
+
+  * New upstream version
+  * Fixed cosmetic bugs (Closes: #152914)
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 16 Jul 2002 14:56:57 +0200
+
+centericq (4.7.7-1) unstable; urgency=low
+
+  * New upstream version
+  * Fixed bug in yahoo engine (Closes: #149096)
+
+ -- Julien Lemoine <speedblue@debian.org>  Mon,  8 Jul 2002 22:37:45 +0200
+
+centericq (4.7.5-1) unstable; urgency=low
+
+  * New upstream version
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 18 Jun 2002 23:32:19 +0200
+
+centericq (4.7.2-1) unstable; urgency=low
+
+  * New upstream version
+  * Fixed crash when adding empty users in search (Closes: #148006)
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 24 May 2002 15:25:41 +0200
+
+centericq (4.7.1-4) unstable; urgency=low
+
+  * improved clean rule
+
+ -- Julien Lemoine <speedblue@debian.org>  Tue, 14 May 2002 12:00:35 +0200
+
+centericq (4.7.1-3) unstable; urgency=low
+
+  * fixed iostream problem with g++-3.0 (Closes: #146535)
+
+ -- Julien Lemoine <speedblue@debian.org>  Sat, 11 May 2002 09:41:55 +0200
+
+centericq (4.7.1-2) unstable; urgency=low
+
+  * fixed template problem with g++-3.0 (Closes: #146535)
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 10 May 2002 23:53:02 +0200
+
+centericq (4.7.1-1) unstable; urgency=low
+
+  * New upstream version (Closes: #146220)
+  * Add fribi-check in configure (Closes: #145967)
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed,  8 May 2002 16:58:00 +0200
+
+centericq (4.6.9-5) unstable; urgency=low
+
+   * split centericq in 3 packages :
+     - centericq-common for data and tools
+     - centericq
+     - centericq-fribidi : centericq with fribidi support
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed,  8 May 2002 15:01:41 +0200
+
+centericq (4.6.9-4) unstable; urgency=low
+
+  * changed build-depends automake to automake1.5
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 26 Apr 2002 06:26:29 +0200
+
+centericq (4.6.9-3) unstable; urgency=low
+
+  * added build-depend on automake to fix problem on m68k
+
+ -- Julien Lemoine <speedblue@debian.org>  Fri, 26 Apr 2002 04:29:06 +0200
+
+centericq (4.6.9-2) unstable; urgency=low
+
+  * fixed build depends (Closes: #144372)
+
+ -- Julien Lemoine <speedblue@debian.org>  Wed, 24 Apr 2002 21:00:12 +0200
+
+centericq (4.6.9-1) unstable; urgency=low
+
+  * New Maintainer
+  * made french translation.
+    Thanks to Emmanuel le Chevoir
+  * fixed output of usage message (Closes: #135258)
+  * fixed mail problem (Closes: #107003)
+  * fixed cycling problem (Closes: #107004)
+  * activated gettext support
+  * activated fribidi support (Closes: #132964)
+  * fixed build failure with g++ 3.0 (Closes: #126837)
+    (to build centericq with g++ 3.0, libsigc++-dev and lisgigc++0 must
+    be compiled with g++ 3.0)
+
+ -- Julien Lemoine <speedblue@debian.org>  Sun, 21 Apr 2002 00:52:15 +0200
+
+centericq (4.5.1-1.1) unstable; urgency=low
+
+  * NMU to fix RC bug(s).
+  * (Re-)Applied patch from Lamont to fix build failure when compiled with
+    gcc-3.0 (as is done on hppa, where gcc-3.0 is the default). Only the parts
+    that applied to libmsn and libyahoo were applied. The newer libicq in this
+    package does not have the problems of the old one. Did a test build on
+    sparc using CC=gcc-3.0 CXX=g++-3.0, and all built fine. Closes: #126837
+
+    NOTE: Maintainer, please do not overlook NMU's in the future.
+
+ -- Ben Collins <bcollins@debian.org>  Sun, 10 Feb 2002 18:54:03 -0500
+
+centericq (4.5.1-1) unstable; urgency=low
+
+  * New upstream version (Closes: #124041)
+  * Upstream includes new ICQ2000 protocol (Closes: #125985, #128915)
+  * Fixed spelling in long description (Closes: #124492)
+
+ -- Wouter de Vries <sax@debian.org>  Mon,  4 Feb 2002 09:50:02 +0100
+
+centericq (4.2.1-1) unstable; urgency=low
+
+  * New upstream version (Closes: #116753)
+  * Object files removed (Closes: #111447)
+
+ -- Wouter de Vries <sax@debian.org>  Thu,  14 Dec 2001 13:36:35 +0100
+
+centericq (3.35.22-2) unstable; urgency=low
+
+  * Oops... fixed sound config for real now. 
+
+ -- Wouter de Vries <sax@debian.org>  Wed,  5 Sep 2001 14:56:49 +0200
+
+centericq (3.35.22-1) unstable; urgency=low
+
+  * New upstream version. 
+  * Source-dependency on libncurses5-dev added (Closes: #97987)
+  * Menu hint added (Closes: #98774)
+  * Description field updated (Closes: #97827)
+  * Sound config fixed (Closes: #97827, #97837, #97838)
+  * Email checking now configurable (Closes: #106980)
+  * New version packaged (Closes: #107005)
+
+ -- Wouter de Vries <sax@debian.org>  Wed,  5 Sep 2001 14:14:25 +0200
+
+centericq (3.29.12-1) unstable; urgency=low
+
+  * New upstream version. 
+
+ -- Wouter de Vries <sax@debian.org>  Thu, 17 May 2001 11:14:18 +0200
+
+centericq (3.22.9s-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Wouter de Vries <sax@debian.org>  Tue, 24 Apr 2001 11:16:13 +0200
+
+

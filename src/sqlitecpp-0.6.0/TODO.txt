@@ -1,0 +1,33 @@
+Add a full googletest suite
+
+Create a "SQLiteCppExample" repository using the wrapper as a Git submodule.
+
+Check C++11 explicit support
+
+Add a FAQ.txt
+Add a Tutorial: for SQLite newbies
+Create Github Wiki pages with the README.md and FAQ.txt: Installation, Examples, Tutorial, How to contribute
+
+Publish a versionned ZIP file in Google Project Mirror
+
+Publish the Doxygen Documentation in the Github Pages (gh-pages branch)
+
+Missing features in v0.5.0:
+- bind a SQLITE_STATIC value (string/blob)
+- bind a dynamic value with zerocopy (unlike SQLITE_TRANSIENT) with custom deleter
+- getColumnByName ? std::map getRow() ?
+
+Missing documentation in v0.5.0:
+- explain the noncopyable property for RAII design
+- comment on returning error code instead of exception that shall not be thrown when exepected (!?)
+
+Advanced missing features:
+- backup support to/from file/:memory:
+- Function ?
+- Agregate ?
+- support for different transaction mode ? NO: too specific
+- operator<< binding ? NO: redundant with bind()
+- ATTACH Database ? NO: can already be done by "ATTACH" Statement
+- Add optional usage of experimental sqlite3_trace() function to enable statistics 
+
+Post an article to CodeProject: Is there a license issue ?

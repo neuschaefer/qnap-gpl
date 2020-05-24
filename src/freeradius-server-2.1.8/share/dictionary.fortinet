@@ -1,0 +1,29 @@
+# -*- text -*-
+##############################################################################
+#
+#	Fortinet's VSA's
+#	As posted to the list by Richie Lee.
+#
+#	$Id: dictionary.fortinet,v 1.1.1.1 2010/03/11 07:11:43 richardchang Exp $
+#
+##############################################################################
+
+#
+#	Fortinet's VSA's
+#
+
+VENDOR		Fortinet			12356
+
+BEGIN-VENDOR	Fortinet
+ATTRIBUTE	Fortinet-Group-Name			1	string
+ATTRIBUTE	Fortinet-Client-IP-Address		2	ipaddr
+ATTRIBUTE	Fortinet-Vdom-Name			3	string
+ATTRIBUTE	Fortinet-Client-IPv6-Address		4	octets
+ATTRIBUTE	Fortinet-Interface-Name			5	string
+ATTRIBUTE	Fortinet-Access-Profile			6	string
+
+#
+# Integer Translations
+#
+
+END-VENDOR Fortinet

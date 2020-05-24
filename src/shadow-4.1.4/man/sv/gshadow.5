@@ -1,0 +1,100 @@
+'\" t
+.\"     Title: gshadow
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10-05-2009
+.\"    Manual: Filformat och konversioner
+.\"    Source: Filformat och konversioner
+.\"  Language: Swedish
+.\"
+.TH "GSHADOW" "5" "10-05-2009" "Filformat och konversioner" "Filformat och konversioner"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAMN"
+gshadow \- skuggad gruppfil
+.SH "BESKRIVNING"
+.PP
+/etc/gshadow
+inneh\(oaller skuggad gruppkontoinformation\&. Den inneh\(oaller rader med f\(:oljande kolonseparerade f\(:alt:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+gruppnamn
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+krypterat l\(:osenord
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+kommaseparerad lista med gruppadministrat\(:orer
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+kommaseparerad lista med gruppmedlemmar
+.RE
+.PP
+The group name and password fields must be filled\&. The encrypted password consists of characters from the 64\-character alphabet a thru z, A thru Z, 0 thru 9, \e\&. and /\&. Refer to
+\fBcrypt\fR(3)
+for details on how this string is interpreted\&. If the password field contains some string that is not valid result of
+\fBcrypt\fR(3), for instance ! or *, the user will not be able to use a unix password to log in, subject to
+\fBpam\fR(7)\&.
+.PP
+This information supersedes any password present in
+/etc/group\&.
+.PP
+Denna fil f\(oar inte vara l\(:asbar av vanliga anv\(:andare om l\(:osenordss\(:akerheten ska uppr\(:atth\(oallas\&.
+.SH "FILER"
+.PP
+/etc/group
+.RS 4
+Gruppkontoinformation\&.
+.RE
+.PP
+/etc/gshadow
+.RS 4
+S\(:aker gruppkontoinformation\&.
+.RE
+.SH "SE OCKS\(oA"
+.PP
+
+\fBgpasswd\fR(5),
+\fBgroup\fR(5),
+\fBgrpck\fR(8),
+\fBgrpconv\fR(8),
+\fBnewgrp\fR(1)\&.

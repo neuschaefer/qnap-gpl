@@ -1,0 +1,11 @@
+# -*- text -*-
+#
+#  $Id: krb5,v 1.1.1.1 2010/03/11 07:11:43 richardchang Exp $
+
+#
+#  Kerberos.  See doc/rlm_krb5 for minimal docs.
+#
+krb5 {
+	keytab = /path/to/keytab
+	service_principal = name_of_principle
+}

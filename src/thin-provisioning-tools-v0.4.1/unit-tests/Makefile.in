@@ -1,0 +1,90 @@
+# Copyright (C) 2011 Red Hat, Inc. All rights reserved.
+#
+# This file is part of the thin-provisioning-tools source.
+#
+# thin-provisioning-tools is free software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# thin-provisioning-tools is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with thin-provisioning-tools.  If not, see
+# <http://www.gnu.org/licenses/>.
+
+GMOCK_DIR=gmock-1.6.0/
+GMOCK_INCLUDES=\
+	-Igmock-1.6.0/include \
+	-Igmock-1.6.0/gtest/include
+
+GMOCK_FLAGS=\
+	-Wno-unused-local-typedefs
+
+GMOCK_LIBS=\
+	-Llib -lpdata -lgmock -lpthread -laio
+
+GMOCK_DEPS=\
+	$(wildcard $(GMOCK_DIR)/include/*.h) \
+	$(wildcard $(GMOCK_DIR)/src/*.cc) \
+	$(wildcard $(GMOCK_DIR)/gtest/include/*.h) \
+	$(wildcard $(GMOCK_DIR)/gtest/src/*.cc)
+
+lib/libgmock.a: $(GMOCK_DEPS)
+	@echo "    [CXX] gtest"
+	$(V)g++ $(GMOCK_INCLUDES) -I$(GMOCK_DIR)/gtest -c $(GMOCK_DIR)/gtest/src/gtest-all.cc
+	@echo "    [CXX] gmock"
+	$(V)g++ $(GMOCK_INCLUDES) -I$(GMOCK_DIR) -c $(GMOCK_DIR)/src/gmock-all.cc
+	@echo "    [AR]  $<"
+	$(V)ar -rv lib/libgmock.a gtest-all.o gmock-all.o > /dev/null 2>&1
+
+TEST_SOURCE=\
+	unit-tests/gmock_main.cc \
+	unit-tests/test_utils.cc \
+	\
+	unit-tests/array_block_t.cc \
+	unit-tests/array_t.cc \
+	unit-tests/base64_t.cc \
+	unit-tests/block_t.cc \
+	unit-tests/bitset_t.cc \
+	unit-tests/bloom_filter_t.cc \
+	unit-tests/btree_t.cc \
+	unit-tests/btree_counter_t.cc \
+	unit-tests/btree_damage_visitor_t.cc \
+	unit-tests/cache_superblock_t.cc \
+	unit-tests/damage_tracker_t.cc \
+	unit-tests/endian_t.cc \
+	unit-tests/error_state_t.cc \
+	unit-tests/rmap_visitor_t.cc \
+	unit-tests/run_set_t.cc \
+	unit-tests/space_map_t.cc \
+	unit-tests/span_iterator_t.cc \
+	unit-tests/transaction_manager_t.cc
+
+#	unit-tests/thin_metadata_t.cc \
+
+TEST_OBJECTS=$(subst .cc,.gmo,$(TEST_SOURCE))
+
+# .gmo files are plain .o files, only they've been built with gmock
+# include paths.
+.SUFFIXES: .gmo
+
+%.gmo: %.cc
+	@echo "    [CXX] $<"
+	$(V) $(CXX) -c $(INCLUDES) $(GMOCK_INCLUDES) $(CXXFLAGS) $(GMOCK_FLAGS) -o $@ $<
+	@echo "    [DEP] $<"
+	$(V) $(CXX) -MM -MT $(subst .cc,.o,$<) $(INCLUDES) $(GMOCK_INCLUDES) $(CXXFLAGS) $(GMOCK_FLAGS) $< > $*.$$$$; \
+	sed 's,\([^ :]*\)\.o[ :]*,\1.o \1.gmo $* : Makefile ,g' < $*.$$$$ > $*.d; \
+	$(RM) $*.$$$$
+
+unit-tests/unit_tests: $(TEST_OBJECTS) lib/libgmock.a lib/libpdata.a
+	@echo "    [LD]  $<"
+	$(V)g++ $(CXXFLAGS) $(LDFLAGS) -o $@ $(TEST_OBJECTS) $(LIBS) $(GMOCK_LIBS) $(LIBEXPAT)
+
+.PHONEY: unit-test
+
+unit-test: unit-tests/unit_tests
+	unit-tests/unit_tests

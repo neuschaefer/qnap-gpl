@@ -1,0 +1,223 @@
+'\" t
+.\"     Title: userdel
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10/05/2009
+.\"    Manual: Commandes de gestion du syst\(`eme
+.\"    Source: Commandes de gestion du syst\(`eme
+.\"  Language: French
+.\"
+.TH "USERDEL" "8" "10/05/2009" "Commandes de gestion du syst\(`em" "Commandes de gestion du syst\(`em"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOM"
+userdel \- supprimer un compte utilisateur et les fichiers associ\('es
+.SH "SYNOPSIS"
+.HP \w'\fBuserdel\fR\ 'u
+\fBuserdel\fR [options] \fILOGIN\fR
+.SH "DESCRIPTION"
+.PP
+The
+\fBuserdel\fR
+command modifies the system account files, deleting all entries that refer to the user name
+\fILOGIN\fR\&. The named user must exist\&.
+.SH "OPTIONS"
+.PP
+Les options disponibles de la commande
+\fBuserdel\fR
+sont\ \&:
+.PP
+\fB\-f\fR, \fB\-\-force\fR
+.RS 4
+This option forces the removal of the user account, even if the user is still logged in\&. It also forces
+\fBuserdel\fR
+to remove the user\'s home directory and mail spool, even if another user uses the same home directory or if the mail spool is not owned by the specified user\&. If
+\fIUSERGROUPS_ENAB\fR
+is defined to
+\fIyes\fR
+in
+/etc/login\&.defs
+and if a group exists with the same name as the deleted user, then this group will be removed, even if it is still the primary group of another user\&.
+.sp
+\fINote\ \&:\fR
+Cette option est dangereuse, elle peut laisser votre syst\(`eme dans un \('etat incoh\('erent\&.
+.RE
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Afficher un message d\'aide et quitter\&.
+.RE
+.PP
+\fB\-r\fR, \fB\-\-remove\fR
+.RS 4
+Les fichiers pr\('esents dans le r\('epertoire personnel de l\'utilisateur seront supprim\('es en m\(^eme temps que le r\('epertoire lui\-m\(^eme, ainsi que le r\('epertoire d\'attente des courriels\&. Vous devrez rechercher et \('eliminer vous\-m\(^eme les fichiers situ\('es dans d\'autres syst\(`emes de fichiers\&.
+.sp
+Le r\('epertoire d\'attente des courriels est d\('efini par la variable
+\fIMAIL_DIR\fR
+du fichier
+login\&.defs\&.
+.RE
+.SH "CONFIGURATION"
+.PP
+The following configuration variables in
+/etc/login\&.defs
+change the behavior of this tool:
+.PP
+\fBMAIL_DIR\fR (string)
+.RS 4
+R\('epertoire d\'attente des courriels (\(Fo\ \&mail spool directory\ \&\(Fc)\&. Ce param\(`etre est n\('ecessaire pour manipuler les bo\(^ites \(`a lettres lorsque le compte d\'un utilisateur est modifi\('e ou supprim\('e\&. S\'il n\'est pas sp\('ecifi\('e, une valeur par d\('efaut d\('efinie \(`a la compilation est utilis\('ee\&.
+.RE
+.PP
+\fBMAIL_FILE\fR (string)
+.RS 4
+D\('efinit l\'emplacement des bo\(^ites aux lettres des utilisateurs relativement \(`a leur r\('epertoire personnel\&.
+.RE
+.PP
+Les param\(`etres
+\fBMAIL_DIR\fR
+et
+\fBMAIL_FILE\fR
+sont utilis\('ees par
+\fBuseradd\fR,
+\fBusermod\fR, et
+\fBuserdel\fR
+pour cr\('eer, d\('eplacer, ou supprimer les bo\(^ites aux lettres des utilisateurs\&.
+.PP
+If
+\fBMAIL_CHECK_ENAB\fR
+is set to
+\fIyes\fR, they are also used to define the
+\fBMAIL\fR
+environment variable\&.
+.PP
+\fBMAX_MEMBERS_PER_GROUP\fR (nombre)
+.RS 4
+Nombre maximum de membres par entr\('ee de groupe\&. Lorsque le maximum est atteint, une nouvelle entr\('ee de groupe (ligne) est d\('emarr\('ee dans
+/etc/group
+(avec le m\(^eme nom, m\(^eme mot de passe, et m\(^eme GID)\&.
+.sp
+La valeur par d\('efaut est 0, ce qui signifie qu\'il n\'y a pas de limites pour le nombre de membres dans un groupe\&.
+.sp
+Cette fonctionnalit\('e (groupe d\('ecoup\('e) permet de limiter la longueur des lignes dans le fichier de groupes\&. Ceci est utile pour s\'assurer que les lignes pour les groupes NIS ne sont pas plus grandes que 1024 caract\(`eres\&.
+.sp
+Si vous avez besoin de fixer cette limite, vous pouvez utiliser 25\&.
+.sp
+Note: split groups may not be supported by all tools (even in the Shadow toolsuite)\&. You should not use this variable unless you really need it\&.
+.RE
+.PP
+\fBUSERDEL_CMD\fR (string)
+.RS 4
+Si ce param\(`etre est d\('efini, cette commande est ex\('ecut\('ee lors de la suppression d\'un utilisateur\&. Elle pourra supprimer toutes les t\(^aches p\('eriodiques cron ou at, tous les travaux d\'impression, etc\&. de l\'utilisateur (qui sera fourni comme premier param\(`etre)\&.
+.RE
+.PP
+\fBUSERGROUPS_ENAB\fR (boolean)
+.RS 4
+Enable setting of the umask group bits to be the same as owner bits (examples: 022 \-> 002, 077 \-> 007) for non\-root users, if the uid is the same as gid, and username is the same as the primary group name\&.
+.sp
+If set to
+\fIyes\fR,
+\fBuserdel\fR
+will remove the user\'s group if it contains no more members, and
+\fBuseradd\fR
+will create by default a group with the name of the user\&.
+.RE
+.SH "FICHIERS"
+.PP
+/etc/group
+.RS 4
+Informations sur les groupes\&.
+.RE
+.PP
+/etc/login\&.defs
+.RS 4
+Configuration de la suite des mots de passe cach\('es \(Fo\ \&shadow password\ \&\(Fc\&.
+.RE
+.PP
+/etc/passwd
+.RS 4
+Informations sur les comptes des utilisateurs\&.
+.RE
+.PP
+/etc/shadow
+.RS 4
+Informations s\('ecuris\('ees sur les comptes utilisateurs\&.
+.RE
+.SH "VALEURS DE RETOUR"
+.PP
+La commande
+\fBuserdel\fR
+retourne les valeurs suivantes en quittant\ \&:
+.PP
+\fI0\fR
+.RS 4
+succ\(`es
+.RE
+.PP
+\fI1\fR
+.RS 4
+impossible de mettre \(`a jour le fichier des mots de passe
+.RE
+.PP
+\fI2\fR
+.RS 4
+erreur de syntaxe
+.RE
+.PP
+\fI6\fR
+.RS 4
+l\'utilisateur indiqu\('e n\'existe pas
+.RE
+.PP
+\fI8\fR
+.RS 4
+l\'utilisateur est actuellement connect\('e
+.RE
+.PP
+\fI10\fR
+.RS 4
+impossible de mettre \(`a jour le fichier des groupes
+.RE
+.PP
+\fI12\fR
+.RS 4
+impossible de supprimer le r\('epertoire personnel
+.RE
+.SH "AVERTISSEMENTS"
+.PP
+\fBUserdel\fR
+ne vous permet pas de supprimer un compte si l\'utilisateur en question est actuellement connect\('e\&. Vous devez tuer tous les processus en cours d\'ex\('ecution appartenant \(`a l\'utilisateur que vous \(^etes en train de supprimer\&.
+.PP
+Vous ne pouvez supprimer aucun attribut NIS d\'un client NIS\&. Cela doit \(^etre effectu\('e sur le serveur NIS\&.
+.PP
+Si
+\fIUSERGROUPS_ENAB\fR
+vaut
+\fIyes\fR
+dans le fichier
+/etc/login\&.defs,
+\fBuserdel\fR
+supprimera le groupe ayant le m\(^eme nom que l\'utilisateur\&. Afin d\'\('eviter des incoh\('erences entre les fichiers passwd et group,
+\fBuserdel\fR
+v\('erifie que le groupe n\'est pas utilis\('e comme groupe primaire d\'un autre utilisateur\ \&; si c\'est le cas un avertissement sera affich\('e et l\'utilisateur ne sera pas supprim\('e\&. L\'option
+\fB\-f\fR
+permet de forcer la suppression du groupe\&.
+.SH "VOIR AUSSI"
+.PP
+\fBchfn\fR(1),
+\fBchsh\fR(1),
+\fBpasswd\fR(1),
+\fBlogin.defs\fR(5),
+\fBgpasswd\fR(8),
+\fBgroupadd\fR(8),
+\fBgroupdel\fR(8),
+\fBgroupmod\fR(8),
+\fBuseradd\fR(8),
+\fBusermod\fR(8)\&.

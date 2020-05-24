@@ -1,0 +1,38 @@
+linux-igd (1.0+cvs20070630-1) unstable; urgency=low
+
+  For compatibility with upstream, the INT_IFACE and EXT_IFACE
+  variables have been renamed to INTIFACE and EXTIFACE.  This affects
+  /etc/default/linux-igd and /etc/init.d/linux-igd (formerly
+  named /etc/default/upnpd and /etc/init.d/upnpd).
+
+  PLEASE REMEMBER, YOU NEED TO UPDATE THESE VARIABLES IN
+  /etc/default/linux-igd OR THE DAEMON WILL NOT START.
+
+  The linux-igd project has renamed the insert_forward_rules option to
+  create_forward_rules to better reflect what it actually does, i.e. add
+  forwarding rules to the forward chain.
+
+  Also added the forward_rules_append to do what people thought
+  insert_forward_rules did, i.e. control whether the rules are appended
+  (to end) or inserted (at the beginning) in the forward chain. The
+  option description also includes a tip about what to do if neither
+  insert or append is what you need.
+
+  See /usr/share/doc/linux-igd/CHANGES.gz .
+
+  SECURITY NOTE
+  -------------
+
+  This SOFTWARE IS A BETA RELEASE AND NO CLAIMS ARE MADE TO ITS SECURITY
+  OR ITS FUNCTIONALITY.
+
+  Be aware that, even if this software and the upnp libraries all prove
+  to be bug free and completely secure, the Microsoft Internet Gateway
+  Device is designed to allow any computer that has access to the daemon
+  to open up any ports on your firewall and give incoming port forwarding
+  to any other port on any internal computer.
+
+  See /usr/share/doc/linux-igd/SECURITY.Debian
+
+ -- Nick Leverton <nick@leverton.org>  Tue, 17 Jun 2008 12:51:29 +0100
+

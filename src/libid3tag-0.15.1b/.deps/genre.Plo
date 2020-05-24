@@ -1,0 +1,14 @@
+genre.lo: genre.c /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h \
+ config.h global.h id3tag.h ucs4.h genre.dat
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+config.h:
+
+global.h:
+
+id3tag.h:
+
+ucs4.h:
+
+genre.dat:

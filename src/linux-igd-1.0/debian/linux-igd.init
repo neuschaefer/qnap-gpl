@@ -1,0 +1,106 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          linux-igd
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: UPnP Internet Gateway Device
+# Description:       Daemon that emulates Microsoft's Internet Connection Service (ICS)
+#                    and implements the UPnP Internet Gateway Device specification (IGD).
+### END INIT INFO
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/usr/sbin/upnpd
+NAME=linux-igd
+DESC="Linux IGD Daemon"
+
+test -x $DAEMON || exit 0
+
+# Include upnpd defaults if available
+if [ -f /etc/default/$NAME ] ; then
+	. /etc/default/$NAME
+fi
+
+# Check if defaults configured (don't fail on first installation).
+if [ -z "$EXTIFACE" -a -z "$INTIFACE" ] ; then
+	echo "/etc/default/$NAME not configured: $NAME not running" >&2
+	exit 0
+fi
+
+# Verify options
+if [ -z "$EXTIFACE" ] ; then
+	echo "External interface not specified in /etc/default/$NAME" >&2
+	exit 1
+fi
+if [ -z "$INTIFACE" ] ; then
+	echo "Internal interface not specified in /etc/default/$NAME" >&2
+	exit 1
+fi
+
+if [ "$CHROOT_DIR" ]; then
+	RUN_OPTS="$RUN_OPTS --chroot $CHROOT_DIR"
+fi
+
+if [ "$UPNPD_USER" ]; then
+	RUN_OPTS="$RUN_OPTS --chuid $UPNPD_USER"
+fi
+if [ "$UPNPD_GROUP" ]; then
+	RUN_OPTS="$RUN_OPTS --group $UPNPD_GROUP"
+fi
+
+set -e
+
+start () {
+	# Don't abort if we merely failed to setup routing, maybe
+	# something else is handling it after all.
+	# In any case, "RT_NETLINK answers: File exists" is a poor diagnostic.
+	[ "$ALLOW_MULTICAST" != "yes" ] || ip route add 224.0.0.0/4 dev $INTIFACE >/dev/null 2>&1 || true
+	start-stop-daemon --start --quiet $RUN_OPTS \
+		--exec $DAEMON -- "$EXTIFACE" "$INTIFACE"
+}
+
+stop () {
+	start-stop-daemon --stop --quiet --retry 30 --oknodo $RUN_OPTS \
+		--exec $DAEMON
+	# Don't abort if we merely failed to delete routing, maybe we're
+	# restarting when it's not setup yet anyway.
+	# Also suppress "RT_NETLINK answers: No such process" message
+	[ "$ALLOW_MULTICAST" != "yes" ] || ip route del 224.0.0.0/4 dev $INTIFACE >/dev/null 2>&1 || true
+}
+
+signal () {
+	start-stop-daemon --stop --quiet --signal "$1" --oknodo $RUN_OPTS \
+		--exec $DAEMON
+}
+
+
+case "$1" in
+  start)
+	echo -n "Starting $DESC: "
+	start
+	echo "$NAME."
+	;;
+  stop)
+	echo -n "Stopping $DESC: "
+	stop
+	echo "$NAME."
+	;;
+  reset)
+	echo "Resetting $DESC port mappings."
+	signal USR1
+	;;
+  restart|force-reload)
+	echo -n "Restarting $DESC: "
+	stop
+	sleep 1
+	start
+	echo "$NAME."
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart|reset|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0

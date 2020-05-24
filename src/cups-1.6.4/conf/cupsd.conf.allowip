@@ -1,0 +1,4 @@
+<Location />
+  Order allow,deny
+  allow all
+</Location>

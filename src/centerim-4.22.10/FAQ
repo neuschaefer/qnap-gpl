@@ -1,0 +1,195 @@
+/*
+*
+* The CenterIM FAQ (frequently asked questions)
+* originally by Konstantin Klyagin
+* currently maintained by the CenterIM community.
+* read the up-to-date version at http://www.centerim.org/index.php/FAQ
+*
+*/
+
+/* *** */
+
+Q: What about implementing such a neat <blah-blah> feature in centerim?
+
+A: Hey, centerim is GPL and opensource, so feel free to contribute.
+   Don't wait for the maintainers to implement it, just do it
+   yourself and send a patch.
+
+/* *** */
+
+Q: Can't build it under FreeBSD..
+
+A: Use gmake instead of make
+
+/* *** */
+
+Q: (by Paonia Ezrine, paonia@home.welcomehome.org)
+   When I run centerim in a xterm or from the console it is fine but
+   when I run it in a gnome terminal windows the screen does not update
+   correctly. Specificly the right side of the screen does not get
+   cleared after I send a message or other similar events.
+
+A: (by Jakub Travnik, j.travnik@sh.cvut.cz)
+
+   It happens only with the gnome-terminal. centerim works fine on
+   linux-console and eterm (enlightenment) so it is problem with
+   gnome-terminal. It does not support all xterm sequences.
+   /usr/share/terminfo/g/gnome file could correct that (gnome users
+   should have it), so that ncurses will not use such a extended
+   sequences for gnome-terminal.
+
+   Workaround: For me it worked setting TERM variable to gnome and then
+   running centerim without problems.
+   
+   (gnome-terminal)
+   $ export TERM=gnome
+   $ centerim
+   
+   and it is ok
+
+/* *** */
+
+Q: How do I authorize someone's request with centerim?
+
+A: You'll see as soon as someone requests it.
+
+/* *** */
+
+Q: I can't use Ctrl-O to view history and Ctrl-Y to delete a line under
+   FreeBSD
+
+A: Execute the following before starting centerim:
+    stty dsusp undef
+    stty discard undef
+
+/* *** */
+
+Q: I can't get out from a dialog or a menu. When I press ESC, nothing
+   happens.
+
+A: Have you ever used mc (Midnight commander)? It requires users to
+   press ESC twice to close a dialog, menu, etc. It's not a problem, but
+   just a terminal specific issue.
+
+/* *** */
+
+Q: How do I enable logging the protocol info, etc?
+
+A: Run centerim with --debug flag.
+
+/* *** */
+
+Q: CenterIM compiles way too slow on my box. What's wrong?
+
+A: C++ compiler optimization being a rather slow thing is on by default.
+   To turn it off, do the following.
+   [konst@morgue]$ CXXFLAGS=-O0 ./configure && make
+
+/* *** */
+
+Q: From: jeff covey <jeff.covey@pobox.com>
+
+  if i understand the faq correctly, centerim makes esc into escesc
+  because some terminals don't map esc properly. could the use of esc or
+  escesc be made a configuration choice? for me, hitting escape twice is
+  reallyreally annoyingannoying, especially if i'm two menus in, and to
+  get out, i have to hit escape four times in a rowrowrowrow.
+
+A: From: lanzz@lanzz.org
+
+  it's a limitation of the console. keys like f1..f12, the arrows, etc,
+  generate sequences of characters starting with esc. if the application
+  was to handle esc as cancel unconditionally, you'll have arrows
+  cancelling your dialogs. so the app must do one of these things to
+  avoid that:
+
+  1. require esc-esc instead of single esc, as that disambiguates it
+     from the function keys
+
+  2. have a certain timeout and accepting the esc as a cancel only if
+     there wasn't a function sequence after the esc during the timeout
+
+  3. switch keyboard to raw or medium-raw mode and do keycode mapping
+     internally
+
+  as 2. is annoying and sluggish (at least to me) and 3. is too much
+  work for too little gain, i think the current situation with double
+  esc is the best choice. centerim was using timeout esc in the past (i
+  think it's the default way ncurses handles esc) and at least i'm happy
+  with the change :)
+
+  perhaps there could be a configurable choice between double-esc and
+  timeout, if that doesn't complicate the input routines too much.
+
+/* *** */
+
+Q: From: staale@lorentzen.org
+
+   > + [icq] connecting to the server
+   > + [icq] disconnected, turboing
+
+   > Msn works fine.
+
+   > I've tried different icq-servers, with no luck. Anyone with a
+   > clue to what this can be?
+
+A: It means exactly "turboing". You're loggin in and out too fast, so
+   that the server turns on DoS attack protection. All you can do is
+   to try again in half an hour.
+
+/* *** */
+
+Q: WTF?! My centerim binary is more than 20Mb. SOS! HELP! Virus? Aliens?
+
+A: There are three steps you need to take.
+
+    1. Look at other applications written in C++ compiled in your system.
+    2. Read the install(1) and strip(1) man-pages.
+    3. Type "strip -s centerim; ls -l centerim"
+
+/* *** */
+
+Q: I need a program for sending messages on IM networks from the command
+   line. Is it possible to write a program that would use the centerim
+   libraries, or maybe there is a special batch mode in the program?
+
+A: Batch mode like you described is not possible to be implemented, because
+   due to frequent logons followed by disconnections the servers will turn
+   on their DoS attacks protection. So there is the only decent way which
+   consists in sending messages in batch mode through an already running
+   centerim instance. If you want to run it like a "daemon", use
+   screen(1). More details on the batch mode usage can be found in the
+   README, chapter 9.2.
+
+/* *** */
+
+Q: ICQ new UINs registration doesn't work! It just sends a request and
+   then after 30 seconds reports a timeout.
+
+A: It does work. Though, the ICQ server doesn't report the "password is
+   too simple" situaion. Try to enter another one, more complicated. Also,
+   as far as I know, "xxx123" is complicated enough to be accepted by
+   the server software.
+
+/* *** */
+
+Q: What about storing passwords in some kind of an encrypted mode in the
+   config file?
+
+A: It doesn't make much sense, because in many cases they're transferred
+   unencrypted. And also the program must first decrypt them before sending,
+   so the one who really wants to find out them anyway will make it quite
+   easily. But if you still think that such a crypting will help, please
+   consult homepage of the program which was made especially for ones
+   like you: http://thekonst.net/en/kripp/
+
+/* *** */
+
+Q: When $HOME/.centerim/config gets created, you should set it mode 0600
+   so only the user can read it. It contains passwords in clear text
+   which other users on a system could read.
+
+A: Your filesystem permissions knowledge is very sound, but please just try
+   to access the config file before making any affirmations. You'll see
+   that the .centerim directiory permissions do not allow others to read
+   your configuration data.

@@ -1,0 +1,299 @@
+# Copyright (C) 2011 Red Hat, Inc. All rights reserved.
+#
+# This file is part of the thin-provisioning-tools source.
+#
+# thin-provisioning-tools is free software: you can redistribute it
+# and/or modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation, either version 3 of
+# the License, or (at your option) any later version.
+#
+# thin-provisioning-tools is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along
+# with thin-provisioning-tools.  If not, see
+# <http://www.gnu.org/licenses/>.
+
+V=
+
+PROGRAMS=\
+	bin/pdata_tools \
+	bin/thintools_bsadapt
+
+.PHONY: all
+all: $(PROGRAMS)
+
+BASE_SOURCE=\
+	base/application.cc \
+	base/base64.cc \
+	base/endian_utils.cc \
+	base/error_state.cc \
+	base/file_copier.cc \
+	base/file_utils.cc \
+	base/progress_monitor.cc \
+	base/xml_utils.cc \
+	block-cache/block_cache.cc \
+	main.cc \
+	persistent-data/checksum.cc \
+	persistent-data/data-structures/bitset.cc \
+	persistent-data/data-structures/bloom_filter.cc \
+	persistent-data/data-structures/btree.cc \
+	persistent-data/data-structures/btree_node_checker.cc \
+	persistent-data/error_set.cc \
+	persistent-data/file_utils.cc \
+	persistent-data/hex_dump.cc \
+	persistent-data/space-maps/careful_alloc.cc \
+	persistent-data/space-maps/disk.cc \
+	persistent-data/space-maps/recursive.cc \
+	persistent-data/space_map.cc \
+	persistent-data/transaction_manager.cc
+
+CACHING_SOURCE=\
+	caching/cache_check.cc \
+	caching/cache_dump.cc \
+	caching/cache_metadata_size.cc \
+	caching/cache_repair.cc \
+	caching/cache_restore.cc \
+	caching/hint_array.cc \
+	caching/mapping_array.cc \
+	caching/metadata.cc \
+	caching/metadata_dump.cc \
+	caching/restore_emitter.cc \
+	caching/superblock.cc \
+	caching/xml_format.cc
+
+ERA_SOURCE=\
+	era/era_array.cc \
+	era/era_check.cc \
+	era/era_detail.cc \
+	era/era_dump.cc \
+	era/era_invalidate.cc \
+	era/era_restore.cc \
+	era/metadata.cc \
+	era/metadata_dump.cc \
+	era/restore_emitter.cc \
+	era/superblock.cc \
+	era/writeset_tree.cc \
+	era/xml_format.cc \
+
+THIN_SOURCE=\
+	thin-provisioning/device_tree.cc \
+	thin-provisioning/human_readable_format.cc \
+	thin-provisioning/mapping_tree.cc \
+	thin-provisioning/mapping_tree_checker.cc \
+	thin-provisioning/metadata.cc \
+	thin-provisioning/metadata_checker.cc \
+	thin-provisioning/metadata_copier.cc \
+	thin-provisioning/metadata_counter.cc \
+	thin-provisioning/metadata_dumper.cc \
+	thin-provisioning/patch_emitter.cc \
+	thin-provisioning/pool_reducer.cc \
+	thin-provisioning/reserved_space_builder.cc \
+	thin-provisioning/restore_emitter.cc \
+	thin-provisioning/rmap_visitor.cc \
+	thin-provisioning/superblock.cc \
+	thin-provisioning/thin_bench.cc \
+	thin-provisioning/thin_check.cc \
+	thin-provisioning/thin_copy_metadata.cc \
+	thin-provisioning/thin_debug.cc \
+	thin-provisioning/thin_delta.cc \
+	thin-provisioning/thin_dump.cc \
+	thin-provisioning/thin_info.cc \
+	thin-provisioning/thin_ll_dump.cc \
+	thin-provisioning/thin_ll_restore.cc \
+	thin-provisioning/thin_metadata_size.cc \
+	thin-provisioning/thin_patch.cc \
+	thin-provisioning/thin_pool.cc \
+	thin-provisioning/thin_repair.cc \
+	thin-provisioning/thin_restore.cc \
+	thin-provisioning/thin_rmap.cc \
+	thin-provisioning/thin_scan.cc \
+	thin-provisioning/tiering_utils.cc \
+	thin-provisioning/xml_format.cc
+
+ENABLE_CACHING=@ENABLE_CACHING@
+ENABLE_ERA=@ENABLE_ERA@
+
+SOURCE=$(BASE_SOURCE) $(THIN_SOURCE)
+ifeq (@ENABLE_CACHING@, yes)
+	SOURCE+=$(CACHING_SOURCE)
+	CFLAGS+=-DENABLE_CACHING
+	CXXFLAGS+=-DENABLE_CACHING
+endif
+ifeq (@ENABLE_ERA@, yes)
+	SOURCE+=$(ERA_SOURCE)
+	CFLAGS+=-DENABLE_ERA
+	CXXFLAGS+=-DENABLE_ERA
+endif
+
+C_PROGRAM_SOURCE=\
+	wrapper/thintools_bsadapt.c
+
+CC:=@CC@
+CXX:=@CXX@
+STRIP:=@STRIP@
+OBJECTS:=$(subst .cc,.o,$(SOURCE))
+TOP_DIR:=@top_srcdir@
+TOP_BUILDDIR:=@top_builddir@
+CFLAGS+=-g -Wall -O3
+CFLAGS+=-DDEFAULT_BLOCK_SIZE=@DEFAULT_BLOCK_SIZE@
+CFLAGS+=@LFS_FLAGS@
+CXXFLAGS+=-g -Wall -fno-strict-aliasing
+CXXFLAGS+=@CXXOPTIMISE_FLAG@
+CXXFLAGS+=@CXXDEBUG_FLAG@
+CXXFLAGS+=-DDEFAULT_BLOCK_SIZE=@DEFAULT_BLOCK_SIZE@
+CXXFLAGS+=@LFS_FLAGS@
+INCLUDES+=-I$(TOP_BUILDDIR) -I$(TOP_DIR) -I$(TOP_DIR)/thin-provisioning
+LIBS:=-lstdc++ -laio -lexpat
+INSTALL:=@INSTALL@
+PREFIX:=@prefix@
+BINDIR:=$(DESTDIR)$(PREFIX)/sbin
+DATADIR:=$(DESTDIR)$(PREFIX)/share
+MANPATH:=$(DATADIR)/man
+
+vpath %.cc $(TOP_DIR)
+
+INSTALL_DIR = $(INSTALL) -m 755 -d
+INSTALL_PROGRAM = $(INSTALL) -m 755
+INSTALL_DATA = $(INSTALL) -p -m 644
+
+ifeq ("@TESTING@", "yes")
+TEST_INCLUDES=\
+	-Igmock-1.6.0/include \
+	-Igmock-1.6.0/gtest/include
+else
+TEST_INCLUDES=
+endif
+
+.SUFFIXES: .d
+
+%.o: %.c
+	@echo "    [CC] $<"
+	$(V) $(CC) -c $(INCLUDES) $(CFLAGS) -o $@ $<
+	@echo "    [DEP] $<"
+	$(V) $(CC) -MM -MT $(subst .c,.o,$<) $(INCLUDES) $(CFLAGS) $< > $*.$$$$; \
+	sed 's,\([^ :]*\)\.o[ :]*,\1.o \1.gmo $* : Makefile ,g' < $*.$$$$ > $*.d; \
+	$(RM) $*.$$$$
+
+%.o: %.cc
+	@echo "    [CXX] $<"
+	$(V) $(CXX) -c $(INCLUDES) $(CXXFLAGS) -o $@ $<
+	@echo "    [DEP] $<"
+	$(V) $(CXX) -MM -MT $(subst .cc,.o,$<) $(INCLUDES) $(TEST_INCLUDES) $(CXXFLAGS) $< > $*.$$$$; \
+	sed 's,\([^ :]*\)\.o[ :]*,\1.o \1.gmo $* : Makefile ,g' < $*.$$$$ > $*.d; \
+	$(RM) $*.$$$$
+
+#----------------------------------------------------------------
+
+lib/libpdata.a: $(OBJECTS)
+	@echo "    [AR]  $<"
+	$(V)ar -rv $@ $(OBJECTS) > /dev/null 2>&1
+
+bin/pdata_tools: $(OBJECTS)
+	@echo "    [LD]  $@"
+	$(V) $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $+ $(LIBS)
+
+#----------------------------------------------------------------
+# Wrapper program
+
+bin/thintools_bsadapt: wrapper/thintools_bsadapt.o
+	@echo "    [LD]  $@"
+	$(V) $(CC) $(CFLAGS) -o $@ $+
+
+#----------------------------------------------------------------
+
+DEPEND_FILES=\
+	$(subst .cc,.d,$(SOURCE)) \
+	$(subst .cc,.d,$(TEST_SOURCE)) \
+	$(subst .cc,.d,$(CXX_PROGRAM_SOURCE)) \
+	$(subst .c,.d,$(C_PROGRAM_SOURCE))
+
+.PHONY: clean distclean
+
+clean:
+	find . -name \*.o -delete
+	find . -name \*.gmo -delete
+	find . -name \*.d -delete
+	$(RM) $(TEST_PROGRAMS) $(PROGRAMS) $(GMOCK_OBJECTS) lib/*.a
+
+distclean: clean
+	$(RM) config.cache config.log config.status configure.h version.h Makefile unit-tests/Makefile
+
+
+install_base: $(PROGRAMS)
+	$(INSTALL_DIR) $(BINDIR)
+	$(INSTALL_PROGRAM) bin/pdata_tools $(BINDIR)
+	$(STRIP) $(BINDIR)/pdata_tools
+	$(INSTALL_DIR) $(MANPATH)/man8
+
+.PHONY: install_base
+
+ifeq (@ENABLE_CACHING@, yes)
+install_caching: install_base
+	ln -s -f pdata_tools $(BINDIR)/cache_check
+	ln -s -f pdata_tools $(BINDIR)/cache_dump
+	ln -s -f pdata_tools $(BINDIR)/cache_metadata_size
+	ln -s -f pdata_tools $(BINDIR)/cache_repair
+	ln -s -f pdata_tools $(BINDIR)/cache_restore
+	$(INSTALL_DATA) man8/cache_check.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/cache_dump.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/cache_repair.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/cache_restore.8 $(MANPATH)/man8
+else
+install_caching: ;
+endif
+
+.PHONY: install_caching
+
+ifeq (@ENABLE_ERA@, yes)
+install_era: install_base
+	ln -s -f pdata_tools $(BINDIR)/era_check
+	ln -s -f pdata_tools $(BINDIR)/era_dump
+	ln -s -f pdata_tools $(BINDIR)/era_invalidate
+	ln -s -f pdata_tools $(BINDIR)/era_restore
+	$(INSTALL_DATA) man8/era_check.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/era_dump.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/era_invalidate.8 $(MANPATH)/man8
+#	$(INSTALL_DATA) man8/era_restore.8 $(MANPATH)/man8
+else
+install_era: ;
+endif
+
+.PHONY: install_era
+
+install_thin: install_base
+	ln -s -f pdata_tools $(BINDIR)/thin_check
+	ln -s -f pdata_tools $(BINDIR)/thin_dump
+	ln -s -f pdata_tools $(BINDIR)/thin_repair
+	ln -s -f pdata_tools $(BINDIR)/thin_restore
+	ln -s -f pdata_tools $(BINDIR)/thin_rmap
+	ln -s -f pdata_tools $(BINDIR)/thin_metadata_size
+	$(INSTALL_PROGRAM) bin/thintools_bsadapt $(BINDIR)
+	$(INSTALL_DATA) man8/thin_check.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/thin_dump.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/thin_repair.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/thin_restore.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/thin_rmap.8 $(MANPATH)/man8
+	$(INSTALL_DATA) man8/thin_metadata_size.8 $(MANPATH)/man8
+
+.PHONY: install_thin
+
+install: install_base install_caching install_era install_thin
+
+.PHONY: install
+
+ifeq ("@TESTING@", "yes")
+include unit-tests/Makefile
+
+.PHONEY: features
+
+features: $(PROGRAMS)
+	cucumber --no-color --format progress
+
+test: features unit-test
+endif
+
+-include $(DEPEND_FILES)
+

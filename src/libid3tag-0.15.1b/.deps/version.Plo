@@ -1,0 +1,13 @@
+version.lo: version.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h config.h \
+ global.h id3tag.h version.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+config.h:
+
+global.h:
+
+id3tag.h:
+
+version.h:

@@ -1,0 +1,58 @@
+linux-igd (1.0+cvs20070630-2) unstable; urgency=high
+
+  * Don't sprintf from struct in_addr when 'paranoid' is enabled (Closes:
+    #489565, "paranoid" option can result in segfaults).
+
+ -- Nick Leverton <nick@leverton.org>  Mon, 07 Jul 2008 23:02:42 +0100
+
+linux-igd (1.0+cvs20070630-1) unstable; urgency=low
+
+  * New maintainer (Closes: #411875)
+  * New upstream CVS (Closes: #436919, #436365), including important
+    option name changes:
+    - Renamed the insert_forward_rules option to create_forward_rules to
+      better reflect what it actually does.
+    - Added the forward_rules_append to do what people thought
+      insert_forward_rules did.
+    See /usr/share/doc/linux-igd/CHANGES.gz for further details.
+  * For compatibility with upstream, the INT_IFACE and EXT_IFACE
+    initscript variables have been renamed to INTIFACE and EXTIFACE.
+  * Rename initscript and defaults from /etc/{init.d,default}/upnpd to
+    /etc/*/linux-igd so that they match our package name.
+  * Change initscript to do nothing until /etc/default/linux-igd is
+    configured (Closes: #423189, #399960).
+  * Add --oknodo to all "start-stop-daemon --stop" calls in initscript
+    in case daemon wasn't running anyway (Closes: #415981).
+  * Configurable CHROOT and USER/GROUP for daemon.
+  * Add SECURITY note and sample conf for jailer chroot.
+  * Add ALLOW_MULTICAST option for multicast routing setup (compatible
+    with upstream).
+  * Abstract the patch for #397572 from .diff.gz into separate quilt patch
+    01-debian-my_parse_port.diff
+  * New patch 02-makefile.diff for fixes to makefile
+  * Patch 03-debian-bindtodevice.diff Closes: #441082 (linux-igd does not
+    restrict itself to the internal interface) (with further fix from Eric
+    Valette).
+  * Honour CFLAGS in compilation (thanks Gianluigi Tiesi <sherpya@netfarm.it>
+    http://debian.cli.unipi.it/debian/pool/sherpya/l/linux-igd/ ).
+  * Update watchfile as per Jochen Friedrich's suggestion.
+  * Add paranoid flag to validate port forwarding requests.
+  * Remove bashisms from initscript, make it dash-compatible.
+
+ -- Nick Leverton <nick@leverton.org>  Fri, 04 Jul 2008 22:21:20 +0100
+
+linux-igd (0.cvs20060201-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Rename parse_port and service_to_port to my_parse_port and
+    my_service_to_port respectively, as they crash with functions already
+    defined in /usr/include/iptables.h; fixes FTBFS. (Closes: #397572)
+
+ -- Steinar H. Gunderson <sesse@debian.org>  Wed, 15 Nov 2006 14:04:32 +0100
+
+linux-igd (0.cvs20060201-1) unstable; urgency=low
+
+  * Initial release (Closes: #328986)
+
+ -- José Fonseca <j_r_fonseca@yahoo.co.uk>  Sun,  5 Mar 2006 13:51:39 +0000
+

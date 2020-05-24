@@ -1,0 +1,9 @@
+01-debian-my_parse_port.diff -p1
+02-makefile.diff 
+03-debian-bindtodevice.diff -p0
+# include patch04 for reference, not compiled in as not yet reviewed for stability.
+# 04-upstream-multiple-wan-interfaces.diff
+05-debian-upnpd.conf.diff -p0
+# 06-debian-pupnp-1.8.diff
+06-paranoid-port-forwarding.patch
+# 07-libupnp4.patch

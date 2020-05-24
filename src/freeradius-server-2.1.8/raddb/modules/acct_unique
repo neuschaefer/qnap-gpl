@@ -1,0 +1,17 @@
+# -*- text -*-
+#
+#  $Id: acct_unique,v 1.1.1.1 2010/03/11 07:11:43 richardchang Exp $
+
+#
+#  Create a unique accounting session Id.  Many NASes re-use
+#  or repeat values for Acct-Session-Id, causing no end of
+#  confusion.
+#
+#  This module will add a (probably) unique session id 
+#  to an accounting packet based on the attributes listed
+#  below found in the packet.  See doc/rlm_acct_unique for
+#  more information.
+#
+acct_unique {
+	key = "User-Name, Acct-Session-Id, NAS-IP-Address, Client-IP-Address, NAS-Port"
+}

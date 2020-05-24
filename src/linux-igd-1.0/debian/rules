@@ -1,0 +1,101 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+
+
+
+CFLAGS = -Wall -g
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+	CFLAGS += -O0 -D_GNU_SOURCE
+else
+	CFLAGS += -O2 -D_GNU_SOURCE
+endif
+
+configure: configure-stamp
+configure-stamp:
+	dh_testdir
+	# Add here commands to configure the package.
+
+	QUILT_PATCHES=debian/patches quilt push -a || test $$? = 2
+
+	touch $@
+
+
+build: build-stamp
+
+build-stamp: configure-stamp 
+	dh_testdir
+
+	# Add here commands to compile the package.
+	# CFLAGS="$(CFLAGS)" $(MAKE) HAVE_LIBIPTC=1
+	CFLAGS="$(CFLAGS)" $(MAKE)
+
+	touch $@
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp configure-stamp
+
+	# Add here commands to clean up after the build process.
+
+	QUILT_PATCHES=debian/patches quilt pop -a -R || test $$? = 2
+	# quilt cruft
+	rm -rf .pc
+
+	[ ! -f Makefile ] || $(MAKE) clean
+
+	dh_clean 
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	dh_installdirs
+
+	# Add here commands to install the package into debian/linux-igd.
+	#$(MAKE) install DESTDIR=$(CURDIR)/debian/linux-igd
+	install -d debian/linux-igd/etc/linuxigd
+	install -m 644 etc/gatedesc.xml debian/linux-igd/etc/linuxigd
+	install -m 644 etc/gateconnSCPD.xml debian/linux-igd/etc/linuxigd
+	install -m 644 etc/gateicfgSCPD.xml debian/linux-igd/etc/linuxigd
+	install -m 644 etc/dummy.xml debian/linux-igd/etc/linuxigd
+	install -m 755 upnpd debian/linux-igd/usr/sbin
+	install -m 644 etc/upnpd.conf debian/linux-igd/etc
+	# install -m 644 debian/lintian debian/linux-igd/usr/share/lintian/overrides/linux-igd
+	install -m 644 -D debian/jailer.conf.sample debian/linux-igd/usr/share/doc/linux-igd/jailer.conf.sample
+
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs CHANGES
+	dh_installdocs
+#	dh_install
+	dh_installinit
+	dh_installman
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure

@@ -1,0 +1,69 @@
+randperm.o: randperm.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h config.h \
+ randperm.h randint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h randread.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/limits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/syslimits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/limits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix1_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/local_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/limits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix2_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/xopen_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio_lim.h xalloc.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+config.h:
+
+randperm.h:
+
+randint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h:
+
+randread.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/limits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/syslimits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/limits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix1_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/local_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/limits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix2_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/xopen_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio_lim.h:
+
+xalloc.h:

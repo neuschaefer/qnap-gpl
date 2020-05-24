@@ -1,0 +1,266 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="-1" />
+<link rel="shortcut icon" href="/images/favicon.gif" type="image/gif" />
+<link rel="icon" href="/images/favicon.gif" type="image/gif" />
+<style type="text/css">
+	body{
+		font-family:Verdana, Lucida Grande, Tahoma, Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		background: #FFFFFF url('/cgi-bin/images/error/err_bg.jpg');
+		overflow: hidden;
+		color: #A4A3A3;
+		text-align: center;
+	}
+	.qnap_hyperlink a,.qnap_hyperlink a:link,.qnap_hyperlink a:visited{
+		font-family:Verdana, Lucida Grande, Tahoma, Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		color: #A4A3A3;
+	}
+	.qnap_bar1{
+		width: 980px;
+		border-bottom: 1px solid #BCBCBC;
+		padding-top: 10px;
+		text-align: left;
+		margin: 0 auto;
+	}
+	.qnap_bar_img{padding-bottom: 10px;}
+	.main_div{
+		margin: 0 auto;
+		width: 700px;
+		padding-top: 100px;
+	}
+	.qnap_main_table{
+		width: 640px;
+		text-align: left;
+		position: relative;
+		left: 20px;
+	}
+	.qnap_ds1{
+		font-family:Verdana, Lucida Grande, Tahoma, Arial, Helvetica, sans-serif;
+		font-size: 26px;
+		font-weight: bold;
+		color: #CD0232;
+		padding-bottom: 20px;
+		position: relative;
+		top: -10px;
+	}
+	.qnap_ds2{
+		font-family:Verdana, Lucida Grande, Tahoma, Arial, Helvetica, sans-serif;
+		font-size: 15px;
+		color: #636161;
+		position: relative;
+	}
+	.qnap_c0{
+		text-align: center;
+		padding:190px 0px 25px 0px;
+	}
+	.qnap_c1{
+		width: 980px;
+		border-top: 1px solid #BCBCBC;
+		padding-top: 10px;
+		text-align: right;
+		margin: 0 auto;
+	}
+</style>
+<title>QNAP</title>
+<script>
+// Get cookie value function
+function getCookie(name)
+{
+	if (document.cookie.length>0)
+ 	{
+		var cStart = document.cookie.indexOf(name + "=");
+		var cEnd = 0;
+		if (cStart != -1)
+	{
+		cStart=cStart + name.length+1;
+		cEnd = document.cookie.indexOf(";",cStart);
+		if (cEnd==-1)
+				cEnd = document.cookie.length;
+		return unescape(document.cookie.substring(cStart,cEnd));
+	}
+  }
+	return '';
+}
+var DS = {};
+DS.nasInfo = {
+	ver: 4.0
+}
+DS.nasInfo.lang = getCookie('nas_lang');
+if((DS.nasInfo.lang == '') || (DS.nasInfo.lang==null)){
+	DS.nasInfo.lang = 'ENG';
+}
+DS.languageRead = function(lang){
+	var strObj = {str1:'',str2:'',str3:''}
+	switch(lang){
+		case 'ENG':
+			strObj.str1 = 'Error';
+			strObj.str2 = 'Page not found or the web server is currently unavailable. ';
+			strObj.str3 = 'Please contact the website administrator for help. ';
+		break;
+		case 'SCH':
+			strObj.str1 = '错误';
+			strObj.str2 = '网页不存在或目前无法联机至网页服务器。';
+			strObj.str3 = '请联络系统管理者寻求协助。';
+		break;
+		case 'TCH':
+			strObj.str1 = '錯誤';
+			strObj.str2 = '網頁不存在或目前無法連線至網頁伺服器。';
+			strObj.str3 = '請聯絡系統管理者尋求協助。';
+		break;
+		case 'CZE':
+			strObj.str1 = 'Chyba';
+			strObj.str2 = 'Stránka nebyla nalezena, nebo webový server není zrovna dostupný. ';
+			strObj.str3 = 'Pro asistenci kontaktujte prosím administrátora webu. ';
+		break;
+		case 'DAN':
+			strObj.str1 = 'Fejl';
+			strObj.str2 = 'Side ikke fundet eller webserveren er for øjeblikket utilgængelig. ';
+			strObj.str3 = 'Kontakt webstedets administrator for at få hjælp. ';
+		break;
+		case 'GER':
+			strObj.str1 = 'Fehler';
+			strObj.str2 = 'Seite nicht gefunden oder Webserver aktuell nicht verfügbar. ';
+			strObj.str3 = 'Bitte Webseitenadministrator kontaktieren. ';
+		break;
+		case 'SPA':
+			strObj.str1 = 'Error';
+			strObj.str2 = 'La página no existe o el servidor web no está disponible actualmente ';
+			strObj.str3 = 'Póngase en contacto con el administrador del sitio web para obtener ayuda. ';
+		break;
+		case 'FRE':
+			strObj.str1 = 'Erreur';
+			strObj.str2 = 'Page introuvable ou serveur Web indisponible. ';
+			strObj.str3 = 'Veuillez contacter l\'administrateur du site pour de l\'aide. ';
+		break;
+		case 'ITA':
+			strObj.str1 = 'Errore';
+			strObj.str2 = 'Pagina non trovata o server web attualmente non disponibile. ';
+			strObj.str3 = 'Rivolgersi all\'amministratore del sito web per assistenza. ';
+		break;
+		case 'JPN':
+			strObj.str1 = 'エラー';
+			strObj.str2 = 'ページが現在見つからない、またはWebサーバーが現在利用できません。 ';
+			strObj.str3 = 'ウェブサイト管理者に連絡して、相談してください。 ';
+		break;
+		case 'KOR':
+			strObj.str1 = '오류';
+			strObj.str2 = '페이지를 찾을 수 없거나 현재 웹 서버를 사용할 수 없습니다. ';
+			strObj.str3 = '웹사이트 관리자에게 연락하여 도움을 받으십시오. ';
+		break;
+		case 'NOR':
+			strObj.str1 = 'Feil';
+			strObj.str2 = 'Side ikke funnet eller webserveren er utilgjengelig for tiden. ';
+			strObj.str3 = 'Ta kontakt med administratoren for webområdet og få hjelp. ';
+		break;
+		case 'POL':
+			strObj.str1 = 'Błąd';
+			strObj.str2 = 'Strona nieodnaleziona lub serwer jest obecnie niedostępny. ';
+			strObj.str3 = 'Skontaktuj się z administratorem witryny, aby uzyskać pomoc. ';
+		break;
+		case 'RUS':
+			strObj.str1 = 'Ошибка';
+			strObj.str2 = 'Страница не найдена или веб сервер не доступен в настоящий момент.';
+			strObj.str3 = 'Пожалуйста, свяжитесь с администратором веб сайта для помощи.';
+		break;
+		case 'FIN':
+			strObj.str1 = 'Virhe';
+			strObj.str2 = 'Sivua ei löytynyt tai verkkopalvelin ei nyt ole käytettävissä. ';
+			strObj.str3 = 'Ota yhteys verkkosivuston ylläpitäjään ohjetta varten. ';
+		break;
+		case 'SWE':
+			strObj.str1 = 'Fel';
+			strObj.str2 = 'Sidan hittades inte eller så är webbservern för tillfället inte tillgänglig.';
+			strObj.str3 = 'Kontakta webbplatsens administratör för hjälp.';
+		break;
+		case 'DUT':
+			strObj.str1 = 'Fout';
+			strObj.str2 = 'Pagina niet gevonden, of de webserver is nu niet beschikbaar. ';
+			strObj.str3 = 'Neem contact op met de webbeheerder voor hulp. ';
+		break;
+		case 'ESM':
+			strObj.str1 = 'Error';
+			strObj.str2 = 'Página no encontrada o servidor Web no disponible actualmente. ';
+			strObj.str3 = 'Póngase en contacto con el administrador del sitio Web para obtener ayuda. ';
+		break;
+		case 'TUR':
+			strObj.str1 = 'Hata';
+			strObj.str2 = 'Sayfa bulunamadı veya web sunucusu şu an kullanılamıyor. ';
+			strObj.str3 = 'Lütfen yardım için web sitesi yöneticisiyle iletişime geçin. ';
+		break;
+		case 'THA':
+			strObj.str1 = 'ข้อผิดพลาด';
+			strObj.str2 = 'ไม่พบหน้าหรือเว็บเซิร์ฟเวอร์ไม่สามารถใช้งานได้ ';
+			strObj.str3 = 'โปรดติดต่อผู้ดูแลเว็บไซต์เพื่อขอความช่วยเหลือ ';
+		break;
+		case 'HUN':
+			strObj.str1 = 'Hiba';
+			strObj.str2 = 'Az oldal nem található vagy a webkiszolgáló jelenleg nem elérhető. ';
+			strObj.str3 = 'Kérjük, értesítse a weboldalt rendszergazdáját és kérjen tőle segítséget. ';
+		break;
+		case 'POR':
+			strObj.str1 = 'Erro';
+			strObj.str2 = 'Página não encontrada ou o servidor Web actualmente não está disponível. ';
+			strObj.str3 = 'Contacte o administrador do site Web para obter ajuda. ';
+		break;
+		case 'GRK':
+			strObj.str1 = 'Σφάλμα';
+			strObj.str2 = 'Η σελίδα δεν βρέθηκε ή ο διακομιστής ιστού είναι μη διαθέσιμος αυτή τη στιγμή. ';
+			strObj.str3 = 'Επικοινωνήστε με τον διαχειριστή του ιστοτόπου για βοήθεια. ';
+		break;
+		case 'ROM':
+			strObj.str1 = 'Eroare';
+			strObj.str2 = 'Pagina nu a fost găsită sau serverul web este indisponibil momentan. ';
+			strObj.str3 = 'Contactaţi administratorul site-ului web pentru a obţine asistenţă.';
+		break;
+		default:
+			strObj.str1 = 'Error';
+			strObj.str2 = 'Page not found or the web server is currently unavailable. ';
+			strObj.str3 = 'Please contact the website administrator for help. ';
+		break;
+	}
+	return strObj;
+}
+DS.strObj = DS.languageRead(DS.nasInfo.lang);
+</script>
+</head>
+<body>
+<!-- Include index photo start -->
+	<div id="index_main_div">
+<!--  height  - 438 / 2 :top 438px top+438 0px-->  
+		<div style="height:12px;width:980px;"></div>
+		<!-- Include index photo end -->
+		<!-- Sort Bar -->
+		<div class="qnap_bar1">
+			<div class="qnap_bar_img"><img src="/cgi-bin/images/error/logo_gray.png"></div>
+		</div>
+		<div class="main_div">
+			<div class="qnap_main_table">
+				<table border="0" cellpadding="0">
+					<tr>
+						<td style="padding-right:80px;"><img src="/cgi-bin/images/error/forbidden.png"></td>
+						<td>
+							<div class="qnap_ds1">
+								<script>document.write(DS.strObj.str1)</script>
+							</div>
+							<div class="qnap_ds2">
+								<script>document.write(DS.strObj.str2 + DS.strObj.str3)</script>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="qnap_c0 qnap_hyperlink">
+			<div class="qnap_c1">Copyright &copy;2014 <a href="http://www.qnap.com" target="_blank">QNAP Systems, Inc.</a> All Rights Reserved. 
+			</div>
+		</div>
+	</div>
+</body>
+</html>

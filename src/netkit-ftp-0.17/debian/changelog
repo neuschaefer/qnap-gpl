@@ -1,0 +1,210 @@
+netkit-ftp (0.17-16) unstable; urgency=low
+
+  * Build with libreadline5-dev again. Don't know how libreadline4-dev
+    managed to get back to debian/control. (Closes: #340302)
+
+ -- Alberto Gonzalez Iniesta <agi@inittab.org>  Tue, 22 Nov 2005 19:57:36 +0100
+
+netkit-ftp (0.17-15) unstable; urgency=low
+
+  * debian/control: Added Depends: on netbase (Closes: #340082)
+
+ -- Alberto Gonzalez Iniesta <agi@inittab.org>  Mon, 21 Nov 2005 10:18:15 +0100
+
+netkit-ftp (0.17-14) unstable; urgency=low
+
+  * Rebuild with libreadline5-dev (Closes: #326364, #336572)
+  * Removed /usr/share/doc/ftp/README since it didn't contain
+    useful information. (Closes:#323231)
+  * Bumped Standards-Version to 3.6.2.0, no change.
+  * Moved to debhelper compatibility 4. Created debian/compat.
+
+ -- Alberto Gonzalez Iniesta <agi@inittab.org>  Mon, 14 Nov 2005 16:25:56 +0100
+
+netkit-ftp (0.17-13) unstable; urgency=low
+
+  * New maintainer.
+  * debian/control. Build-Depends: Added libreadline4-dev as 
+    alternative to libreadline-dev
+  * debian/control. Removed full stop from package description to make
+    lintian happy.
+  * debian/control. Bumped Standards-Version to 3.6.1.0, no change.
+
+ -- Alberto Gonzalez Iniesta <agi@inittab.org>  Sat, 12 Mar 2005 12:15:12 +0100
+
+netkit-ftp (0.17-12) unstable; urgency=low
+
+  * New maintainer. (Closes: #249706)
+    - control (Maintainer): Set myself.
+
+ -- Robert Millan <rmh@debian.org>  Wed, 19 May 2004 02:09:50 +0200
+
+netkit-ftp (0.17-11) unstable; urgency=low
+
+  * Added netrc(5) reference to ftp(1).
+  * Added port to SYNOPSIS in ftp(1) (closes: #191497).
+
+ -- Herbert Xu <herbert@debian.org>  Sun, 29 Jun 2003 15:37:35 +1000
+
+netkit-ftp (0.17-10) unstable; urgency=low
+
+  * Fixed LFS problem with ptransfer bytes count (closes: #143469).
+
+ -- Herbert Xu <herbert@debian.org>  Fri, 19 Apr 2002 19:27:58 +1000
+
+netkit-ftp (0.17-9) unstable; urgency=low
+
+  * Fixed more LFS issues (Hiroyuki YAMAMO, #126521).
+
+ -- Herbert Xu <herbert@debian.org>  Fri, 28 Dec 2001 20:05:07 +1100
+
+netkit-ftp (0.17-8) unstable; urgency=low
+
+  * Built with support for large files.
+
+ -- Herbert Xu <herbert@debian.org>  Tue, 11 Dec 2001 19:02:28 +1100
+
+netkit-ftp (0.17-7) unstable; urgency=low
+
+  * Moved second entry in NAME of netrc(5) to SYNOPSIS (closes: #99527).
+
+ -- Herbert Xu <herbert@debian.org>  Thu, 14 Jun 2001 19:12:49 +1000
+
+netkit-ftp (0.17-6) unstable; urgency=low
+
+  * No longer provides ftp-client.
+  * Check for NULL pointers in abort_remote().
+
+ -- Herbert Xu <herbert@debian.org>  Wed, 30 May 2001 19:22:30 +1000
+
+netkit-ftp (0.17-5) unstable; urgency=low
+
+  * Provide ftp-client (closes: #86782).
+  * Check cin and cout at the top of getreply() (closes: #87845).
+
+ -- Herbert Xu <herbert@debian.org>  Wed, 28 Feb 2001 20:37:58 +1100
+
+netkit-ftp (0.17-4) unstable; urgency=low
+
+  * Added a missing terminating NUL in quote1().
+
+ -- Herbert Xu <herbert@debian.org>  Mon,  9 Oct 2000 18:59:21 +1100
+
+netkit-ftp (0.17-3) unstable; urgency=low
+
+  * Added build-time dependency on debhelper (closes: #69103).
+  * Replace control characters by ? on stdout if it is a tty.  Also
+    configurable via qc (closes: #69712).
+
+ -- Herbert Xu <herbert@debian.org>  Sat, 26 Aug 2000 12:41:30 +1000
+
+netkit-ftp (0.17-2) unstable; urgency=low
+
+  * Empty lines no longer cause ftp to exit.
+  * Protect obstack_free(3) with INTOFF/INTON.
+
+ -- Herbert Xu <herbert@debian.org>  Sat, 12 Aug 2000 11:20:55 +1000
+
+netkit-ftp (0.17-1) unstable; urgency=low
+
+  * New upstream release.
+  * Use glob(3).
+  * Use obstacks.
+
+ -- Herbert Xu <herbert@debian.org>  Thu, 10 Aug 2000 20:39:09 +1000
+
+netkit-ftp (0.16-8) unstable; urgency=low
+
+  * Fixed an incorrect call to command() in quote1() (closes: #66901).
+
+ -- Herbert Xu <herbert@debian.org>  Sat,  8 Jul 2000 12:14:59 +1000
+
+netkit-ftp (0.16-7) unstable; urgency=low
+
+  * The pipeprotect() problem also affected globulize().  So instead of having
+    them always return malloced memory, the result is now checked to see if
+    it is malloced or not.  This fixes a core dump observed by Jeff Lessem
+    (closes: #63656).
+  * Added code to protect globulize() in ls().
+  * Removed duplicate globulize() calls in ls().
+
+ -- Herbert Xu <herbert@debian.org>  Sun, 14 May 2000 10:28:34 +1000
+
+netkit-ftp (0.16-6) unstable; urgency=low
+
+  * pipeprotect() now always returns malloced memory.  This fixes a core dump
+    reported by Mike Baker.
+
+ -- Herbert Xu <herbert@debian.org>  Mon,  1 May 2000 15:20:30 +1000
+
+netkit-ftp (0.16-5) unstable; urgency=low
+
+  * An attempt to fix some SIGINT races, a lot more needs to be done as the
+    current code is a piece of crap.  Unfortunately the same holds for the
+    current ftp code in the various BSD variants so we can't steal from them
+    (closes: #62494).
+  * SIGPIPE is now ignored as errors are now handled in the code
+    (closes: #56222).
+
+ -- Herbert Xu <herbert@debian.org>  Mon, 24 Apr 2000 13:03:03 +1000
+
+netkit-ftp (0.16-4) unstable; urgency=low
+
+  * Added dynamic allocation for macro expansion (closes: #62307).
+
+ -- Herbert Xu <herbert@debian.org>  Fri, 14 Apr 2000 15:01:36 +1000
+
+netkit-ftp (0.16-3) unstable; urgency=low
+
+  * Fixed a coredump due to uninitialised parameters (closes: #61036).
+
+ -- Herbert Xu <herbert@debian.org>  Thu, 30 Mar 2000 14:24:22 +1000
+
+netkit-ftp (0.16-2) unstable; urgency=low
+
+  * Recompiled against libreadline4 (closes: #61139).
+
+ -- Herbert Xu <herbert@debian.org>  Tue, 28 Mar 2000 19:04:02 +1000
+
+netkit-ftp (0.16-1) unstable; urgency=low
+
+  * New upstream release.
+  * Merged changes from the NMU (closes: #59682, #44778, #46132, #55652,
+    #57906).
+  * Added support for arbitrarily long command lines (closes: #21672).
+  * ftp(1) is now installed as netkit-ftp and update-alternatives is now used
+    (closes: #55610).
+
+ -- Herbert Xu <herbert@debian.org>  Thu, 23 Mar 2000 21:07:33 +1100
+
+netkit-ftp (0.10-3.1) frozen unstable; urgency=low
+
+  * Non-maintainer upload (Herbert Xu is still away, it seems).
+  * Recompiled against libreadline4 and libncurses5, more properly
+    closes: #44778, #46132, #55652, #57906. [ftp is Priority: standard]
+  * Updated for Policy 3.x. Lintian clean.
+  * Changed some bits and pieces in the build system.
+
+ -- Josip Rodin <jrodin@jagor.srce.hr>  Sun, 13 Feb 2000 01:20:28 +0100
+
+netkit-ftp (0.10-3) unstable; urgency=low
+
+  * Initialise transfer types upon login (fixes #20721).
+
+ -- Herbert Xu <herbert@debian.org>  Sun, 27 Jun 1999 13:38:08 +1000
+
+netkit-ftp (0.10-2) unstable; urgency=low
+
+  * Fixed buffer overrun with long lines (reported by +VipVop
+    <vipvop@loop.com>).
+
+ -- Herbert Xu <herbert@debian.org>  Sun, 20 Jun 1999 12:36:31 +1000
+
+netkit-ftp (0.10-1) unstable; urgency=low
+
+  * Initial Release.
+  * Fixed a Y2K problem with patch from Jeff Smith
+    <Jeff.Smith@dcs.warwick.ac.uk> (fixes #39150).
+
+ -- Herbert Xu <herbert@debian.org>  Fri, 18 Jun 1999 22:39:23 +1000
+

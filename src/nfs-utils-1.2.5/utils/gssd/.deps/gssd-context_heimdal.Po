@@ -1,0 +1,7 @@
+gssd-context_heimdal.o: context_heimdal.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h \
+ ../../support/include/config.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+../../support/include/config.h:

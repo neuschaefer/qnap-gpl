@@ -1,0 +1,160 @@
+.TH upnpd.conf 5 "May 4, 2008"
+
+.SH NAME
+upnpd.conf \- upnpd(8) configuration file
+
+.SH SYNOPSIS
+upnpd.conf
+
+.SH DESCRIPTION
+
+upnpd.conf contains the configuration details to do with run\-time of
+\fIupnpd(8)\fR.  Configuration items related to starting the daemon such as
+interface names are defined, for Debian, in
+\fI/etc/default/linux\-igd\fR.
+
+.SH OPTIONS
+
+.TP
+.B iptables_location
+The full path and name of the iptables executable,
+(enclosed in quotes).
+
+Example: \fBiptables_location = "/sbin/iptables"\fR
+
+.TP
+.B debug_mode
+Daemon debug level. Messages are logged via syslog to debug.
+
+    0 \- no debug messages
+    1 \- log errors
+    2 \- log errors and basic info
+    3 \- log errors and verbose info
+    default = 0
+
+Example: \fBdebug_mode = 2\fR
+
+.TP
+.B create_forward_rules
+Should the daemon create rules in the forward chain, or not.
+This is necessary if your firewall has a drop or reject
+policy in your forward chain.
+
+    allowed values: yes,no
+    default = no
+
+Example: \fBcreate_forward_rules = yes\fR
+
+.TP
+.B forward_rules_append
+Should the daemon insert or append rules in the forward chain.
+Normally you will want to insert rules at the beginning of the
+forward chain, so that they apply before any drop or reject rules
+later in the chain.
+This option only applies if "create_forward_rules = yes".
+
+Tip: If you need to insert rules somewhere in the middle of the
+FORWARD chain, instead of first or last, then you should create a
+new empty chain, e.g forwardUPnP, and set forward_chain_name to that
+chain. Then insert a rule to jump to forwardUPnP in the appropriate
+place in the FORWARD chain. (The value of forward_rules_append
+probably won't matter much in that case.)
+
+    allowed values: yes,no
+    default = no
+
+Example: \fBforward_rules_append = no\fR
+
+.TP
+.B forward_chain_name
+The name of the chain to put the forward rules in.
+This option only applies if "create_forward_rules = yes".
+
+    allowed values: a\-z, A\-Z, _, \-
+    default = FORWARD
+
+Example: \fBforward_chain_name = FORWARD\fR
+
+.TP
+.B prerouting_chain_name
+The name of the chain to put prerouting rules in.
+
+    allowed values: a\-z, A\-Z, _, \-
+    default = PREROUTING
+
+Example: \fBprerouting_chain_name = PREROUTING\fR
+
+.TP
+.B upstream_bitrate
+The internet line upstream bit rate reported from
+the daemon. Value in bits per second.
+
+    default = 0
+
+Example: \fBupstream_bitrate = 512000\fR
+
+.TP
+.B downstream_bitrate
+The internet line downstream bit rate reported from
+the daemon. Value in bits per second.
+
+    default = 0
+
+Example: \fBdownstream_bitrate = 512000\fR
+
+.TP
+.B duration
+The default duration of port mappings, used when the client
+doesn't specify a duration.
+Can have the following values:
+
+    0 \- no default duration specified
+    seconds | HH:MM \- duration from the time of addition
+    @seconds | @HH:MM \- expire mapping at the specified time of day
+    default = 0
+
+Example: \fBduration = 86400 # One day\fR
+
+.TP
+.B xml_document_path
+The path to the xml documents.
+Do not include the trailing "/".
+
+    default = /etc/linuxigd
+
+Example: \fBxml_document_path = /etc/linuxigd\fR
+
+.TP
+.B description_document_name
+The name of the igd device xml description document, underneath 
+.BR xml_document_path .
+
+    default = gatedesc.xml
+
+Example: \fBdescription_document_name = gatedesc.xml\fR
+
+.TP
+.B listenport
+The UPnP port to listen on.
+
+    default = 0 (first free UPnP port, starting with 49152).
+
+Example: \fBlistenport = 0\fR
+
+.TP
+.B paranoid
+Paranoid forwarding setting.
+Can have the following values:
+
+    0 - allow internal hosts to forward to any other (internal) host.
+    1-  only allow internal hosts to forward to themselves.
+    default = 0
+
+Example: \fBparanoid = 1\fR
+
+.SH SEE ALSO
+upnpd(8)
+
+.SH AUTHOR
+This manual page was written by Nick Leverton <nick@leverton.org> for
+the Debian GNU/Linux system (but may be used by others).

@@ -1,0 +1,14 @@
+quote.o: quote.c /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h \
+ config.h quotearg.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h \
+ quote.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+config.h:
+
+quotearg.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h:
+
+quote.h:

@@ -1,0 +1,5 @@
+http://www.gentoo-wiki.info/Hfsplus
+make -f Makefile.lnx CC=${CROSS_COMPILE}gcc
+cp newfs_hfs.tproj/newfs_hfs /sbin/mkfs.hfsplus
+cp fsck_hfs.tproj/fsck_hfs /sbin/fsck.hfsplus
+

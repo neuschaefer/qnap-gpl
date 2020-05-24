@@ -1,0 +1,9 @@
+libntfs_la-version.lo: version.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h ../config.h \
+ ../include/ntfs/version.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+../config.h:
+
+../include/ntfs/version.h:

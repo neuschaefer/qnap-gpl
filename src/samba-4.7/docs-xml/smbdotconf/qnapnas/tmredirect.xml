@@ -1,0 +1,15 @@
+<samba:parameter name="tmredirect"
+                 context="S"
+                 type="boolean"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+        <para>
+        QNAPNAS parameters.
+        </para>
+</description>
+
+<related>recyle bin administrators only</related>
+
+<value type="default">no</value>
+</samba:parameter>
+

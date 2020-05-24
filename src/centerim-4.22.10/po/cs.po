@@ -1,0 +1,3604 @@
+# Czech language definitions for centerim.
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# This file is lincensed under the same conditions as the centerim package.
+# Jindrich Makovicka <makovick@kmlinux.fjfi.cvut.cz>, 2001.
+# Petr Pisar <petr.pisar@atlas.cz>, 2005, 2007, 2008, 2009.
+#
+#: src/hooks/jabberhook.cc:2088
+msgid ""
+msgstr ""
+"Project-Id-Version: centerim 4.22.8\n"
+"Report-Msgid-Bugs-To: CenterIM developers List http://centerim.org/mailman/"
+"listinfo/centerim-devel/projects/centerim\n"
+"POT-Creation-Date: 2010-11-23 20:17+0100\n"
+"PO-Revision-Date: 2009-10-26 14:48+0100\n"
+"Last-Translator: Petr Písař <petr.pisar@atlas.cz>\n"
+"Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/centerim.cc:138
+msgid "password: "
+msgstr "heslo: "
+
+#: src/centerim.cc:174
+#, c-format
+msgid "%s contact menu, %s status, %s general, %s/%s next/prev chat, %s quit"
+msgstr ""
+"%s menu kontaktu, %s stav, %s různé volby, %s/%s násl./před. disk., %s konec"
+
+#: src/centerim.cc:274
+#, c-format
+msgid "Ignore all events from %s?"
+msgstr "Ignorovat všechny události od %s?"
+
+#: src/centerim.cc:278
+#, c-format
+msgid "Remove %s from the contact list as well?"
+msgstr "Odebrat také %s ze seznamu kontaktů?"
+
+#: src/centerim.cc:312
+#, c-format
+msgid "Are you sure want to remove %s?"
+msgstr "Opravdu chcete odstranit %s?"
+
+#: src/centerim.cc:320
+msgid "New nickname to show: "
+msgstr "Ukazovat pod přezdívkou: "
+
+#: src/centerim.cc:329
+msgid "Select a group to move the user to"
+msgstr "Vyberte skupinu, do které má být uživatel přesunut"
+
+#: src/centerim.cc:347
+msgid "+ cannot fetch away messages being offline"
+msgstr "+ nemohu získat pryč-zprávu jsa odpojen"
+
+#: src/centerim.cc:427
+msgid "! cannot connect, free disk space is less than 10k"
+msgstr "! nemohu se připojit, na disku je méně než 10 kB volného místa"
+
+#: src/centerim.cc:460 src/accountmanager.cc:255
+msgid "away message"
+msgstr "pryč-zpráva"
+
+#: src/centerim.cc:471
+#, c-format
+msgid "! support for %s was disabled at build time"
+msgstr "! podpora pro %s byla zakázána při kompilaci"
+
+#: src/centerim.cc:692 src/centerim.cc:747
+#, c-format
+msgid "+ new mail arrived, %d messages"
+msgstr "+ dorazila nová pošta, %d zpráv"
+
+#: src/centerim.cc:694 src/centerim.cc:749
+#, c-format
+msgid "+ [%02d:%02d:%02d] new mail arrived, %d messages"
+msgstr "+ [%02d:%02d:%02d] přišla nová pošta, %d e-mailů"
+
+#: src/centerim.cc:697 src/centerim.cc:752
+#, c-format
+msgid "+ last msg from %s"
+msgstr "+ poslední zpráva od %s"
+
+#: src/centerim.cc:796
+#, c-format
+msgid "+ the %s configuration was changed, reloaded"
+msgstr "+ konfigurace %s byla změněna, nahrávám znovu"
+
+#: src/centerim.cc:854
+msgid "! another running copy of centerim detected"
+msgstr "! zjištěna jiná běžící kopie centerim"
+
+#: src/centerim.cc:855
+#, c-format
+msgid "! this may cause problems. pid %lu"
+msgstr "! toto může působit problémy, pid %lu"
+
+#: src/centerim.cc:1008
+msgid "Mobile number: "
+msgstr "Číslo mobilu: "
+
+#: src/centerim.cc:1169
+msgid "directory to save the file(s) to: "
+msgstr "Adresář, kam uložit soubor(y): "
+
+#: src/centerim.cc:1176
+msgid "The specified directory is not writable"
+msgstr "Do zadaného adresáře nelze zapisovat"
+
+#: src/centerim.cc:1180
+msgid "The specified directory does not exist"
+msgstr "Zadaný adresář neexistuje"
+
+#: src/centerim.cc:1315
+#, c-format
+msgid "+ no history items for %s"
+msgstr "+ žádné položky historie pro %s"
+
+#: src/centerim.cc:1341
+#, c-format
+msgid "+ user %s is already on the list"
+msgstr "+ uživatel %s je již v seznamu"
+
+#: src/centerim.cc:1353
+msgid "Select a group to add the user to"
+msgstr "Vyberte skupinu, do které má být uživatel přidán"
+
+#: src/centerim.cc:1385
+#, c-format
+msgid "+ %s has been added to the list"
+msgstr "+ %s byl přidán do seznamu"
+
+#: src/centerim.cc:1457
+msgid "+ the user is back"
+msgstr "+ uživatel je zpátky"
+
+#: src/centerim.cc:1473
+#, c-format
+msgid "+ [%s] status restored"
+msgstr "+ [%s] stav obnoven"
+
+#: src/centerim.cc:1488
+#, c-format
+msgid "+ [%s] automatically set %s"
+msgstr "+ [%s] automaticky nastavuji %s"
+
+#: src/centerim.cc:1490
+msgid "away"
+msgstr "Pryč"
+
+#: src/centerim.cc:1490
+msgid "n/a"
+msgstr "n/a"
+
+#: src/centerim.cc:1654
+msgid "+ Set N/A after screen detach"
+msgstr "+ Po odpojení screenu nastaveno na „nedostupný“"
+
+#: src/centerim.cc:1662
+msgid "! Screen socket path doesn't exist!"
+msgstr "! Cesta k socketu screenu neexistuje!"
+
+#: src/centerim.cc:1663
+msgid "! Correct path or disable screen auto presence change"
+msgstr "! Opravte cestu nebo zakažte měnění stavu podle programu screen"
+
+#: src/centerim.cc:1697
+msgid "! free disk space is less than 10k, going offline"
+msgstr "! na disku zbývá méně než 10 kB volného místa, odpojuji se od serverů"
+
+#: src/centerim.cc:1698
+msgid "! otherwise we can lose events and configuration"
+msgstr "! jinak můžeme přijít o události a konfiguraci"
+
+#: src/centerim.cc:1751
+msgid "Invite to conference.."
+msgstr "Pozvat do konference…"
+
+#: src/centerim.cc:1772
+msgid "Select contacts to move"
+msgstr "Vyberte kontakty, které chcete přesunout"
+
+#: src/centerim.cc:1774
+msgid "Mass move selected users to.."
+msgstr "Hromadně přesunout vybrané uživatele do…"
+
+#: src/hooks/rsshook.cc:317
+msgid "couldn't fetch"
+msgstr "nemohu stáhnout"
+
+#: src/hooks/rsshook.cc:349
+msgid "wrong XML"
+msgstr "chybné XML"
+
+#: src/hooks/rsshook.cc:353
+msgid "no <rss> or <feed> tag found"
+msgstr "žádná značka <rss> nebo <feed> nebyla nalezena"
+
+#: src/hooks/rsshook.cc:362
+msgid "no <channel> or <entry> tag found"
+msgstr "žádná značka <channel> nebo <entry> nebyla nalezena"
+
+#: src/hooks/rsshook.cc:368
+msgid "wrong <channel> or <feed> tag"
+msgstr "chybná značka <channel> nebo <feed>"
+
+#: src/hooks/rsshook.cc:380
+msgid "success"
+msgstr "v pořádku"
+
+#: src/hooks/rsshook.cc:400
+msgid "Title: "
+msgstr "Titul: "
+
+#: src/hooks/rsshook.cc:401
+msgid "Published on: "
+msgstr "Zveřejněno: "
+
+#: src/hooks/rsshook.cc:402
+msgid "Category: "
+msgstr "Kategorie: "
+
+#: src/hooks/rsshook.cc:403
+msgid "Author: "
+msgstr "Autor: "
+
+#: src/hooks/rsshook.cc:405
+msgid "Description: "
+msgstr "Popis: "
+
+#: src/hooks/rsshook.cc:407
+msgid "Link: "
+msgstr "Odkaz: "
+
+#: src/hooks/rsshook.cc:408
+msgid "Comments: "
+msgstr "Komentář: "
+
+#: src/hooks/yahoohook.cc:175
+msgid "+ [yahoo] cannot connect: "
+msgstr "+ [yahoo] nelze se připojit: "
+
+#: src/hooks/yahoohook.cc:178 src/hooks/msnhook.cc:909
+msgid "could not resolve hostname"
+msgstr "nelze přeložit jméno počítače"
+
+#: src/hooks/yahoohook.cc:179
+msgid "could not create socket"
+msgstr "nelze vytvořit socket"
+
+#: src/hooks/yahoohook.cc:180
+msgid "verify the pager host and port entered"
+msgstr "zkontroluj zadané doménové jméno a port pageru"
+
+#: src/hooks/yahoohook.cc:448
+#, c-format
+msgid "+ [yahoo] leaving the %s conference"
+msgstr "+ [yahoo] opouštím konferenci: %s"
+
+#: src/hooks/yahoohook.cc:686
+msgid "Please join my conference."
+msgstr "Prosím, připoj se do mé konference"
+
+#: src/hooks/yahoohook.cc:699
+msgid "Custom status message:"
+msgstr "Zpráva při změně stavu:"
+
+#: src/hooks/yahoohook.cc:703
+#, c-format
+msgid "+ [yahoo] cannot fetch away msg from %s, %s (maybe no away msg set)"
+msgstr ""
+"+ [yahoo] nelze získat pryč-zprávu z %s, %s (možná není pryč-zpráva vyplněna)"
+
+#: src/hooks/yahoohook.cc:779
+msgid "+ [yahoo] cannot login"
+msgstr "+ [yahoo] nelze se přihlásit"
+
+#: src/hooks/yahoohook.cc:785
+msgid "+ [yahoo] cannot login: username and password mismatch"
+msgstr "+ [yahoo] nelze se přihlásit: jméno a heslo nesouhlasí "
+
+#: src/hooks/yahoohook.cc:791
+msgid "+ [yahoo] cannot login: username doesn't exist"
+msgstr "+ [yahoo] nelze se přihlásit: jméno uživatele neexistuje"
+
+#: src/hooks/yahoohook.cc:797
+msgid "+ [yahoo] cannot login: the account has been blocked"
+msgstr " + [yahoo] nelze se přihlásit: účet byl zablokován"
+
+#: src/hooks/yahoohook.cc:798
+#, c-format
+msgid "+ to reactivate visit %s"
+msgstr "+ pro odblokování navštiv %s"
+
+#: src/hooks/yahoohook.cc:802
+msgid "+ [yahoo] another logon detected"
+msgstr "+ [yahoo] zjištěno duplicitní přihlášení"
+
+#: src/hooks/yahoohook.cc:809
+msgid "+ [yahoo] server closed socket"
+msgstr "+ [yahoo] server uzavřel socket"
+
+#: src/hooks/yahoohook.cc:932
+#, c-format
+msgid ""
+"The user %s has invited you to the %s conference, the topic there is: %s"
+msgstr "Uživatel %s vás pozval do konference %s, jejíž téma je: %s"
+
+#: src/hooks/yahoohook.cc:937
+msgid "Current conference members are: "
+msgstr "Členy současné konference jsou: "
+
+#: src/hooks/yahoohook.cc:957
+msgid "Auto-joined the conference"
+msgstr "Automatické připojení do konference"
+
+#: src/hooks/yahoohook.cc:967
+#, c-format
+msgid "The user %s has declined your invitation to join the conference"
+msgstr "Uživatel %s odmítl pozvání k připojení se do konference"
+
+#: src/hooks/yahoohook.cc:977
+#, c-format
+msgid "The user %s has joined the conference"
+msgstr "Uživatel %s se připojil do konference"
+
+#: src/hooks/yahoohook.cc:992
+#, c-format
+msgid "The user %s has left the conference"
+msgstr "Uživatel %s opustil konferenci"
+
+#: src/hooks/yahoohook.cc:1032 src/hooks/icqhook.cc:1273
+#: src/hooks/msnhook.cc:713
+msgid "The user has added you to his/her contact list"
+msgstr "si Vás přidal(a) do seznamu kontaktů"
+
+#: src/hooks/yahoohook.cc:1036
+msgid "the message was: "
+msgstr "zpráva byla: "
+
+#: src/hooks/yahoohook.cc:1054
+#, c-format
+msgid "+ [yahoo] e-mail from %s, %s"
+msgstr "+ [yahoo] e-mail od %s, %s"
+
+#: src/hooks/yahoohook.cc:1061
+#, fuzzy, c-format
+msgid "+ [yahoo] system (%s): %s"
+msgstr "+ [yahoo] systém: %s"
+
+#: src/hooks/yahoohook.cc:1070
+#, fuzzy, c-format
+msgid "+ [yahoo] fatal error: %s"
+msgstr "+ [yahoo] chyba: %s"
+
+#: src/hooks/yahoohook.cc:1074
+#, fuzzy, c-format
+msgid "[yahoo] error %s"
+msgstr "+ [yahoo] chyba: %s"
+
+#: src/hooks/yahoohook.cc:1154
+msgid "+ [yahoo] direct connection failed"
+msgstr "+ [yahoo] přímé spojení selhalo"
+
+#: src/hooks/yahoohook.cc:1195
+#, fuzzy
+msgid "+ [yahoo] chat_cat_xml"
+msgstr "+ [yahoo] nelze se přihlásit"
+
+#: src/hooks/yahoohook.cc:1199
+#, fuzzy
+msgid "+ [yahoo] chat_join"
+msgstr "+ [yahoo] nelze se přihlásit"
+
+#: src/hooks/yahoohook.cc:1203
+#, fuzzy
+msgid "+ [yahoo] chat_userjoin"
+msgstr "+ [yahoo] nelze se přihlásit"
+
+#: src/hooks/yahoohook.cc:1207
+#, fuzzy
+msgid "+ [yahoo] chat_userleave"
+msgstr "+ [yahoo] nelze se přihlásit"
+
+#: src/hooks/yahoohook.cc:1211
+#, fuzzy, c-format
+msgid "+ [yahoo] chat_message from %s"
+msgstr "+ [yahoo] chyba: %s"
+
+#: src/hooks/yahoohook.cc:1257
+#, fuzzy
+msgid "+ [yahoo] chat_yahooerror"
+msgstr "+ [yahoo] chyba: %s"
+
+#: src/hooks/yahoohook.cc:1261
+#, fuzzy
+msgid "+ [yahoo] chat_yahoologout"
+msgstr "+ [yahoo] nelze se přihlásit"
+
+#: src/hooks/yahoohook.cc:1265
+#, fuzzy
+msgid "+ [yahoo] yahoo connect"
+msgstr "+ [yahoo] nelze se připojit: "
+
+#: src/hooks/yahoohook.cc:1273
+#, fuzzy, c-format
+msgid "+ [yahoo] get_ip_addr %s"
+msgstr "+ [yahoo] chyba: %s"
+
+#: src/hooks/yahoohook.cc:1278
+#, c-format
+msgid "+ [yahoo] yahoo buddy_change_group %s from %s to %s"
+msgstr ""
+
+#: src/hooks/yahoohook.cc:1288
+#, fuzzy
+msgid "The user has buzzed you"
+msgstr "Uživatel má dnes narozeniny"
+
+#: src/hooks/jabberhook.cc:360
+msgid "+ [jab] unable to connect to the server"
+msgstr "+ [jab] k serveru se nelze připojit"
+
+#: src/hooks/jabberhook.cc:649
+#, c-format
+msgid "+ [jab] unregistering from the %s agent"
+msgstr "+ [jab] odregistrovávám se od agenta %s"
+
+#: src/hooks/jabberhook.cc:764 src/hooks/icqhook.cc:1327
+#: src/hooks/gaduhook.cc:402 src/hooks/irchook.cc:632
+msgid "Away message:"
+msgstr "pryč-zpráva:"
+
+#: src/hooks/jabberhook.cc:766
+#, c-format
+msgid "+ [jab] no away message from %s, %s"
+msgstr "+ [jab] žádná pryč-zpráva od %s, %s"
+
+#: src/hooks/jabberhook.cc:802
+msgid "Wrong nickname given, cannot register"
+msgstr "Zadán chybný JID, nelze se zaregistrovat"
+
+#: src/hooks/jabberhook.cc:819
+msgid "Unable to connect"
+msgstr "+ nelze se připojit"
+
+#: src/hooks/jabberhook.cc:1772 src/hooks/irchook.cc:1328
+#, c-format
+msgid "The remote is using %s"
+msgstr "Vzdálená strana používá: %s"
+
+#: src/hooks/jabberhook.cc:2067
+msgid "Default Jabber conference server"
+msgstr "Výchozí server pro jabber-konference"
+
+#: src/hooks/jabberhook.cc:2220 src/hooks/jabberhook.cc:2248
+#, c-format
+msgid "+ [jab] error %d"
+msgstr "+ [jab] chyba %d"
+
+#: src/hooks/jabberhook.cc:2221 src/hooks/jabberhook.cc:2249
+#, c-format
+msgid "+ [jab] error %d: %s"
+msgstr "+ [jab] chyba %d: %s"
+
+#: src/hooks/jabberhook.cc:2382
+msgid "The user wants to subscribe to your network presence updates"
+msgstr "Uživatel si tě chce přidat do svého seznamu kontaktů"
+
+#: src/hooks/jabberhook.cc:2397
+msgid ""
+"The user has removed you from his contact list (unsubscribed you, using the "
+"Jabber language)"
+msgstr ""
+"Uživatel si vás smazal ze svého seznamu kontaktů (unsubscribed you, řečeno "
+"jazykem Jabberu)"
+
+#: src/hooks/aimhook.cc:89
+msgid "+ [aim] unable to connect to the server"
+msgstr "+ [aim] nelze se připojit k serveru"
+
+#: src/hooks/aimhook.cc:305
+#, c-format
+msgid "I do really enjoy the default AIM profile of centerim %s."
+msgstr "Skutečně se mi líbí výchozí AIM-profil programu centerim %s. "
+
+#: src/hooks/aimhook.cc:375
+msgid "aim connection failed"
+msgstr "aim: selhalo spojení"
+
+#: src/hooks/aimhook.cc:377
+#, c-format
+msgid "+ [aim] connect failed: %s"
+msgstr "+ [aim] připojování selhalo: %s"
+
+#: src/hooks/aimhook.cc:414
+msgid "The user has no profile information."
+msgstr "Uživatel nemá žádné informace v profilu."
+
+#: src/hooks/aimhook.cc:503
+msgid "+ [aim] password sent"
+msgstr "+ [aim] heslo odesláno "
+
+#: src/hooks/icqhook.cc:1051
+msgid "as requested"
+msgstr "podle požadavků"
+
+#: src/hooks/icqhook.cc:1052
+msgid "socket problems"
+msgstr "problémy se socketem"
+
+#: src/hooks/icqhook.cc:1053
+msgid "bad username"
+msgstr "chybné jméno uživatele"
+
+#: src/hooks/icqhook.cc:1054
+msgid "turboing"
+msgstr "mnoho opakovaných přihlášení"
+
+#: src/hooks/icqhook.cc:1055
+msgid "bad password"
+msgstr "chybné heslo"
+
+#: src/hooks/icqhook.cc:1056
+msgid "username and password mismatch"
+msgstr "jméno a heslo nesouhlasí"
+
+#: src/hooks/icqhook.cc:1057
+msgid "dual login detected"
+msgstr "zjištěno dvojí přihlášení"
+
+#: src/hooks/icqhook.cc:1065
+msgid "+ [icq] cannot connect"
+msgstr "+ [icq] nelze se připojit"
+
+#: src/hooks/icqhook.cc:1065
+msgid "+ [icq] disconnected"
+msgstr "+ [icq] odpojeno"
+
+#: src/hooks/icqhook.cc:1076
+msgid "icq disconnection reason"
+msgstr "+ důvod odpojení od icq"
+
+#: src/hooks/icqhook.cc:1254
+msgid "The user has accepted your authorization request"
+msgstr "si Vás přidal(a) do seznamu kontaktů"
+
+#: src/hooks/icqhook.cc:1258
+msgid "The user has rejected your authorization request; the message was: "
+msgstr "Žádost o autorizaci od %lu"
+
+#: src/hooks/icqhook.cc:1313
+#, c-format
+msgid "+ [icq] failed SMS to %s, %s"
+msgstr "+ [icq] SMS pro %s, %s odmítnuta"
+
+#: src/hooks/icqhook.cc:1316
+#, c-format
+msgid "+ [icq] failed SMS to %s"
+msgstr "+ [icq] nelze poslat SMS pro %s "
+
+#: src/hooks/icqhook.cc:1331
+#, c-format
+msgid "+ [icq] cannot fetch away msg from %s, %s (maybe no away msg set)"
+msgstr ""
+"+ [icq] nelze získat pryč-zprávu od %s, %s (možná není pryč-zpráva vyplněna)"
+
+#: src/hooks/icqhook.cc:1503
+msgid "Random Chat User"
+msgstr "Povídání si s náhodným uživatelem"
+
+#: src/hooks/gaduhook.cc:161
+msgid "+ [gg] connection failed"
+msgstr "+ [gg] selhalo připojení"
+
+#: src/hooks/gaduhook.cc:164
+#, c-format
+msgid "+ [gg] cannot resolve %s"
+msgstr "+ [gg] nemohu přeložit %s"
+
+#: src/hooks/gaduhook.cc:218
+msgid "+ [gg] connection to the server failed"
+msgstr "+ [gg] selhalo spojení k serveru"
+
+#: src/hooks/gaduhook.cc:291
+msgid "+ [gg] connection lost"
+msgstr "+ [gg] spojení ztraceno"
+
+#: src/hooks/gaduhook.cc:404
+#, c-format
+msgid "+ [gg] no away message from %s, %s"
+msgstr "+ [gg] chybí pryč-zpráva od %s, %s"
+
+#: src/hooks/irchook.cc:146
+msgid "+ [irc] unable to connect to the server"
+msgstr "+ [irc] nelze se připojit k serveru"
+
+#: src/hooks/irchook.cc:815
+#, c-format
+msgid "+ [irc] connect failed: %s"
+msgstr "+ [irc] připojení selhalo: %s"
+
+#: src/hooks/irchook.cc:832
+msgid "+ [irc] nickname was changed successfully"
+msgstr "+ [irc] přezdívka byla úspěšně změněna"
+
+#: src/hooks/irchook.cc:899
+msgid "On channels: "
+msgstr "Na kanálech: "
+
+#: src/hooks/irchook.cc:1212
+#, c-format
+msgid "Kicked by %s; reason: %s"
+msgstr "Vyhozen %s; důvod: %s"
+
+#: src/hooks/irchook.cc:1268
+#, c-format
+msgid "The user has changed their nick from %s to %s"
+msgstr "Uživatel si změnil svoji přezdívku z %s na %s"
+
+#: src/hooks/irchook.cc:1290
+msgid "+ [irc] password sent"
+msgstr "+ [irc] heslo odesláno"
+
+#: src/hooks/irchook.cc:1299
+msgid "+ [irc] nick password sent"
+msgstr "+ [irc] heslo pro přezdívku odesláno"
+
+#: src/hooks/irchook.cc:1323
+#, c-format
+msgid "PING reply from the user: %d second(s)"
+msgstr "Odpověď na PING od uživatele: %d sekund(a)"
+
+#: src/hooks/irchook.cc:1442
+#, c-format
+msgid "%s has joined."
+msgstr "%s se připojil(a)"
+
+#: src/hooks/irchook.cc:1461
+#, c-format
+msgid "%s has left"
+msgstr "%s odešel(a)"
+
+#: src/hooks/irchook.cc:1467 src/hooks/irchook.cc:1493
+#, c-format
+msgid "reason: %s"
+msgstr "důvod: %s"
+
+#: src/hooks/irchook.cc:1489
+#, c-format
+msgid "%s has been kicked by %s"
+msgstr "%s byl(a) vyhozen(a) %s"
+
+#: src/hooks/irchook.cc:1518
+#, c-format
+msgid "Channel topic now is: %s"
+msgstr "Téma kanálu je nyní: %s"
+
+#: src/hooks/irchook.cc:1523
+#, c-format
+msgid "set by %s"
+msgstr "nastavil(a) %s"
+
+#: src/hooks/irchook.cc:1541
+#, c-format
+msgid "%s has been opped by %s."
+msgstr "%s set stal(a) operátorem na příkaz %s."
+
+#: src/hooks/irchook.cc:1557
+#, c-format
+msgid "%s has been deopped by %s."
+msgstr "%s již není operátorem na příkaz %s."
+
+#: src/hooks/irchook.cc:1571
+#, c-format
+msgid "%s has opped us."
+msgstr "%s se stal naším operátorem"
+
+#: src/hooks/irchook.cc:1572
+#, c-format
+msgid "you are an op here"
+msgstr "ty jsi tady operátor"
+
+#: src/hooks/irchook.cc:1585
+#, c-format
+msgid "%s has deopped us."
+msgstr "%s už není naším operátorem."
+
+#: src/hooks/ljhook.cc:416 src/hooks/ljhook.cc:741
+msgid "+ [lj] user lookup finished"
+msgstr "+ [lj] hledání uživatele dokončeno"
+
+#: src/hooks/ljhook.cc:511
+msgid "cannot connect"
+msgstr "nemohu se připojit"
+
+#: src/hooks/ljhook.cc:512
+#, c-format
+msgid "+ [lj] HTTP failed: %s"
+msgstr "+ [lj] HTTP selhalo: %s"
+
+#: src/hooks/ljhook.cc:567
+msgid "Message from the server: "
+msgstr "Zpráva ze serveru: "
+
+#: src/hooks/ljhook.cc:572
+#, c-format
+msgid "+ [lj] login failed: %s"
+msgstr "+ [lj] selhalo přihlášení: %s"
+
+#: src/hooks/ljhook.cc:576
+#, c-format
+msgid "+ [lj] posted successully, the id is %s"
+msgstr "+ [lj] úspěšně zasláno, id je %s"
+
+#: src/hooks/ljhook.cc:578
+#, c-format
+msgid "+ [lj] post error: %s"
+msgstr "+ [lj] chyba při odesílání: %s"
+
+#: src/hooks/ljhook.cc:677
+#, c-format
+msgid ""
+"The user %s (%s) has added you to his/her friend list\n"
+"\n"
+"Journal address: %s"
+msgstr ""
+"Uživatel %s (%s) si Vás přidal(a) do seznamu kontaktů\n"
+"\n"
+"Adresa journalu: %s"
+
+#: src/hooks/ljhook.cc:687
+#, c-format
+msgid ""
+"The user %s has removed you from his/her friend list\n"
+"\n"
+"Journal address: %s"
+msgstr ""
+"Uživatel %s Vás odebral(a) ze seznamu kontaktů\n"
+"\n"
+"Adresa journalu: %s"
+
+#: src/hooks/ljhook.cc:713
+msgid "+ [lj] error deleting friend"
+msgstr "+ [lj] chyba při mazání přítele"
+
+#: src/hooks/ljhook.cc:715
+msgid "+ [lj] the user has been removed from your friend list"
+msgstr "+ [lj] uživatel byl odebrán z vašeho seznamu přátel"
+
+#: src/hooks/ljhook.cc:720
+msgid "+ [lj] couldn't add friend"
+msgstr "+ [lj] nemohu přidat přítele"
+
+#: src/hooks/ljhook.cc:722
+#, c-format
+msgid "+ [lj] %s was added to friends"
+msgstr "+ [lj] %s byl přidán do seznamu přátel"
+
+#: src/hooks/msnhook.cc:430
+#, c-format
+msgid "+ [msn] reverse users listing finished, %d found"
+msgstr "+ [msn] obrácené hledání uživatelů dokončeno, %d nalezen(o)"
+
+#: src/hooks/msnhook.cc:793
+#, c-format
+msgid "+ [msn] unread e-mail: %d in inbox, %d in folders"
+msgstr "+ [msn] nepřečtených e-mailů: %d v došlé, %d ve složkách"
+
+#: src/hooks/msnhook.cc:799
+#, c-format
+msgid "+ [msn] e-mail from %s, %s"
+msgstr "+ [msn] e-mail od %s, %s"
+
+#: src/hooks/msnhook.cc:905
+msgid "+ [msn] cannot connect: "
+msgstr "+ [msn] nemohu se připojit: "
+
+#: src/hooks/msnhook.cc:929
+msgid "verify the hostname and port"
+msgstr "zkontrolujte jméno počítače a port"
+
+#: src/hooks/abstracthook.cc:355
+msgid "connecting to the server"
+msgstr "připojuji se k serveru"
+
+#: src/hooks/abstracthook.cc:356
+msgid "logged in"
+msgstr "přihlášen(a)"
+
+#: src/hooks/abstracthook.cc:357
+#, c-format
+msgid "search finished, %d found"
+msgstr "hledání dokončeno, %d nalezen"
+
+#: src/hooks/abstracthook.cc:358
+msgid "password was changed successfully"
+msgstr "heslo bylo úspěšně změněno"
+
+#: src/hooks/abstracthook.cc:359
+msgid "disconnected"
+msgstr "Odpojeno"
+
+#: src/hooks/abstracthook.cc:360
+#, c-format
+msgid "adding %s to the contacts"
+msgstr "přidávám %s do seznamu kontaktů"
+
+#: src/hooks/abstracthook.cc:361
+#, c-format
+msgid "removing %s from the contacts"
+msgstr "odstraňuji %s ze seznamu kontaktů"
+
+#: src/hooks/abstracthook.cc:362
+#, c-format
+msgid "members list fetching finished, %d found"
+msgstr "stahování seznamu členů dokončeno, %d nalezen(i)"
+
+#: src/icqcontact.cc:825
+msgid "The user has a birthday today"
+msgstr "Uživatel má dnes narozeniny"
+
+#: src/icqcontact.cc:853
+msgid "Jan"
+msgstr "Led"
+
+#: src/icqcontact.cc:853
+msgid "Feb"
+msgstr "Úno"
+
+#: src/icqcontact.cc:853
+msgid "Mar"
+msgstr "Bře"
+
+#: src/icqcontact.cc:853
+msgid "Apr"
+msgstr "Dub"
+
+#: src/icqcontact.cc:854
+msgid "May"
+msgstr "Kvě"
+
+#: src/icqcontact.cc:854
+msgid "Jun"
+msgstr "Čen"
+
+#: src/icqcontact.cc:854
+msgid "Jul"
+msgstr "Čec"
+
+#: src/icqcontact.cc:854
+msgid "Aug"
+msgstr "Srp"
+
+#: src/icqcontact.cc:855
+msgid "Sep"
+msgstr "Zář"
+
+#: src/icqcontact.cc:855
+msgid "Oct"
+msgstr "Říj"
+
+#: src/icqcontact.cc:855
+msgid "Nov"
+msgstr "Lis"
+
+#: src/icqcontact.cc:855
+msgid "Dec"
+msgstr "Pro"
+
+#: src/icqgroups.cc:66
+msgid "General"
+msgstr "Obecné"
+
+#: src/eventmanager.cc:124
+#, c-format
+msgid "event from %s (%s)"
+msgstr "událost od %s (%s)"
+
+#: src/icqdialogs.cc:49
+msgid "60-above"
+msgstr "60 a více"
+
+#: src/icqdialogs.cc:50
+msgid "unknown"
+msgstr "neznámý"
+
+#: src/icqdialogs.cc:58
+msgid "General Chat"
+msgstr "Obecné povídání"
+
+#: src/icqdialogs.cc:59
+msgid "Romance"
+msgstr "Romantické"
+
+#: src/icqdialogs.cc:60
+msgid "Games"
+msgstr "Hry"
+
+#: src/icqdialogs.cc:61
+msgid "Students"
+msgstr "Studenti"
+
+#: src/icqdialogs.cc:62
+msgid "20 Something"
+msgstr "Kolem 20"
+
+#: src/icqdialogs.cc:63
+msgid "30 Something"
+msgstr "Kolem 30"
+
+#: src/icqdialogs.cc:64
+msgid "40 Something"
+msgstr "Kolem 40"
+
+#: src/icqdialogs.cc:65
+msgid "50 Plus"
+msgstr "50 a výš"
+
+#: src/icqdialogs.cc:66
+msgid "Seeking Women"
+msgstr "Hledám ženu"
+
+#: src/icqdialogs.cc:67
+msgid "Seeking Men"
+msgstr "Hledám muže"
+
+#: src/icqdialogs.cc:75
+msgid "Status and Activity"
+msgstr "Stavu a aktivity"
+
+#: src/icqdialogs.cc:76
+msgid "Status and Name"
+msgstr "Stavu a jména"
+
+#: src/icqdialogs.cc:77
+msgid "Activity"
+msgstr "Aktivity"
+
+# FIXME: "Name" requires context (Field value: "Jméno", Sort by: "Jména")
+#: src/icqdialogs.cc:78 src/icqface.cc:1074 src/icqface.cc:1130
+msgid "Name"
+msgstr "Jméno"
+
+#: src/icqdialogs.cc:114
+msgid " Search profiles "
+msgstr " Vyhledávací profily"
+
+#: src/icqdialogs.cc:120 src/icqdialogs.cc:1057 src/icqdialogs.cc:1826
+#: src/icqface.cc:1940 src/icqface.cc:2639
+msgid "Remove"
+msgstr "Odebrat"
+
+#: src/icqdialogs.cc:120
+msgid "Load"
+msgstr "Nahrát"
+
+#: src/icqdialogs.cc:205
+msgid "+ you must be logged in first"
+msgstr "+ nejprve se musíte přihlásit"
+
+#: src/icqdialogs.cc:229
+msgid "lOad"
+msgstr "Nahrát"
+
+#: src/icqdialogs.cc:229
+msgid "sAve"
+msgstr "Uložit"
+
+#: src/icqdialogs.cc:229 src/icqdialogs.cc:234 src/icqdialogs.cc:239
+msgid "cLear"
+msgstr "Vyčistit"
+
+#: src/icqdialogs.cc:229 src/icqdialogs.cc:234 src/icqdialogs.cc:239
+#: src/icqdialogs.cc:757 src/icqdialogs.cc:1207 src/icqdialogs.cc:2040
+#: src/accountmanager.cc:69 src/imcontroller.cc:72 src/imotr.cc:445
+msgid "Change"
+msgstr "Změnit"
+
+#: src/icqdialogs.cc:229
+msgid "Search/Add"
+msgstr "Nové hledání"
+
+#: src/icqdialogs.cc:234
+msgid "Join/Create"
+msgstr "Připojit/Vytvořit"
+
+#: src/icqdialogs.cc:239
+msgid "lInk"
+msgstr "Odebírat"
+
+#: src/icqdialogs.cc:248
+msgid " Find/add user(s) "
+msgstr " Najít/přidat uživatele"
+
+#: src/icqdialogs.cc:249
+msgid " Join/create a channel/conference "
+msgstr " Připojit se ke kanálu/konferenci "
+
+#: src/icqdialogs.cc:250
+msgid " Link an RSS feed "
+msgstr " Odebírat RSS "
+
+#: src/icqdialogs.cc:299
+msgid " Network "
+msgstr " Síť "
+
+#: src/icqdialogs.cc:307
+msgid " UIN "
+msgstr " UIN "
+
+#: src/icqdialogs.cc:311 src/icqdialogs.cc:397 src/icqdialogs.cc:413
+#: src/imcontroller.cc:80 src/imcontroller.cc:92
+msgid " Details "
+msgstr " Detaily "
+
+#: src/icqdialogs.cc:312 src/icqdialogs.cc:617 src/imcontroller.cc:81
+#, c-format
+msgid " Nickname : %s "
+msgstr " Přezdívka : %s "
+
+#: src/icqdialogs.cc:315 src/icqdialogs.cc:404 src/imcontroller.cc:83
+#, c-format
+msgid " E-Mail : %s "
+msgstr " E-Mail : %s "
+
+#: src/icqdialogs.cc:318 src/icqdialogs.cc:631 src/icqdialogs.cc:690
+#: src/imcontroller.cc:84
+#, c-format
+msgid " First name : %s "
+msgstr " Jméno : %s "
+
+#: src/icqdialogs.cc:319 src/icqdialogs.cc:632 src/icqdialogs.cc:691
+#: src/imcontroller.cc:85
+#, c-format
+msgid " Last name : %s "
+msgstr " Příjmení : %s "
+
+#: src/icqdialogs.cc:322 src/icqdialogs.cc:421
+#, c-format
+msgid " Age range : %s "
+msgstr " Věk : %s "
+
+#: src/icqdialogs.cc:325 src/icqdialogs.cc:420 src/icqdialogs.cc:635
+#: src/icqdialogs.cc:693
+#, c-format
+msgid " Gender : %s "
+msgstr " Pohlaví : %s "
+
+#: src/icqdialogs.cc:328
+#, c-format
+msgid " Language : %s "
+msgstr " Jazyk : %s "
+
+#: src/icqdialogs.cc:332
+msgid " Location "
+msgstr "Místo"
+
+#: src/icqdialogs.cc:333 src/icqdialogs.cc:640 src/icqdialogs.cc:652
+#: src/icqdialogs.cc:692
+#, c-format
+msgid " City : %s "
+msgstr " Město : %s "
+
+#: src/icqdialogs.cc:336 src/icqdialogs.cc:641 src/icqdialogs.cc:653
+#, c-format
+msgid " State : %s "
+msgstr " Stát : %s "
+
+#: src/icqdialogs.cc:337 src/icqdialogs.cc:642 src/icqdialogs.cc:654
+#, c-format
+msgid " Country : %s "
+msgstr " Země : %s "
+
+#: src/icqdialogs.cc:340 src/icqdialogs.cc:651
+msgid " Work "
+msgstr " Práce "
+
+#: src/icqdialogs.cc:341 src/icqdialogs.cc:659
+#, c-format
+msgid " Company : %s "
+msgstr " Firma : %s "
+
+#: src/icqdialogs.cc:342 src/icqdialogs.cc:660
+#, c-format
+msgid " Department : %s "
+msgstr " Oddělení : %s "
+
+#: src/icqdialogs.cc:343 src/icqdialogs.cc:661
+#, c-format
+msgid " Position : %s "
+msgstr " Pozice : %s "
+
+#: src/icqdialogs.cc:346
+msgid " Online only "
+msgstr "Pouze připojené"
+
+#: src/icqdialogs.cc:352
+msgid " Random chat group "
+msgstr " Náhodná diskuzní skupina "
+
+#: src/icqdialogs.cc:357
+msgid " Keywords "
+msgstr " Klíčová slova "
+
+#: src/icqdialogs.cc:366
+msgid " Nickname "
+msgstr "Přezdívka: "
+
+#: src/icqdialogs.cc:372
+msgid " Search service "
+msgstr " Vyhledávací služba "
+
+#: src/icqdialogs.cc:375
+msgid " Search parameters "
+msgstr " Parametry hledání "
+
+#: src/icqdialogs.cc:391 src/icqdialogs.cc:702
+msgid " Feed Parameters "
+msgstr " Parametry kanálu "
+
+#: src/icqdialogs.cc:392 src/icqdialogs.cc:703
+#, c-format
+msgid " XML export URL : %s "
+msgstr " URL XML exportu : %s "
+
+#: src/icqdialogs.cc:393 src/icqdialogs.cc:704
+#, c-format
+msgid " Check frequency (minutes) : %lu "
+msgstr " Četnost kontrol (minuty) : %lu "
+
+#: src/icqdialogs.cc:398
+#, c-format
+msgid " Channel : %s "
+msgstr " Kanál : %s "
+
+#: src/icqdialogs.cc:401 src/icqdialogs.cc:415
+#, c-format
+msgid " Name : %s "
+msgstr " Přezdívka : %s "
+
+#: src/icqdialogs.cc:407
+msgid " Joined since the last check only "
+msgstr " Připojeno od poslední kontroly "
+
+#: src/icqdialogs.cc:416
+#, c-format
+msgid " Keywords : %s "
+msgstr " Klíčová slova : %s "
+
+#: src/icqdialogs.cc:418 src/icqdialogs.cc:2070
+msgid " Options "
+msgstr " Volby "
+
+#: src/icqdialogs.cc:422
+#, c-format
+msgid " Users with photos only : %s "
+msgstr " Pouze uživatelé mající foto : %s "
+
+#: src/icqdialogs.cc:423
+#, c-format
+msgid " Look for online only : %s "
+msgstr " Hledej pouze právě připojené : %s "
+
+#: src/icqdialogs.cc:428
+msgid " Show users who have you on their list "
+msgstr " Ukaž uživatele, kteří vás mají ve svém seznamu"
+
+#: src/icqdialogs.cc:433
+msgid " Name/Title "
+msgstr " Jméno/Titul "
+
+#: src/icqdialogs.cc:438 src/imcontroller.cc:87
+msgid " Password "
+msgstr " Heslo "
+
+#: src/icqdialogs.cc:443
+msgid " Service "
+msgstr " Služba "
+
+#: src/icqdialogs.cc:472
+msgid "New profile name: "
+msgstr "Jméno nového profilu: "
+
+#: src/icqdialogs.cc:476
+msgid "The profile with this name already exists. Do you want to overwrite it?"
+msgstr "Profil tohoto jména již existuje. Chcete jej přepsat?"
+
+#: src/icqdialogs.cc:503
+msgid "UIN: "
+msgstr "UIN: "
+
+#: src/icqdialogs.cc:504 src/icqdialogs.cc:780
+msgid "Nickname: "
+msgstr "Přezdívka: "
+
+#: src/icqdialogs.cc:504
+msgid "Name/Title: "
+msgstr "Jméno/Titul: "
+
+#: src/icqdialogs.cc:505 src/imcontroller.cc:105
+msgid "E-Mail: "
+msgstr "E-Mail: "
+
+#: src/icqdialogs.cc:506 src/icqdialogs.cc:789 src/imcontroller.cc:106
+msgid "First name: "
+msgstr "Jméno: "
+
+#: src/icqdialogs.cc:507 src/icqdialogs.cc:790 src/imcontroller.cc:107
+msgid "Last name: "
+msgstr "Příjmení: "
+
+#: src/icqdialogs.cc:512 src/icqdialogs.cc:822 src/icqdialogs.cc:831
+msgid "City: "
+msgstr "Město: "
+
+#: src/icqdialogs.cc:513 src/icqdialogs.cc:823 src/icqdialogs.cc:832
+msgid "State: "
+msgstr "Stát: "
+
+#: src/icqdialogs.cc:515 src/icqdialogs.cc:835
+msgid "Company: "
+msgstr "Firma: "
+
+#: src/icqdialogs.cc:516 src/icqdialogs.cc:836
+msgid "Department: "
+msgstr "Oddělení: "
+
+#: src/icqdialogs.cc:517 src/icqdialogs.cc:837
+msgid "Position: "
+msgstr "Pozice: "
+
+#: src/icqdialogs.cc:519
+msgid "Channel: "
+msgstr "Kanál: "
+
+#: src/icqdialogs.cc:520
+msgid "Name: "
+msgstr "Jméno"
+
+#: src/icqdialogs.cc:522
+msgid "Keywords: "
+msgstr "Klíčová slova: "
+
+#: src/icqdialogs.cc:532 src/imcontroller.cc:102
+msgid "Password: "
+msgstr "Heslo: "
+
+#: src/icqdialogs.cc:533 src/icqdialogs.cc:875
+msgid "URL: "
+msgstr "URL: "
+
+#: src/icqdialogs.cc:534 src/icqdialogs.cc:876
+msgid "Check frequency: "
+msgstr "Četnost kontrol: "
+
+#: src/icqdialogs.cc:546
+msgid "Wrong Jabber ID!"
+msgstr "Chybné Jabber ID!"
+
+#: src/icqdialogs.cc:560 src/icqdialogs.cc:2051
+msgid " General "
+msgstr " Obecné "
+
+#: src/icqdialogs.cc:595
+msgid " Registration service "
+msgstr " Registrační služba "
+
+#: src/icqdialogs.cc:599
+msgid " Registration parameters "
+msgstr " Parametry registrace "
+
+#: src/icqdialogs.cc:622
+#, c-format
+msgid " Change password : %s "
+msgstr " Změna hesla : %s "
+
+#: src/icqdialogs.cc:633
+#, c-format
+msgid " E-mail : %s "
+msgstr " E-mail : %s "
+
+#: src/icqdialogs.cc:636
+#, c-format
+msgid " Birthdate : %s "
+msgstr " Datum narození : %s "
+
+#: src/icqdialogs.cc:637
+#, c-format
+msgid " Age : %s "
+msgstr " Věk : %s "
+
+#: src/icqdialogs.cc:639
+msgid " Home "
+msgstr " Bydliště "
+
+#: src/icqdialogs.cc:645 src/icqdialogs.cc:657
+#, c-format
+msgid " Street address : %s "
+msgstr " Ulice : %s "
+
+#: src/icqdialogs.cc:646 src/icqdialogs.cc:658
+#, c-format
+msgid " Zip code : %s "
+msgstr " PSČ/Zip : %s "
+
+#: src/icqdialogs.cc:647 src/icqdialogs.cc:663
+#, c-format
+msgid " Phone : %s "
+msgstr " Telefon : %s "
+
+#: src/icqdialogs.cc:648 src/icqdialogs.cc:664
+#, c-format
+msgid " Fax : %s "
+msgstr " Fax : %s "
+
+#: src/icqdialogs.cc:649
+#, c-format
+msgid " Cellular phone : %s "
+msgstr " Mobil : %s "
+
+#: src/icqdialogs.cc:662 src/icqdialogs.cc:667
+#, c-format
+msgid " Homepage : %s "
+msgstr " Domovská stránka : %s "
+
+#: src/icqdialogs.cc:666
+msgid " More "
+msgstr " Další "
+
+#: src/icqdialogs.cc:670
+#, c-format
+msgid " 1st language : %s "
+msgstr " První jazyk : %s "
+
+#: src/icqdialogs.cc:673
+#, c-format
+msgid " 2nd language : %s "
+msgstr " Druhý jazyk : %s "
+
+#: src/icqdialogs.cc:676
+#, c-format
+msgid " 3rd language : %s "
+msgstr " Třetí jazyk : %s "
+
+#: src/icqdialogs.cc:679 src/icqdialogs.cc:697
+msgid " Miscellaneous "
+msgstr " Ostatní "
+
+#: src/icqdialogs.cc:681
+#, c-format
+msgid " Enable web status indicator : %s "
+msgstr " Povolit webový ukazatel stavu : %s "
+
+#: src/icqdialogs.cc:682
+#, c-format
+msgid " Random chat group : %s "
+msgstr " Náhodná diskuzní skupina : %s "
+
+#: src/icqdialogs.cc:684
+#, c-format
+msgid " Authorization required : %s "
+msgstr " Vyžadovat autorizaci : %s "
+
+#: src/icqdialogs.cc:698
+#, c-format
+msgid " Avatar file : %s "
+msgstr " Soubor s avatarem : %s "
+
+#: src/icqdialogs.cc:709
+msgid " About "
+msgstr " O mně "
+
+#: src/icqdialogs.cc:727
+msgid "Fetching your details"
+msgstr "Stahuji vaše ICQ detaily"
+
+#: src/icqdialogs.cc:741
+#, c-format
+msgid " Your %s details "
+msgstr " Vaše %s detaily "
+
+#: src/icqdialogs.cc:744
+#, c-format
+msgid " %s: details "
+msgstr " detaily: %s "
+
+#: src/icqdialogs.cc:757 src/icqdialogs.cc:1207 src/icqdialogs.cc:1705
+#: src/accountmanager.cc:69 src/imotr.cc:445
+msgid "Done"
+msgstr "Hotovo"
+
+#: src/icqdialogs.cc:775
+msgid "Wait a moment. Your details haven't been fetched yet"
+msgstr "Chvíli počkejte. Ještě jsem nestáhl Vaše ICQ detaily."
+
+#: src/icqdialogs.cc:791
+msgid "E-mail: "
+msgstr "E-mail: "
+
+#: src/icqdialogs.cc:802
+msgid "Enter birthdate (DD-MM-YYYY): "
+msgstr "Vložte datum narození (DD-MM-RRRR): "
+
+#: src/icqdialogs.cc:820
+msgid "Age: "
+msgstr "Věk: "
+
+#: src/icqdialogs.cc:825 src/icqdialogs.cc:834
+msgid "Street address: "
+msgstr "Ulice: "
+
+#: src/icqdialogs.cc:826 src/icqdialogs.cc:850
+msgid "Zip code: "
+msgstr "PSČ/Zip: "
+
+#: src/icqdialogs.cc:827 src/icqdialogs.cc:839
+msgid "Phone: "
+msgstr "Telefon: "
+
+#: src/icqdialogs.cc:828 src/icqdialogs.cc:840
+msgid "Fax: "
+msgstr "Fax: "
+
+#: src/icqdialogs.cc:829
+msgid "Cellular phone: "
+msgstr "Mobil: "
+
+#: src/icqdialogs.cc:838 src/icqdialogs.cc:842
+msgid "Homepage: "
+msgstr "Domovská stránka: "
+
+#: src/icqdialogs.cc:848 src/icqface.cc:1456 src/icqface.cc:1460
+#: src/icqface.cc:1472
+msgid "About"
+msgstr "O mně"
+
+#: src/icqdialogs.cc:869
+msgid "New password: "
+msgstr "Nové heslo: "
+
+#: src/icqdialogs.cc:872
+msgid "Check the new password: "
+msgstr "Ověření hesla: "
+
+#: src/icqdialogs.cc:877
+msgid "Avatar file: "
+msgstr "Soubor s avatarem: "
+
+#: src/icqdialogs.cc:951 src/icqdialogs.cc:989
+msgid "none"
+msgstr "žádný"
+
+#: src/icqdialogs.cc:1007
+msgid " [Ctrl-X save, Esc cancel] "
+msgstr " [Ctrl-X uložit, Esc zrušit] "
+
+#: src/icqdialogs.cc:1047
+#, c-format
+msgid " Send file(s) to %s, %lu "
+msgstr " Poslat soubor(y) pro %s, %lu "
+
+#: src/icqdialogs.cc:1057 src/icqdialogs.cc:1704 src/icqface.cc:69
+#: src/icqface.cc:906 src/icqface.cc:909 src/icqface.cc:1940
+#: src/icqface.cc:2639
+msgid "Add"
+msgstr "Přidat"
+
+#: src/icqdialogs.cc:1057
+msgid "Comment"
+msgstr "Komentář"
+
+#: src/icqdialogs.cc:1057 src/icqface.cc:2639
+msgid "Send"
+msgstr "Poslat"
+
+#: src/icqdialogs.cc:1067
+msgid " Files "
+msgstr " Soubory "
+
+#: src/icqdialogs.cc:1068
+msgid " Comment "
+msgstr " Komentář "
+
+#: src/icqdialogs.cc:1080
+msgid "filename: "
+msgstr "jméno souboru: "
+
+#: src/icqdialogs.cc:1087
+msgid "comment: "
+msgstr "komentář: "
+
+#: src/icqdialogs.cc:1163
+msgid "None"
+msgstr "Nic"
+
+#: src/icqdialogs.cc:1164
+msgid "Russian"
+msgstr "Rusky"
+
+#: src/icqdialogs.cc:1165
+msgid "Polish"
+msgstr "Polsky"
+
+#: src/icqdialogs.cc:1166
+msgid "German UTF-8"
+msgstr "Německy UTF-8"
+
+#: src/icqdialogs.cc:1198
+msgid " CenterIM configuration "
+msgstr " Konfigurace CenterIM"
+
+#: src/icqdialogs.cc:1218
+msgid " User interface "
+msgstr " Uživatelské rozhraní "
+
+#: src/icqdialogs.cc:1219
+#, c-format
+msgid " Change sound device to : %s "
+msgstr " Změnit zvukové zařízení na : %s "
+
+#: src/icqdialogs.cc:1220
+#, c-format
+msgid " Change color scheme to : %s "
+msgstr " Změnit barevné schéma na : %s "
+
+#: src/icqdialogs.cc:1221
+msgid " Change default request authorization message "
+msgstr " Změnit výchozí text žádosti o autorizaci "
+
+#: src/icqdialogs.cc:1222
+#, c-format
+msgid " Left panel width :  %d "
+msgstr " Šířka levého panelu: %d"
+
+#: src/icqdialogs.cc:1223
+#, c-format
+msgid " Log panel height :  %d "
+msgstr " Výška panelu s protokolem : %d "
+
+#: src/icqdialogs.cc:1224
+#, c-format
+msgid " Chat panel height : %d "
+msgstr " Výška panelu s rozhovorem : %d "
+
+#: src/icqdialogs.cc:1225
+#, c-format
+msgid " Show opened chats : %s "
+msgstr " Ukazovat rozepsané rozhovory : %s "
+
+#: src/icqdialogs.cc:1228
+#, c-format
+msgid " Enable bidirectional languages support : %s "
+msgstr " Povolit obousměrné jazyky: %s"
+
+#: src/icqdialogs.cc:1230
+#, c-format
+msgid " Enable emacs bindings in text editor : %s "
+msgstr " Textový editor ve stylu emacs : %s "
+
+#: src/icqdialogs.cc:1231
+#, c-format
+msgid " Enable vi bindings: %s "
+msgstr " Textový editor ve stylu vi : %s "
+
+#: src/icqdialogs.cc:1232
+#, c-format
+msgid " Ask before quit : %s "
+msgstr " Zeptat se před ukončením : %s"
+
+#: src/icqdialogs.cc:1234
+msgid " Codepages conversion "
+msgstr " Konverze kódových stránek"
+
+#: src/icqdialogs.cc:1241
+#, c-format
+msgid " Switch to language preset : %s "
+msgstr " Podle jazyku : %s "
+
+#: src/icqdialogs.cc:1242
+#, c-format
+msgid " Remote charset : %s "
+msgstr " Vzdálená sada : %s "
+
+#: src/icqdialogs.cc:1243
+#, c-format
+msgid " Local charset : %s "
+msgstr " Místní sada : %s "
+
+#: src/icqdialogs.cc:1246
+#, c-format
+msgid " For protocols : %s"
+msgstr " Pro protokoly : %s "
+
+#: src/icqdialogs.cc:1249
+msgid " Contact list "
+msgstr " Seznam kontaktů "
+
+#: src/icqdialogs.cc:1250
+#, c-format
+msgid " Arrange contacts into groups : %s "
+msgstr " Uspořádat kontakty do skupin : %s "
+
+#: src/icqdialogs.cc:1251
+#, c-format
+msgid " Sort contacts by : %s "
+msgstr " Řadit kontakty podle: %s "
+
+#: src/icqdialogs.cc:1252
+#, c-format
+msgid " Hide offline users : %s "
+msgstr " Skrýt odpojené uživatele : %s "
+
+#: src/icqdialogs.cc:1253
+#, c-format
+msgid " Anti-spam: kill msgs from users not on the list : %s "
+msgstr " Antispam: zahazovat zprávy od neznámých lidí : %s "
+
+#: src/icqdialogs.cc:1254
+#, c-format
+msgid " Anti-spam: ignore authorization requests: %s "
+msgstr " Antispam: ignorovat požadavky na autorizaci : %s "
+
+#: src/icqdialogs.cc:1255
+#, c-format
+msgid " Anti-spam: use captcha to identify bots: %s "
+msgstr " Antispam: rozpoznávat roboty captchou: %s "
+
+#: src/icqdialogs.cc:1256
+#, c-format
+msgid " Quote a message on reply : %s "
+msgstr " Citovat zprávu v odpovědi : %s "
+
+#: src/icqdialogs.cc:1257
+#, c-format
+msgid " Check the local mailbox : %s "
+msgstr " Kontrolovat místní poštu : %s "
+
+#: src/icqdialogs.cc:1258
+#, c-format
+msgid " Remember passwords : %s "
+msgstr " Pamatovat si heslo k ICQ : %s "
+
+#: src/icqdialogs.cc:1259
+#, c-format
+msgid " Edit away message on status change : %s "
+msgstr " Měnit pryč-zprávu při změně stavu : %s "
+
+#: src/icqdialogs.cc:1266
+#, c-format
+msgid " Chat messaging mode for : %s"
+msgstr " Diskuzní mód pro : %s "
+
+#: src/icqdialogs.cc:1272
+#, c-format
+msgid " Enter key sends message for : %s"
+msgstr " Enter odesílá zprávy pro : %s "
+
+#: src/icqdialogs.cc:1275
+#, c-format
+msgid " Chat messaging mode : %s "
+msgstr " Diskuzní mód : %s "
+
+#: src/icqdialogs.cc:1276
+#, c-format
+msgid " Enter key sends message : %s "
+msgstr " Enter odesílá zprávy: %s "
+
+#: src/icqdialogs.cc:1283
+#, c-format
+msgid " Always online non-IM contacts for : %s"
+msgstr " Ne-IM kontakty vždy „připojené“ pro : %s"
+
+#: src/icqdialogs.cc:1284
+#, c-format
+msgid " Color contacts according to: %s "
+msgstr " Obarvit kontakty podle: %s "
+
+#: src/icqdialogs.cc:1286
+msgid " Communications "
+msgstr " Komunikace "
+
+#: src/icqdialogs.cc:1287
+#, c-format
+msgid " SMTP server : %s "
+msgstr " SMTP server : %s "
+
+#: src/icqdialogs.cc:1288
+#, c-format
+msgid " HTTP browser : %s "
+msgstr " HTTP prohlížeč : %s "
+
+#: src/icqdialogs.cc:1289
+#, c-format
+msgid " HTTP proxy server : %s "
+msgstr " HTTP proxy server : %s "
+
+#: src/icqdialogs.cc:1292
+#, c-format
+msgid " Proxy only for HTTP (rss and lj) : %s "
+msgstr " Proxy pouze pro HTTP (rss a lj) : %s "
+
+#: src/icqdialogs.cc:1294
+#, c-format
+msgid " Enable peer-to-peer communications : %s "
+msgstr " Povolit peer-to-peer komunikaci : %s "
+
+#: src/icqdialogs.cc:1297
+#, c-format
+msgid " Port range to use for peer-to-peer : %s "
+msgstr " Rozsah portů pro peer-to-peer: %s "
+
+#: src/icqdialogs.cc:1299
+msgid " Logging "
+msgstr " Protokolování "
+
+#: src/icqdialogs.cc:1300
+#, c-format
+msgid " Timestamps in the log window : %s "
+msgstr " Časové údaje v okně logu : %s "
+
+#: src/icqdialogs.cc:1301
+#, c-format
+msgid " Timestamps include seconds : %s "
+msgstr " Časové údaje zahrnují sekundy : %s "
+
+#: src/icqdialogs.cc:1302
+#, c-format
+msgid " Online/offline events in the log window : %s "
+msgstr " Události připojen/odpojen v okně logu : %s "
+
+#: src/icqdialogs.cc:1303
+#, c-format
+msgid " Detailed IM events log in ~/.centerim/log : %s "
+msgstr " Podrobný záznam IM událostí v ~/.centerim/log : %s "
+
+#: src/icqdialogs.cc:1305
+msgid " Auto Presence Status "
+msgstr " Automatický stav přítomnosti "
+
+#: src/icqdialogs.cc:1306
+#, c-format
+msgid " Automatically set Away period (min) : %d "
+msgstr " Automaticky nastavit „pryč“ (min) : %d "
+
+#: src/icqdialogs.cc:1307
+#, c-format
+msgid " Automatically set N/A period (min) : %d "
+msgstr " Automaticky nastavit „nedostupný“ (min) : %d "
+
+#: src/icqdialogs.cc:1309
+#, c-format
+msgid " Use X to report idle time : %s "
+msgstr " Hlásit dobu zahálení pomocí X : %s "
+
+#: src/icqdialogs.cc:1311
+#, c-format
+msgid " Automatically set N/A when screen is detached : %s "
+msgstr " Automaticky nastavit „nedostupný“, když se odpojí screen: %s "
+
+#: src/icqdialogs.cc:1313
+#, c-format
+msgid " Screen socket path : %s "
+msgstr " Cesta k socketu screenu : %s "
+
+#: src/icqdialogs.cc:1340
+msgid "Auto Away period (0 - disable): "
+msgstr "Autom. interval „pryč“ stavu (0 – vypnout): "
+
+#: src/icqdialogs.cc:1344
+msgid "Auto N/A period (0 - disable): "
+msgstr "Auto N/A interval (0 – vypnout): "
+
+#: src/icqdialogs.cc:1370
+msgid "SMTP server hostname: "
+msgstr "jméno SMTP serveru: "
+
+#: src/icqdialogs.cc:1380
+msgid "Peer-to-peer port range (min-max): "
+msgstr "Peer-to-peer porty (min-max): "
+
+#: src/icqdialogs.cc:1394
+msgid "HTTP proxy server hostname: "
+msgstr "HTTP proxy server: "
+
+#: src/icqdialogs.cc:1432
+msgid "Charset to convert messages from: "
+msgstr "Vstupní znaková sada: "
+
+#: src/icqdialogs.cc:1436
+msgid "Charset to convert messages to: "
+msgstr "Výstupní znaková sada: "
+
+#: src/icqdialogs.cc:1446
+msgid "HTTP browser to use: "
+msgstr "Používat HTTP prohlížeč: "
+
+#: src/icqdialogs.cc:1450
+msgid "Left panel width: "
+msgstr "Šířka levého panelu: "
+
+#: src/icqdialogs.cc:1455
+msgid "Log panel height: "
+msgstr "Výška panelu s protokolem"
+
+#: src/icqdialogs.cc:1460
+msgid "Chat panel height: "
+msgstr "Výška panelu s rozhovorem: "
+
+#: src/icqdialogs.cc:1465
+msgid "Default authorization request message: "
+msgstr "Výchozí text žádosti o autorizaci: "
+
+#: src/icqdialogs.cc:1475
+msgid "Screen socket path: "
+msgstr "Cesta k socketu programu screen: "
+
+#: src/icqdialogs.cc:1477
+msgid "Choosen screen socket path doesn't exist!"
+msgstr "Vybraná cesta k socketu screenu neexistuje!"
+
+#: src/icqdialogs.cc:1668
+msgid "Your details have been fetched"
+msgstr "Vaše ICQ detaily bylo staženy"
+
+#: src/icqdialogs.cc:1680
+msgid "Organize contact groups"
+msgstr "Uspořádat skupiny kontaktů"
+
+#: src/icqdialogs.cc:1704
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#: src/icqdialogs.cc:1704
+msgid "rEmove"
+msgstr "Odebrat"
+
+#: src/icqdialogs.cc:1704
+msgid "move Up"
+msgstr "Nahoru"
+
+#: src/icqdialogs.cc:1704
+msgid "move Down"
+msgstr "Dolů"
+
+#: src/icqdialogs.cc:1705 src/icqdialogs.cc:2218
+msgid "Select"
+msgstr "Vybrat"
+
+#: src/icqdialogs.cc:1720
+msgid " Groups "
+msgstr " Skupiny "
+
+#: src/icqdialogs.cc:1735
+msgid "Name for a group to be created: "
+msgstr "Vytvořit skupinu se jménem: "
+
+#: src/icqdialogs.cc:1745
+msgid "New name for the group: "
+msgstr "Nové jméno skupiny: "
+
+#: src/icqdialogs.cc:1760
+msgid "Are you sure want to remove the group?"
+msgstr "Opravdu chcete odstranit skupinu?"
+
+#: src/icqdialogs.cc:1817
+msgid "File transfer status"
+msgstr "Stav přenosu souboru"
+
+#: src/icqdialogs.cc:1826
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: src/icqdialogs.cc:1855
+#, c-format
+msgid " Incoming from %s "
+msgstr " Přijímám od %s "
+
+#: src/icqdialogs.cc:1857
+#, c-format
+msgid " Outgoing to %s "
+msgstr " Odesílám pro %s "
+
+#: src/icqdialogs.cc:1865
+msgid "init"
+msgstr "inicializace"
+
+#: src/icqdialogs.cc:1866
+msgid "start"
+msgstr "začátek"
+
+#: src/icqdialogs.cc:1867
+msgid "work"
+msgstr "pracuji"
+
+#: src/icqdialogs.cc:1868
+msgid "done"
+msgstr "hotovo"
+
+#: src/icqdialogs.cc:1869
+msgid "err"
+msgstr "chyba"
+
+#: src/icqdialogs.cc:1870
+msgid "abort"
+msgstr "zruš"
+
+#: src/icqdialogs.cc:1877
+msgid " of "
+msgstr " z "
+
+#: src/icqdialogs.cc:1910
+msgid "Cannot remove a transfer which is in progress now"
+msgstr "Běžící přenos nelze odebrat"
+
+#: src/icqdialogs.cc:2021
+msgid "public (visible to all)"
+msgstr "veřejný (viditelný všem)"
+
+#: src/icqdialogs.cc:2023
+msgid "private"
+msgstr "soukromý"
+
+#: src/icqdialogs.cc:2025
+msgid "friends only"
+msgstr "pouze pro přátele"
+
+#: src/icqdialogs.cc:2032
+msgid " LiveJournal posting: attributes "
+msgstr " posílání LiveJournalu: vlastnosti "
+
+#: src/icqdialogs.cc:2040
+msgid "Detect music"
+msgstr "Detekovat hudbu"
+
+#: src/icqdialogs.cc:2040
+msgid "Post"
+msgstr "Poslat"
+
+#: src/icqdialogs.cc:2040
+msgid "cAncel"
+msgstr "Zrušit"
+
+#: src/icqdialogs.cc:2052
+#, c-format
+msgid " Post to journal : %s "
+msgstr " Poslat do žurnálu : %s "
+
+#: src/icqdialogs.cc:2053
+#, c-format
+msgid " Subject : %s "
+msgstr " Předmět : %s "
+
+#: src/icqdialogs.cc:2058
+#, c-format
+msgid " Security : %s "
+msgstr " Zabezpečení : %s "
+
+#: src/icqdialogs.cc:2060
+msgid " Fancy stuff "
+msgstr " Zábavné: "
+
+#: src/icqdialogs.cc:2063
+#, c-format
+msgid " Mood : %s "
+msgstr " Nálada : %s "
+
+#: src/icqdialogs.cc:2063 src/icqdialogs.cc:2090
+msgid "(none/custom)"
+msgstr "(nic/vlastní)"
+
+#: src/icqdialogs.cc:2064
+#, c-format
+msgid " Custom mood : %s "
+msgstr " Nálada : %s "
+
+#: src/icqdialogs.cc:2066
+#, c-format
+msgid " Music : %s "
+msgstr " Hudba : %s "
+
+#: src/icqdialogs.cc:2067
+#, c-format
+msgid " Picture : %s "
+msgstr " Obrázek : %s "
+
+#: src/icqdialogs.cc:2067 src/icqdialogs.cc:2092
+msgid "(default)"
+msgstr "(výchozí)"
+
+#: src/icqdialogs.cc:2068
+#, c-format
+msgid " Tags : %s "
+msgstr " Štítky : %s "
+
+#: src/icqdialogs.cc:2071
+#, c-format
+msgid " Disable auto-formatting : %s "
+msgstr " Neformátovat automaticky: %s "
+
+#: src/icqdialogs.cc:2072
+#, c-format
+msgid " Disable sending comments by e-mail : %s "
+msgstr " Neodesílat komentáře e-mailem: %s "
+
+#: src/icqdialogs.cc:2073
+#, c-format
+msgid " Disallow comments : %s "
+msgstr " Zakázat komentáře : %s "
+
+#: src/icqdialogs.cc:2074
+#, c-format
+msgid " Backdated entry : %s "
+msgstr " Zpětně datovaná položka: %s "
+
+#: src/icqdialogs.cc:2082
+msgid "Posting subject: "
+msgstr "Zasílající předmět: "
+
+#: src/icqdialogs.cc:2091
+msgid "Currently playing: "
+msgstr "Právě hraje: "
+
+#: src/icqdialogs.cc:2093
+msgid "Current mood: "
+msgstr "Současná nálada: "
+
+#: src/icqdialogs.cc:2094
+msgid "Tags for the entry: "
+msgstr "Štítky pro položku: "
+
+#: src/icqdialogs.cc:2128
+msgid "pgp key quick search"
+msgstr "rychlé hledání pgp klíče"
+
+#: src/icqdialogs.cc:2130
+#, c-format
+msgid "PGP key search: type to find, %s find again, Enter finish"
+msgstr "Hledání PGP klíče: něco napište, %s hledá znovu, Enter ukončí"
+
+#: src/icqdialogs.cc:2211
+msgid " Select PGP key to use "
+msgstr " Vyber PGP klíč pro použití"
+
+#: src/icqdialogs.cc:2232
+msgid " Use no key"
+msgstr " Nepoužívej klíč"
+
+#: src/icqdialogs.cc:2246
+msgid "pgp key selection"
+msgstr "výběr pgp klíče"
+
+#: src/icqdialogs.cc:2248
+#, c-format
+msgid "PGP key selection: %s for quick lookup"
+msgstr "Výběr PGP klíče: %s pro rychlé vyhledání"
+
+#: src/imexternal.cc:128
+#, c-format
+msgid "executed external manual action %s, return code = %d"
+msgstr "provedena externí ruční akce %s, návratový kód = %d"
+
+#: src/imexternal.cc:160
+#, c-format
+msgid "executed external action %s, return code = %d"
+msgstr "provedena externí akce %s, návratový kód = %d"
+
+#: src/imcontact.cc:110 src/imlogger.cc:33
+msgid "Offline"
+msgstr "Odpojený"
+
+#: src/imcontact.cc:111 src/imlogger.cc:34 src/icqface.cc:1215
+msgid "Online"
+msgstr "Připojený"
+
+#: src/imcontact.cc:112 src/imlogger.cc:35
+msgid "Invisible"
+msgstr "Neviditelný"
+
+#: src/imcontact.cc:113 src/imlogger.cc:36
+msgid "Free for chat"
+msgstr "Chci si povídat"
+
+#: src/imcontact.cc:114
+msgid "Do not disturb"
+msgstr "Nerušit"
+
+#: src/imcontact.cc:115 src/imlogger.cc:38
+msgid "Occupied"
+msgstr "Mám práci"
+
+#: src/imcontact.cc:116
+msgid "Not available"
+msgstr "Nejsem k zastižení"
+
+#: src/imcontact.cc:117 src/imlogger.cc:41
+msgid "Away"
+msgstr "Pryč"
+
+#: src/imcontact.cc:118 src/imlogger.cc:40
+msgid "Out for Lunch"
+msgstr "Na obědě"
+
+#: src/imlogger.cc:37
+msgid "DND"
+msgstr "Nerušit"
+
+#: src/imlogger.cc:39
+msgid "N/A"
+msgstr "Nedostupný"
+
+#: src/imlogger.cc:49
+msgid "message"
+msgstr "zpráva"
+
+#: src/imlogger.cc:50 src/icqface.cc:1075
+msgid "URL"
+msgstr "URL"
+
+#: src/imlogger.cc:51
+msgid "SMS"
+msgstr "SMS"
+
+#: src/imlogger.cc:52
+msgid "authorization"
+msgstr "autorizace"
+
+#: src/imlogger.cc:53
+msgid "e-mail"
+msgstr "e-mail"
+
+#: src/imlogger.cc:54
+msgid "notification"
+msgstr "upozornění"
+
+#: src/imlogger.cc:55
+msgid "contacts"
+msgstr "kontakty"
+
+#: src/imlogger.cc:56
+msgid "files"
+msgstr "soubory"
+
+#: src/imlogger.cc:57
+msgid "event"
+msgstr "událost"
+
+#: src/imlogger.cc:79
+msgid "events log started"
+msgstr "zaznamenávání událostí zahájeno"
+
+#: src/imlogger.cc:110
+#, c-format
+msgid "outgoing %s to %s"
+msgstr "odesílám %s pro %s"
+
+#: src/imlogger.cc:111
+#, c-format
+msgid "incoming %s from %s"
+msgstr "přijímám %s od %s"
+
+#: src/imlogger.cc:123
+msgid "ignored"
+msgstr "ignorováno"
+
+#: src/imlogger.cc:137
+#, c-format
+msgid "%s [%s] comes online"
+msgstr "%s [%s] se připojil"
+
+#: src/imlogger.cc:139
+#, c-format
+msgid "%s went offline"
+msgstr "%s se právě odpojil"
+
+#: src/imlogger.cc:141
+#, c-format
+msgid "%s is now %s, was %s"
+msgstr "%s je nyní %s, byl %s"
+
+#: src/imlogger.cc:170
+#, c-format
+msgid "%s: went online, with status %s"
+msgstr "%s: právě se připojil se stavem %s"
+
+#: src/imlogger.cc:172
+#, c-format
+msgid "%s: went offline"
+msgstr "%s: právě se odpojil"
+
+#: src/imlogger.cc:174
+#, c-format
+msgid "changed our %s status to %s from %s"
+msgstr "%s změnil status z %s na %s"
+
+#: src/accountmanager.cc:63 src/imotr.cc:439
+msgid " IM account manager "
+msgstr " Manažer IM účtů "
+
+#: src/accountmanager.cc:97
+#, c-format
+msgid " Server : %s "
+msgstr " Server : %s "
+
+#: src/accountmanager.cc:100
+#, c-format
+msgid " Secured : %s "
+msgstr " Zabezpečený : %s "
+
+#: src/accountmanager.cc:107
+#, c-format
+msgid " UIN : %s "
+msgstr " UIN : %s "
+
+#: src/accountmanager.cc:112
+#, c-format
+msgid " Login : %s "
+msgstr " Login : %s "
+
+#: src/accountmanager.cc:118
+#, c-format
+msgid " Password (optional) : %s "
+msgstr " Heslo (volitelné) : %s "
+
+#: src/accountmanager.cc:118
+#, c-format
+msgid " Password : %s "
+msgstr " Heslo : %s "
+
+#: src/accountmanager.cc:124
+#, c-format
+msgid " Priority : %s "
+msgstr " Priorita : %s "
+
+#: src/accountmanager.cc:129
+#, c-format
+msgid " Import friend list : %s "
+msgstr " Importovat seznam přátel : %s "
+
+#: src/accountmanager.cc:134
+#, c-format
+msgid " NickServ password (optional) : %s "
+msgstr " NickServ heslo (volitelné) : %s "
+
+#: src/accountmanager.cc:141
+#, c-format
+msgid " Request receipts: %s "
+msgstr " Vyžadovat potvrzení: %s "
+
+#: src/accountmanager.cc:146
+#, c-format
+msgid " Send OS info: %s "
+msgstr " Zasílat podrobnosti o OS : %s "
+
+#: src/accountmanager.cc:150
+msgid " Register "
+msgstr " Registrovat "
+
+#: src/accountmanager.cc:155
+#, c-format
+msgid " OpenPGP key: %s "
+msgstr " OpenPGP klíč: %s "
+
+#: src/accountmanager.cc:160
+#, c-format
+msgid " Key passphrase: %s "
+msgstr " Heslo ke klíči: %s "
+
+#: src/accountmanager.cc:168
+msgid " Change nickname "
+msgstr " Změnit přezdívku "
+
+#: src/accountmanager.cc:169
+msgid " Update user details "
+msgstr " Aktualizovat detaily o sobě "
+
+#: src/accountmanager.cc:172
+msgid " Set away message "
+msgstr " Nastavit pryč-zprávu "
+
+#: src/accountmanager.cc:178
+msgid " Set external status "
+msgstr " Nastavit vnější stav "
+
+#: src/accountmanager.cc:181
+msgid " Drop "
+msgstr " Zrušit účet "
+
+#: src/accountmanager.cc:200
+msgid " user name: "
+msgstr " uživatelské jméno: "
+
+#: src/accountmanager.cc:205
+msgid " uin: "
+msgstr " uin: "
+
+#: src/accountmanager.cc:210 src/accountmanager.cc:266
+msgid " password: "
+msgstr " heslo: "
+
+#: src/accountmanager.cc:218
+msgid "Drop the account information first!"
+msgstr "Nejdřív zahoďte informace o účtu!"
+
+#: src/accountmanager.cc:232
+msgid "You have to disconnect the service first!"
+msgstr "Nejprve se musíte odpojit od serveru!"
+
+#: src/accountmanager.cc:241
+msgid " server address: "
+msgstr " adresa serveru: "
+
+#: src/accountmanager.cc:285
+msgid " priority: "
+msgstr " priorita: "
+
+#: src/accountmanager.cc:299
+msgid "PGP key passphrase: "
+msgstr "heslo pro PGP klíč: "
+
+#: src/imcontroller.cc:65
+#, c-format
+msgid " Register on the %s network "
+msgstr " Registrace v %s síti "
+
+#: src/imcontroller.cc:72
+msgid "Go ahead"
+msgstr "Pokračovat"
+
+#: src/imcontroller.cc:88
+#, c-format
+msgid " Password to set : %s "
+msgstr " Heslo změnit na : %s "
+
+#: src/imcontroller.cc:89
+#, c-format
+msgid " Check the password : %s "
+msgstr " Ověření hesla : %s "
+
+#: src/imcontroller.cc:93
+#, c-format
+msgid " Server to use : %s "
+msgstr " Adresa serveru : %s "
+
+#: src/imcontroller.cc:103
+msgid "Check the password you entered: "
+msgstr "Ověření hesla: "
+
+#: src/imcontroller.cc:104
+msgid "Nickname to set: "
+msgstr "Nastavit přezdívku: "
+
+#: src/imcontroller.cc:108
+msgid "Server: "
+msgstr "Server: "
+
+#: src/imcontroller.cc:114
+msgid "Passwords do not match"
+msgstr "Hesla se neshodují"
+
+#: src/imcontroller.cc:116
+msgid "Password must be entered"
+msgstr "Musí být zadáno heslo"
+
+#: src/imcontroller.cc:118
+msgid "Password must be at least 6 chars long"
+msgstr "Heslo musí být alespoň 6 znaků dlouhé"
+
+#: src/imcontroller.cc:137 src/imcontroller.cc:198
+msgid " Registration progress "
+msgstr " Průběh registrace "
+
+#: src/imcontroller.cc:140
+#, c-format
+msgid "Connecting to the server %s ..."
+msgstr "Připojuji se k serveru %s…"
+
+#: src/imcontroller.cc:144
+msgid "Sending request"
+msgstr "Vysílám žádost"
+
+#: src/imcontroller.cc:150
+msgid "Timed out waiting for a new uin. Retry?"
+msgstr "Došel čas při čekání na nové UIN. Mám to zkusit znovu?"
+
+#: src/imcontroller.cc:154
+msgid "Retrying.."
+msgstr "Zkouším to znovu…"
+
+#: src/imcontroller.cc:160
+#, c-format
+msgid "New UIN received, %lu"
+msgstr "Dostal jsem nové UIN: %lu"
+
+#: src/imcontroller.cc:176 src/imcontroller.cc:234
+msgid "Disconnected"
+msgstr "Odpojeno"
+
+#: src/imcontroller.cc:179
+msgid "Unable to connect to icq server. Retry?"
+msgstr "Nemohu se připojit k ICQ serveru. Znovu?"
+
+#: src/imcontroller.cc:200
+#, c-format
+msgid "Trying to register %s at %s ..."
+msgstr "Pokouším se zaregistrovat %s na %s…"
+
+#: src/imcontroller.cc:215
+msgid "The Jabber ID was successfully registered"
+msgstr "Jabber ID bylo úspěšně zaregistrováno"
+
+#: src/imcontroller.cc:228
+msgid "Failed"
+msgstr "Selhalo"
+
+#: src/imcontroller.cc:257
+msgid "You must be logged to the ICQ network to update the details"
+msgstr "Pro aktualizaci údajů musíš být přihlášen v ICQ síti"
+
+#: src/imcontroller.cc:276
+msgid "new MSN friendly nick: "
+msgstr "nová příjemná MSN přezdívka: "
+
+#: src/imcontroller.cc:284
+msgid "You must be logged to the MSN network to update the friendly nick"
+msgstr "Pro aktualizaci přezdívky musíš být přihlášen do MSN sítě"
+
+#: src/imcontroller.cc:301
+msgid "You must be logged to the Jabber network to update your details"
+msgstr "Pro aktualizaci údajů musíš být přihlášen do Jabber sítě"
+
+#: src/imcontroller.cc:318
+msgid "You must be logged to the Gadu-Gadu network to update your details"
+msgstr "Pro aktualizaci údajů musíš být přihlášen do Gadu-Gadu sítě"
+
+#: src/imcontroller.cc:336
+msgid "registration is not supported"
+msgstr "registrace není podporována"
+
+#: src/icqconf.cc:208
+#, c-format
+msgid "I do really enjoy the default %s away message of %s %s."
+msgstr ""
+"Skutečně se mi líbí výchozí pryč-zpráva pro protokol %s programu %s %s."
+
+#: src/icqconf.cc:1080
+msgid "+ ERROR: captcha disabled: no questions found!"
+msgstr "+ CHYBA: captcha zakázána: žádná otázka nenalezena!"
+
+#: src/icqconf.cc:1340
+#, c-format
+msgid "+ launched the %s action command"
+msgstr "+ spuštěn %s příkaz"
+
+#: src/icqconf.cc:1545
+msgid "event sending error: not enough parameters"
+msgstr "chyba při odesílání: málo parametrů"
+
+#: src/icqconf.cc:1556
+msgid "event sending error: only UINs are allowed with icq protocol"
+msgstr "chyba při odesílání: v icq protokolu jsou povolena pouze UIN"
+
+#: src/icqconf.cc:1571
+msgid "event sending error: unknown IM type"
+msgstr "chyba při odesílání: neznámý typ IM"
+
+#: src/icqconf.cc:1593
+msgid "event sending error: unknown event type"
+msgstr "chyba při odesílání: neznámý typ události"
+
+#: src/icqconf.cc:1610
+#, c-format
+msgid "%s to %s has been put to the queue"
+msgstr "%s pro %s byl přidán do fronty"
+
+#: src/icqconf.cc:1616
+msgid "event sending error: error creating directory for the contact"
+msgstr "chyba při odesílání: chyba při vytváření adresáře pro kontakty"
+
+#: src/icqconf.cc:1663
+msgid "unknown status character was given"
+msgstr "byl zadán neznámý znak pro stav"
+
+#: src/icqconf.cc:1666
+msgid "unknown IM type"
+msgstr "neznámý typ IM"
+
+#: src/icqconf.cc:1669
+msgid "status change error: "
+msgstr "chyba při změně stavu: "
+
+#: src/icqconf.cc:1680
+msgid "Usage: "
+msgstr "Použití: "
+
+#: src/icqconf.cc:1680
+msgid " [OPTION]..."
+msgstr " [VOLBA]…"
+
+#: src/icqconf.cc:1682
+msgid "General options:"
+msgstr "Obecné volby:"
+
+#: src/icqconf.cc:1683
+msgid ""
+"  --ascii, -a              use ASCII characters for windows and UI controls"
+msgstr ""
+"  --ascii, -a              použít ASCII znaky pro okna a prvky uživ. rozhraní"
+
+#: src/icqconf.cc:1684
+msgid "  --basedir, -b <path>     set a custom base directory"
+msgstr "  --basedir, -b <cesta>    použít jiný počáteční adresář"
+
+#: src/icqconf.cc:1685
+msgid "  --bind, -B <host/ip>     bind a custom local IP"
+msgstr "  --bind, -B <počítač/ip>  připojit se na vybranou místní IP"
+
+#: src/icqconf.cc:1686
+msgid "  --no-xtitles, -T         disable xterm titles"
+msgstr "  --no-xtitles, -T         nepoužívat titulky xtermu"
+
+#: src/icqconf.cc:1687
+msgid ""
+"  --offline, -o            set all protocols status to offline upon start"
+msgstr ""
+"  --offline, -o            po startu nastavit stav všech protokolů na "
+"„odpojen“"
+
+#: src/icqconf.cc:1688
+msgid "  --debug, -d              enables debug info logging"
+msgstr "  --debug, -d              zaznamenávat ladící zprávy"
+
+#: src/icqconf.cc:1689
+msgid "  --help                   display this stuff"
+msgstr "  --help                   zobrazit tento text"
+
+#: src/icqconf.cc:1690
+msgid "  --version, -v            show the program version info"
+msgstr "  --version, -v            zobrazit informace o verzi programu"
+
+#: src/icqconf.cc:1692
+msgid "Events sending options:"
+msgstr "Volby pro odesílací události:"
+
+#: src/icqconf.cc:1693
+msgid "  -s, --send <event type>  event type; can be msg, sms or url"
+msgstr "  -s, --send <typ události>  typ události; může být msg, sms nebo url"
+
+#: src/icqconf.cc:1694
+msgid ""
+"  -S, --status <status>    change the current IM status. Status; o, _, a, d, "
+"n, c, f, i"
+msgstr ""
+"  -S, --status <stav>      změnit současný stav IM. Stav: o, _, a, d, n, c, "
+"f, i"
+
+#: src/icqconf.cc:1695
+msgid ""
+"  -p, --proto <protocol>   protocol type; can be icq, yahoo, msn, aim, irc, "
+"jab, rss, lj, gg or infocard"
+msgstr ""
+"  -p, --proto <protokol>   typ protokolu; může být icq, yahoo, msn, aim, "
+"irc,\n"
+"                           jab, rss, lj, gg nebo infocard"
+
+#: src/icqconf.cc:1697
+msgid ""
+"  -t, --to <destination>   destination UIN or nick (depends on protocol)"
+msgstr ""
+"  -t, --to <cíl>           UIN nebo přezdívka adresáta (závisí na protokolu)"
+
+#: src/icqconf.cc:1698
+msgid "  -n, --number <phone#>    mobile number to send an event to (sms only)"
+msgstr "  -n, --number <telefon>   poslat zprávu na mobilní číslo (pouze SMS)"
+
+#: src/icqconf.cc:1700
+msgid "Report bugs to http://bugzilla.centerim.org/."
+msgstr "Chyby hlaste na http://bugzilla.centerim.org/."
+
+#: src/imevents.cc:297
+msgid "Empty authorization request message"
+msgstr "Prázdná zpráva požadavku na autorizaci"
+
+#: src/imevents.cc:321
+msgid "* Authorization request : "
+msgstr " Vyžadovat autorizaci : "
+
+#: src/imevents.cc:322
+msgid "* Authorization : "
+msgstr " Autorizace :"
+
+#: src/imevents.cc:381
+msgid "* SMS : "
+msgstr "* SMS : "
+
+#: src/imevents.cc:517
+msgid "* Contacts : "
+msgstr "* Kontakty : "
+
+#: src/imevents.cc:522
+msgid "<no nick>"
+msgstr "<bez přezdívky>"
+
+#: src/imevents.cc:604
+msgid "* File transfer"
+msgstr "* Přenos souboru"
+
+#: src/impgp.cc:73
+msgid "PGP passphrase required: "
+msgstr "Heslo pro PGP vyžadováno: "
+
+#: src/impgp.cc:76
+msgid "incorrect PGP passphrase"
+msgstr "chybné heslo pro PGP"
+
+#: src/impgp.cc:127
+msgid "PGP sign error: "
+msgstr "Chyba při PGP podepisování: "
+
+#: src/impgp.cc:234
+msgid "PGP encrypt error: "
+msgstr "Chyba při PGP šifrování: "
+
+#: src/imotr.cc:99
+msgid "[OTR] Error: inject_message_cb, recipient \""
+msgstr "[OTR] Chyba: inject_message_cb, příjemce „"
+
+#: src/imotr.cc:99
+msgid "\" not found"
+msgstr "“ nenalezen"
+
+#: src/imotr.cc:114
+msgid "Error"
+msgstr "Chyba"
+
+#: src/imotr.cc:116
+msgid "Warning"
+msgstr "Varování"
+
+#: src/imotr.cc:118 src/icqface.cc:1456 src/icqface.cc:1460
+#: src/icqface.cc:1466 src/icqface.cc:1472
+msgid "Info"
+msgstr "Info"
+
+#: src/imotr.cc:122 src/imotr.cc:315
+msgid "      accountname: "
+msgstr "        názevúčtu: "
+
+#: src/imotr.cc:123
+msgid "      protocol:    "
+msgstr "      protokol:    "
+
+#: src/imotr.cc:124
+msgid "      username:    "
+msgstr " uživatelskéjméno: "
+
+#: src/imotr.cc:125
+msgid "      title:       "
+msgstr "      název:       "
+
+#: src/imotr.cc:126
+msgid "      primary:     "
+msgstr "      prvotní:     "
+
+#: src/imotr.cc:127
+msgid "      secondary:   "
+msgstr "      druhotný:    "
+
+#: src/imotr.cc:181
+msgid "[OTR] Received unknown fingerprint from \""
+msgstr "[OTR] Přijat neznámý otisk z „"
+
+#: src/imotr.cc:182
+msgid "      You can verify it in the OTR options."
+msgstr "         Ověřit jej můžete v nastavení OTR."
+
+#: src/imotr.cc:205
+msgid "[OTR] Connection is now secure..."
+msgstr "[OTR] Spojení je nyní zabezpečené…"
+
+#: src/imotr.cc:214
+msgid "[OTR] Connection is insecure..."
+msgstr "[OTR] Spojení není zabezpečené…"
+
+#: src/imotr.cc:232
+msgid "[OTR] Log: "
+msgstr "[OTR] Protokol: "
+
+#: src/imotr.cc:314
+msgid "[OTR] Error while encrypting message... no message sent!"
+msgstr "[OTR] Chyba při šifrování zprávy, zpráva neodeslána!"
+
+#: src/imotr.cc:316
+msgid "      recipient:   "
+msgstr "       příjemce:   "
+
+#: src/imotr.cc:378 src/imotr.cc:397
+msgid "[OTR] Error: At the moment, only jabber is supported"
+msgstr "[OTR] Chyba: V současnosti je podporován jen jabber"
+
+#: src/imotr.cc:386
+msgid "[OTR] Trying to start a secure session with \""
+msgstr "[OTR] Pokouším se ustanovit zabezpečenou relaci s „"
+
+#: src/imotr.cc:405
+msgid "[OTR] Ending secure session with \""
+msgstr "[OTR] Ukončuji zabezpečenou relaci s „"
+
+#: src/imotr.cc:413
+msgid "yes/no"
+msgstr "ano/ne"
+
+#: src/imotr.cc:413 src/imotr.cc:414 src/imotr.cc:416 src/imotr.cc:420
+#: src/icqface.cc:47 src/icqface.cc:122
+msgid "no"
+msgstr "ne"
+
+#: src/imotr.cc:414 src/imotr.cc:419 src/icqface.cc:47
+msgid "yes"
+msgstr "ano"
+
+#: src/imotr.cc:416
+msgid " Please type 'yes' or 'no': "
+msgstr " Prosím, napište „ano“, nebo „ne“: "
+
+#: src/imotr.cc:462
+msgid " Private keys "
+msgstr " Soukromé klíče "
+
+#: src/imotr.cc:470
+msgid "Error calculating Fingerprint"
+msgstr "Chyba při výpočtu otisku"
+
+#: src/imotr.cc:472
+msgid " Account: "
+msgstr " Účet:    "
+
+#: src/imotr.cc:473
+msgid " Protocol:    "
+msgstr " Protokol:    "
+
+#: src/imotr.cc:474 src/imotr.cc:498
+msgid " Fingerprint: "
+msgstr " Otisk:       "
+
+#: src/imotr.cc:475 src/imotr.cc:501
+msgid " Forget key "
+msgstr " Zapomenout klíč "
+
+#: src/imotr.cc:481
+msgid " Public keys "
+msgstr " Veřejné klíče "
+
+#: src/imotr.cc:488
+msgid " User: "
+msgstr " Uživatel: "
+
+#: src/imotr.cc:489
+msgid " Protocol: "
+msgstr " Protokol: "
+
+#: src/imotr.cc:490
+msgid " Account:  "
+msgstr " Účet:     "
+
+#: src/imotr.cc:495
+msgid "Yes"
+msgstr "Ano"
+
+#: src/imotr.cc:495
+msgid "No"
+msgstr "Ne"
+
+#: src/imotr.cc:499
+msgid " Verified: "
+msgstr " Ověřeno: "
+
+#: src/imotr.cc:507
+msgid " Active fingerprint: "
+msgstr " Aktivní otisk: "
+
+#: src/imotr.cc:523 src/imotr.cc:543
+msgid "Do you want to forget the selected key?"
+msgstr "Chcete vybraný klíč zapomenout?"
+
+#: src/imotr.cc:536
+msgid "Do you want verify the selected key?"
+msgstr "Chcete vybraný klíč ověřit?"
+
+#: src/imotr.cc:570 src/imotr.cc:597
+msgid "No Jabber"
+msgstr "Není Jabber"
+
+#: src/imotr.cc:580 src/imotr.cc:607
+msgid "No OTR"
+msgstr "Chybí OTR"
+
+#: src/imotr.cc:585
+msgid "Plaintext"
+msgstr "Obyčejný text"
+
+#: src/imotr.cc:586
+msgid "Encrypted"
+msgstr "Zašifrováno"
+
+#: src/imotr.cc:587
+msgid "Finished"
+msgstr "Hotovo"
+
+#: src/imotr.cc:588
+msgid "Unknown"
+msgstr "Neznámý"
+
+#: src/imotr.cc:611
+msgid "No Encryption"
+msgstr "Není zašifrováno"
+
+#: src/imotr.cc:615
+msgid "Verified"
+msgstr "Ověřeno"
+
+#: src/imotr.cc:617
+msgid "Unverified"
+msgstr "Neověřeno"
+
+#: src/icqface.cc:52
+msgid "Male"
+msgstr "Muž"
+
+#: src/icqface.cc:53
+msgid "Female"
+msgstr "Žena"
+
+#: src/icqface.cc:56
+msgid "Not specified"
+msgstr "Neuvedeno"
+
+#: src/icqface.cc:61
+msgid "Ok"
+msgstr "Ok"
+
+#: src/icqface.cc:62
+msgid "Next"
+msgstr "Další"
+
+#: src/icqface.cc:63
+msgid "Fwd"
+msgstr "Přeposlat"
+
+#: src/icqface.cc:64
+msgid "Reply"
+msgstr "Odpovědět"
+
+#: src/icqface.cc:65
+msgid "Open"
+msgstr "Otevřít"
+
+#: src/icqface.cc:66
+msgid "Accept"
+msgstr "Přijmout"
+
+#: src/icqface.cc:67
+msgid "Reject"
+msgstr "Zamítnout"
+
+#: src/icqface.cc:68
+msgid "User info"
+msgstr "Informace o uživateli"
+
+#: src/icqface.cc:70
+msgid "Prev"
+msgstr "Předchozí"
+
+#: src/icqface.cc:78
+msgid "sound card"
+msgstr "zvuková karta"
+
+#: src/icqface.cc:79
+msgid "speaker"
+msgstr "PC speaker"
+
+#: src/icqface.cc:80
+msgid "disable"
+msgstr "vypnout"
+
+#: src/icqface.cc:83 src/icqface.cc:92 src/icqface.cc:101
+msgid "don't change"
+msgstr "neměnit"
+
+#: src/icqface.cc:88
+msgid "dark"
+msgstr "tmavé"
+
+#: src/icqface.cc:89
+msgid "blue"
+msgstr "modré"
+
+#: src/icqface.cc:97
+msgid "protocol"
+msgstr "protokolu"
+
+#: src/icqface.cc:98
+msgid "status"
+msgstr "stavu"
+
+#: src/icqface.cc:118
+msgid "mode 1"
+msgstr "režim 1"
+
+#: src/icqface.cc:119
+msgid "mode 2"
+msgstr "režim 2"
+
+#: src/icqface.cc:249
+#, c-format
+msgid " CENTERIM %s  UNSENT: %lu"
+msgstr " CENTERIM %s, NEODESLÁNO: %lu"
+
+#: src/icqface.cc:274
+msgid "Send an URL"
+msgstr "Odeslat URL"
+
+#: src/icqface.cc:275
+msgid " Send an SMS"
+msgstr " Odeslat SMS"
+
+#: src/icqface.cc:276
+msgid "Send contacts"
+msgstr "Odeslat kontakty"
+
+#: src/icqface.cc:277
+msgid " Request authorization"
+msgstr " Vyžádat autorizaci"
+
+#: src/icqface.cc:278
+msgid "Edit details"
+msgstr "Upravit detaily"
+
+#: src/icqface.cc:279
+msgid "Fetch away message"
+msgstr "Uložit zprávu pro nepřítomnost"
+
+#: src/icqface.cc:280
+msgid "Add to list"
+msgstr "Přidat do seznamu"
+
+#: src/icqface.cc:281
+msgid "Rename contact"
+msgstr "Přejmenovat kontakt"
+
+#: src/icqface.cc:282
+msgid " Move to group.."
+msgstr " Přesunout do skupiny…"
+
+#: src/icqface.cc:283
+msgid " Ping"
+msgstr " Ping"
+
+#: src/icqface.cc:284
+msgid "Fetch version info"
+msgstr "Získat informace o verzi"
+
+#: src/icqface.cc:285
+msgid " Send file(s)"
+msgstr " Poslat soubor(y)"
+
+#: src/icqface.cc:286
+msgid " Invite to conference.."
+msgstr " Pozvat na konferenci…"
+
+#: src/icqface.cc:293
+msgid " Send a channel message   enter"
+msgstr " Odeslat zprávu pro kanál   Enter"
+
+#: src/icqface.cc:294
+msgid "Channel chat history"
+msgstr "Historie diskuze na tomto kanálu"
+
+#: src/icqface.cc:295
+msgid " Remove channel             del"
+msgstr " Odstranit kanál  del"
+
+#: src/icqface.cc:296
+msgid " Join channel"
+msgstr " Připojit se ke kanálu"
+
+#: src/icqface.cc:297
+msgid " Leave channel"
+msgstr " Opustit kanál"
+
+#: src/icqface.cc:298
+msgid "List nicknames"
+msgstr "Seznam přezdívek"
+
+#: src/icqface.cc:301
+msgid "UnBlock channel messages"
+msgstr "Povolit zprávy z kanálu"
+
+#: src/icqface.cc:303
+msgid "Block channel messages"
+msgstr "Zakázat zprávy z kanálu"
+
+#: src/icqface.cc:310
+msgid "Send a message"
+msgstr "Poslat zprávu"
+
+#: src/icqface.cc:312
+msgid "Event history"
+msgstr "Historie událostí"
+
+#: src/icqface.cc:313
+msgid "Remove user"
+msgstr "Odebrat uživatele"
+
+#: src/icqface.cc:314
+msgid "User's details"
+msgstr "Detaily uživatele"
+
+#: src/icqface.cc:315
+msgid "External actions.."
+msgstr "Externí akce…"
+
+#: src/icqface.cc:318
+msgid "Unset ignore user"
+msgstr "Přestat ignorovat uživatele"
+
+#: src/icqface.cc:318
+msgid "Ignore user"
+msgstr "Ignorovat uživatele"
+
+#: src/icqface.cc:322
+msgid " Assign PGP key.."
+msgstr " Přiřadit PGP klíč…"
+
+#: src/icqface.cc:322
+msgid " Unassign PGP key"
+msgstr " Odebrat PGP klíč…"
+
+#: src/icqface.cc:324
+#, c-format
+msgid " Turn PGP encryption %s"
+msgstr " PGP šifrování %s"
+
+#: src/icqface.cc:328
+msgid "Force check"
+msgstr "Vynutit kontrolu"
+
+#: src/icqface.cc:435
+msgid "Change status"
+msgstr "Změnit stav"
+
+#: src/icqface.cc:436
+msgid "Go to contact.."
+msgstr "Do kontaktů…"
+
+#: src/icqface.cc:437
+msgid " Accounts.."
+msgstr " Účty…"
+
+#: src/icqface.cc:438
+msgid " CenterIM config options"
+msgstr " Konfigurace CenterIM"
+
+#: src/icqface.cc:440
+msgid " OTR options and fingerprints"
+msgstr " Nastavení OTR a otisků"
+
+#: src/icqface.cc:442
+msgid " File transfers monitor"
+msgstr " Správce přenosu souborů"
+
+#: src/icqface.cc:444
+msgid " Find/add users"
+msgstr " Najít/přidat uživatele"
+
+#: src/icqface.cc:445
+msgid " Join channel/conference"
+msgstr " Připojit se ke kanálu/konferenci"
+
+#: src/icqface.cc:447
+msgid " Link an RSS feed"
+msgstr " Odebírat RSS zprávy"
+
+#: src/icqface.cc:450
+msgid " View/edit ignore list"
+msgstr " Prohlížet/měnit seznam ignorovaných"
+
+#: src/icqface.cc:451
+msgid " View/edit invisible list"
+msgstr " Prohlížet/měnit seznam neviditelných"
+
+#: src/icqface.cc:452
+msgid " View/edit visible list"
+msgstr " Prohlížet/měnit seznam viditelných"
+
+#: src/icqface.cc:455
+msgid "Show offline users"
+msgstr "Ukázat odpojené uživatele"
+
+#: src/icqface.cc:457
+msgid "Hide offline users"
+msgstr "Skrýt odpojené uživatele"
+
+#: src/icqface.cc:460
+msgid " Organize contact groups"
+msgstr " Upravit skupiny kontaktů"
+
+#: src/icqface.cc:461
+msgid " Mass group move.."
+msgstr " Hromadný přesun skupin…"
+
+#: src/icqface.cc:905 src/icqface.cc:909 src/icqface.cc:1940
+msgid "Details"
+msgstr "Detaily"
+
+#: src/icqface.cc:905
+msgid "Message"
+msgstr "Zpráva"
+
+#: src/icqface.cc:906 src/icqface.cc:910
+msgid "New search"
+msgstr "Nové hledání"
+
+#: src/icqface.cc:924
+msgid "Contact to add"
+msgstr "Přidat kontakt"
+
+#: src/icqface.cc:934
+msgid "Searching contacts.."
+msgstr "Prohledávání kontaktů…"
+
+#: src/icqface.cc:1005
+msgid "Search results [done]"
+msgstr "Výsledky hledání [hotovo]"
+
+#: src/icqface.cc:1016
+#, c-format
+msgid "Information about %s"
+msgstr "Informace o %s"
+
+#: src/icqface.cc:1073 src/icqface.cc:1129
+msgid "Nickname"
+msgstr "Přezdívka"
+
+#: src/icqface.cc:1081
+msgid "This is your LiveJournal account. Use it to"
+msgstr "Toto je tvůj LiveJournal účet. Použij ho"
+
+#: src/icqface.cc:1082
+msgid "post new entries to your journal."
+msgstr "poslat nové položky do svého journalu."
+
+#: src/icqface.cc:1089
+msgid "The following users have you listed as their friend:"
+msgstr "Následující uživatelé vás vedou jako svého přítele:"
+
+#: src/icqface.cc:1112
+msgid "found"
+msgstr "našel"
+
+#: src/icqface.cc:1114
+msgid "used"
+msgstr "používáno"
+
+#: src/icqface.cc:1114
+msgid "not used"
+msgstr "nepoužíváno"
+
+#: src/icqface.cc:1116
+msgid "not found"
+msgstr "nenašel"
+
+#: src/icqface.cc:1131
+msgid "E-mail"
+msgstr "E-mail"
+
+#: src/icqface.cc:1132
+msgid "2nd e-mail"
+msgstr "2. e-mail"
+
+#: src/icqface.cc:1133
+msgid "Old e-mail"
+msgstr "Starý e-mail"
+
+#: src/icqface.cc:1134
+msgid "Gender"
+msgstr "Pohlaví"
+
+#: src/icqface.cc:1135 src/icqface.cc:1422
+msgid "Birthdate"
+msgstr "Narozen(a)"
+
+#: src/icqface.cc:1136
+msgid "Age"
+msgstr "Věk"
+
+#: src/icqface.cc:1137
+msgid "Languages"
+msgstr "Jazyky"
+
+#: src/icqface.cc:1138
+msgid "Last IP"
+msgstr "Poslední IP"
+
+#: src/icqface.cc:1161
+msgid "Last seen"
+msgstr "Naposled"
+
+#: src/icqface.cc:1163 src/icqface.cc:1406 src/icqface.cc:1410
+msgid "Never"
+msgstr "Nikdy"
+
+#: src/icqface.cc:1176 src/icqface.cc:1200
+msgid "days"
+msgstr "dnů"
+
+#: src/icqface.cc:1180 src/icqface.cc:1204
+msgid "hours"
+msgstr "hodin"
+
+#: src/icqface.cc:1185 src/icqface.cc:1209
+msgid "min"
+msgstr "min"
+
+#: src/icqface.cc:1189
+msgid "seconds"
+msgstr "sekund"
+
+#: src/icqface.cc:1212
+#, fuzzy
+msgid "idle"
+msgstr "soubory"
+
+#: src/icqface.cc:1221
+msgid "Server-based contact"
+msgstr "Kontakt ze serveru"
+
+#: src/icqface.cc:1226
+msgid "Awaiting authorization"
+msgstr "Čekání na autorizaci"
+
+#: src/icqface.cc:1238
+msgid "Avatar file"
+msgstr "Soubor s avatarem "
+
+#: src/icqface.cc:1253 src/icqface.cc:1296
+msgid "Address"
+msgstr "Adresa"
+
+#: src/icqface.cc:1254 src/icqface.cc:1297
+msgid "Location"
+msgstr "Místo"
+
+#: src/icqface.cc:1255 src/icqface.cc:1298
+msgid "Zip code"
+msgstr "PSČ/Zip"
+
+#: src/icqface.cc:1256 src/icqface.cc:1304
+msgid "Phone"
+msgstr "Telefon"
+
+#: src/icqface.cc:1257 src/icqface.cc:1305
+msgid "Fax"
+msgstr "Fax"
+
+#: src/icqface.cc:1258
+msgid "Cellular"
+msgstr "Mobil"
+
+#: src/icqface.cc:1259
+msgid "Timezone"
+msgstr "Čas. pásmo"
+
+#: src/icqface.cc:1261 src/icqface.cc:1306
+msgid "Homepage"
+msgstr "Domácí stránka"
+
+#: src/icqface.cc:1300
+msgid "Company"
+msgstr "Firma"
+
+#: src/icqface.cc:1301
+msgid "Department"
+msgstr "Oddělení"
+
+#: src/icqface.cc:1302 src/icqface.cc:1381
+msgid "Title"
+msgstr "Titul"
+
+#: src/icqface.cc:1346
+msgid "Interests"
+msgstr "Zájmy"
+
+#: src/icqface.cc:1358
+msgid "Background"
+msgstr "Zázemí"
+
+#: src/icqface.cc:1376
+msgid "Handle"
+msgstr "Název"
+
+#: src/icqface.cc:1377
+msgid "RSS doc"
+msgstr "RSS URL"
+
+#: src/icqface.cc:1378
+msgid "Version"
+msgstr "Verze"
+
+#: src/icqface.cc:1379
+msgid "Encoding"
+msgstr "Kódování"
+
+#: src/icqface.cc:1382
+msgid "Link"
+msgstr "URL"
+
+#: src/icqface.cc:1384
+msgid "Frequency"
+msgstr "Frekvence"
+
+#: src/icqface.cc:1385
+msgid "Last check"
+msgstr "Naposled kontrolován"
+
+#: src/icqface.cc:1386
+msgid "Next check"
+msgstr "Příští kontrola"
+
+#: src/icqface.cc:1387
+msgid "Last result"
+msgstr "Poslední výsledek"
+
+#: src/icqface.cc:1401
+#, c-format
+msgid "%lu minutes"
+msgstr "%lu minut"
+
+#: src/icqface.cc:1404
+msgid "Now"
+msgstr "Nyní"
+
+#: src/icqface.cc:1423
+msgid "Full name"
+msgstr "Plný název"
+
+#: src/icqface.cc:1442
+#, c-format
+msgid "%s to URLs, %s external actions, %s close"
+msgstr "%s do URL, %s externí akce, %s zavřeno"
+
+#: src/icqface.cc:1447
+#, c-format
+msgid "user info for %s"
+msgstr "Informace o uživatele %s"
+
+#: src/icqface.cc:1456
+msgid "Check"
+msgstr "Zkontrolovat"
+
+#: src/icqface.cc:1456 src/icqface.cc:1473
+msgid "Edit"
+msgstr "Změnit"
+
+#: src/icqface.cc:1456
+msgid "LJ"
+msgstr "LJ"
+
+#: src/icqface.cc:1460
+msgid "Retreive"
+msgstr "Stáhnout"
+
+#: src/icqface.cc:1466
+msgid "Friend of"
+msgstr "Přítel"
+
+#: src/icqface.cc:1472
+msgid "Home"
+msgstr "Bydliště"
+
+#: src/icqface.cc:1472
+msgid "Work"
+msgstr "Práce"
+
+#: src/icqface.cc:1472
+msgid "More"
+msgstr "Další"
+
+#: src/icqface.cc:1473
+msgid "Retrieve"
+msgstr "Stáhnout"
+
+#: src/icqface.cc:1573
+msgid " [icq] ICQ network"
+msgstr " [icq] ICQ síť"
+
+#: src/icqface.cc:1574
+msgid " [yahoo] YAIM"
+msgstr " [yahoo] YAIM"
+
+#: src/icqface.cc:1575
+msgid " [msn] M$ Messenger"
+msgstr " [msn] M$ Messenger"
+
+#: src/icqface.cc:1576
+msgid " [aim] AOL TOC"
+msgstr " [aim] AOL TOC"
+
+#: src/icqface.cc:1577
+msgid " [irc] IRC"
+msgstr " [irc] IRC"
+
+#: src/icqface.cc:1578
+msgid " [jab] Jabber"
+msgstr " [jab] Jabber"
+
+#: src/icqface.cc:1580
+msgid " [lj] LiveJournal"
+msgstr " [lj] LiveJournal"
+
+#: src/icqface.cc:1581
+msgid " [gg] Gadu-Gadu"
+msgstr " [gg] Gadu-Gadu"
+
+#: src/icqface.cc:1622
+msgid " All protocols"
+msgstr " Všechny protokoly"
+
+#: src/icqface.cc:1623
+msgid " Already logged in only"
+msgstr " Pouze přihlášené"
+
+#: src/icqface.cc:1724
+msgid " <Space> or <Enter> confirm, <Esc> cancel "
+msgstr " <Mezerník> nebo <Enter> potvrdit, <Esc> zrušit "
+
+#: src/icqface.cc:1754
+msgid " <Space> confirm, <Esc> cancel "
+msgstr " <Mezerník> potvrdit, <Esc> zrušit "
+
+#: src/icqface.cc:1940
+msgid "Move to contacts"
+msgstr "Do kontaktů"
+
+#: src/icqface.cc:1952
+msgid "Ignore list"
+msgstr "Seznam ignorovaných"
+
+#: src/icqface.cc:1953
+msgid "Visible list"
+msgstr "Seznam viditelných"
+
+#: src/icqface.cc:1954
+msgid "Invisible list"
+msgstr "Seznam neviditelných"
+
+#: src/icqface.cc:1976
+msgid "Select contacts to add to the list"
+msgstr "Vyberte kontakty, které chcete přidat do seznamu"
+
+#: src/icqface.cc:1981
+#, c-format
+msgid "Remove the %d contacts from the contact list as well?"
+msgstr "Odebrat také %d kontakt(y) ze seznamu kontaktů?"
+
+#: src/icqface.cc:2040
+msgid "Event recipients"
+msgstr "Příjemci události"
+
+#: src/icqface.cc:2269
+#, c-format
+msgid "QuickSearch: type to find, %s find again, Enter finish"
+msgstr "Hledání: něco napište, %s hledá znovu, Enter ukončí"
+
+#: src/icqface.cc:2272
+msgid "contact list quick search"
+msgstr "rychlé hledání v seznamu kontaktů"
+
+#: src/icqface.cc:2374
+msgid "+ no URLs within the current context"
+msgstr "+ žádná URL v současném kontextu"
+
+#: src/icqface.cc:2387
+msgid "URLs within the current context"
+msgstr "URL v současném kontextu"
+
+#: src/icqface.cc:2403
+#, c-format
+msgid "+ no external actions defined for %s"
+msgstr "+ žádná akce není definována pro %s"
+
+#: src/icqface.cc:2423
+#, c-format
+msgid "Result of the external action %s:"
+msgstr "Výsledky externí akce %s:"
+
+#: src/icqface.cc:2441
+#, c-format
+msgid ""
+"%s send, %s multi, %s/%s pr/nxt chat, %s hist, %s URLs, %s expand, %s memb"
+msgstr ""
+"%s odesl., %s hrom., %s/%s př/nás disk., %s hist., %s URL, %s zvětš., %s "
+"člen."
+
+#: src/icqface.cc:2442
+#, c-format
+msgid ""
+"%s send, %s multi, %s/%s pr/nxt chat, %s hist, %s URLs, %s expand, %s info"
+msgstr ""
+"%s odesl., %s hrom., %s/%s př/nás disk., %s hist., %s URL, %s zvětš., %s "
+"detaily"
+
+#: src/icqface.cc:2477
+#, c-format
+msgid "Outgoing %s"
+msgstr "Odesílám %s"
+
+#: src/icqface.cc:2610
+msgid "Send contacts.."
+msgstr "Posílám kontakty…"
+
+#: src/icqface.cc:2670
+msgid "file name: "
+msgstr "jméno souboru: "
+
+#: src/icqface.cc:3131
+#, c-format
+msgid "Outgoing %s to %s"
+msgstr "Odesílám %s pro %s"
+
+#: src/icqface.cc:3132
+#, c-format
+msgid "Sent on %s"
+msgstr "Odesláno %s"
+
+#: src/icqface.cc:3135
+#, c-format
+msgid "Incoming %s from %s"
+msgstr "Přijímám %s od %s"
+
+#: src/icqface.cc:3136
+#, c-format
+msgid "Received on %s"
+msgstr "Přijato %s"
+
+#: src/icqface.cc:3182
+#, c-format
+msgid "%s to URLs, %s to full-screenize, %s close"
+msgstr "%s pro URL, %s přes celou obrazovku, %s zavřít"
+
+#: src/icqface.cc:3229
+#, c-format
+msgid "%s from %s, received on %s"
+msgstr "%s od %s, přijato %s"
+
+#: src/icqface.cc:3230
+#, c-format
+msgid "%s to %s, sent on %s"
+msgstr "%s pro %s, odesláno %s"
+
+#: src/icqface.cc:3239
+msgid "full-screen view"
+msgstr "celoobrazovkový pohled"
+
+#: src/icqface.cc:3245
+#, c-format
+msgid "%s or %s to close, Up/Down and PgUp/PgDn to scroll"
+msgstr "%s nebo %s zavřít, Up/DOwn a PgUp/PgDn posunout"
+
+#: src/icqface.cc:3333
+#, c-format
+msgid "History for %s, %d events total"
+msgstr "Historie pro %s, celkem %d událost(í)"
+
+#: src/icqface.cc:3339
+#, c-format
+msgid "%s search, %s again, %s cancel"
+msgstr "%s hledat, %s znovu, %s zrušit"
+
+#: src/icqface.cc:3348
+msgid "search for: "
+msgstr "hledat pro: "
+
+#, fuzzy
+#~ msgid "+ [yahoo] rejected by %s: %s"
+#~ msgstr "+ [yahoo] systém: %s"
+
+#, fuzzy
+#~ msgid "+ [yahoo] got buzz from %s"
+#~ msgstr "+ [yahoo] e-mail od %s, %s"
+
+#~ msgid "%s went online, with status %s"
+#~ msgstr "%s se právě připojil se stavem %s"
+
+#~ msgid "%s changed status to %s from %s"
+#~ msgstr "%s změnil stav na %s z %s"
+
+#~ msgid "Report bugs to <centericq-bugs@konst.org.ua>."
+#~ msgstr ""
+#~ "Chyby hlaste na <centericq-bugs@konst.org.ua>.\n"
+#~ "Chyby překladu na <petr.pisar@atlas.cz>."

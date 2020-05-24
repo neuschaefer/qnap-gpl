@@ -1,0 +1,9 @@
+syslog-ng (2.0.9) syslogng20; urgency=low
+
+  * New upstream version.
+
+ -- BalaBit Development Team <devel@balabit.hu>  Sun, 23 Mar 2008 21:41:45 +0100
+
+Local variables:
+mode: debian-changelog
+End:

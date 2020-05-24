@@ -1,0 +1,14 @@
+<samba:parameter name="timemachine"
+                 context="S"
+                 type="boolean"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+		
+<related>timemachine</related>
+
+<value type="default">no</value>
+</samba:parameter>

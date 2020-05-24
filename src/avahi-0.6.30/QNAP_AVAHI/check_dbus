@@ -1,0 +1,21 @@
+#!/bin/sh
+function check_dbus
+{
+    local DBUS_SOCKET="/var/run/dbus/system_bus_socket"
+    local RESULT=`DBUS_SESSION_BUS_ADDRESS="unix:path=${DBUS_SOCKET}" /usr/sbin/dbus-send --session --print-reply --reply-timeout=2000 --type=method_call --dest=org.freedesktop.DBus /org/freedesktop/DBus org.freedesktop.DBus.ListActivatableNames 2>/dev/null`
+    
+    local CHECK_STR="method return sender=org.freedesktop.DBus"
+    
+    if [[ "${RESULT}" == *"${CHECK_STR}"* ]] ;then
+        echo "active"
+    else
+        echo "inactive"
+    fi
+}
+
+if [ "$(check_dbus)" == "active" ]; then
+    echo "active"
+else
+    echo "inactive"
+fi
+exit 0

@@ -1,0 +1,143 @@
+'\" t
+.\"     Title: faillog
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10/05/2009
+.\"    Manual: System Management Commands
+.\"    Source: System Management Commands
+.\"  Language: Italian
+.\"
+.TH "FAILLOG" "8" "10/05/2009" "System Management Commands" "System Management Commands"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOME"
+faillog \- mostra i conteggi e imposta i limiti degli accessi falliti
+.SH "SINOSSI"
+.HP \w'\fBfaillog\fR\ 'u
+\fBfaillog\fR [\fIopzioni\fR]
+.SH "DESCRIZIONE"
+.PP
+\fBfaillog\fR
+mostra il log degli accessi falliti, contenuto nel file
+/var/log/faillog; pu\(`o anche essere usato per impostare i conteggi e i limiti dei tentativi falliti\&. Eseguire
+\fBfaillog\fR
+senza argomenti per ottenere un elenco degli utenti che hanno fallito almeno un tentativo di accesso\&.
+.SH "OPZIONI"
+.PP
+Il comando
+\fBfaillog\fR
+accetta le seguenti opzioni:
+.PP
+\fB\-a\fR, \fB\-\-all\fR
+.RS 4
+Display (or act on) faillog records for all users having an entry in the
+faillog
+database\&.
+.RE
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Mostra un messaggio di aiuto ed esce\&.
+.RE
+.PP
+\fB\-l\fR, \fB\-\-lock\-time\fR\fISEC\fR
+.RS 4
+Blocca l\'account per
+\fISEC\fR
+secondi dopo un tentativo di accesso fallito\&.
+.sp
+Write access to
+/var/log/faillog
+is required for this option\&.
+.RE
+.PP
+\fB\-m\fR, \fB\-\-maximum\fR\fIMAX\fR
+.RS 4
+Set maximum number of login failures after the account is disabled to
+\fIMAX\fR\&.
+.sp
+Selecting a
+\fIMAX\fR
+value of 0 has the effect of not placing a limit on the number of failed logins\&.
+.sp
+The maximum failure count should always be 0 for
+\fIroot\fR
+to prevent a denial of services attack against the system\&.
+.sp
+Write access to
+/var/log/faillog
+is required for this option\&.
+.RE
+.PP
+\fB\-r\fR, \fB\-\-reset\fR
+.RS 4
+Reset the counters of login failures or one record if used with the
+\fB\-u\fR
+\fILOGIN\fR
+option\&.
+.sp
+Write access to
+/var/log/faillog
+is required for this option\&.
+.RE
+.PP
+\fB\-t\fR, \fB\-\-time\fR\fIGIORNI\fR
+.RS 4
+Display faillog records more recent than
+\fIDAYS\fR\&.
+.RE
+.PP
+\fB\-u\fR, \fB\-\-user\fR \fILOGIN\fR|\fIRANGE\fR
+.RS 4
+Display faillog record or maintains failure counters and limits (if used with
+\fB\-l\fR,
+\fB\-m\fR
+or
+\fB\-r\fR
+options) only for the specified user(s)\&.
+.sp
+The users can be specified by a login name, a numerical user ID, or a
+\fIRANGE\fR
+of users\&. This
+\fIRANGE\fR
+of users can be specified with a min and max values (\fIUID_MIN\-UID_MAX\fR), a max value (\fI\-UID_MAX\fR), or a min value (\fIUID_MIN\-\fR)\&.
+.RE
+.PP
+When none of the
+\fB\-l\fR,
+\fB\-m\fR, or
+\fB\-r\fR
+options are used,
+\fBfaillog\fR
+displays the faillog record of the specified user(s)\&.
+.PP
+NOTE: in display mode, only the records of users which currently exist in the system are displayed\&. In the other modes (when the
+\fB\-l\fR,
+\fB\-m\fR, or
+\fB\-r\fR
+options are used), the records of the user, or the range of users, or all the users that may have an entry in the faillog database will be changed\&. This is useful to reset records of users that have been deleted or set a policy in advance for a range of users\&.
+.SH "AVVISI/CAVEAT"
+.PP
+\fBfaillog\fR
+mostra solo gli utenti che non hanno effettuato nessun accesso corretto dopo l\'ultimo tentativo fallito\&. Un utente che abbia completato correttamente un accesso dopo l\'ultimo tentativo fallito \(`e mostrato solo se viene richiesto esplicitamente con l\'opzione
+\fB\-u\fR
+o se viene richiesto di mostrare tutti gli utenti con l\'opzione
+\fB\-a\fR\&.
+.SH "FILE"
+.PP
+/var/log/faillog
+.RS 4
+Failure logging file\&.
+.RE
+.SH "VEDERE ANCHE"
+.PP
+\fBlogin\fR(1),
+\fBfaillog\fR(5)\&.

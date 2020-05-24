@@ -1,0 +1,35 @@
+LGPLv2+ DHCPv6 implementation
+http://fedorahosted.org/dhcpv6/
+-------------------------------
+
+DHCPv6 is a stateful address autoconfiguration protocol for IPv6, a
+counterpart to IPv6 stateless address autoconfiguration protocol.  It can
+either be used independently or it can coexist with its counterpart protocol.
+This protocol uses client/server mode of operation but can also provide
+support through a Relay Agent.
+
+This protocol is intended to support on IPv6 based networks only.  For
+specific details of the protocol, refer to the specification available from
+the IETF.
+
+The ultimate goal of this project is to provide a protocol conformant
+implementation for Linux and other Unix operating systems.
+
+
+LICENSE
+COPYING.LIB
+    Licensing and software ownership information.  The code is licensed
+    under the GNU Library General Public License version 2 or later.
+
+AUTHORS
+    A list of people who have contributed to the project.
+
+INSTALL
+    Installation instructions.
+
+TODO
+    List of things that need completing in the code or the project in
+    general.
+
+RFC*
+    IETF standards relevant to DHCPv6.

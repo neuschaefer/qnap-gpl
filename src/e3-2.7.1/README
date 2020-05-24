@@ -1,0 +1,390 @@
+README for mini editor e3 release 2.7.1
+
+(c) GPL 2000-07 Albrecht Kleine  
+kleine@ak.sax.de  
+
+
+1. OVERVIEW
+===========
+e3 is a micro text editor with an executable code size between 
+3800 and 35000 bytes, depending on used assembler options,
+platform and self compressor.
+Except for 'syntax highlighting', the e3 binary supports all of the basic
+functions one expects plus built in arithmetic calculations. If you have 
+installed the stream editor 'sed' you can use these tools as sub-processes,
+getting the full power of regular expressions.
+
+e3 can use Wordstar-, EMACS-, Pico, Nedit or vi-like key bindings,
+whichever the user chooses.
+Also the user can calculate arithmetics inside the text.
+
+e3's assembler version is available on 9 important OS,
+using 16/32/64 bit CPUs:
+	* Linux kernels 2.x
+	  (from 16 bit ELKS via 32 bit x86 up to AMD64,
+	   plus ARM-linux kernel 2.4 @zaurus PDA)
+	* FreeBSD 2.x-5.x
+	* OpenBSD 3.4,
+	* NetBSD 1.6,2.0
+	* BeOS 5PE
+	* Win98
+	* QNX RTP 6.1
+	* Atheos 0.3.7
+	* FreeDOS kernel 1.1.24
+
+There is also a GNU-C-written version for non-i386-Unix
+and non-ARM-Linux platforms (e3.c) using Wordstar keybindings only.
+This README doesn't further mention e3.c. (Just make it!)
+
+e3 is designed to be INDEPENDENT OF LIBC OR ANY OTHER library,
+except on QNX and Win32.
+
+It's been tested using the terminal console, but Xterm, Eterm,
+kvt, rxvt, vt220 and vt100 should work too. 
+
+Beginning in version 2.6.0 e3 does support UTF-8 coding of unicode
+characters like this: α   ( <---should be a greek alpha )
+
+
+
+
+2a. BUILD on Linux/FreeBSD/NetBSD/BeOS/QNX/Atheos (32 bit)
+==========================================================
+A. For assembling of e3 you need NASM assembler release nasm-0.99.05 
+
+B. If you don't like the default OS or destination (LINUX , /usr/local/ )
+   then edit top of Makefile 
+   (other possible OS are FreeBSD or BEOS or QNX or ATHEOS).
+   
+C. e3 is expecting "sed" at /bin/sed, or "ex" at /usr/bin/ex; otherwise change 
+   SEDPATH in e3.asm.  By default /bin/sed is used, but you can
+   use /usr/bin/ex instead, if you edit Makefile as appropriate.
+   (NOT available for BeOS,QNX,Atheos)
+
+D. Build e3 via typing 'make' (or 'gmake' on FreeBSD)  for building:             
+   e3	: the default Wordstar-like version,
+   e3ws	: ditto Wordstar,
+   e3em	: the Emacs-like version,
+   e3pi	: the Pico-like version,
+   e3vi	: the vi-like version.
+   e3ne	: the Nedit-like version.
+   (e3?? are symbolic links to e3. In fact only one executable is built.)
+
+E. Optional: type 'make install' or 
+   move or copy e3 and its symlinks wherever you want.
+
+F. Optional: some more editable options are on top of e3.h: 
+   for example, if you don't like WS mode, choice an other default mode 
+   by setting DEFAULT_MODE to one of EM, NE, PI or VI .
+   Also you could activate error beeping in vi mode by uncommenting 
+   the BEEP_IN_VI line.
+   
+
+2b. BUILD on Linux (64 bit)
+===========================
+A. For assembling of e3 you need YASM or NASM assembler,
+   e.g.  yasm 0.6.99.2005 
+   or NASM version 0.99.05
+
+B. see 2a, except for make, this should be:
+   make yasm64
+   or
+   make nasm64
+
+
+
+2c. BUILD on Win9x / ME / DOS
+=============================
+A. For assembling of e3 you need  NASM assembler nasm-0.99.05 
+   and ALINK (Anthony's Linker) and Win32 Import Library (win32.lib)
+   Both are available for free on the net.
+
+B. Type 'make' , i.e. run make.bat, and move e3.exe, e3-16.com 
+   and e3*.bat wherever you want.
+
+C. Optional: some more editable options are on top of e3.h: 
+   for example, if you don't like WS mode, choice an other default mode 
+   by setting DEFAULT_MODE to one of EM, NE, PI or VI . In this
+   case you would not need to call one of the batches to run
+   your favourite mode.
+
+
+2d. BUILD on OpenBSD
+====================
+Here is a Makefile for BSD-make included. See ./bin directory.
+Also you need current NASM (nasm-0.99.05)
+In general you don't need to change that file.
+
+
+2e. BUILD for ELKS
+==================
+This is done usual on 32 bit x86 Linux systems either
+by typing "make elks" or changing to elks/ and typing "make".
+You need to have installed the ld86 linker (part of dev86 suite).
+
+
+2f. BUILD for ARM Linux
+=======================
+Simply type "make armlinux" on your x86 box.
+You will need the ARM linux toolchain, at least
+	arm-linux-as: GNU assembler 2.11.2
+	arm-linux-ld: GNU ld 2.11.2
+Fetch it via:
+	ftp://ftp.armlinux.org/pub/toolchain
+Or adjust 'Makefile' and build e3arm on the destination ARM box.
+
+
+
+
+3. RELEASE NOTES
+================
+
+FINAL RELEASE with some adjustments for supporting current 
+NASM and YASM assemblers both supporting  for 32/64 bit.
+So now on LINUX(x86) beside
+	make
+	make yasm
+	make yasm64
+you have the NEW make destinations
+	make nasm64
+	make nasm32	(<- same as pure 'make')
+
+Please don't try old NASMs or YASMs. It won't work.
+
+Except Linux (16/32/64 bit) no more binaries are included.
+
+
+
+4. BASIC USAGE
+==============
+* All versions of e3 accept a filename as argument; see the man page.
+
+* There is a status and input line, where you can enter filenames, 
+  find-texts, line numbers  etc.  In the lower right corner you will find
+  a code like "WS" showing the selected editor mode and a help
+  pointer (EXCEPT vi).
+
+* e3 changes the appearance of the cursor (to reverse) depending on 
+  insert/overwrite mode (on Linux text console only). 
+
+* For details on key bindings read each e3xx's initial page or 
+  type Alt-H during edit (for vi use  ESC:h). 
+  
+* On some computers (BeOS, QNX etc.) Alt-key combinations won't work: 
+  press <ESC> followed by the key, e.g. press ESC and H instead of Alt-H.
+
+* e3 shows a dot for characters below ASCII 20h and greater 7Fh
+  (except on win9x and except on UTF-8 version).
+
+* At the end of an edit cycle, e3 asks you something like "SAVE? Ynl".  Press
+  "n" to NOT save, "l" for SAVE and LOAD new, any other for SAVE and EXIT.
+
+
+5. ARITHMETICS
+==============
+You can do some simple arithmetic calculations inside your text. 
+For example:
+                 1234+56*78=
+place cursor here^ and press one of:
+
+   ^KN  for WSTAR mode
+   ^QC  for PICO mode
+   ^X^N for EMACS mode
+   #    for VI command mode
+   ^K   for NEDIT mode
+This should insert the result of 5602 into text.
+
+
+Use values -999999999999.999999 ... -0.000001, 0, 0.000001 up to
+999999999999.999999  and operators +-*/ and ( ) .
+
+Some more examples:
+ 2+4*8=34
+ 2/3*3=2
+ -4*-3--5*-4=-8
+ 4-3--4-3=2
+ -5*-(13+-2*(3+4))+2=-3
+ (7*(((((6+2+(((((1)))))))))))=63
+ (13120-9972)/9972=0.315684
+ 100000000+0.000001=100000000.000001
+ 10000000000+1=10000000001
+ 1+1*2*3*4*5*6*7*8*9*10=3628801
+ 7.627891*2.643189=20.161958
+ 10000000000/8=1250000000
+
+Some problems:
+ 100000000000+1.00001=99999997953.00001	<--loss of precision!
+ 8/0=					<--not possible. You know.
+ 					   (e3 says "beep")
+ 100000000*100000000=			<--overflow 
+
+Two specials: 
+ 12*p=37.699112				<--p is PI 3.14.....
+ r+20=57.699112				<--r is result of last calculation
+ 
+This arithmetic calculator is the smallest and simplest I could write.
+It takes only some hundred byte in the executable because it does NOT use 
+precise BCD arithmetics, but built in x87-coprocessor features. So please 
+do NOT expect very high precision. 
+
+
+
+6. MIXED HINTS
+==============
+* The emacs-mode version has currently a kill buffer but no kill ring,
+  so be careful about that. I'm sure, inside some 1000 byte you won't 
+  expect a complete Emacs key set, but IMHO you get the most important part.
+
+* The Pico mode is both: extended and incomplete compared to some Pico options,
+  new are some ^J (delete) and ^Q (quick_move) keys.
+
+* The win9x version does no accept any filename on the command line if this 
+  filename contains blank spaces.
+
+* The size of files you edit is currently limited to the maximum of either 
+  1024k or twice the file's size if you start with a file on command line, i.e.,
+  for example, starting e3 with a 2MB_sized_file gives you another 2 MB space 
+  for inserts.
+
+* You can choose inside the edit session (w/o leaving e3) between the 
+  different edit modes, for example:
+	-start  e3em <filename>
+		---> now using Emacs style keys.
+	-type   altX
+	-type	e3vi
+		---> welcome in the land of vi!
+	-type   <ESC>;
+	-type   e3ws
+		---> you are entering Wordstar emulation sector!
+	....etc....
+  This VERY hot keys are ^KM (for WS), ^QM (for Pico), altX (for Emacs),
+  ^E (for Nedit) and <ESC>; (for vi-mode).
+  
+  Note: on some computers press ESC X instead of altX.
+
+* Everytime if e3vi does not recognize a vi-mode ex command, e3vi will pipe
+  the whole editor text buffer through /bin/sed or /bin/ex. I.e. you can use 
+  pure sed or ex commands like:
+	1,6 s/foo/bar/
+	2,$ d
+	8,$ w filecopy
+	/remove_me/d
+  ***TAKE CARE***: "sed" or "ex" won't know your current cursor position in e3!
+  What call to subprogram (either ex or sed) is compiled in
+  you can find in helptext:
+	"pipe buffer through /bin/sed"    
+	vs.    
+	"pipe buffer through /bin/ex"
+  You should know this because the syntax is not equal:
+	s/./\./		<--sed syntax
+	1,$ s/./\./g	<-- ex syntax
+  Also you should know what "sed" version you have installed,
+  because sed 2.x and sed 3.x are quite different.
+  You can use this new buffer pipe features also from WS-, Pico- and Emacs modes
+  by pressing ^KP (Wordstar), or ^JP (Pico), or ^X^P (Emacs).
+
+* There is no predefined UNDO level count. You can expect to UNDO at least
+  one last insert-, delete-, overwrite- or sed_pipe-operation, but in most 
+  cases there are lots of UNDO stages available.  e3 has a fixed size undo buffer
+  and will use an external helper file if some deleted data is bigger sized 
+  than the undo buffer. This buffer is organized as a ring, overwriting 
+  older UNDO information if neccessary. So one never can say exactly 
+  how many UNDO operations are possible. 
+  For using the UNDO press one of:
+   ^U   for WSTAR mode
+   ^QU  for PICO mode
+   ^_   for EMACS mode
+   u    for VI command mode
+   ^U   for NEDIT mode
+
+
+
+7. Notes on UTF-8 for the  Linux/ASM-version
+============================================
+
+* By default now e3 does does support UTF-8 coding of unicode
+  characters like this: α  (should be a greek alpha).
+
+* You could disable UTF-8 support in e3 by editing e3.h at line 16:
+  from
+  %define UTF8
+  to
+  ;;; %define UTF8
+  and run 'make' again.
+  
+* Running e3_with_disabled_UTF-support at a UTF-8 console 
+  you will see two points .. for UTF-8 characters e.g. the greek alpha.
+
+* If your terminal does _not_ support UTF-8 it is strongly 
+  recommended to _disable_ UTF8-support in e3.h, 
+  because output of some characters could be scrambled.
+
+* e3 will _not_ convert your files from/to UTF-8 coding.
+  It does simply _use_ your terminal encodings. 
+
+* UTF-8 characters like © (c) will look very false on non-UTF-8 terminals,
+  but e3 can't help here. (So at first use a file converter.)
+
+* If you simply call e3 without file argument the initial screen of e3 
+  will tell you whether UTF8-support is built in:
+
+  MicroEditor e3 v2.7.0-UTF8 ©2000-06
+  vs.
+  MicroEditor e3 v2.7.0 (C)2000-06
+
+* If it is a version with UTF8 and you are running
+  e3 in an UTF8 terminal, you can switch the editor
+  from UTF-8 mode to 7 bit mode and back. 
+  Use the special keys:
+	^KU in WS mode
+	^QV in Pico mode
+	^Y in Nedit mode
+	^U  in Emacs mode
+	ESC:u  in vi mode
+
+
+8. FILES
+========
+Makefile	- (edit destination path and OS if desired)
+e3.asm
+e3-16.asm
+e3.h		- NASM source code
+e3.man		- man page (copied by default to /usr/local/man/man1)
+e3.html		- man page, HTML version
+README		- you are reading this
+ChangeLog	- version history
+COPYING.GPL
+COPYRIGHT	- please read before using e3!
+e3c/*		- C stuff for non x86 systems, e.g. Alpha
+elks/*		- specials for ELKS
+binaries/*	- binaries separated for operating systems
+armlinux/*	- specials for Linux @ ARM RISC CPU
+*.sed		- for using YASM assembler and/or making 64 bit versions
+
+
+9. THANKS
+=========
+Konstantin Boldyshev <konst at voshod.com>
+Mark Zealey <mark at itsolve.co.uk>
+Urs Rau <urs.rau at uk.om.org>
+Terry Loveall <loveall at qwest.net>
+David Douthitt <n9ubh at callsign.net>
+Bjoern De Meyer <bjorn.demeyer at pandora.be>
+Matthias Kopfermann <kopfermann at trio-hittfeld.de>
+Tim Wegner <twegner at swbell.net>
+Michele Andreoli <m.andreoli at tin.it>
+Aaron Lehmann <aaronl at vitelus.com>
+Zas <lmonin at metaconcept.com>
+Sergei Viznyuk <sviznyuk at hotmail.com>
+Philippe Corbes <philippe.corbes at laposte.net>
+Charles Steinkuehler <charles at steinkuehler.net>
+Adrian Bunk <bunk at fs.tum.de>
+Joseph <joseph at randomnetworks.com>
+Andi Kleen  (at suse) 
+
+
+10. TM note
+===========
+Some names are trademarks of their owners: 
+Linux BSD BeOS QNX Unix WordStar Unox DOS Win Alpha BSE Atheos ELKS ARM AMD .. etc.
+

@@ -1,0 +1,15 @@
+<samba:parameter name="usb interface"
+                 context="G"
+                 type="cmdlist"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+<related>interfaces</related>
+
+<value type="example">eth0 192.168.2.10/24 192.168.3.10/255.255.255.0</value>
+
+<value type="default"></value>
+</samba:parameter>

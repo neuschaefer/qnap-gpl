@@ -1,0 +1,12 @@
+<samba:parameter name="create time"
+                 context="S"
+                 type="string"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+
+<value type="default"></value>
+</samba:parameter>

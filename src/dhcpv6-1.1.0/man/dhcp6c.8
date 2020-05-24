@@ -1,0 +1,144 @@
+.\" Copyright (C) International Business Machines  Corp., 2003
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. Neither the name of the project nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE PROJECT OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.TH dhcp6c 8
+
+.SH NAME
+dhcp6c \- DHCPv6 client daemon
+
+.SH SYNOPSIS
+.B dhcp6c
+[
+.B -vfI
+] [
+.B -r
+.I all
+|
+.I <address...>
+] [
+.B -R
+.I <address...>
+] [
+.B -P
+.I <address...>
+] [
+.B -c
+.I pathspec
+]
+.I <interface>
+
+.SH DESCRIPTION
+.B dhcp6c
+is an implementation of the DHCPv6 client.
+
+Using DHCPv6 messages and DHCPv6 options,
+.B dhcp6c
+is used to request and configure IPv6 addresses and host network configuration
+information (e.g., DNS) for a network interface from the DHCPv6 server. It can
+also be used as a requesting router to request and configure Prefix Delegation
+for a subnet.
+
+The assigned IPv6 addresses and prefixes are saved as
+/var/lib/dhcpv6/client6.leasesXXXXXX; this file is used to request the same
+addresses and prefixes from the DHCPv6 server.  Each
+.B dhcp6c
+client has a client DHCP Unique Identifier (DUID); the DUID file is saved as
+/var/lib/dhcpv6/dhcp6c_duid.
+The
+.B dhcp6c
+client configuration is defined in /etc/dhcp6c.conf.
+
+Interface names are specified according to your operating system's
+conventions.  On Linux, this is typically eth0, eth1, and so on.
+
+.SH OPTIONS
+.TP
+.BI \-c\ pathspec
+Specifies the configuration file for
+.B dhcp6c
+
+.TP
+.BI \-v
+Enables
+.B dhcp6c
+to print debugging messages.
+
+.TP
+.BI \-f
+Enables
+.B dhcp6c
+to work as a foreground application.  This option is helpful for debugging.
+
+.TP
+.BI \-I
+Allows
+.B dhcp6c
+to request network information only.  Do not configure the interface.
+
+.TP
+.BI \-r\ all\ |\ <addresses...>
+Allows
+.B dhcp6c
+to release the addresses specified.
+This option is used only when releasing addresses explicitly.
+
+.TP
+.BI \-R\ <addresses...>
+Allows
+.B dhcp6c
+to request the specified named addresses.
+
+.TP
+.BI \-P\ <addresses...>
+Allows
+.B dhcp6c
+to request the specified prefix delegation addresses.
+
+.SH FILES
+.TP
+.BI /etc/dhcp6c.conf
+Contains DHCPv6 client configuration information.
+
+.TP
+.BI /var/lib/dhcpv6/dhcp6c_duid
+Contains DHCPv6 client DUID.
+
+.TP
+.BI /var/lib/dhcpv6/client6_leasesXXXXXX
+Contains DHCPv6 client assigned IPv6 addresses and prefixes.
+
+.SH ERRORS
+Check /var/log/messages if there are errors.
+
+.SH SEE ALSO
+dhcp6c.conf(5)
+
+.SH BUGS
+Report bugs via http://fedorahosted.org/dhcpv6/
+
+.SH AUTHORS
+See http://fedorahosted.org/dhcpv6/wiki/Authors

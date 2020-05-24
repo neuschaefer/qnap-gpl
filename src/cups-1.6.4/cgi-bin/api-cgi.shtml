@@ -1,0 +1,17 @@
+<!--
+  "$Id: api-cgi.shtml,v 1.1.1.1 2013/10/15 06:58:46 aixchou Exp $"
+
+  CGI API introduction for CUPS.
+
+  Copyright 2009 by Apple Inc.
+
+  These coded instructions, statements, and computer programs are the
+  property of Apple Inc. and are protected by Federal copyright
+  law.  Distribution and use rights are outlined in the file "LICENSE.txt"
+  which should have been included with this file.  If this file is
+  file is missing or damaged, see the license at "http://www.cups.org/".
+-->
+
+<h2 class='title'><a name='OVERVIEW'>Overview</a></h2>
+
+<p>The CGI API provides Common Gateway Interface functions for CUPS.</p>

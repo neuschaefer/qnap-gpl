@@ -1,0 +1,281 @@
+diff -urN --exclude=CVS kernel.old/iscsi_tcp.c kernel/iscsi_tcp.c
+--- kernel.old/iscsi_tcp.c	2012-08-29 21:20:59.000000000 +0800
++++ kernel/iscsi_tcp.c	2012-08-29 21:19:55.000000000 +0800
+@@ -25,6 +25,7 @@
+  *	Arne Redlich
+  *	Zhenyu Wang
+  */
++#include <linux/module.h>
+ #include <linux/version.h>
+ #include <linux/kernel.h>
+ #include <linux/types.h>
+diff -urN --exclude=CVS kernel.old/libiscsi.c kernel/libiscsi.c
+--- kernel.old/libiscsi.c	2012-08-29 21:20:59.000000000 +0800
++++ kernel/libiscsi.c	2012-08-29 21:19:55.000000000 +0800
+@@ -21,6 +21,7 @@
+  * along with this program; if not, write to the Free Software
+  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+  */
++#include <linux/module.h>
+ #include <linux/types.h>
+ #include <linux/kfifo.h>
+ #include <linux/delay.h>
+@@ -432,7 +433,7 @@
+ 	if (conn->login_task == task)
+ 		return;
+ 
+-	__kfifo_put(session->cmdpool.queue, (void*)&task, sizeof(void*));
++	kfifo_in(session->cmdpool.queue, (void*)&task, sizeof(void*)); 
+ 
+ 	if (sc) {
+ 		task->sc = NULL;
+@@ -618,7 +619,7 @@
+ 		BUG_ON(conn->c_stage == ISCSI_CONN_INITIAL_STAGE);
+ 		BUG_ON(conn->c_stage == ISCSI_CONN_STOPPED);
+ 
+-		if (!__kfifo_get(session->cmdpool.queue,
++		if (!kfifo_out(session->cmdpool.queue, 
+ 				 (void*)&task, sizeof(void*)))
+ 			return NULL;
+ 	}
+@@ -1389,7 +1390,7 @@
+ {
+ 	struct iscsi_task *task;
+ 
+-	if (!__kfifo_get(conn->session->cmdpool.queue,
++	if (!kfifo_out(conn->session->cmdpool.queue, 
+ 			 (void *) &task, sizeof(void *)))
+ 		return NULL;
+ 
+@@ -1420,7 +1421,7 @@
+ 	FAILURE_SESSION_NOT_READY,
+ };
+ 
+-int iscsi_queuecommand(struct scsi_cmnd *sc, void (*done)(struct scsi_cmnd *))
++static int iscsi_queuecommand_lck(struct scsi_cmnd *sc, void (*done)(struct scsi_cmnd *))
+ {
+ 	struct iscsi_cls_session *cls_session;
+ 	struct Scsi_Host *host;
+@@ -1550,6 +1551,9 @@
+ 	spin_lock(host->host_lock);
+ 	return 0;
+ }
++
++DEF_SCSI_QCMD(iscsi_queuecommand)
++
+ EXPORT_SYMBOL_GPL(iscsi_queuecommand);
+ 
+ int iscsi_change_queue_depth(struct scsi_device *sdev, int depth)
+@@ -2138,7 +2142,7 @@
+ 
+ /*
+  * Pre-allocate a pool of @max items of @item_size. By default, the pool
+- * should be accessed via kfifo_{get,put} on q->queue.
++ * should be accessed via kfifo_{in,out} on q->queue. 
+  * Optionally, the caller can obtain the array of object pointers
+  * by passing in a non-NULL @items pointer
+  */
+@@ -2159,8 +2163,12 @@
+ 	if (q->pool == NULL)
+ 		return -ENOMEM;
+ 
+-	q->queue = kfifo_init((void*)q->pool, max * sizeof(void*),
+-			      GFP_KERNEL, NULL);
++	q->queue = kmalloc(sizeof(struct kfifo), GFP_KERNEL); 
++	if (IS_ERR(q->queue)) {
++		kfree(q->pool);
++		return -ENOMEM;
++	}
++	kfifo_init(q->queue, (void*)q->pool, max * sizeof(void*));
+ 	if (IS_ERR(q->queue)) {
+ 		q->queue = NULL;
+ 		goto enomem;
+@@ -2172,7 +2180,7 @@
+ 			q->max = i;
+ 			goto enomem;
+ 		}
+-		__kfifo_put(q->queue, (void*)&q->pool[i], sizeof(void*));
++		kfifo_in(q->queue, (void*)&q->pool[i], sizeof(void*)); 
+ 	}
+ 
+ 	if (items) {
+@@ -2520,7 +2528,7 @@
+ 
+ 	/* allocate login_task used for the login/text sequences */
+ 	spin_lock_bh(&session->lock);
+-	if (!__kfifo_get(session->cmdpool.queue,
++	if (!kfifo_out(session->cmdpool.queue,
+                          (void*)&conn->login_task,
+ 			 sizeof(void*))) {
+ 		spin_unlock_bh(&session->lock);
+@@ -2540,7 +2548,7 @@
+ 	return cls_conn;
+ 
+ login_task_data_alloc_fail:
+-	__kfifo_put(session->cmdpool.queue, (void*)&conn->login_task,
++	kfifo_in(session->cmdpool.queue, (void*)&conn->login_task,
+ 		    sizeof(void*));
+ login_task_alloc_fail:
+ 	iscsi_destroy_conn(cls_conn);
+@@ -2603,7 +2611,7 @@
+ 	free_pages((unsigned long) conn->data,
+ 		   get_order(ISCSI_DEF_MAX_RECV_SEG_LEN));
+ 	kfree(conn->persistent_address);
+-	__kfifo_put(session->cmdpool.queue, (void*)&conn->login_task,
++	kfifo_in(session->cmdpool.queue, (void*)&conn->login_task, 
+ 		    sizeof(void*));
+ 	if (session->leadconn == conn)
+ 		session->leadconn = NULL;
+diff -urN --exclude=CVS kernel.old/libiscsi.h kernel/libiscsi.h
+--- kernel.old/libiscsi.h	2012-08-29 21:20:59.000000000 +0800
++++ kernel/libiscsi.h	2012-08-29 21:19:55.000000000 +0800
+@@ -339,8 +339,7 @@
+ extern int iscsi_eh_abort(struct scsi_cmnd *sc);
+ extern int iscsi_eh_target_reset(struct scsi_cmnd *sc);
+ extern int iscsi_eh_device_reset(struct scsi_cmnd *sc);
+-extern int iscsi_queuecommand(struct scsi_cmnd *sc,
+-			      void (*done)(struct scsi_cmnd *));
++extern int iscsi_queuecommand(struct Scsi_Host *shost, struct scsi_cmnd *sc);
+ 
+ /*
+  * iSCSI host helpers.
+diff -urN --exclude=CVS kernel.old/libiscsi_tcp.c kernel/libiscsi_tcp.c
+--- kernel.old/libiscsi_tcp.c	2012-08-29 21:20:59.000000000 +0800
++++ kernel/libiscsi_tcp.c	2012-08-29 21:19:55.000000000 +0800
+@@ -25,7 +25,7 @@
+  *	Arne Redlich
+  *	Zhenyu Wang
+  */
+-
++#include <linux/module.h>
+ #include <linux/types.h>
+ #include <linux/list.h>
+ #include <linux/inet.h>
+@@ -445,15 +445,15 @@
+ 		return;
+ 
+ 	/* flush task's r2t queues */
+-	while (__kfifo_get(tcp_task->r2tqueue, (void*)&r2t, sizeof(void*))) {
+-		__kfifo_put(tcp_task->r2tpool.queue, (void*)&r2t,
++	while (kfifo_out(tcp_task->r2tqueue, (void*)&r2t, sizeof(void*))) {
++		kfifo_in(tcp_task->r2tpool.queue, (void*)&r2t, 
+ 			    sizeof(void*));
+ 		ISCSI_DBG_TCP(task->conn, "pending r2t dropped\n");
+ 	}
+ 
+ 	r2t = tcp_task->r2t;
+ 	if (r2t != NULL) {
+-		__kfifo_put(tcp_task->r2tpool.queue, (void*)&r2t,
++		kfifo_in(tcp_task->r2tpool.queue, (void*)&r2t, 
+ 			    sizeof(void*));
+ 		tcp_task->r2t = NULL;
+ 	}
+@@ -541,7 +541,7 @@
+ 		return 0;
+ 	}
+ 
+-	rc = __kfifo_get(tcp_task->r2tpool.queue, (void*)&r2t, sizeof(void*));
++	rc = kfifo_out(tcp_task->r2tpool.queue, (void*)&r2t, sizeof(void*)); 
+ 	if (!rc) {
+ 		iscsi_conn_printk(KERN_ERR, conn, "Could not allocate R2T. "
+ 				  "Target has sent more R2Ts than it "
+@@ -554,7 +554,7 @@
+ 	if (r2t->data_length == 0) {
+ 		iscsi_conn_printk(KERN_ERR, conn,
+ 				  "invalid R2T with zero data len\n");
+-		__kfifo_put(tcp_task->r2tpool.queue, (void*)&r2t,
++		kfifo_in(tcp_task->r2tpool.queue, (void*)&r2t, 
+ 			    sizeof(void*));
+ 		return ISCSI_ERR_DATALEN;
+ 	}
+@@ -570,7 +570,7 @@
+ 				  "invalid R2T with data len %u at offset %u "
+ 				  "and total length %d\n", r2t->data_length,
+ 				  r2t->data_offset, scsi_out(task->sc)->length);
+-		__kfifo_put(tcp_task->r2tpool.queue, (void*)&r2t,
++		kfifo_in(tcp_task->r2tpool.queue, (void*)&r2t,
+ 			    sizeof(void*));
+ 		return ISCSI_ERR_DATALEN;
+ 	}
+@@ -580,7 +580,7 @@
+ 	r2t->sent = 0;
+ 
+ 	tcp_task->exp_datasn = r2tsn + 1;
+-	__kfifo_put(tcp_task->r2tqueue, (void*)&r2t, sizeof(void*));
++	kfifo_in(tcp_task->r2tqueue, (void*)&r2t, sizeof(void*));
+ 	conn->r2t_pdus_cnt++;
+ 
+ 	iscsi_requeue_task(task);
+@@ -951,7 +951,7 @@
+ 		return conn->session->tt->init_pdu(task, 0, task->data_count);
+ 	}
+ 
+-	BUG_ON(__kfifo_len(tcp_task->r2tqueue));
++	BUG_ON(kfifo_len(tcp_task->r2tqueue));
+ 	tcp_task->exp_datasn = 0;
+ 
+ 	/* Prepare PDU, optionally w/ immediate data */
+@@ -982,7 +982,7 @@
+ 			if (r2t->data_length <= r2t->sent) {
+ 				ISCSI_DBG_TCP(task->conn,
+ 					      "  done with r2t %p\n", r2t);
+-				__kfifo_put(tcp_task->r2tpool.queue,
++				kfifo_in(tcp_task->r2tpool.queue,
+ 					    (void *)&tcp_task->r2t,
+ 					    sizeof(void *));
+ 				tcp_task->r2t = r2t = NULL;
+@@ -990,7 +990,7 @@
+ 		}
+ 
+ 		if (r2t == NULL) {
+-			__kfifo_get(tcp_task->r2tqueue,
++			kfifo_out(tcp_task->r2tqueue,
+ 				    (void *)&tcp_task->r2t, sizeof(void *));
+ 			r2t = tcp_task->r2t;
+ 		}
+@@ -1105,6 +1105,7 @@
+ {
+ 	int i;
+ 	int cmd_i;
++	int alloc_ret;
+ 
+ 	/*
+ 	 * initialize per-task: R2T pool and xmit queue
+@@ -1127,9 +1128,13 @@
+ 		}
+ 
+ 		/* R2T xmit queue */
+-		tcp_task->r2tqueue = kfifo_alloc(
+-		      session->max_r2t * 4 * sizeof(void*), GFP_KERNEL, NULL);
+-		if (tcp_task->r2tqueue == ERR_PTR(-ENOMEM)) {
++		tcp_task->r2tqueue = kmalloc(sizeof(struct kfifo), GFP_KERNEL); 
++		if (IS_ERR(tcp_task->r2tqueue)) 
++			goto r2t_alloc_fail; 
++		alloc_ret = kfifo_alloc(tcp_task->r2tqueue, 
++		session->max_r2t * 4 * sizeof(void*), GFP_KERNEL); 
++		if (alloc_ret == -ENOMEM) { 
++			kfree(tcp_task->r2tqueue); 
+ 			iscsi_pool_free(&tcp_task->r2tpool);
+ 			goto r2t_alloc_fail;
+ 		}
+diff -urN --exclude=CVS kernel.old/scsi_transport_iscsi.c kernel/scsi_transport_iscsi.c
+--- kernel.old/scsi_transport_iscsi.c	2012-08-29 21:20:59.000000000 +0800
++++ kernel/scsi_transport_iscsi.c	2012-08-29 21:23:15.000000000 +0800
+@@ -1411,7 +1411,7 @@
+ 	if (!try_module_get(transport->owner))
+ 		return -EINVAL;
+ 
+-	priv->daemon_pid = NETLINK_CREDS(skb)->pid;
++	priv->daemon_pid = NETLINK_CB(skb).pid;
+ 
+ 	switch (nlh->nlmsg_type) {
+ 	case ISCSI_UEVENT_CREATE_SESSION:
+@@ -1555,7 +1555,7 @@
+ 			if (ev->type == ISCSI_UEVENT_GET_STATS && !err)
+ 				break;
+ 			err = iscsi_if_send_reply(
+-				NETLINK_CREDS(skb)->pid, nlh->nlmsg_seq,
++				NETLINK_CB(skb).pid, nlh->nlmsg_seq,
+ 				nlh->nlmsg_type, 0, 0, ev, sizeof(*ev));
+ 		} while (err < 0 && err != -ECONNREFUSED);
+ 		skb_pull(skb, rlen);

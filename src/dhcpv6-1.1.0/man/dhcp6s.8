@@ -1,0 +1,109 @@
+.\" Copyright (C) International Business Machines  Corp., 2003
+.\" All rights reserved.
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\" 3. Neither the name of the project nor the names of its contributors
+.\"    may be used to endorse or promote products derived from this software
+.\"    without specific prior written permission.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE PROJECT AND CONTRIBUTORS ``AS IS'' AND
+.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE PROJECT OR CONTRIBUTORS BE LIABLE
+.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+.\" SUCH DAMAGE.
+.\"
+.TH dhcp6s 8
+
+.SH NAME
+dhcp6s \- DHCPv6 server daemon
+
+.SH SYNOPSIS
+.B dhcp6s
+[
+.B -vf
+] [
+.B -c
+.I <pathspec>
+] [
+.B -p
+.I <pathspec>
+]
+.I <interface>
+
+.SH DESCRIPTION
+.B dhcp6s
+is an implementation of the DHCPv6 server.
+
+.B dhcp6s
+provides IPv6 addresses and prefix assginment administrative policy and
+configuration information for DHCPv6 clients. dhcp6s also manages those
+addresses and prefixes, such as IPv6 addresses, prefixes, DNS server
+addresses, or ntp server addresses.
+
+Interface names are specified according to your operating system's
+conventions.  On Linux, this is typically eth0, eth1, and so on.
+
+.SH OPTIONS
+.TP
+.BI \-c\ pathspec
+Specifies the
+.B dhcp6s
+configuration file.
+
+.TP
+.BI \-p\ pathspec
+Specifies the
+.B dhcp6s
+PID file.
+
+.TP
+.BI \-v
+Enables
+.B dhcp6s
+to print verbose debugging messages.
+
+.TP
+.BI \-f
+Enables
+.B dhcp6s
+to work as a foreground application.  This option is helpful for debugging.
+
+.SH FILES
+.TP
+.BI /etc/dhcp6s.conf
+Contains dhcp6s configurations, such as allow unicast, allow rapid-commit,
+specify valid-life-time, or specify preferred-life-time.
+
+.TP
+.BI /var/lib/dhcpv6/dhcp6s_duid
+Contains the dhcp6s server's DUID.
+
+.TP
+.BI /var/lib/dhcpv6/server6.leases
+Contains all dhcp6c clients' IPv6 address and prefix leasing information and
+states.
+
+.SH SEE ALSO
+dhcp6s.conf(5)
+
+.SH ERRORS
+Check /var/log/messages if there are errors.
+
+.SH BUGS
+Report bugs via http://fedorahosted.org/dhcpv6/
+
+.SH AUTHORS
+See http://fedorahosted.org/dhcpv6/wiki/Authors

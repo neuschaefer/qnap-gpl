@@ -1,0 +1,38 @@
+1. Remove #include "ansidecl.h" to make compile successfully
+   - 2012/08/14 QNAP Nike Chen
+   - Related files: sha1.h
+
+2. add -DQNAPNAS
+   - Related files: Makefile
+
+3. Fixed bug 19463
+   To make version 0.9 can support up to about 4TB
+   Change to unsigned int to support up to 4TB
+   - Compile switch: QNAPNAS
+   - Related files: Detail.c, md_u.h, super0.c
+
+4. Fix bug 16554, 16611
+   array size overflow
+   - Compile switch: QNAPNAS
+   - Related files: Manage.c
+
+5. Patch QNAP RAID Recovery function
+   mdadm --q-examine
+   - Compile switch: QNAPNAS
+   - Related files: Examine.c, mdadm.c, mdadm.h, ReadMe.c, super0.c, super1.c
+
+6. Modified by KenChen 20071101
+   Force return "0" if failed to find backup of critical section
+   - Compile switch: QNAPNAS
+   - Related files: Grow.c
+
+7. Use KiloByte instead of sector size for the unit of "Used Dev Size"
+   - mdadm had already changed this unit to KB since 2.6.9
+   - Related files: Detail.c (Don't need to patch it)
+
+8. If --homehost doesn't be specified by creation,
+   the hostname will be prefixed to the array name in mdadm-3.2.5.
+   That will impact the original design of NAS library.
+   - Compile switch: QNAPNAS
+   - Related files: mdadm.c
+

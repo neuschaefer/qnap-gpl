@@ -1,0 +1,20 @@
+antispam
+dropauthreq
+screensocketpath	/var/run/screen
+chatmode icq yahoo msn aim irc jab lj gg
+convert icq yahoo msn aim irc jab rss lj gg infocard
+fromcharset	utf-8
+tocharset	utf-8
+nobidi
+smtp	localhost:25
+browser	mozilla
+ptp	0-0
+protocolormode
+sort_by_name
+left_panel_width	25
+log_panel_height	10
+defaultauthmessage	Please accept my authorization to add you to my contact list.
+
+msn_nick	%msnemail%
+msn_pass	%msnpassword%
+msn_server	messenger.hotmail.com:1863

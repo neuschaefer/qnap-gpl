@@ -1,0 +1,179 @@
+Index: linux-igd/config.c
+===================================================================
+--- linux-igd.orig/config.c	2008-07-04 01:43:56.000000000 +0100
++++ linux-igd/config.c	2008-07-04 01:43:58.000000000 +0100
+@@ -62,6 +62,7 @@
+     regex_t re_desc_doc;
+     regex_t re_xml_path;
+     regex_t re_listenport;
++    regex_t re_paranoid;
+ 
+     // Make sure all vars are 0 or \0 terminated
+     vars->debug = 0;
+@@ -76,6 +77,7 @@
+     strcpy(vars->descDocName,"");
+     strcpy(vars->xmlPath,"");
+     vars->listenport = 0;
++    vars->paranoid = 0;
+ 
+     // Regexp to match a comment line
+     regcomp(&re_comment,"^[[:blank:]]*#",0);
+@@ -94,6 +96,7 @@
+     regcomp(&re_desc_doc,"description_document_name[[:blank:]]*=[[:blank:]]*([[:alpha:].]{1,20})",REG_EXTENDED);
+     regcomp(&re_xml_path,"xml_document_path[[:blank:]]*=[[:blank:]]*([[:alpha:]_/.]{1,50})",REG_EXTENDED);
+     regcomp(&re_listenport,"listenport[[:blank:]]*=[[:blank:]]*([[:digit:]]+)",REG_EXTENDED);
++    regcomp(&re_paranoid,"paranoid[[:blank:]]*=[[:blank:]]*([[:digit:]]+)",REG_EXTENDED);
+ 
+     if ((conf_file=fopen(CONF_FILE,"r")) != NULL)
+     {
+@@ -165,6 +168,12 @@
+ 		  getConfigOptionArgument(tmp,sizeof(tmp),line,submatch);
+ 		  vars->listenport = atoi(tmp);
+ 		}
++		else if (regexec(&re_paranoid,line,NMATCH,submatch,0) == 0)
++		{
++		  char tmp[2];
++		  getConfigOptionArgument(tmp,sizeof(tmp),line,submatch);
++		  vars->paranoid = atoi(tmp);
++		}
+ 		else
+ 		{
+ 		    // We end up here if ther is an unknown config directive
+@@ -188,6 +197,7 @@
+     regfree(&re_desc_doc);
+     regfree(&re_xml_path);
+     regfree(&re_listenport);
++    regfree(&re_paranoid);
+     // Set default values for options not found in config file
+     if (strnlen(vars->forwardChainName, CHAIN_NAME_LEN) == 0)
+     {
+Index: linux-igd/gatedevice.c
+===================================================================
+--- linux-igd.orig/gatedevice.c	2008-07-04 01:43:58.000000000 +0100
++++ linux-igd/gatedevice.c	2008-07-04 01:59:21.000000000 +0100
+@@ -2,6 +2,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <time.h>
++#include <arpa/inet.h>
+ #include <ixml.h>
+ #include <upnp.h>
+ #include <upnptools.h>
+@@ -432,42 +433,55 @@
+ 	     && (bool_enabled = GetFirstDocumentItem(ca_event->ActionRequest, "NewEnabled") )
+ 	     && (desc = GetFirstDocumentItem(ca_event->ActionRequest, "NewPortMappingDescription") ))
+ 	{
+-	  remote_host = GetFirstDocumentItem(ca_event->ActionRequest, "NewRemoteHost");
+-		// If port map with the same External Port, Protocol, and Internal Client exists
+-		// then, as per spec, we overwrite it (for simplicity, we delete and re-add at end of list)
+-		// Note: This may cause problems with GetGernericPortMappingEntry if a CP expects the overwritten
+-		// to be in the same place.
+-		if ((ret = pmlist_Find(ext_port, proto, int_ip)) != NULL)
+-		{
+-				trace(3, "Found port map to already exist.  Replacing");
+-				pmlist_Delete(ret);
+-		}
+-			
+-		new = pmlist_NewNode(atoi(bool_enabled), atol(int_duration), "", ext_port, int_port, proto, int_ip, desc); 
+-		result = pmlist_PushBack(new);
+-		if (result==1)
+-		{
+-		        ScheduleMappingExpiration(new,ca_event->DevUDN,ca_event->ServiceID);
+-			sprintf(num, "%d", pmlist_Size());
+-			trace(3, "PortMappingNumberOfEntries: %d", pmlist_Size());
+-			UpnpAddToPropertySet(&propSet, "PortMappingNumberOfEntries", num);				
+-			UpnpNotifyExt(deviceHandle, ca_event->DevUDN, ca_event->ServiceID, propSet);
+-			ixmlDocument_free(propSet);
+-			trace(2, "AddPortMap: DevUDN: %s ServiceID: %s RemoteHost: %s Prot: %s ExtPort: %s Int: %s.%s",
+-					    ca_event->DevUDN,ca_event->ServiceID,remote_host, proto, ext_port, int_ip, int_port);
+-			action_succeeded = 1;
+-		}
+-		else
+-		{
+-			if (result==718)
+-			{
+-				trace(1,"Failure in GateDeviceAddPortMapping: RemoteHost: %s Prot:%s ExtPort: %s Int: %s.%s\n",
+-						    remote_host, proto, ext_port, int_ip, int_port);
+-				ca_event->ErrCode = 718;
+-				strcpy(ca_event->ErrStr, "ConflictInMappingEntry");
+-				ca_event->ActionResult = NULL;
+-			}
+- 		}
++	  struct in_addr agent_ip;
++	  if ( g_vars.paranoid &&
++	       ! ( 1 == inet_aton(int_ip, &agent_ip) &&
++	           0 == memcmp(&agent_ip, &(ca_event->CtrlPtIPAddr), sizeof(agent_ip)) ) )
++	  {
++	      trace(3, "Paranoid setting but control point IP %s doesn't match forwarding destination IP %s", inet_ntoa(ca_event->CtrlPtIPAddr), int_ip);
++	      ca_event->ErrCode = 600;
++	      strcpy(ca_event->ErrStr, "Security policy violation");
++	      ca_event->ActionResult = NULL;
++	  }
++	  else
++	  {
++	    remote_host = GetFirstDocumentItem(ca_event->ActionRequest, "NewRemoteHost");
++		  // If port map with the same External Port, Protocol, and Internal Client exists
++		  // then, as per spec, we overwrite it (for simplicity, we delete and re-add at end of list)
++		  // Note: This may cause problems with GetGernericPortMappingEntry if a CP expects the overwritten
++		  // to be in the same place.
++		  if ((ret = pmlist_Find(ext_port, proto, int_ip)) != NULL)
++		  {
++				  trace(3, "Found port map to already exist.  Replacing");
++				  pmlist_Delete(ret);
++		  }
++
++		  new = pmlist_NewNode(atoi(bool_enabled), atol(int_duration), "", ext_port, int_port, proto, int_ip, desc);
++		  result = pmlist_PushBack(new);
++		  if (result==1)
++		  {
++			  ScheduleMappingExpiration(new,ca_event->DevUDN,ca_event->ServiceID);
++			  sprintf(num, "%d", pmlist_Size());
++			  trace(3, "PortMappingNumberOfEntries: %d", pmlist_Size());
++			  UpnpAddToPropertySet(&propSet, "PortMappingNumberOfEntries", num);
++			  UpnpNotifyExt(deviceHandle, ca_event->DevUDN, ca_event->ServiceID, propSet);
++			  ixmlDocument_free(propSet);
++			  trace(2, "AddPortMap: DevUDN: %s ServiceID: %s RemoteHost: %s Prot: %s ExtPort: %s Int: %s.%s",
++					      ca_event->DevUDN,ca_event->ServiceID,remote_host, proto, ext_port, int_ip, int_port);
++			  action_succeeded = 1;
++		  }
++		  else
++		  {
++			  if (result==718)
++			  {
++				  trace(1,"Failure in GateDeviceAddPortMapping: RemoteHost: %s Prot:%s ExtPort: %s Int: %s.%s\n",
++						      remote_host, proto, ext_port, int_ip, int_port);
++				  ca_event->ErrCode = 718;
++				  strcpy(ca_event->ErrStr, "ConflictInMappingEntry");
++				  ca_event->ActionResult = NULL;
++			  }
++		  }
++	  }
+ 	}
+ 	else
+ 	{
+Index: linux-igd/globals.h
+===================================================================
+--- linux-igd.orig/globals.h	2008-07-04 01:43:56.000000000 +0100
++++ linux-igd/globals.h	2008-07-04 01:43:58.000000000 +0100
+@@ -33,6 +33,7 @@
+   long int duration;    // 0 - no duration
+                           // >0 - duration in seconds
+                           // <0 - expiration time 
++  int paranoid;		// 0 - liberal, 1 - paranoid checks on gateway requests
+   char descDocName[PATH_LEN];
+   char xmlPath[PATH_LEN];
+   int listenport;	//The port to listen on
+Index: linux-igd/etc/upnpd.conf
+===================================================================
+--- linux-igd.orig/etc/upnpd.conf	2008-07-04 01:43:58.000000000 +0100
++++ linux-igd/etc/upnpd.conf	2008-07-04 01:43:58.000000000 +0100
+@@ -94,3 +94,9 @@
+ # The UPnP port to listen on.
+ # default = 0 (first free UPnP port, starting with 49152)
+ listenport = 0
++
++# paranoid forwarding option
++# 0, allow all forwarding
++# 1, only allow internal hosts to forward to themselves.
++# default = 0
++paranoid = 0

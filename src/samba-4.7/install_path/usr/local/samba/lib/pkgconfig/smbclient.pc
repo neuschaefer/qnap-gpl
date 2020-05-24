@@ -1,0 +1,11 @@
+prefix=/usr/local/samba
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: smbclient
+Description: A SMB library interface
+Version: 0.2.3
+Libs: -Wl,-rpath,/usr/local/samba/lib -L${libdir} -lsmbclient
+Cflags: -I${includedir}
+URL: http://www.samba.org/

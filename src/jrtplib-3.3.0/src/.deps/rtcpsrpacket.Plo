@@ -1,0 +1,137 @@
+rtcpsrpacket.lo: rtcpsrpacket.cpp \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h rtcpsrpacket.h \
+ rtpconfig.h rtpconfig_unix.h rtcppacket.h rtptypes.h rtptypes_unix.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/time.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/select.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/select.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sigset.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/time.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/sysmacros.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/pthreadtypes.h \
+ rtptimeutilities.h /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/time.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/timex.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/xlocale.h rtpstructs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/netinet/in.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/socket.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/uio.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/uio.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/socket.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/socket_type.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sockaddr.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/socket.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/socket.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/sockios.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/sockios.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/in.h rtpdebug.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+rtcpsrpacket.h:
+
+rtpconfig.h:
+
+rtpconfig_unix.h:
+
+rtcppacket.h:
+
+rtptypes.h:
+
+rtptypes_unix.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/time.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/select.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/select.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sigset.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/time.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/sysmacros.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/pthreadtypes.h:
+
+rtptimeutilities.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/time.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/timex.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/xlocale.h:
+
+rtpstructs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/netinet/in.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/socket.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/uio.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/uio.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/socket.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/socket_type.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sockaddr.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/socket.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/socket.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/sockios.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/sockios.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/in.h:
+
+rtpdebug.h:

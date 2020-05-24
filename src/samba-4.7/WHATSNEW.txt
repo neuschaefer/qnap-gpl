@@ -1,0 +1,1701 @@
+                   ==============================
+                   Release Notes for Samba 4.7.12
+                          November 27, 2018
+                   ==============================
+
+
+This is a security release in order to address the following defects:
+
+o  CVE-2018-14629 (Unprivileged adding of CNAME record causing loop in AD
+                   Internal DNS server)
+o  CVE-2018-16841 (Double-free in Samba AD DC KDC with PKINIT)
+o  CVE-2018-16851 (NULL pointer de-reference in Samba AD DC LDAP server)
+o  CVE-2018-16853 (Samba AD DC S4U2Self crash in experimental MIT Kerberos
+                   configuration (unsupported))
+
+
+=======
+Details
+=======
+
+o  CVE-2018-14629:
+   All versions of Samba from 4.0.0 onwards are vulnerable to infinite
+   query recursion caused by CNAME loops. Any dns record can be added via
+   ldap by an unprivileged user using the ldbadd tool, so this is a
+   security issue.
+
+o  CVE-2018-16841:
+   When configured to accept smart-card authentication, Samba's KDC will call
+   talloc_free() twice on the same memory if the principal in a validly signed
+   certificate does not match the principal in the AS-REQ.
+
+   This is only possible after authentication with a trusted certificate.
+
+   talloc is robust against further corruption from a double-free with
+   talloc_free() and directly calls abort(), terminating the KDC process.
+
+   There is no further vulnerability associated with this issue, merely a
+   denial of service.
+
+o  CVE-2018-16851:
+   During the processing of an LDAP search before Samba's AD DC returns
+   the LDAP entries to the client, the entries are cached in a single
+   memory object with a maximum size of 256MB.  When this size is
+   reached, the Samba process providing the LDAP service will follow the
+   NULL pointer, terminating the process.
+
+   There is no further vulnerability associated with this issue, merely a
+   denial of service.
+
+o  CVE-2018-16853:
+   A user in a Samba AD domain can crash the KDC when Samba is built in the
+   non-default MIT Kerberos configuration.
+
+   With this advisory we clarify that the MIT Kerberos build of the Samba
+   AD DC is considered experimental.  Therefore the Samba Team will not
+   issue security patches for this configuration.
+
+For more details and workarounds, please refer to the security advisories.
+
+
+Changes since 4.7.11:
+--------------------
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 13628: CVE-2018-16841: heimdal: Fix segfault on PKINIT with
+     mis-matching principal.
+   * BUG 13678: CVE-2018-16853: build: The Samba AD DC, when build with MIT
+     Kerberos is experimental
+
+o  Aaron Haslett <aaronhaslett@catalyst.net.nz>
+   * BUG 13600: CVE-2018-14629: dns: CNAME loop prevention using counter.
+
+o  Garming Sam <garming@catalyst.net.nz>
+   * BUG 13674: CVE-2018-16851: ldap_server: Check ret before manipulating blob.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+Release notes for older releases follow:
+----------------------------------------
+
+                   ==============================
+                   Release Notes for Samba 4.7.11
+                          October 23, 2018
+                   ==============================
+
+
+Please note that this will very likely be the last bugfix release of the Samba
+4.7 release series. There will be security fixes only beyond this point.
+
+
+Changes since 4.7.10:
+--------------------
+
+o  Paulo Alcantara <paulo@paulo.ac>
+   * BUG 13578: s3: util: Do not take over stderr when there is no log file.
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13585: s3: smbd: Ensure get_real_filename() copes with empty pathnames.
+   * BUG 13633: s3: smbd: Prevent valgrind errors in smbtorture3 POSIX test.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 13549:  Durable Reconnect fails because cookie.allow_reconnect is not
+     set redundant for SMB2.
+
+o  Alexander Bokovoy <ab@samba.org>
+   * BUG 13539: krb5-samba: Interdomain trust uses different salt principal.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 13362: Fix possible memory leak in the Samba process.
+   * BUG 13441: vfs_fruit: Don't unlink the main file.
+   * BUG 13602: smbd: Fix a memleak in async search ask sharemode.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 11517: Fix Samba GPO issue when Trust is enabled.
+   * BUG 13539: samba-tool: Add virtualKerberosSalt attribute to 'user
+     getpassword/syncpasswords'.
+   * BUG 13624: smb2_server: Set req->do_encryption = true earlier.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 12851: s3:winbind: Fix regression.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   ==============================
+                   Release Notes for Samba 4.7.10
+                           August 27, 2018
+                   ==============================
+
+
+This is the latest stable release of the Samba 4.7 release series.
+
+
+Changes since 4.7.9:
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13474: python: pysmbd: Additional error path leak fix.
+   * BUG 13511: libsmbclient: Initialize written value before use.
+   * BUG 13527: s3: libsmbclient: Fix cli_splice() fallback when reading less
+     than a complete file.
+   * BUG 13537: Using "sendfile = yes" with SMB2 can cause CPU spin.
+
+o  Jeffrey Altman <jaltman@secure-endpoints.com>
+   * BUG 11573: heimdal: lib/krb5: Do not fail set_config_files due to parse
+     error.
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 13519: ldb: Refuse to build Samba against a newer minor version of
+     ldb.
+
+o  Bailey Berro <baileyberro@chromium.org>
+   * BUG 13511: libsmbclient: Initialize written in cli_splice_fallback().
+
+o  Alexander Bokovoy <ab@samba.org>
+   * BUG 13538: samba-tool trust: Support discovery via netr_GetDcName.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 13318: Durable Handles reconnect fails in a cluster when the cluster
+     fs uses different device ids.
+   * BUG 13351: s3: smbd: Always set vuid in check_user_ok().
+   * BUG 13505: lib: smb_threads: Fix access before init bug.
+   * BUG 13535: s3: smbd: Fix path check in
+     smbd_smb2_create_durable_lease_check().
+   * BUG 13451: Fail renaming file if that file has open streams.
+
+o  Günther Deschner <gd@samba.org>
+   * BUG 13437: Fix building Samba with gcc 8.1.
+
+o  David Disseldorp <ddiss@samba.org>
+   * BUG 13506: vfs_ceph: Don't lie about flock support.
+   * BUG 13540: Fix deadlock with ctdb_mutex_ceph_rados_helper.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 13195: g_lock: Fix lock upgrades.
+   * BUG 13584: vfs_fruit: Fix a panic if fruit_access_check detects a locking
+     conflict.
+
+o  Gary Lockyer <gary@catalyst.net.nz>
+   * BUG 13536: The current position in the dns name was not advanced past the
+     '.' character.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 13308: samba-tool domain trust: Fix trust compatibility to Windows
+     Server 1709 and FreeIPA.
+
+o  Christof Schmitt <cs@samba.org>
+   * BUG 13478: krb5_wrap: Fix keep_old_entries logic for older kerberos
+     libraries.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 13437: Fix building Samba with gcc 8.1.
+
+o  Martin Schwenke <martin@meltin.net>
+   * BUG 13499: Don't use CTDB_BROADCAST_VNNMAP.
+   * BUG 13500: ctdb-daemon: Only consider client ID for local database attach.
+
+o  Karolin Seeger <kseeger@samba.org>
+   * BUG 13499: s3/notifyd.c: Rename CTDB_BROADCAST_VNNMAP to
+     CTDB_BROADCAST_ACTIVE.
+
+o  Ralph Wuerthner <ralph.wuerthner@de.ibm.com>
+   * BUG 13568: vfs_time_audit: Fix handling of token_blob in
+     smb_time_audit_offload_read_recv().
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.9
+                           August 14, 2018
+                   =============================
+
+
+This is a security release in order to address the following defects:
+
+o  CVE-2018-1139  (Weak authentication protocol allowed.)
+o  CVE-2018-10858 (Insufficient input validation on client directory
+		   listing in libsmbclient.)
+o  CVE-2018-10918 (Denial of Service Attack on AD DC DRSUAPI server.)
+o  CVE-2018-10919 (Confidential attribute disclosure from the AD LDAP
+		   server.)
+
+
+=======
+Details
+=======
+
+o  CVE-2018-1139:
+   Vulnerability that allows authentication via NTLMv1 even if disabled.
+
+o  CVE-2018-10858:
+   A malicious server could return a directory entry that could corrupt
+   libsmbclient memory.
+
+o  CVE-2018-10918:
+   Missing null pointer checks may crash the Samba AD DC, over the
+   authenticated DRSUAPI RPC service.
+
+o  CVE-2018-10919:
+   Missing access control checks allow discovery of confidential attribute
+   values via authenticated LDAP search expressions.
+
+
+Changes since 4.7.8:
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13453: CVE-2018-10858: libsmb: Harden smbc_readdir_internal() against
+     returns from malicious servers.
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 13552: CVE-2018-10918: cracknames: Fix DoS (NULL pointer de-ref) when
+     not servicePrincipalName is set on a user.
+
+o  Tim Beale <timbeale@catalyst.net.nz>
+   * BUG 13434: CVE-2018-10919: acl_read: Fix unauthorized attribute access via
+     searches.
+
+o  Günther Deschner <gd@samba.org>
+   * BUG 13360: CVE-2018-1139 libcli/auth: Do not allow ntlmv1 over SMB1 when it
+     is disabled via "ntlm auth".
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.8
+                           June 21, 2018
+                   =============================
+
+
+This is the latest stable release of the Samba 4.7 release series.
+
+
+Changes since 4.7.7:
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13380: s3: smbd: Generic fix for incorrect reporting of stream dos
+     attributes on a directory.
+   * BUG 13412: ceph: VFS: Add asynchronous fsync to ceph module, fake using
+     synchronous call.
+   * BUG 13419: s3: libsmbclient: Fix hard-coded connection error return of
+     ETIMEDOUT.
+   * BUG 13428: s3: smbd: Fix SMB2-FLUSH against directories.
+   * BUG 13457: s3: smbd: printing: Re-implement delete-on-close semantics for
+     print files missing since 3.5.x.
+   * BUG 13474: python: Fix talloc frame use in make_simple_acl().
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 13430: winbindd on the AD DC is slow for passdb queries.
+   * BUG 13454: No Backtrace given by Samba's AD DC by default. 
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 13332: winbindd doesn't recover loss of netlogon secure channel in
+     case the peer DC is rebooted.
+   * BUG 13432: s3:smbd: Fix interaction between chown and SD flags.
+
+o  Günther Deschner <gd@samba.org>
+   * BUG 13437: s4-heimdal: Fix the format-truncation errors.
+
+o  David Disseldorp <ddiss@samba.org>
+   * BUG 13425: vfs_ceph: Add fake async pwrite/pread send/recv hooks.
+
+o  Björn Jacke <bjacke@samba.org>
+   * BUG 13395: printing: Return the same error code as Windows does on upload
+     failures.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 13290: winbind: Improve child selection.
+   * BUG 13292: winbind: Maintain a binding handle per domain and always go via
+     wb_domain_request_send().
+   * BUG 13332: winbindd doesn't recover loss of netlogon secure channel in
+     case the peer DC is rebooted.
+   * BUG 13369: Looking up the user using the UPN results in user name with the
+     REALM instead of the DOMAIN.
+   * BUG 13370: rpc_server: Init local_server_* in
+     make_internal_rpc_pipe_socketpair.
+   * BUG 13382: smbclient: Fix broken notify. 
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 13273: libads: Fix the build --without-ads.
+   * BUG 13279: winbindd: Don't split the rid for SID_NAME_DOMAIN sids in
+     wb_lookupsids.
+   * BUG 13280: winbindd: initialize type = SID_NAME_UNKNOWN in
+     wb_lookupsids_single_done().
+   * BUG 13289: s4:rpc_server: Fix call_id truncation in
+     dcesrv_find_fragmented_call().
+   * BUG 13290:  A disconnecting winbind client can cause a problem in the
+     winbind parent child communication.
+   * BUG 13291: tevent: version 0.9.36
+	- improve documentation of tevent_queue_add_optimize_empty()
+        - add tevent_queue_entry_untrigger()
+   * BUG 13292: winbind: Use one queue for all domain children.
+   * BUG 13293: Minimize the lifetime of winbindd_cli_state->{pw,gr}ent_state.
+   * BUG 13294: winbind should avoid using fstrcpy(domain->dcname,...) on a
+     char *.
+   * BUG 13295: The winbind parent should find the dc of a foreign domain via
+     the primary domain.
+   * BUG 13400: nsswitch: Fix memory leak in winbind_open_pipe_sock() when the
+     privileged pipe is not accessable.
+   * BUG 13427: Fix broken server side GENSEC_FEATURE_LDAP_STYLE handling
+     (NTLMSSP NTLM2 packet check failed due to invalid signature!).
+
+o  Vandana Rungta <vrungta@amazon.com>
+   * BUG 13424: s3: VFS: Fix memory leak in vfs_ceph.
+
+o  Christof Schmitt <cs@samba.org>
+   * BUG 13407: rpc_server: Fix NetSessEnum with stale sessions.
+   * BUG 13446: dfree cache returning incorrect data for sub directory mounts. 
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 13369: Looking up the user using the UPN results in user name with the
+     REALM instead of the DOMAIN.
+   * BUG 13376: s3:passdb: Do not return OK if we don't have pinfo set up.
+   * BUG 13440: s3:utils: Do not segfault on error in DoDNSUpdate().
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.7
+                           April 17, 2018
+                   =============================
+
+
+This is the latest stable release of the Samba 4.7 release series.
+
+
+Changes since 4.7.6:
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13206: s4:auth_sam: Allow logons with an empty domain name.
+   * BUG 13244: s3: ldap: Ensure the ADS_STRUCT pointer doesn't get freed on
+     error, we don't own it here.
+   * BUG 13270: s3: smbd: Fix possible directory fd leak if the underlying
+     OS doesn't support fdopendir().
+   * BUG 13319: Round-tripping ACL get/set through vfs_fruit will increase
+     the number of ACE entries without limit.
+   * BUG 13347: s3: smbd: SMB2: Add DBGC_SMB2_CREDITS class to specifically
+     debug credit issues.
+   * BUG 13358: s3: smbd: Files or directories can't be opened DELETE_ON_CLOSE
+     without delete access.
+   * BUG 13372: s3: smbd: Fix memory leak in vfswrap_getwd().
+   * BUG 13375: s3: smbd: Unix extensions attempts to change wrong field
+     in fchown call.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 13363: s3:smbd: Don't use the directory cache for SMB2/3.
+
+o  Günther Deschner <gd@samba.org>
+   * BUG 13277: build: Fix libceph-common detection.
+
+o  David Disseldorp <ddiss@suse.de>
+   * BUG 13250: build: Fix ceph_statx check when configured with libcephfs_dir.
+
+o  Poornima G <pgurusid@redhat.com>
+   * BUG 13297: vfs_glusterfs: Fix the wrong pointer being sent in
+     glfs_fsync_async.
+
+o  Amitay Isaacs <amitay@gmail.com>
+   * BUG 13359: ctdb-scripts: Drop 'net serverid wipe' from 50.samba event
+     script.
+
+o  Lutz Justen <ljusten@google.com>
+   * BUG 13368: s3: lib: messages: Don't use the result of sec_init() before
+     calling sec_init().
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 13215: smbd can panic if the client-supplied channel sequence number
+     wraps.
+   * BUG 13367: dsdb: Fix CID 1034966 Uninitialized scalar variable.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 13206: s3:libsmb: Allow -U"\\administrator" to work.
+   * BUG 13328: Windows 10 cannot logon on Samba NT4 domain.
+
+o  David Mulder <dmulder@suse.com>
+   * BUG 13050: smbc_opendir should not return EEXIST with invalid login
+     credentials.
+
+o  Anton Nefedov
+   * BUG 13338: s3:smbd: map nterror on smb2_flush errorpath.
+
+o  Dan Robertson <drobertson@tripwire.com>
+   * BUG 13310: libsmb: Use smb2 tcon if conn_protocol >= SMB2_02.
+
+o  Garming Sam <garming@catalyst.net.nz>
+   * BUG 13031: subnet: Avoid a segfault when renaming subnet objects.
+
+o  Christof Schmitt <cs@samba.org>
+   * BUG 13312: 'wbinfo --name-to-sid' returns misleading result on invalid
+     query.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 13315: s3:smbd: Do not crash if we fail to init the session table.
+
+o  Eric Vannier <evannier@google.com>
+   * BUG 13302: Allow AESNI to be used on all processor supporting AESNI.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.6
+                           March 13, 2018
+                   =============================
+
+
+This is a security release in order to address the following defects:
+
+o  CVE-2018-1050 (Denial of Service Attack on external print server.) 
+o  CVE-2018-1057 (Authenticated users can change other users' password.)
+
+
+=======
+Details
+=======
+
+o  CVE-2018-1050:
+   All versions of Samba from 4.0.0 onwards are vulnerable to a denial of
+   service attack when the RPC spoolss service is configured to be run as
+   an external daemon. Missing input sanitization checks on some of the
+   input parameters to spoolss RPC calls could cause the print spooler
+   service to crash.
+
+   There is no known vulnerability associated with this error, merely a
+   denial of service. If the RPC spoolss service is left by default as an
+   internal service, all a client can do is crash its own authenticated
+   connection.
+
+o  CVE-2018-1057:
+   On a Samba 4 AD DC the LDAP server in all versions of Samba from
+   4.0.0 onwards incorrectly validates permissions to modify passwords
+   over LDAP allowing authenticated users to change any other users'
+   passwords, including administrative users.
+
+   Possible workarounds are described at a dedicated page in the Samba wiki:
+   https://wiki.samba.org/index.php/CVE-2018-1057
+
+
+Changes since 4.7.5:
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 11343: CVE-2018-1050: Codenomicon crashes in spoolss server code.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 13272: CVE-2018-1057: Unprivileged user can change any user (and admin)
+     password.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 13272: CVE-2018-1057: Unprivileged user can change any user (and admin)
+     password.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.5
+                          February 7, 2018
+                   =============================
+
+
+This is the latest stable release of the Samba 4.7 release series.
+
+Major enhancements include:
+
+o  BUG 13228: This is a major issue in Samba's ActiveDirectory domain
+   controller code. It might happen that AD objects have missing or broken
+   linked attributes. This could lead to broken group memberships e.g.
+   All Samba AD domain controllers set up with Samba 4.6 or lower and then
+   upgraded to 4.7 are affected. The corrupt database can be fixed with
+   'samba-tool dbcheck --cross-ncs --fix'.
+
+
+Changes since 4.7.4:
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13193: smbd tries to release not leased oplock during oplock II
+     downgrade.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 13181: Fix copying file with empty FinderInfo from Windows client
+     to Samba share with fruit.
+
+o  Günther Deschner <gd@samba.org>
+   * BUG 10976: build: Deal with recent glibc sunrpc header removal.
+   * BUG 13238: Make Samba work with tirpc and libnsl2.
+
+o  David Disseldorp <ddiss@samba.org>
+   * BUG 13208: vfs_ceph: Add fs_capabilities hook to avoid local statvfs.
+
+o  Love Hornquist Astrand <lha@h5l.org>
+   * BUG 12986: Kerberos: PKINIT: Can't decode algorithm parameters in
+     clientPublicValue.
+
+o  Amitay Isaacs <amitay@gmail.com>
+   * BUG 13188: ctdb-recovery-helper: Deregister message handler in error
+     paths.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 13240: samba: Only use async signal-safe functions in signal handler.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 12986: Kerberos: PKINIT: Can't decode algorithm parameters in
+     clientPublicValue.
+   * BUG 13228: repl_meta_data: Fix linked attribute corruption on databases
+     with unsorted links on expunge. dbcheck: Add functionality to fix the
+     corrupt database.
+
+o  Christof Schmitt <cs@samba.org>
+   * BUG 13189: Fix smbd panic when chdir returns error during exit.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 13238: Make Samba work with tirpc and libnsl2.
+
+o  Uri Simchoni <uri@samba.org>
+   * BUG 13176: Fix POSIX ACL support on HPUX and possibly other big-endian OSs.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.4
+                          December 22, 2017
+                   =============================
+
+
+This is the latest stable release of the Samba 4.7 release series.
+
+
+smbclient reparse point symlink parameters reversed
+===================================================
+
+A bug in smbclient caused the 'symlink' command to reverse the
+meaning of the new name and link target parameters when creating a
+reparse point symlink against a Windows server.
+
+This only affects using the smbclient 'symlink' command against
+a Windows server, not a Samba server using the UNIX extensions
+(the parameter order is correct in that case) so no existing
+user scripts that depend on creating symlinks on Samba servers
+need to change.
+
+As this is a little used feature the ordering of these parameters
+has been reversed to match the parameter ordering of the UNIX
+extensions 'symlink' command. This means running 'symlink' against
+both Windows and Samba now uses the same paramter ordering in both
+cases.
+
+The usage message for this command has also been improved to remove confusion.
+
+
+Changes since 4.7.3:
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13140: s3: smbclient: Implement 'volume' command over SMB2.
+   * BUG 13171: s3: libsmb: Fix valgrind read-after-free error in
+     cli_smb2_close_fnum_recv().
+   * BUG 13172: s3: libsmb: Fix reversing of oldname/newname paths when creating
+     a reparse point symlink on Windows from smbclient.
+
+o  Timur I. Bakeyev <timur@iXsystems.com>
+   * BUG 12934: Build man page for vfs_zfsacl.8 with Samba.
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 13095: repl_meta_data: Allow delete of an object with dangling
+     backlinks.
+   * BUG 13129: s4:samba: Fix default to be running samba as a deamon.
+   * BUG 13191: Performance regression in DNS server with introduction of
+     DNS wildcard, ldb: Release 1.2.3
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 6133: vfs_zfsacl: Fix compilation error.
+   * BUG 13051: "smb encrypt" setting changes are not fully applied until full
+     smbd restart.
+   * BUG 13052: winbindd: Fix idmap_rid dependency on trusted domain list.
+   * BUG 13155: vfs_fruit: Proper VFS-stackable conversion of FinderInfo.
+   * BUG 13173: winbindd: Dependency on trusted-domain list in winbindd in
+     critical auth codepath.
+
+o  Andrej Gessel <Andrej.Gessel@janztec.com>
+   * BUG 13120: repl_meta_data: Fix removing of backlink on deleted objects.
+
+o  Amitay Isaacs <amitay@gmail.com>
+   "* BUG 13153: ctdb: sock_daemon leaks memory.
+   * BUG 13154: TCP tickles not getting synchronised on CTDB restart.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 13150: winbindd: winbind parent and child share a ctdb connection.
+   * BUG 13170: pthreadpool: Fix deadlock.
+   * BUG 13179: pthreadpool: Fix starvation after fork.
+   * BUG 13180: messaging: Always register the unique id.
+
+o  Gary Lockyer <gary@catalyst.net.nz>
+   * 13129: s4/smbd: set the process group.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 13095: Fix broken linked attribute handling.
+   * BUG 13132: The KDC on an RWDC doesn't send error replies in some
+     situations.
+   * BUG 13149: libnet_join: Fix 'net rpc oldjoin'.
+   * BUG 13195: g_lock conflict detection broken when processing stale entries.
+   * BUG 13197: s3:smb2_server: allow logoff, close, unlock, cancel and echo
+     on expired sessions.
+
+o  Noel Power <noel.power@suse.com>
+   * BUG 13166: s3:libads: net ads keytab list fails with "Key table name
+     malformed".
+
+o  Christof Schmitt <cs@samba.org>
+   * BUG 13170: Fix crash in pthreadpool thread after failure from pthread_create.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 13129: s4:samba: Allow samba daemon to run in foreground.
+   * BUG 13174: third_party: Link the aesni-intel library with "-z noexecstack".
+
+o  Niels de Vos <ndevos@redhat.com>
+   * BUG 13125: vfs_glusterfs: include glusterfs/api/glfs.h without relying on
+     "-I" options.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.3
+                         November 21, 2017
+                   =============================
+
+
+This is a security release in order to address the following defects:
+
+o  CVE-2017-14746 (Use-after-free vulnerability.)
+o  CVE-2017-15275 (Server heap memory information leak.)
+
+
+=======
+Details
+=======
+
+o  CVE-2017-14746:
+   All versions of Samba from 4.0.0 onwards are vulnerable to a use after
+   free vulnerability, where a malicious SMB1 request can be used to
+   control the contents of heap memory via a deallocated heap pointer. It
+   is possible this may be used to compromise the SMB server.
+
+o  CVE-2017-15275:
+   All versions of Samba from 3.6.0 onwards are vulnerable to a heap
+   memory information leak, where server allocated heap memory may be
+   returned to the client without being cleared.
+
+   There is no known vulnerability associated with this error, but
+   uncleared heap memory may contain previously used data that may help
+   an attacker compromise the server via other methods. Uncleared heap
+   memory may potentially contain password hashes or other high-value
+   data.
+
+For more details and workarounds, please see the security advisories:
+
+   o https://www.samba.org/samba/security/CVE-2017-14746.html
+   o https://www.samba.org/samba/security/CVE-2017-15275.html
+
+
+Changes since 4.7.2:
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13041: CVE-2017-14746: s3: smbd: Fix SMB1 use-after-free crash bug.
+   * BUG 13077: CVE-2017-15275: s3: smbd: Chain code can return uninitialized
+     memory when talloc buffer is grown.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.2
+                         November 15, 2017
+                   =============================
+
+
+This is an additional bugfix release to address a possible data corruption
+issue. Please update immediately! For details, please see
+
+  https://bugzilla.samba.org/show_bug.cgi?id=13130
+
+Samba 4.6.0 and newer is affected by this issue.
+
+
+Changes since 4.7.1:
+--------------------
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13121: Non-smbd processes using kernel oplocks can hang smbd.
+
+o  Joe Guo <joeg@catalyst.net.nz>
+   * BUG 13127: python: use communicate to fix Popen deadlock.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 13130: smbd on disk file corruption bug under heavy threaded load.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 13130: tevent: version 0.9.34.
+
+o  Ralph Wuerthner <ralph.wuerthner@de.ibm.com>
+   * BUG 13118: s3: smbd: Fix delete-on-close after smb2_find.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.1
+                         November 02, 2017
+                   =============================
+
+
+This is the latest stable release of the Samba 4.7 release series.
+
+
+Changes since 4.7.0:
+--------------------
+
+o  Michael Adam <obnox@samba.org>
+   * BUG 13091: vfs_glusterfs: Fix exporting subdirs with shadow_copy2.
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13027: s3: smbd: Currently if getwd() fails after a chdir(), we panic.
+   * BUG 13068: s3: VFS: Ensure default SMB_VFS_GETWD() call can't return a
+     partially completed struct smb_filename.
+   * BUG 13069: sys_getwd() can leak memory or possibly return the wrong errno
+     on older systems.
+   * BUG 13093: 'smbclient' doesn't correctly canonicalize all local names
+     before use.
+
+o  Douglas Bagnall <douglas.bagnall@catalyst.net.nz>
+   * BUG 13095: Fix broken linked attribute handling.
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 12994: Missing LDAP query escapes in DNS rpc server.
+   * BUG 13087: replace: Link to -lbsd when building replace.c by hand.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 6133: Cannot delete non-ACL files on Solaris/ZFS/NFSv4 ACL filesystem.
+   * BUG 7909: Map SYNCHRONIZE acl permission statically in zfs_acl vfs module.
+   * BUG 7933: Samba fails to honor SEC_STD_WRITE_OWNER bit with the
+     acl_xattr module.
+   * BUG 12991: s3/mdssvc: Missing assignment in sl_pack_float.
+   * BUG 12995: Wrong Samba access checks when changing DOS attributes.
+   * BUG 13062: samba_runcmd_send() leaves zombie processes on timeout
+   * BUG 13065: net: groupmap cleanup should not delete BUILTIN mappings.
+   * BUG 13076: Enabling vfs_fruit results in loss of Finder tags and other
+     xattrs.
+
+o  Alexander Bokovoy <ab@samba.org>
+   * BUG 9613: man pages: Properly ident lists.
+   * BUG 13081: smb.conf.5: Sort parameters alphabetically.
+
+o  Samuel Cabrero <scabrero@suse.de>
+   * BUG 12993: s3: spoolss: Fix GUID string format on GetPrinter info.
+
+o  Amitay Isaacs <amitay@gmail.com>
+   * BUG 13042: Remote serverid check doesn't check for the unique id.
+   * BUG 13056: CTDB starts consuming memory if there are dead nodes in the
+     cluster.
+   * BUG 13070: ctdb-common: Ignore event scripts with multiple '.'s.
+
+o  Lutz Justen <ljusten@google.com>
+   * BUG 13046: libgpo doesn't sort the GPOs in the correct order.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 13042: Remote serverid check doesn't check for the unique id.
+   * BUG 13090: vfs_catia: Fix a potential memleak.
+   * BUG 12903: Fix file change notification for renames.
+
+o  Gary Lockyer <gary@catalyst.net.nz>
+   * BUG 12952: Samba DNS server does not honour wildcards.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 13079:  Can't change password in samba from a Windows client if Samba
+     runs on IPv6 only interface.
+
+o  Anoop C S <anoopcs@redhat.com>
+   * BUG 13086: vfs_fruit: Replace closedir() by SMB_VFS_CLOSEDIR.
+
+o  Christof Schmitt <cs@samba.org>
+   * BUG 13047: Apple client can't cope with SMB2 async replies when creating
+     symlinks.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 12959: s4:rpc_server:backupkey: Move variable into scope.
+   * BUG 13099: s4:scripting: Fix ntstatus_gen.h generation on 32bit.
+   * BUG 13100: s3:vfs_glusterfs: Fix a double free in vfs_gluster_getwd().
+   * BUG 13101: Fix resouce leaks and pointer issues.
+
+o  Jorge Schrauwen
+   * BUG 13049: vfs_solarisacl: Fix build for samba 4.7 and up.
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the "Samba 4.1 and newer" product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+
+
+----------------------------------------------------------------------
+
+
+                   =============================
+                   Release Notes for Samba 4.7.0
+                        September 20, 2017
+                   =============================
+
+
+This is the first stable release of Samba 4.7.
+Please read the release notes carefully before upgrading.
+
+UPGRADING
+=========
+
+'smbclient' changes
+------------------
+
+'smbclient' no longer prints a 'Domain=[...] OS=[Windows 6.1] Server=[...]'
+banner when connecting to the first server. With SMB2 and Kerberos,
+there's no way to print this information reliably. Now we avoid it at all
+consistently. In interactive sessions the following banner is now presented
+to the user: 'Try "help" do get a list of possible commands.'.
+
+The default for "client max protocol" has changed to "SMB3_11",
+which means that 'smbclient' (and related commands) will work against
+servers without SMB1 support.
+
+It's possible to use the '-m/--max-protocol' option to overwrite
+the "client max protocol" option temporarily.
+
+Note that the '-e/--encrypt' option also works with most SMB3 servers
+(e.g. Windows >= 2012 and Samba >= 4.0.0), so the SMB1 unix extensions
+are not required for encryption.
+
+The change to SMB3_11 as default also means 'smbclient' no longer
+negotiates SMB1 unix extensions by default, when talking to a Samba server with
+"unix extensions = yes".  As a result, some commands are not available, e.g.
+'posix_encrypt', 'posix_open', 'posix_mkdir', 'posix_rmdir', 'posix_unlink',
+'posix_whoami', 'getfacl' and 'symlink'. Using "-mNT1" reenables them, if the
+server supports SMB1.
+
+Note the default ("CORE") for "client min protocol" hasn't changed,
+so it's still possible to connect to SMB1-only servers by default.
+
+'smbclient' learned a new command 'deltree' that is able to do
+a recursive deletion of a directory tree.
+
+
+NEW FEATURES/CHANGES
+====================
+
+Whole DB read locks: Improved LDAP and replication consistency
+--------------------------------------------------------------
+
+Prior to Samba 4.7 and ldb 1.2.0, the LDB database layer used by Samba
+erroneously did not take whole-DB read locks to protect search
+and DRS replication operations.
+
+While each object returned remained subject to a record-level lock (so
+would remain consistent to itself), under a race condition with a
+rename or delete, it and any links (like the member attribute) to it
+would not be returned.
+
+The symptoms of this issue include:
+
+Replication failures with this error showing in the client side logs:
+ error during DRS repl ADD: No objectClass found in replPropertyMetaData for
+ Failed to commit objects:
+ WERR_GEN_FAILURE/NT_STATUS_INVALID_NETWORK_RESPONSE
+
+A crash of the server, in particular the rpc_server process with
+ INTERNAL ERROR: Signal 11
+
+LDAP read inconsistency
+ A DN subject to a search at the same time as it is being renamed
+ may not appear under either the old or new name, but will re-appear
+ for a subsequent search.
+
+See https://bugzilla.samba.org/show_bug.cgi?id=12858 for more details
+and updated advise on database recovery for affected installations.
+
+Samba AD with MIT Kerberos
+--------------------------
+
+After four years of development, Samba finally supports compiling and
+running Samba AD with MIT Kerberos. You can enable it with:
+
+    ./configure --with-system-mitkrb5
+
+Samba requires version 1.15.1 of MIT Kerberos to build with AD DC support.
+The krb5-devel and krb5-server packages are required.
+The feature set is not on par with the Heimdal build but the most important
+things, like forest and external trusts, are working. Samba uses the KDC binary
+provided by MIT Kerberos.
+
+Missing features, compared to Heimdal, are:
+  * PKINIT support
+  * S4U2SELF/S4U2PROXY support
+  * RODC support (not fully working with Heimdal either)
+
+The Samba AD process will take care of starting the MIT KDC and it will load a
+KDB (Kerberos Database) driver to access the Samba AD database.  When
+provisioning an AD DC using 'samba-tool' it will take care of creating a correct
+kdc.conf file for the MIT KDC.
+
+For further details, see:
+https://wiki.samba.org/index.php/Running_a_Samba_AD_DC_with_MIT_Kerberos_KDC
+
+Dynamic RPC port range
+----------------------
+
+The dynamic port range for RPC services has been changed from the old default
+value "1024-1300" to "49152-65535". This port range is not only used by a
+Samba AD DC, but also applies to all other server roles including NT4-style
+domain controllers. The new value has been defined by Microsoft in Windows
+Server 2008 and newer versions. To make it easier for Administrators to control
+those port ranges we use the same default and make it configurable with the
+option: "rpc server dynamic port range".
+
+The "rpc server port" option sets the first available port from the new
+"rpc server dynamic port range" option. The option "rpc server port" only
+applies to Samba provisioned as an AD DC.
+
+Authentication and Authorization audit support
+----------------------------------------------
+
+Detailed authentication and authorization audit information is now
+logged to Samba's debug logs under the "auth_audit" debug class,
+including in particular the client IP address triggering the audit
+line.  Additionally, if Samba is compiled against the jansson JSON
+library, a JSON representation is logged under the "auth_json_audit"
+debug class.
+
+Audit support is comprehensive for all authentication and
+authorisation of user accounts in the Samba Active Directory Domain
+Controller, as well as the implicit authentication in password
+changes.  In the file server and classic/NT4 domain controller, NTLM
+authentication, SMB and RPC authorization is covered, however password
+changes are not at this stage, and this support is not currently
+backed by a testsuite.
+
+For further details, see:
+https://wiki.samba.org/index.php/Setting_up_Audit_Logging
+
+Multi-process LDAP Server
+-------------------------
+
+The LDAP server in the AD DC now honours the process model used for
+the rest of the 'samba' process, rather than being forced into a single
+process.  This aids in Samba's ability to scale to larger numbers of AD
+clients and the AD DC's overall resiliency, but will mean that there is a
+fork()ed child for every LDAP client, which may be more resource
+intensive in some situations.  If you run Samba in a
+resource-constrained VM, consider allocating more RAM and swap space.
+
+Improved Read-Only Domain Controller (RODC) Support
+---------------------------------------------------
+
+Support for RODCs in Samba AD until now has been experimental. With this latest
+version, many of the critical bugs have been fixed and the RODC can be used in
+DC environments requiring no writable behaviour. RODCs now correctly support
+bad password lockouts and password disclosure auditing through the
+msDS-RevealedUsers attribute.
+
+The fixes made to the RWDC will also allow Windows RODC to function more
+correctly and to avoid strange data omissions such as failures to replicate
+groups or updated passwords. Password changes are currently rejected at the
+RODC, although referrals should be given over LDAP. While any bad passwords can
+trigger domain-wide lockout, good passwords which have not been replicated yet
+for a password change can only be used via NTLM on the RODC (and not Kerberos).
+
+The reliability of RODCs locating a writable partner still requires some
+improvements and so the 'password server' configuration option is generally
+recommended on the RODC.
+
+Samba 4.7 is the first Samba release to be secure as an RODC or when
+hosting an RODC.  If you have been using earlier Samba versions to
+host or be an RODC, please upgrade.
+
+In particular see https://bugzilla.samba.org/show_bug.cgi?id=12977 for
+details on the security implications for password disclosure to an
+RODC using earlier versions.
+
+Additional password hashes stored in supplementalCredentials
+------------------------------------------------------------
+
+A new config option 'password hash userPassword schemes' has been added to
+enable generation of SHA-256 and SHA-512 hashes (without storing the plaintext
+password with reversible encryption). This builds upon previous work to improve
+password sync for the AD DC (originally using GPG).
+
+The user command of 'samba-tool' has been updated in order to be able to
+extract these additional hashes, as well as extracting the (HTTP) WDigest
+hashes that we had also been storing in supplementalCredentials.
+
+Improvements to DNS during Active Directory domain join
+-------------------------------------------------------
+
+The 'samba-tool' domain join command will now add the A and GUID DNS records
+(on both the local and remote servers) during a join if possible via RPC. This
+should allow replication to proceed more smoothly post-join.
+
+The mname element of the SOA record will now also be dynamically generated to
+point to the local read-write server. 'samba_dnsupdate' should now be more
+reliable as it will now find the appropriate name server even when resolv.conf
+points to a forwarder.
+
+Significant AD performance and replication improvements
+-------------------------------------------------------
+
+Previously, replication of group memberships was been an incredibly expensive
+process for the AD DC. This was mostly due to unnecessary CPU time being spent
+parsing member linked attributes. The database now stores these linked
+attributes in sorted form to perform efficient searches for existing members.
+In domains with a large number of group memberships, a join can now be
+completed in half the time compared with Samba 4.6.
+
+LDAP search performance has also improved, particularly in the unindexed search
+case. Parsing and processing of security descriptors should now be more
+efficient, improving replication but also overall performance.
+
+Query record for open file or directory
+---------------------------------------
+
+The record attached to an open file or directory in Samba can be
+queried through the 'net tdb locking' command. In clustered Samba this
+can be useful to determine the file or directory triggering
+corresponding "hot" record warnings in ctdb.
+
+Removal of lpcfg_register_defaults_hook()
+-----------------------------------------
+
+The undocumented and unsupported function lpcfg_register_defaults_hook()
+that was used by external projects to call into Samba and modify
+smb.conf default parameter settings has been removed. If your project
+was using this call please raise the issue on
+samba-technical@lists.samba.org in order to design a supported
+way of obtaining the same functionality.
+
+Change of loadable module interface
+-----------------------------------
+
+The _init function of all loadable modules in Samba has changed
+from:
+
+NTSTATUS _init(void);
+
+to:
+
+NTSTATUS _init(TALLOC_CTX *);
+
+This allows a program loading a module to pass in a long-lived
+talloc context (which must be guaranteed to be alive for the
+lifetime of the module). This allows modules to avoid use of
+the talloc_autofree_context() (which is inherently thread-unsafe)
+and still be valgrind-clean on exit. Modules that don't need to
+free long-lived data on exit should use the NULL talloc context.
+
+SHA256 LDAPS Certificates
+-------------------------
+
+The self-signed certificate generated for use on LDAPS will now be
+generated with a SHA256 self-signature, not a SHA1 self-signature.
+
+Replacing this certificate with a certificate signed by a trusted
+CA is still highly recommended.
+
+CTDB changes
+------------
+
+* CTDB no longer allows mixed minor versions in a cluster
+
+  See the AllowMixedVersions tunable option in ctdb-tunables(7) and also
+  https://wiki.samba.org/index.php/Upgrading_a_CTDB_cluster#Policy
+
+* CTDB now ignores hints from Samba about TDB flags when attaching to databases
+
+  CTDB will use the correct flags depending on the type of database.
+  For clustered databases, the smb.conf setting
+  dbwrap_tdb_mutexes:*=true will be ignored. Instead, CTDB continues
+  to use the TDBMutexEnabled tunable.
+
+* New configuration variable CTDB_NFS_CHECKS_DIR
+
+  See ctdbd.conf(5) for more details.
+
+* The CTDB_SERVICE_AUTOSTARTSTOP configuration variable has been
+  removed
+
+  To continue to manage/unmanage services while CTDB is running:
+
+  - Start service by hand and then flag it as managed
+
+  - Mark service as unmanaged and shut it down by hand
+
+  - In some cases CTDB does something fancy - e.g. start Samba under
+    "nice", so care is needed. One technique is to disable the
+    eventscript, mark as managed, run the startup event by hand and then
+    re-enable the eventscript.
+
+* The CTDB_SCRIPT_DEBUGLEVEL configuration variable has been removed
+
+* The example NFS Ganesha call-out has been improved
+
+* A new "replicated" database type is available
+
+  Replicated databases are intended for CTDB's internal use to
+  replicate state data across the cluster, but may find other
+  uses. The data in replicated databases is valid for the lifetime of
+  CTDB and cleared on first attach.
+
+Using x86_64 Accelerated AES Crypto Instructions
+------------------------------------------------
+
+Samba on x86_64 can now be configured to use the Intel accelerated AES
+instruction set, which has the potential to make SMB3 signing and
+encryption much faster on client and server. To enable this, configure
+Samba using the new option --accel-aes=intelaesni.
+
+This is a temporary solution that is being included to allow users
+to enjoy the benefits of Intel accelerated AES on the x86_64 platform,
+but the longer-term solution will be to move Samba to a fully supported
+external crypto library.
+
+The third_party/aesni-intel code will be removed from Samba as soon as
+external crypto library performance reaches parity.
+
+The default is to build without setting --accel-aes, which uses the
+existing Samba software AES implementation.
+
+Parameter changes
+-----------------
+
+The "strict sync" global parameter has been changed from
+a default of "no" to "yes". This means smbd will by default
+obey client requests to synchronize unwritten data in operating
+system buffers safely onto disk. This is a safer default setting
+for modern SMB1/2/3 clients.
+
+The 'ntlm auth' option default is renamed to 'ntlmv2-only', reflecting
+the previous behaviour.  Two new values have been provided,
+'mschapv2-and-ntlmv2-only' (allowing MSCHAPv2 while denying NTLMv1)
+and 'disabled', totally disabling NTLM authentication and password
+changes.
+
+smb.conf changes
+================
+
+  Parameter Name                     Description             Default
+  --------------                     -----------             -------
+  allow unsafe cluster upgrade       New parameter           no
+  auth event notification            New parameter           no
+  auth methods                       Deprecated
+  client max protocol                Effective               SMB3_11
+                                     default changed
+  map untrusted to domain            New value/              auto
+                                     Default changed/
+                                     Deprecated
+  mit kdc command                    New parameter
+  profile acls                       Deprecated
+  rpc server dynamic port range      New parameter           49152-65535
+  strict sync                        Default changed         yes
+  password hash userPassword schemes New parameter
+  ntlm auth                          New values              ntlmv2-only
+
+
+KNOWN ISSUES
+============
+
+https://wiki.samba.org/inFdex.php/Release_Planning_for_Samba_4.7#Release_blocking_bugs
+
+
+CHANGES SINCE 4.7.0rc6
+======================
+
+o  CVE-2017-12150:
+   A man in the middle attack may hijack client connections.
+
+o  CVE-2017-12151:
+   A man in the middle attack can read and may alter confidential
+   documents transferred via a client connection, which are reached
+   via DFS redirect when the original connection used SMB3.
+
+o  CVE-2017-12163:
+   Client with write access to a share can cause server memory contents to be
+   written into a file or printer.
+
+
+CHANGES SINCE 4.7.0rc5
+======================
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 13003: s3: vfs: catia: compression get/set must act only on base file, and
+     must cope with fsp==NULL.
+   * BUG 13008: lib: crypto: Make smbd use the Intel AES instruction set for signing
+     and encryption.
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 12946: s4-drsuapi: Avoid segfault when replicating as a non-admin with
+     GUID_DRS_GET_CHANGES.
+   * BUG 13015: Allow re-index of newer databases with binary GUID TDB keys
+     (this officially removes support for re-index of the original pack format 0,
+     rather than simply segfaulting).
+   * BUG 13017: Add ldb_ldif_message_redacted_string() to allow debug of redacted
+     log messages, avoiding showing secret values.
+   * BUG 13023: ldb: version 1.2.2.
+   * BUG 13025: schema: Rework dsdb_schema_set_indices_and_attributes() db
+     operations.
+
+o  Alexander Bokovoy <ab@samba.org>
+   * BUG 13030: Install dcerpc/__init__.py for all Python environments.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 13024: s3/smbd: Sticky write time offset miscalculation causes broken
+     timestamps
+   * BUG 13037: lib/util: Only close the event_fd in tfork if the caller didn't
+     call tfork_event_fd().
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 13006: messaging: Avoid a socket leak after fork.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 13018: charset: Fix str[n]casecmp_m() by comparing lower case values.
+
+o  Gary Lockyer <gary@catalyst.net.nz>
+   * BUG 13037: util_runcmd: Free the fde in event handler.
+
+o  Amitay Isaacs <amitay@gmail.com>
+   * BUG 13012: ctdb-daemon: Fix implementation of process_exists control.
+   * BUG 13021: GET_DB_SEQNUM control can cause ctdb to deadlock when databases
+     are frozen.
+   * BUG 13029: ctdb-daemon: Free up record data if a call request is deferred.
+   * BUG 13036: ctdb-client: Initialize ctdb_ltdb_header completely for empty
+     record.
+
+o  Christof Schmitt <cs@samba.org>
+   * BUG 13032: vfs_streams_xattr: Fix segfault when running with log level 10.
+
+
+CHANGES SINCE 4.7.0rc4
+======================
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 12929: smb.conf: Explain that "ntlm auth" is a per-passdb setting.
+   * BUG 12953: s4/lib/tls: Use SHA256 to sign the TLS certificates.
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 12932: Get rid of talloc_autofree_context().
+
+o  Amitay Isaacs <amitay@gmail.com>
+   * BUG 12978: After restarting CTDB, it attaches replicated databases with
+     wrong flags.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * BUG 12863: s3:smbclient: Don't try any workgroup listing with
+     "client min protocol = SMB2".
+   * BUG 12876: s3:libsmb: Don't call cli_NetServerEnum() on SMB2/3 connections
+     in SMBC_opendir_ctx().
+   * BUG 12881: s3:libsmb: Let do_connect() debug the negotiation result
+     similar to "session request ok".
+   * BUG 12919: s4:http/gensec: add missing tevent_req_done() to
+     gensec_http_ntlm_update_done().
+   * BUG 12968: Fix 'smbclient tarmode' with SMB2/3.
+   * BUG 12973: 'smbd': Don't use a lot of CPU on startup of a connection.
+
+o  Christof Schmitt <cs@samba.org>
+   * BUG 12983: vfs_default: Fix passing of errno from async calls.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 12629: s3:utils: Do not report an invalid range for AD DC role.
+   * BUG 12704: s3:libsmb: Let get_ipc_connect() use
+     CLI_FULL_CONNECTION_FORCE_SMB1.
+   * BUG 12930: Fix build issues with GCC 7.1.
+   * BUG 12950: s3:script: Untaint user supplied data in modprinter.pl.
+   * BUG 12956: s3:libads: Fix changing passwords with Kerberos.
+   * BUG 12975: Fix changing the password with 'smbpasswd' as a local user on
+     a domain member.
+
+
+CHANGES SINCE 4.7.0rc3
+======================
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 12913: Implement cli_smb2_setatr() by calling cli_smb2_setpathinfo().
+
+o  Andrew Bartlett <abartlet@samba.org>
+   * BUG 11392: s4-cldap/netlogon: Match Windows 2012R2 and return
+     NETLOGON_NT_VERSION_5 when version unspecified.
+   * BUG 12855: dsdb: Do not force a re-index of sam.ldb on upgrade to 4.7.
+   * BUG 12904: dsdb: Fix dsdb_next_callback to correctly use ldb_module_done()
+     etc.
+   * BUG 12939: s4-rpc_server: Improve debug of new endpoints.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 12791: Fix kernel oplocks issues with named streams.
+   * BUG 12944: vfs_gpfs: Handle EACCES when fetching DOS attributes from xattr.
+
+o  Bob Campbell <bobcampbell@catalyst.net.nz>
+   * BUG 12842: samdb/cracknames: Support user and service principal as desired
+     format.
+
+o  David Disseldorp <ddiss@samba.org>
+   * BUG 12911: vfs_ceph: Fix cephwrap_chdir().
+
+o  Gary Lockyer <gary@catalyst.net.nz>
+   * BUG 12865: Track machine account ServerAuthenticate3.
+
+o  Marc Muehlfeld <mmuehlfeld@samba.org>
+   * BUG 12947: python: Fix incorrect kdc.conf parameter name in kerberos.py.
+
+o  Noel Power <noel.power@suse.com>
+   * BUG 12937: s3/utils: 'smbcacls' failed to detect DIRECTORIES using SMB2
+     (Windows only).
+
+o  Arvid Requate <requate@univention.de>
+   * BUG 11392: s4-dsdb/netlogon: Allow missing ntver in cldap ping.
+
+o  Anoop C S <anoopcs@redhat.com>
+   * BUG 12936: source3/client: Fix typo in help message displayed by default.
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 12930: Fix building with GCC 7.1.1.
+
+
+CHANGES SINCE 4.7.0rc2
+======================
+
+o  Jeremy Allison <jra@samba.org>
+   * BUG 12836: s3: smbd: Fix a read after free if a chained SMB1 call goes
+     async.
+   * BUG 12899: s3: libsmb: Reverse sense of 'clear all attributes', ignore
+     attribute change in SMB2 to match SMB1.
+   * BUG 12914: s3: smbclient: Add new command deltree.
+
+o  Ralph Boehme <slow@samba.org>
+   * BUG 12885: s3/smbd: Let non_widelink_open() chdir() to directories
+     directly.
+   * BUG 12887: Remove SMB_VFS_STRICT_UNLOCK noop from the VFS.
+   * BUG 12891: Enable TDB mutexes in dbwrap and ctdb.
+   * BUG 12897: vfs_fruit: don't use MS NFS ACEs with Windows clients.
+   * BUG 12910: s3/notifyd: Ensure notifyd doesn't return from
+     smbd_notifyd_init.
+
+o  Alexander Bokovoy <ab@samba.org>
+   * BUG 12905: Build py3 versions of other rpc modules.
+
+o  Günther Deschner <gd@samba.org>
+   * BUG 12840: vfs_fruit: Add "fruit:model = <modelname>" parametric option.
+
+o  Dustin L. Howett
+   * BUG 12720: idmap_ad: Retry query_user exactly once if we get
+     TLDAP_SERVER_DOWN.
+
+o  Amitay Isaacs <amitay@gmail.com>
+   * BUG 12891: dbwrap_ctdb: Fix calculation of persistent flag.
+
+o  Thomas Jarosch <thomas.jarosch@intra2net.com>
+   * BUG 12927: s3: libsmb: Fix use-after-free when accessing pointer *p.
+
+o  Volker Lendecke <vl@samba.org>
+   * BUG 12925: smbd: Fix a connection run-down race condition.
+
+o  Stefan Metzmacher <metze@samba.org>
+   * tevent: version 0.9.33: make tevent_req_print() more robust against crashes.
+   * ldb: version 1.2.1
+   * BUG 12882: Do not install _ldb_text.py if we have system libldb.
+   * BUG 12890: s3:smbd: consistently use talloc_tos() memory for
+     rpc_pipe_open_interface().
+   * BUG 12900: Fix index out of bound in ldb_msg_find_common_values.
+
+o  Rowland Penny <rpenny@samba.org>
+   * BUG 12884: Easily edit a users object in AD, as if using 'ldbedit'.
+
+o  Bernhard M. Wiedemann <bwiedemann@suse.de>
+   * BUG 12906: s3: drop build_env
+
+o  Andreas Schneider <asn@samba.org>
+   * BUG 12882: waf: Do not install _ldb_text.py if we have system libldb.
+
+o  Martin Schwenke <martin@meltin.net>
+   * BUG 12898: ctdb-common: Set close-on-exec when creating PID file.
+
+
+CHANGES SINCE 4.7.0rc1
+======================
+
+o  Jeffrey Altman <jaltman@secure-endpoints.com>
+   * BUG 12894: CVE-2017-11103: Orpheus' Lyre KDC-REP service name validation
+
+
+#######################################
+Reporting bugs & Development Discussion
+#######################################
+
+Please discuss this release on the samba-technical mailing list or by
+joining the #samba-technical IRC channel on irc.freenode.net.
+
+If you do report problems then please try to send high quality
+feedback. If you don't provide vital information to help us track down
+the problem then you will probably be ignored.  All bug reports should
+be filed under the Samba 4.1 and newer product in the project's Bugzilla
+database (https://bugzilla.samba.org/).
+
+
+======================================================================
+== Our Code, Our Bugs, Our Responsibility.
+== The Samba Team
+======================================================================
+

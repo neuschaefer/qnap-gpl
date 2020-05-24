@@ -1,0 +1,101 @@
+'\" t
+.\"     Title: gshadow
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 05/10/2009
+.\"    Manual: File Formats and Conversions
+.\"    Source: File Formats and Conversions
+.\"  Language: English
+.\"
+.TH "GSHADOW" "5" "05/10/2009" "File Formats and Conversions" "File Formats and Conversions"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+gshadow \- shadowed group file
+.SH "DESCRIPTION"
+.PP
+
+/etc/gshadow
+contains the shadowed information for group accounts\&. It contains lines with the following colon\-separated fields:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+group name
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+encrypted password
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+comma\-separated list of group administrators
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+comma\-separated list of group members
+.RE
+.PP
+The group name and password fields must be filled\&. The encrypted password consists of characters from the 64\-character alphabet a thru z, A thru Z, 0 thru 9, \e\&. and /\&. Refer to
+\fBcrypt\fR(3)
+for details on how this string is interpreted\&. If the password field contains some string that is not valid result of
+\fBcrypt\fR(3), for instance ! or *, the user will not be able to use a unix password to log in, subject to
+\fBpam\fR(7)\&.
+.PP
+This information supersedes any password present in
+/etc/group\&.
+.PP
+This file must not be readable by regular users if password security is to be maintained\&.
+.SH "FILES"
+.PP
+/etc/group
+.RS 4
+Group account information\&.
+.RE
+.PP
+/etc/gshadow
+.RS 4
+Secure group account information\&.
+.RE
+.SH "SEE ALSO"
+.PP
+
+\fBgpasswd\fR(5),
+\fBgroup\fR(5),
+\fBgrpck\fR(8),
+\fBgrpconv\fR(8),
+\fBnewgrp\fR(1)\&.

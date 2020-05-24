@@ -1,0 +1,24 @@
+smbcrypt is a small program that uses libsmbpw, contributed by
+Jens Låås
+-----------------------
+
+I have written a small program (using libsmbpw) that simply reads a
+cleartext password from input and presents the smb encypted derivative on
+stdout.
+
+This is useful for a batchjob that creates a whole smbpasswd file using a
+centralized database of users and cleartext password.
+
+Would you like to include this into your library distribution? (121 lines
+of code).
+
+Cheers,
+Jens Låås
+
+Usage: /usr/sbin/smbcrypt [ln:qh]
+ l = lanmgr pw first
+ n = nt pw first
+ : = use : as delimiter
+ q = quiet, dont prompt
+ h = this help
+         

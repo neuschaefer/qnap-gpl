@@ -1,0 +1,13 @@
+<samba:parameter name="q type"
+                 context="S"
+                 type="bytes"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+
+<related>q_type</related>
+<value type="default">0</value>
+</samba:parameter>

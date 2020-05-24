@@ -1,0 +1,379 @@
+#!/bin/sh
+
+# Start and stop CTDB (Clustered TDB daemon)
+#
+# chkconfig: - 90 01
+#
+# description: Starts and stops CTDB
+# pidfile: /var/run/ctdb/ctdbd.pid
+# config: /etc/sysconfig/ctdb
+
+### BEGIN INIT INFO
+# Provides:            ctdb
+# Required-Start:      $local_fs $syslog $network $remote_fs
+# Required-Stop:       $local_fs $syslog $network $remote_fs
+# Default-Start:       2 3 4 5
+# Default-Stop:        0 1 6
+# Short-Description:   start and stop ctdb service
+# Description:         Start and stop CTDB (Clustered TDB daemon)
+### END INIT INFO
+
+# Source function library.
+if [ -f /etc/init.d/functions ] ; then
+    # Red Hat
+    . /etc/init.d/functions
+elif [ -f /etc/rc.d/init.d/functions ] ; then
+    # Red Hat
+    . /etc/rc.d/init.d/functions
+elif [ -f /etc/rc.status ] ; then
+    # SUSE
+    . /etc/rc.status
+    rc_reset
+    LC_ALL=en_US.UTF-8
+elif [ -f /lib/lsb/init-functions ] ; then
+    # Debian
+    . /lib/lsb/init-functions
+fi
+
+# Avoid using root's TMPDIR
+unset TMPDIR
+
+#[ -n "$CTDB_BASE" ] || export CTDB_BASE="/etc/ctdb"
+CTDB_BASE=/usr/local/samba/etc/ctdb
+
+. "${CTDB_BASE}/functions"
+loadconfig "network"
+loadconfig "ctdb"
+
+# check networking is up (for redhat)
+if [ "$NETWORKING" = "no" ] ; then
+    exit 0
+fi
+
+detect_init_style
+export CTDB_INIT_STYLE
+
+ctdbd="${CTDBD:-/usr/local/samba/sbin/ctdbd}"
+ctdbd_wrapper="${CTDBD_WRAPPER:-/usr/local/samba/sbin/ctdbd_wrapper}"
+pidfile="${CTDB_PIDFILE:-/usr/local/samba/var/run/ctdb/ctdbd.pid}"
+
+############################################################
+CTDB_CHECKING=/usr/local/samba/bin/ctdb_checking.sh
+init_crontab()
+{
+    [ ! -f ${CTDB_CHECKING} ] && return 1
+    /bin/grep ctdb_checking.sh /etc/config/crontab >/dev/null 2>&1
+    _exist=$?
+    if [ "x${_exist}" == "x0" ]; then
+        return
+    fi
+    /bin/echo "*/30 * * * * ${CTDB_CHECKING}" >> /etc/config/crontab
+    /usr/bin/crontab /etc/config/crontab -c /tmp/cron/crontabs > /dev/null 2>&1
+}
+
+remove_crontab()
+{
+    [ ! -f ${CTDB_CHECKING} ] && return 1
+    /bin/grep ctdb_checking.sh /etc/config/crontab >/dev/null 2>&1
+    _exist=$?
+    if [ "x${_exist}" == "x0" ]; then
+        /bin/sed -i '/ctdb_checking.sh/d' /etc/config/crontab > /dev/null 2>&1
+        /usr/bin/crontab /etc/config/crontab -c /tmp/cron/crontabs > /dev/null 2>&1
+    fi
+}
+
+start()
+{
+    echo "Starting ctdbd service: "
+
+    case "$CTDB_INIT_STYLE" in
+	qts)
+		init_crontab
+		$ctdbd_wrapper $pidfile start
+	    ;;
+	suse)
+	    startproc \
+		"$ctdbd_wrapper" "$pidfile" "start"
+	    rc_status -v
+	    ;;
+	redhat)
+	    daemon --pidfile "$pidfile" \
+		"$ctdbd_wrapper" "$pidfile" "start"
+	    RETVAL=$?
+	    echo
+	    [ $RETVAL -eq 0 ] && touch /var/lock/subsys/ctdb || RETVAL=1
+	    return $RETVAL
+	    ;;
+	debian)
+	    eval start-stop-daemon --start --quiet --background --exec \
+		"$ctdbd_wrapper" "$pidfile" "start"
+	    ;;
+    esac
+}
+
+stop()
+{
+    echo "Shutting down ctdbd service: "
+
+    case "$CTDB_INIT_STYLE" in
+	qts)
+		remove_crontab
+	    $ctdbd_wrapper $pidfile stop
+	    ;;
+	suse)
+	    "$ctdbd_wrapper" "$pidfile" "stop"
+	    rc_status -v
+	    ;;
+	redhat)
+	    "$ctdbd_wrapper" "$pidfile" "stop"
+	    RETVAL=$?
+            [ $RETVAL -eq 0 ] && success || failure
+	    echo ""
+	    [ $RETVAL -eq 0 ] && rm -f /var/lock/subsys/ctdb
+	    return $RETVAL
+	    ;;
+	debian)
+	    "$ctdbd_wrapper" "$pidfile" "stop"
+	    log_end_msg $?
+	    ;;
+    esac
+}
+
+restart()
+{
+    stop
+    start
+}
+
+check_status ()
+{
+    # Backward compatibility.  When we arrange to pass --pidfile to
+    # ctdbd we also create the directory that will contain it.  If
+    # that directory is missing then we don't use the pidfile to check
+    # status.  Note that this probably won't work if
+    # $CTDB_VALGRIND="yes" but this doesn't need full backward
+    # compatibility because it is a debug option.
+    if [ -d $(dirname "$pidfile") ] ; then
+	_pf_opt="-p $pidfile"
+    else
+	_pf_opt=""
+    fi
+
+    case "$CTDB_INIT_STYLE" in
+	suse)
+	    checkproc $_pf_opt "$ctdbd"
+	    rc_status -v
+	    ;;
+	redhat)
+	    status $_pf_opt -l "ctdb" "$ctdbd"
+	    ;;
+	debian)
+	    status_of_proc $_pf_opt "$ctdbd" "ctdb"
+	    ;;
+    esac
+}
+
+do_add_node()
+{
+	SHARED_PATH=$1
+	NODE_IP=$2
+	if [ -d "${SHARED_PATH}" ]; then
+		FOUND=$(grep ${NODE_IP} ${SHARED_PATH}/.ctdb/etc/ctdb/nodes)
+		if [ -z "${FOUND}" ]; then
+			echo ${NODE_IP} >> ${SHARED_PATH}/.ctdb/etc/ctdb/nodes
+		fi
+	fi
+}
+
+do_del_node()
+{
+	SHARED_PATH=$1
+	NODE_IP=$2
+	if [ -d "${SHARED_PATH}" ]; then
+		FOUND=$(grep ${NODE_IP} ${SHARED_PATH}/.ctdb/etc/ctdb/nodes)
+		if [ ! -z "${FOUND}" ]; then
+			sed -i /${NODE_IP}/d ${SHARED_PATH}/.ctdb/etc/ctdb/nodes
+		fi
+	fi
+}
+
+do_add_vip()
+{
+	SHARED_PATH=$1
+	VIP=$(/bin/echo "$2" | /bin/awk -F:  '{print $1" "$2}')
+
+	if [ -d "${SHARED_PATH}" ]; then
+		FOUND=$(grep "${VIP}" ${SHARED_PATH}/.ctdb/etc/ctdb/public_addresses)
+		if [ -z "${FOUND}" ]; then
+			echo "${VIP}" >> ${SHARED_PATH}/.ctdb/etc/ctdb/public_addresses
+		fi
+	fi
+}
+
+do_del_vip()
+{
+	SHARED_PATH=$1
+	VIP=$(/bin/echo "$2" | /bin/awk -F:  '{print $1" "$2}')
+
+	if [ -d "${SHARED_PATH}" ]; then
+		FOUND=$(grep "${VIP}" ${SHARED_PATH}/.ctdb/etc/ctdb/public_addresses)
+		if [ ! -z "${FOUND}" ]; then
+			IPCDR=$(/bin/echo "$2" | /bin/awk '{print $1}')
+			IP=$(/bin/echo "${IPCDR}" | /bin/awk -F/ '{print $1}')
+			CDR=$(/bin/echo "${IPCDR}" | /bin/awk -F/ '{print $2}' | /bin/awk -F: '{print $1}')
+			DEV=$(/bin/echo "$2" | /bin/awk '{print $2}')
+			sed -i "/${IP}\/${CDR} ${DEV}/d" ${SHARED_PATH}/.ctdb/etc/ctdb/public_addresses
+		fi
+	fi
+}
+
+restore_ctdb_from_shared_path()
+{
+	SHARED_PATH=$1
+	if [ -d "${SHARED_PATH}" ]; then
+		rm -f /etc/default
+		rm -f /etc/node
+		ln -sf ${SHARED_PATH}/.ctdb/etc/default /etc/default
+		ln -sf ${SHARED_PATH}/.ctdb/etc/ctdb /etc/ctdb
+		ln -sf ${SHARED_PATH}/.ctdb/etc/ctdb/nodes /usr/local/samba/etc/ctdb/nodes
+		ln -sf ${SHARED_PATH}/.ctdb/etc/ctdb/public_addresses /usr/local/samba/etc/ctdb/public_addresses
+	else
+		echo "Path: ${SHARED_PATH} doesn't exist!"
+	fi
+}
+
+init_ctdb ()
+{
+	echo "Trying to stop ctdb service..."
+	stop
+	sleep 1
+
+	SHARED_PATH=$1
+	VIP=$2
+	IPLIST=$3
+	MODE=$4
+	if [ -d "${SHARED_PATH}" ]; then
+		if [ -d "${SHARED_PATH}/.ctdb" ]; then
+			rm -fr "${SHARED_PATH}/.ctdb"
+			rm -f /etc/ctdb
+			rm -f /etc/default
+		fi
+
+		mkdir -p "${SHARED_PATH}/.ctdb/etc/default/"
+		mkdir -p "${SHARED_PATH}/.ctdb/etc/ctdb"
+
+		echo "CTDB_RECOVERY_LOCK=\"${SHARED_PATH}/.ctdb/.ctdb.lock\"" > ${SHARED_PATH}/.ctdb/etc/default/ctdb
+		echo "CTDB_MANAGES_SAMBA=no" >> ${SHARED_PATH}/.ctdb/etc/default/ctdb
+		echo "CTDB_MANAGES_WINBIND=no" >> ${SHARED_PATH}/.ctdb/etc/default/ctdb
+		echo "CTDB_SAMBA_SKIP_SHARE_CHECK=yes" >> ${SHARED_PATH}/.ctdb/etc/default/ctdb
+		if [ -z "${MODE}" ]; then
+			echo "CTDB_NODES=/etc/ctdb/nodes" >> ${SHARED_PATH}/.ctdb/etc/default/ctdb
+			echo "CTDB_PUBLIC_ADDRESSES=/etc/ctdb/public_addresses" >> ${SHARED_PATH}/.ctdb/etc/default/ctdb
+		fi
+
+		IFS=","; for n in ${IPLIST};
+		do
+			echo $n >> ${SHARED_PATH}/.ctdb/etc/ctdb/nodes
+		done
+
+		IFS=","; for n in ${VIP};
+		do
+			echo "$(/bin/echo $n | /bin/awk -F:  '{print $1" "$2}')" >> ${SHARED_PATH}/.ctdb/etc/ctdb/public_addresses
+			if [ x"${MODE}" == x"lvs" ]; then
+				IFACE=$(/bin/echo $n | /bin/awk -F:  '{print $2}')
+				IPADDR=$(/bin/echo $n | /bin/awk -F:  '{print $1}' | /bin/awk -F/ '{print $1}')
+				echo "CTDB_LVS_PUBLIC_IFACE=${IFACE}" >> ${SHARED_PATH}/.ctdb/etc/default/ctdb
+				echo "CTDB_LVS_PUBLIC_IP=${IPADDR}" >> ${SHARED_PATH}/.ctdb/etc/default/ctdb
+				echo "CTDB_LVS_NODES=/etc/ctdb/nodes" >> ${SHARED_PATH}/.ctdb/etc/default/ctdb
+				break
+			fi
+		done
+
+		ln -sf ${SHARED_PATH}/.ctdb/etc/default /etc/default
+		ln -sf ${SHARED_PATH}/.ctdb/etc/ctdb /etc/ctdb
+		ln -sf ${SHARED_PATH}/.ctdb/etc/ctdb/nodes /usr/local/samba/etc/ctdb/nodes
+		if [ -z "${MODE}" ]; then
+			ln -sf ${SHARED_PATH}/.ctdb/etc/ctdb/public_addresses /usr/local/samba/etc/ctdb/public_addresses
+		fi
+	else
+		echo "Path: ${SHARED_PATH} doesn't exist!"
+	fi
+}
+
+############################################################
+
+case "$1" in
+    start)
+  	start
+	;;
+    stop)
+  	stop
+	;;
+    restart|reload|force-reload)
+  	restart
+	;;
+    status)
+  	check_status
+	;;
+    condrestart|try-restart)
+  	if check_status >/dev/null ; then
+	    restart
+	fi
+	;;
+    cron)
+	# used from cron to auto-restart ctdb
+  	check_status >/dev/null 2>&1 || restart
+	;;
+	init)
+		if [ $# -ne 4 ] && [ $# -ne 5 ]; then
+			echo "Usage: $0 init <share path> <vip list with comma> <ip list with comma> [mode]"
+			echo "Note:"
+			echo "  Multiple vip can be used. The format is 'vip1/cidr1:dev1,vip2/cidr2:dev2,...'"
+			echo "  Also, multple ip can be used. The fomrat is 'node_ip1,node_ip2,...'."
+			echo "  An example which using 192.168.10.1 as VIP and the server nodes have 192.168.10.101 and"
+			echo "  192.169.10.102. The Usage will be:"
+			echo "    ctdb init /share/CEPH_9999AA 192.168.10.1/24:eth0 192.168.10.101,192.168.10.102"
+			echo "  mode can be lvs or leave it empty. And if lvs is used, only the first vip will work"
+		else
+			init_ctdb $2 $3 $4 $5
+		fi
+	;;
+	restore_from_shared)
+		if [ $# -ne 2 ]; then
+			echo "Usage: $0 restore_from_shared <share path>"
+		else
+			restore_ctdb_from_shared_path $2
+		fi
+	;;
+	add_node)
+		if [ $# -ne 3 ]; then
+			echo "Usage: $0 add_node <share path> <node_ip>"
+		else
+			do_add_node $2 $3
+		fi
+	;;
+	del_node)
+		if [ $# -ne 3 ]; then
+			echo "Usage: $0 del_node <share path> <node_ip>"
+		else
+			do_del_node $2 $3
+		fi
+	;;
+	add_vip)
+		if [ $# -ne 3 ]; then
+			echo "Usage: $0 add_vip <share path> <vip>"
+		else
+			do_add_vip $2 $3
+		fi
+	;;
+	del_vip)
+		if [ $# -ne 3 ]; then
+			echo "Usage: $0 del_vip <share path> <vip>"
+		else
+			do_del_vip $2 $3
+		fi
+	;;
+    *)
+	echo "Usage: $0 {start|stop|restart|reload|force-reload|status|cron|condrestart|try-restart|init|restore_from_shared}"
+	exit 1
+esac

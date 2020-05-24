@@ -1,0 +1,15 @@
+# -*- text -*-
+#
+#	For Merit.
+#
+#	$Id: dictionary.merit,v 1.1.1.1 2010/03/11 07:11:43 richardchang Exp $
+#
+VENDOR		Merit				61
+
+BEGIN-VENDOR	Merit
+
+ATTRIBUTE	Merit-Proxy-Action			211	string
+ATTRIBUTE	Merit-User-Id				222	string
+ATTRIBUTE	Merit-User-Realm			223	string
+
+END-VENDOR	Merit

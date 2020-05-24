@@ -1,0 +1,12 @@
+<samba:parameter name="indexing"
+                 context="S"
+                 type="cmdlist"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+
+<value type="default">disable</value>
+</samba:parameter>

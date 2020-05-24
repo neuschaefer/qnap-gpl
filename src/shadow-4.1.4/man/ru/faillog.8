@@ -1,0 +1,140 @@
+'\" t
+.\"     Title: faillog
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 05/10/2009
+.\"    Manual: Команды управления системой
+.\"    Source: Команды управления системой
+.\"  Language: Russian
+.\"
+.TH "faillog" "8" "05/10/2009" "Команды управления системой" "Команды управления системой"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "НАЗВАНИЕ"
+faillog \- показывает записи из файла faillog или задаёт предел неудачных попыток входа в систему
+.SH "СИНТАКСИС"
+.HP \w'\fBfaillog\fR\ 'u
+\fBfaillog\fR [\fIпараметры\fR]
+.SH "ОПИСАНИЕ"
+.PP
+Программа
+\fBfaillog\fR
+форматирует содержимое журнала неудачных попыток из файла базы данных/var/log/faillog\&. Также, она может быть использована для управления счётчиком неудачных попыток и его пределом\&. При запуске
+\fBfaillog\fR
+без параметров выводятся записи faillog только тех пользователей, у которых имеется хотя бы одна неудачная попытка входа\&.
+.SH "ПАРАМЕТРЫ"
+.PP
+Параметры команды
+\fBfaillog\fR:
+.PP
+\fB\-a\fR, \fB\-\-all\fR
+.RS 4
+Display (or act on) faillog records for all users having an entry in the
+faillog
+database\&.
+.RE
+.PP
+\fB\-h\fR, \fB\-\-help\fR
+.RS 4
+Показать краткую справку и закончить работу\&.
+.RE
+.PP
+\fB\-l\fR, \fB\-\-lock\-time\fR\fIСЕКУНД\fR
+.RS 4
+Блокировать учётную запись на
+\fIСЕКУНД\fR
+после неудачной попытки входа\&.
+.sp
+Write access to
+/var/log/faillog
+is required for this option\&.
+.RE
+.PP
+\fB\-m\fR, \fB\-\-maximum\fR\fIМАКС_ЧИСЛО\fR
+.RS 4
+Set maximum number of login failures after the account is disabled to
+\fIMAX\fR\&.
+.sp
+Selecting a
+\fIMAX\fR
+value of 0 has the effect of not placing a limit on the number of failed logins\&.
+.sp
+The maximum failure count should always be 0 for
+\fIroot\fR
+to prevent a denial of services attack against the system\&.
+.sp
+Write access to
+/var/log/faillog
+is required for this option\&.
+.RE
+.PP
+\fB\-r\fR, \fB\-\-reset\fR
+.RS 4
+Reset the counters of login failures or one record if used with the
+\fB\-u\fR
+\fILOGIN\fR
+option\&.
+.sp
+Write access to
+/var/log/faillog
+is required for this option\&.
+.RE
+.PP
+\fB\-t\fR, \fB\-\-time\fR\fIДНЕЙ\fR
+.RS 4
+Display faillog records more recent than
+\fIDAYS\fR\&.
+.RE
+.PP
+\fB\-u\fR, \fB\-\-user\fR \fILOGIN\fR|\fIRANGE\fR
+.RS 4
+Display faillog record or maintains failure counters and limits (if used with
+\fB\-l\fR,
+\fB\-m\fR
+or
+\fB\-r\fR
+options) only for the specified user(s)\&.
+.sp
+The users can be specified by a login name, a numerical user ID, or a
+\fIRANGE\fR
+of users\&. This
+\fIRANGE\fR
+of users can be specified with a min and max values (\fIUID_MIN\-UID_MAX\fR), a max value (\fI\-UID_MAX\fR), or a min value (\fIUID_MIN\-\fR)\&.
+.RE
+.PP
+When none of the
+\fB\-l\fR,
+\fB\-m\fR, or
+\fB\-r\fR
+options are used,
+\fBfaillog\fR
+displays the faillog record of the specified user(s)\&.
+.PP
+NOTE: in display mode, only the records of users which currently exist in the system are displayed\&. In the other modes (when the
+\fB\-l\fR,
+\fB\-m\fR, or
+\fB\-r\fR
+options are used), the records of the user, or the range of users, or all the users that may have an entry in the faillog database will be changed\&. This is useful to reset records of users that have been deleted or set a policy in advance for a range of users\&.
+.SH "ПРЕДОСТЕРЕЖЕНИЯ"
+.PP
+Программа
+\fBfaillog\fRвыводит только записи о пользователях, последняя попытка входа которых была неудачной\&. Чтобы увидеть запись о пользователе, последняя попытка входа которого была удачной, вы должны специально указать имя пользователя с помощью параметра
+\fB\-a\fR\&.
+.SH "ФАЙЛЫ"
+.PP
+/var/log/faillog
+.RS 4
+содержит журнал неудавшихся попыток входа в систему
+.RE
+.SH "СМОТРИТЕ ТАКЖЕ"
+.PP
+\fBlogin\fR(1),
+\fBfaillog\fR(5)\&.

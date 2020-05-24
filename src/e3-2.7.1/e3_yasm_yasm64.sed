@@ -1,0 +1,19 @@
+s/bits 32/bits 64/g
+s/push dword/push qword/g
+s/push eax/push rax/g
+s/push ebx/push rbx/g
+s/push ecx/push rcx/g
+s/push edx/push rdx/g
+s/push esi/push rsi/g
+s/push edi/push rdi/g
+s/push ebp/push rbp/g
+s/pop dword/pop qword/g
+s/pop eax/pop rax/g
+s/pop ebx/pop rbx/g
+s/pop ecx/pop rcx/g
+s/pop edx/pop rdx/g
+s/pop esi/pop rsi/g
+s/pop edi/pop rdi/g
+s/pop ebp/pop rbp/g
+s/call ebx/call rbx/g
+s/esp/rsp/g

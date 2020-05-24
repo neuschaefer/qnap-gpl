@@ -1,0 +1,8 @@
+DEBIAN TODO 2008-07-01
+
+* Linux-igd Shorewall integration: route/iptables fragments to run
+  on shorewall reload/restart.
+
+* Re-work HAVE_LIBIPTC code to work with the updated netfilter from
+  2.6.22, and find some alternative for libiptc which is no longer
+  included in Debian.

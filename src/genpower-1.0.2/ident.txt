@@ -1,0 +1,13 @@
+/*
+ File        : 
+ Project     : genpower-1.0.2
+               Observatorio Sismologico del SurOccidente O.S.S.O
+ Author(s)   : Jhon H. Caicedo O. <jhcaiced@osso.org.co>
+ Description : 
+
+ History     :
+ 1.0.2
+ -----
+ Feb/05/2001   Modified from version 1.0.1, to add more UPSs (jhcaiced)
+ ------------------------------------------------------------------------
+*/

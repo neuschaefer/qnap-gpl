@@ -1,0 +1,14 @@
+<samba:parameter name="ads ou scope subtree"
+                 context="G"
+                 type="boolean"
+                 xmlns:samba="http://www.samba.org/samba/DTD/samba-doc">
+<description>
+	<para>
+	QNAPNAS parameters.
+	</para>
+</description>
+<related>ads ou</related>
+
+<value type="example">yes</value>
+<value type="default">no</value>
+</samba:parameter>

@@ -1,0 +1,6 @@
+ls-vdir.o: ls-vdir.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h ls.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+ls.h:

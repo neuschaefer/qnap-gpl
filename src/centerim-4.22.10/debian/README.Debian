@@ -1,0 +1,15 @@
+centerim for Debian
+---------------
+
+ * 'play' used by centerim in ~/.centericq/sounds can't mix audio 
+   notifications with already played sounds. 'aplay' from alsa-utils could be 
+   used to overcome this issue. You can edit file ~/.centericq/sounds and 
+   replace play by aplay.
+
+ * Warning : When your are using libnss with a ldap server, you can not put 
+   ldap before dns in file nsswitch.conf for hosts, that cause centericq 
+   freeze, here is a correct line for hosts:
+   hosts: file dns ldap
+
+ -- Julien Lemoine <speedblue@debian.org>, Sun, 19 Feb 2006 17:17:09 +0100
+

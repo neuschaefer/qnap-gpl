@@ -1,0 +1,6043 @@
+2010-10-26  Roger  <roger@jikos.cz>
+
+	Disable standard printf() redefinition in yahoo_util.h Should fix #165
+
+2010-10-23  Boris Petersen  <transacid@gmail.com>
+
+	Fix for CVE-2009-3720 in libjabber's xml parser
+
+2010-10-19  Roger  <roger@jikos.cz>
+
+	Updated po files
+
+	Merge branch 'mob' of git+ssh://repo.or.cz:22/srv/git/centerim into mob
+
+	Yahoo - disable conference and file transfer support (it doesn't work anyway)
+
+	Propper authorization and buzz events
+
+2010-10-19  Boris Petersen  <transacid@gmail.com>
+
+	updated po files
+
+2010-10-19  Roger  <roger@jikos.cz>
+
+	Yahoo - add buddy authentication
+
+2010-10-11  Roger  <roger@jikos.cz>
+
+	Add missing initialization to get rid of some valgrind warnings
+
+2010-10-07  Boris Petersen  <transacid@gmail.com>
+
+	updated po files
+
+2010-10-07  Roger  <roger@jikos.cz>
+
+	Yahoo - implement missing callback stubs
+
+2010-10-05  Boris Petersen  <transacid@gmail.com>
+
+	updated po files
+
+2010-10-05  Roger  <roger@jikos.cz>
+
+	Yahoo - implement missing callbacks
+
+2010-10-04  Roger  <roger@jikos.cz>
+
+	fix GNUTLS connection
+
+2010-10-02  Roger  <roger@jikos.cz>
+
+	connwrap - initialize gnutls session in cw_connect
+
+	connwrap - don't deinit gnutls session in cw_nb_connect on error, it's done in delsock
+
+2010-09-16  Roger  <roger@jikos.cz>
+
+	Add missing sources to libyahoo2 makefile
+
+2010-09-16  Boris Petersen  <transacid@gmail.com>
+
+	updated po files
+
+	ignore .version file
+
+2010-09-16  Roger  <roger@jikos.cz>
+
+	Port Yahoo to new libyahoo2-1.0.1
+	Disables file transfer (at least for now)
+
+	Fix SSL context leak in connwrap
+
+2010-08-27  Boris Petersen  <transacid@gmail.com>
+
+	Added gettext-devel test to autogen.sh
+
+2010-08-27  Sven Putteneers  <sven@tuxera.be>
+
+	display received time if different from sent time
+
+	Added script to extract a part of a chatlog history and pretty-print it.
+	Run without parameters for usage info.
+
+2010-07-31  Boris Petersen  <transacid@gmail.com>
+
+	adding new script for history formating.
+	initial script by Ilya Sukhanov <ilya@sukhanov.net>
+
+2010-06-19  Roger  <roger@lv.(none)>
+
+	Add missing initialization to perm/deny SNAC and don't overwrite its id in SBL parsing
+
+2010-04-24  Boris Petersen  <transacid@gmail.com>
+
+	Merge git-version-gen with gnulib
+
+2010-02-25  Damyan Yordanov  <damyan@web.de>
+
+	bulgarian translation updated
+
+2010-02-25  Boris Petersen  <transacid@gmail.com>
+
+	updated po files
+
+2010-02-21  Boris Petersen  <transacid@gmail.com>
+
+	refresh index before checking for dirty versions
+
+2010-02-21  Damyan Yordanov  <damyan@web.de>
+
+	bulgarian translation updated
+
+2010-02-18  Lubomir Rintel  <lkundrak@v3.sk>
+
+	Use RAND_add() with nss_compat_openssl
+	It does not provide RAND_seed().
+
+2010-02-18  Boris Petersen  <transacid@gmail.com>
+
+	updated po files
+
+2010-02-17  Roger  <roger@lv.(none)>
+
+	Better jabber presence handling
+
+2010-02-05  Boris Petersen  <transacid@gmail.com>
+
+	Merge branch 'versioning' into mob
+
+2010-02-05  أحمد المحمودي (Ahmed El-Mahmoudy)  <aelmahmoudy@sabily.org>
+
+	Check for FriBidi using pkg-config
+	New upstream releases of FriBidi don't provide fribidi-config anymore, so
+	using pkg-config instead to check for FriBidi.
+
+2010-01-31  Boris Petersen  <transacid@gmail.com>
+
+	new packaging friendlier versioning
+	This basically omits the 4 hash digits at the end of the version string.
+	so e.g.:
+	centerim-4.22.9.12-3be3.tar.gz
+	will end up
+	centerim-4.22.9.12.tar.gz
+	This makes it easier to package mobshot in gentoo for example.
+
+	Updated po files
+
+2010-01-29  Hakan Kvist  <hagar@df.lth.se>
+
+	Fixed compiler warnings in kkiproc.cc
+	Removed unused function in kkiproc.cc and fixed
+	compilewarnings regarding xprintf.
+
+	stringstream << should be used instead of sprintf,
+	and cout << instead of printf.
+
+	Beacause:
+	int64_t foo = 0xffffffffffffffff;
+	printf (%lx, foo);
+
+	printf will behave as expected on a 64 bit platform,
+	but not on a 32 bit platform (only ffffffff will be printed).
+
+2010-01-28  Hakan Kvist  <hagar@df.lth.se>
+
+	Cleanup of "extra protection" for ~/.centerim directory.
+	Reverted some parts of the commits:
+	e0ab4eeb52cdba438aa2834c4223881ab006b854
+	deb0cbaa7c385d2656229ac366071c090c55f597
+
+	See the discussion here:
+	http://centerim.org/pipermail/centerim-devel/2009-June/000678.html
+
+	If the ~/.centerim directory got the proper protection, then there
+	is no need for bloating the code with a lot of extra verifications.
+	No one else than the owner can access the files in ~/centerim
+	anyway.
+
+	Removal of unused variables
+	Removed a couple of unused variables.
+	There is still a lot to do if we want to be able to use -Wall for detecting
+	real errors (currently there are too many warnings in the output, so -Wall isn't
+	really useful).
+
+	Ncurses RTFM. remove ugly prototypes for FreeBSD and OSX
+	When reading the ncurses man page you find that
+	_XOPEN_SOURCE_EXTENDED must be defined when using
+	wide character functions when including ncurses.h.
+
+2010-01-26  Hakan Kvist  <hagar@df.lth.se>
+
+	Try to fix FreeBSD ncurses compile errors.
+	Tested on Ubuntu 9.04 and FreeBSD 7.2.
+
+	Try to fix FreeBSD ncurses compile errors.
+	Tested on Ubuntu 9.04 and FreeBSD 7.2.
+
+	Try to fix FreeBSD ncurses compile errors.
+
+2010-01-25  Hakan Kvist  <hagar@df.lth.se>
+
+	configure: check for ncurses/ncursesw. Only curses is not enough.
+	Some platforms (i.e Solaris 11), still ships ancient curses.
+	However centerim requires ncurses in order to compile.
+	Adapted configure.ac to only check for ncurses(w) instead of (n)curses(w).
+
+	Cleaned up #ifdefs in conscommon.h
+
+2010-01-19  Hakan Kvist  <hagar@df.lth.se>
+
+	Fixed compiler error with FreeBSD. Also fixed link error against curseslib.
+	FreeBSD do not want <utmp.h> to be included. However utmp is only used in linux,
+	so we do not need to include utmp.h for non linux systems.
+
+	Also bug in configure script was fixed.
+	The curses-lib was not properly included in the $LIBS-variable in the
+	configure.ac file.
+
+2010-01-19  Boris Petersen  <transacid@gmail.com>
+
+	Better check for ncurses/ncursesw
+	With many thanks to the autoconf archive for the macro
+	and Stéphane "kjir" Bisinger for the pointers and hints ;)
+
+2009-12-14  Boris Petersen  <transacid@gmail.com>
+
+	Updating Changelog for 4.22.9
+
+2009-12-13  Boris Petersen  <transacid@gmail.com>
+
+	New taging model.
+	To be up to date with gnulib's git-version-gen.
+	WARNING: This breaks compatibility with non v* tags.
+	For us that means everything before 4.22.9 won't work
+	anymore.
+
+2009-12-12  Remko van der Vossen  <wich@yuugen.jp>
+
+	quick patch to use MSNP8 instead of MSNP9
+
+2009-12-10  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge branch 'mob' of git+ssh://repo.or.cz/srv/git/centerim into mob
+
+2009-12-06  Boris Petersen  <transacid@gmail.com>
+
+	adjustment to german translation
+
+2009-11-19  Boris Petersen  <transacid@gmail.com>
+
+	Updated German translation
+
+2009-11-10  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Added -lgnutls when linking with GNUTLS
+	When linking with the --no-add-needed option, the linker complains of
+	undefined references because no -lgnutls is directly specified to the
+	linker itself. This commit adds -lgnutls to the libraries when using
+	GNUTLS
+
+2009-10-26  Petr Písař  <petr.pisar@atlas.cz>
+
+	Fix typo in Czech translation (4.22.8)
+	Oops, I used bad old source and thus I omitted changes in commit
+	66e06036a07e20e22604a43d38ab607b703116d0.
+
+	Czech translation updated for 4.22.8
+
+2009-09-28  Johannes Ott aka Oetzi  <centerim@informatiker2k3.de>
+
+	icqface.cc: Added Typing noticed to opened chat titles
+
+2009-09-26  Roger  <roger@jikos.cz>
+
+	Fix #94: don't disconnect() in impgp, check for errors in jabberhook
+
+	GPGME: add missing initialization
+
+2009-09-25  Roger  <roger@lv.(none)>
+
+	Bug #8: Log dropped auth to log file
+
+	Fix #31: better checks for rss items repetition (based on patch by Spiro)
+
+2009-09-24  Roger  <roger@lv.(none)>
+
+	ICQ: use protocol Online time Fix Online time
+
+	Don't reset Online time on status change
+
+2009-09-22  Roger  <roger@lv.(none)>
+
+	ICQ: offline people don't type
+
+2009-09-19  Roger  <roger@lv.(none)>
+
+	Fix build (bad diff)
+
+2009-09-18  Roger  <roger@lv.(none)>
+
+	ICQ: display typing notifications
+
+2009-09-09  Roger  <roger@lv.(none)>
+
+	ICQ display idle times
+
+2009-09-03  Frank Altpeter  <frank@altpeter.de>
+
+	Fix fribidi to build on freebsd
+
+2009-08-30  Kumar Appaiah  <a.kumar@alumni.iitm.ac.in>
+
+	Detect gnutls using AC_CHECK_LIB for gnutls >= 2.7.x
+	Since gnutls 2.7.x, gnutls does not ship the libgnutls-config and
+	libgnutls-extra-config scripts. Since the current autoconf method
+	AM_PATH_LIBGNUTLS_EXTRA uses these scripts to detect the presence of
+	gnutls, the centerim build fails with gnutls >= 2.7.x. This patch,
+	instead, uses AM_CHECK_LIB to check for the presence of the
+	gnutls_global_init_extra function, thereby ensuring that the gnutls
+	detection works for 2.7.x, and across all earlier supported versions.
+
+2009-08-27  Roger  <roger@jikos.cz>
+
+	Better handling of unknown IQ stanzas (more XMPP compliant). Fixes <ping/>s
+
+2009-08-18  Boris Petersen  <transacid@gmail.com>
+
+	Revert "Patch to detect gnutls properly."
+	This reverts commit 519c100e53acfa78271932f090c58d9d990cc037.
+	Sorry for blindly commiting without testing. It doesn't work.
+	Maybe it work's for Debian.
+
+2009-08-18  Kumar Appaiah  <akumar@debian.org>
+
+	Patch to detect gnutls properly.
+	Patch from Debian by Kumar Appaiah <akumar@debian.org>
+
+2009-08-09  Boris Petersen  <transacid@gmail.com>
+
+	Updated ChangeLog for 4.22.8 release
+
+2009-08-08  Boris Petersen  <transacid@gmail.com>
+
+	update po-files for release
+
+2009-08-08  Sven Wegener  <swegener@gentoo.org>
+
+	This fixes CVE-2008-4776
+	Patch from gentoo by Sven Wegener
+
+2009-07-11  Robin Kreis  <r.kreis@uni-bremen.de>
+
+	Cleanup (functionality should remain unchanged)
+	Only gives warnings about unused parameters now, even when used with
+	-Wall -Wextra -pedantic.  Mostly, initializer lists were reordered,
+	default: were added and tabs were converted to spaces.
+
+2009-07-07  Roger  <roger@jikos.cz>
+
+	Yahoo fix
+
+2009-06-27  Roger  <roger@jikos.cz>
+
+	Doc says long, so long it is.
+
+	Fix yahoo initialization
+
+	Option to disable yahoo CA certificate validation
+
+	Yahoo: encode login parameters
+
+	Improve yahoo login verbosity
+
+2009-06-24  Roger  <roger@jikos.cz>
+
+	fix to be able to compile on osx by eyda|mon
+
+	Bug #117 - don't allocate memory in signal handler
+
+	Add missing yahoo cleanups
+
+2009-06-23  Roger  <roger@jikos.cz>
+
+	Fix yahoo authentication
+
+2009-06-19  Hakan Kvist  <hagar@df.lth.se>
+
+	Small update (uses S_IRWXG instead of S_IRGRP|S_IWGRP|S_IXGRP etc).
+	Changed indentation so it is consitent with what atleast one other person indents code like.
+
+	Updated comments a little bit.
+
+2009-06-18  Hakan Kvist  <hagar@df.lth.se>
+
+	Merge commit 'origin/mob'
+
+	Make sure that the ~/.centerim directory got the right umask when created
+	When the ~/.centerim (or ~/.centericq) directory allready exists,
+	the permissions of the directory will be checked.
+	If necessary, the directory itself and the files placed directly below will
+	have their permissions set to sane values.
+
+2009-06-14  Roger  <roger@lv.(none)>
+
+	Disable previous commit
+
+	Make Invisible less visible
+
+2009-06-07  Roger  <roger@jikos.cz>
+
+	Fix incorrect online time calculation
+
+2009-05-27  Frank Altpeter  <frank@altpeter.de>
+
+	Updated ChangeLog manually (based on "git log")
+
+2009-05-27  Mehturt  <mehturt@gmail.com>
+
+	Quicksearching withing the contact list searches starting anywhere in the name.
+
+2009-05-26  Mehturt  <mehturt@gmail.com>
+
+	Added functionality to report idle time by X, based on libXss.  Fixes bug http://bugzilla.centerim.org/show_bug.cgi?id=7.
+
+2009-05-02  Boris Petersen  <transacid@gmail.com>
+
+	Merge branch 'mob' of git+ssh://transacid@repo.or.cz/srv/git/centerim into mob
+
+	Exchanged play with aplay.
+	This should fix some problems with play not being installed. aplay comes with alsa
+	so it should be on every system.
+
+2009-04-29  Lubomir Rintel  <lkundrak@v3.sk>
+
+	Fix libgadu and libicq NSS cryptography support
+	Fixes needed to get it compile with Fedora's nss_ossl_compat
+	library.
+
+2009-04-26  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Fixed bug #137: Compilation fails under OpenBSD
+	Moved the #include "libxode.h" to the top of jabber.h since in that
+	header there is and include to "config.h" which defines all the macros
+	detected by the configure script
+
+2009-04-21  Roger  <roger@jikos.cz>
+
+	Fix bug #118 - move cursor when it should
+
+2009-04-11  friedmag  <friedmagb@gmail.com>
+
+	Merge branch 'newlines' into mob
+
+	Fixes #110
+	Added conversion for &#13; &#10; to appropriate ASCII
+
+2009-03-24  Roger  <roger@lv.(none)>
+
+	Don't duplicate nicks in jabber conferencies and sort them. Patch by Andrei Vereha
+
+2009-03-07  Roger  <roger@jikos.cz>
+
+	Don't log unnecessary jabber errors
+
+2009-02-25  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Fix for nagios issue (corrected)
+
+	Fixed nagios issue
+
+2009-02-23  Roger  <roger@jikos.cz>
+
+	AIM contact names are space-insensitive
+
+	Disable captcha on IRC
+
+2009-02-23  Petr Písař  <petr.pisar@atlas.cz>
+
+	Fix typo in Czech translation
+
+2009-02-22  Petr Písař  <petr.pisar@atlas.cz>
+
+	Czech translation for 4.22.7
+
+2009-02-22  Roger  <roger@jikos.cz>
+
+	AIM contact names are case-insensitive
+
+	Add missing ids for IQ stanzas (bug #119)
+
+2009-02-22  Boris Petersen  <transacid@gmail.com>
+
+	Updated Changelog for 4.22.7
+
+2009-02-20  Roger  <roger@skrin.(none)>
+
+	Fix AIM logon.
+
+2009-02-16  Roger  <roger@lv.(none)>
+
+	Fix ICQ protocol change, patch by Alexandr Zeinalov
+
+2009-01-26  Boris Petersen  <transacid@gmail.com>
+
+	Updated po files
+
+	Updated german translation
+
+2009-01-19  Frank Altpeter  <frank@altpeter.de>
+
+	Same thing - change run path from /usr/bin/perl to /usr/bin/env perl to comply to operating systems which don't have perl in /usr/bin (like FreeBSD)
+
+	Changed #! path to comply to common rules of having no hardcoded path to python Required for example for being run on FreeBSD (which has python in /usr/local/bin instead of /usr/bin)
+
+2009-01-18  Jan Stancek  <jan@stancek.eu>
+
+	Added possibility to turn on PGP for ICQ If turned on, it encrypts all outgoing messages with gpgme by adding PGP BEGIN/END headers around all encrypted data. Received messages are then scanned PGP BEGIN/END and message is extracted if possible. Messages, which can not be decrypted, e.g. messsages, which don't fit the format or for which decrypt fails are dispalyed as they are.
+
+2009-01-17  Jan Stancek  <jan@stancek.eu>
+
+	fix for: output modified by imexternal not saved to history imeventmanager::store() creates a copy of imevent, which is later processed by imexternal, where it can be modified. But when it comes to saving this event to history original version is saved. It is assumed, that user wants to see and log the actual text he sent, even if text is modified by external script.
+
+2009-01-12  Petr Písař  <petr.pisar@atlas.cz>
+
+	Czech translation update for 4.22.6.
+
+2009-01-10  David Riebenbauer  <davrieb@liegesta.at>
+
+	can't say if we're building shared libs
+	we don't use libtool anymore so we can't say if we're building shared
+	and/or static libs
+
+2009-01-09  Roger  <roger@lv.(none)>
+
+	Deal with OpenSSL redistribution problem. Lubomir Rintel <lkundrak@v3.sk>
+
+2009-01-05  Roger  <roger@jikos.cz>
+
+	Fix incorrect snprintf() use
+	See http://lists.debian.org/debian-devel/2008/12/msg01079.html
+
+2008-12-03  Libor Capak  <capak@inputwish.com>
+
+	rss Atom support
+
+2008-10-31  Max Soares  <mxsoares@gmail.com>
+
+	This commit fix the bug reported in Bugzilla as "Bug 105  cursor jumps when typing multiline messages". The problem happen when the texteditor try to merge 2 lines 'cause some caracter are excluded in first line. The merge is: move the first word from second line to end of first line.
+
+2008-10-31  Pavol Rusnak  <stick@gk2.sk>
+
+	fix method return value (caused error - function returns random data)
+
+2008-10-26  Boris Petersen  <transacid@gmail.com>
+
+	Updated Changelog
+
+2008-09-22  Pavol Rusnak  <stick@gk2.sk>
+
+	fix buffer overflow in kkstrtext.cc
+
+2008-09-21  Boris Petersen  <transacid@gmail.com>
+
+	Revert "Fixed version-gen bug with old git version which don't support update-index option"
+	This reverts commit 283697d5a77225ae49546dd9c176652d2d062076.
+
+2008-09-20  Glazunov Vadim  <neweagle@gmail.com>
+
+	Fixed version-gen bug with old git version which don't support update-index option
+
+	Adding some code to set external status in jabber protocol, now easy to add external statuses in other protocol, such as icq(?). To set jabber external status, select primary status an go to jabber accounts options and set external status
+
+2008-09-17  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Included some checks for LargeFile support
+	Added those checks according to the GPGME info page
+
+2008-09-10  Glazunov Vadim  <neweagle@gmail.com>
+
+	first fix broke linux compilation, now will be ok
+
+	Fixes to compile on FreeBSD 7 and others
+
+2008-09-08  Boris Petersen  <transacid@gmail.com>
+
+	include web addres to FAQ
+
+	Updated TODO to give a hint for CIM5
+
+	Some changes to the README
+
+2008-09-04  Boris Petersen  <transacid@gmail.com>
+
+	This shold fix an issue with -dirty builds with git 1.6.0
+
+2008-09-03  me  <me@imp-y-celyn.home.domain>
+
+	Fixed otr. Didn't compile.
+
+2008-09-03  Glazunov Vadim  <neweagle@gmail.com>
+
+	Fixed small bug with jabber nick names in higher register
+
+2008-08-22  Matthias Nieuwenhuisen  <git@nieuwenhuisen.de>
+
+	fixed some compile errors (conf is a pointer and setDefaultAuthMessage should be used instead of setchatpanelgeight)
+
+2008-08-22  Matthias Richter  <matthias.richter@stud.uni-karlsruhe.de>
+
+	Lets you set the default authorization request message
+
+2008-08-20  Matthias Nieuwenhuisen  <git@nieuwenhuisen.de>
+
+	another small code style correction
+
+	corrected code style
+
+	fixed a small indentation bug introduced by the former commit
+
+	mark messages for which receipts were sent and corrected indentation of marked messages in chat window
+
+2008-08-18  Boris Petersen  <transacid@gmail.com>
+
+	More clear eplanation when away msg can't be fetched
+
+2008-08-12  Glazunov Vadim  <neweagle@gmail.com>
+
+	This must help on system which have ncursesw/curses.h instead of ncursesw/cursesw.h
+
+2008-08-12  Matthias Nieuwenhuisen  <git@nieuwenhuisen.de>
+
+	including both, curses.h and cursesw.h doesn't work, because of same ifdefs. Hope this doesn't break anything on other systems
+
+2008-08-12  Glazunov Vadim  <neweagle@gmail.com>
+
+	Fixes to  ncursesw
+
+2008-08-11  Boris Petersen  <transacid@gmail.com>
+
+	Fixed small typo in configure.ac
+
+2008-08-11  Glazunov Vadim  <neweagle@gmail.com>
+
+	Added some ifdefs to compile without widechar support(on systems which don't have ncursesw)
+
+	Addings to previous commit
+
+2008-08-10  Glazunov Vadim  <neweagle@gmail.com>
+
+	Fixed bug #20 and #72 - Broken russian(and other multibyte?) languages when linking with ncursesw. Really fucking problem, please check if I don't broke other locales
+
+2008-08-05  Matthias Nieuwenhuisen  <git@nieuwenhuisen.de>
+
+	Added marker for acknowledged messages to the history window
+
+	Don't mark incoming messages as acknowledged, if the id is the same as an acknowldedged outgoing message
+
+2008-08-04  Glazunov Vadim  <neweagle@gmail.com>
+
+	Fixed funny bug with asterisks in input filename field, shown only on first start after editing password field, thnx to Boris
+
+2008-08-04  Matthias Nieuwenhuisen  <git@nieuwenhuisen.de>
+
+	Added some translations for DE and added NL translation for message receipts config option
+
+2008-08-03  Matthias Nieuwenhuisen  <git@nieuwenhuisen.de>
+
+	Do a service discovery if a contact comes online and request only for message receipts, if the contacts client supports XEP-0184.
+
+2008-08-03  Glazunov Vadim  <neweagle@gmail.com>
+
+	Added minor configure checks to jabber protocol. Added option to show/hide information about OS
+
+	Fixed read away message with non-latin characters
+
+	Jabber file-sending support(xep-0066).Port range for outgoing connection got from Communications options or auto
+
+2008-08-01  Matthias Nieuwenhuisen  <git@nieuwenhuisen.de>
+
+	Added the ability to request receipts, a + char is shown, if a message is acknowledged.
+
+2008-07-29  J.R. Mauro  <jrm8005@gmail.com>
+
+	Merge branch 'mob' of git+ssh://mob@repo.or.cz/srv/git/centerim into mob
+
+2008-07-26  Boris Petersen  <transacid@gmail.com>
+
+	Reapplied patches by Sven Wegener. Please pull before commiting, thanks.
+
+2008-07-25  J.R. Mauro  <jrm8005@gmail.com>
+
+	icqconf is now a Singleton; 'conf' is now a pointer and members must now be accessed with ->
+
+2008-07-22  Glazunov Vadim  <neweagle@gmail.com>
+
+	Basic jabber file-transfer implementation(only recieving files, file sending will be in next commit). Partially xep-0066, xep-0065 (socks5 bytestreams and http), now no proxy support.
+
+2008-07-22  Sven Wegener  <sven.wegener@stealer.net>
+
+	Fix indentation in configure.ac libotr check
+
+	Fix configure.ac libotr error
+	This fixes the following error:
+
+	checking for otrl_init in -lotr... yes
+	checking libotr/context.h usability... yes
+	checking libotr/context.h presence... yes
+	checking for libotr/context.h... yes
+	./configure: line 15006: libotr/userstate.h: No such file or directory
+
+2008-07-21  Matthias Nieuwenhuisen  <git@nieuwenhuisen.de>
+
+	Added basic support for sending Jabber message receipts (XEP-0184) and service discovery (XEP-0030).
+
+2008-07-21  Glazunov Vadim  <neweagle@gmail.com>
+
+	Jabber avatar get/set patch
+
+2008-07-20  Glazunov Vadim  <neweagle@gmail.com>
+
+	Gtalk got vcard fix. Get jabber version fix. Added send centerim version in jabber. Some addings for latest patches
+
+2008-07-05  Lubomir Rintel  <lkundrak@v3.sk>
+
+	Allow using el5 gettext. Successfully tested.
+
+	Actually replace the sound files
+
+	Replaced the sound files of unknown origin with ones that are certainly free.
+
+2008-07-03  Boris Petersen  <transacid@gmail.com>
+
+	Fixed small typo in configure.ac
+
+2008-06-30  Boris Petersen  <transacid@gmail.com>
+
+	Forgot to add CenterIMLog2HTML.py to bin_SCRIPTS in Makefile.am now it gets installed
+
+2008-06-18  Boris Petersen  <transacid@gmail.com>
+
+	Added script by Luar Roji <cyberplant@roji.net> to the misc folder. This script converts CenterIM history files to html
+
+2008-06-10  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Removed binary which should not be included
+
+2008-05-28  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Added a test directory to make some tests
+
+2008-05-08  David Riebenbauer  <davrieb@liegesta.at>
+
+	Revert "fix a small compiler warning in libicq200"
+	This reverts commit 9b3cd99b2083e1af6312868d9983681230c7e0d5.
+
+	Revert "replace obsolte macros in configure.ac"
+	This reverts commit 1a596632e5b3cf54eef1b607f880d785c6930513.
+
+	I thought that AC_USE_SYSTEM_EXTENSIONS would be a
+	cleaner approach here, but it broke the build with
+	some versions of autotools. So I'm reverting that.
+
+2008-05-07  David Riebenbauer  <davrieb@liegesta.at>
+
+	add a replacement setenv to icqcommon.cc
+	That should only have to be used on systems that
+	don't provide a setenv implementation themselves.
+	irix for example.
+
+	use statvfs on IRIX too
+
+	guard the inclusion of stdint.h
+
+	reduce checks for functions to strictly needed
+	most of the checks actually came in shortly after
+	taking over from centericq. I think by doing
+	something like autoupdate or such.
+
+	Problem is that AC_FUNC_NALLOC and AC_FUNC_REALLOC
+	cause problems on IRIX if we don't actually act on
+	the test results.
+
+	fix a small compiler warning in libicq200
+	basically it complained 'cause we were comparing
+	between unsigned shor and unsigned int, which was
+	quite easy to fix
+
+	add -Wno-write-string to AM_CXXFLAGS
+	this does away with the various
+	  depreceated conversion from string constant to char*
+	warnings in various places. See gcc(1) if you want details.
+
+	replace obsolte macros in configure.ac
+	replace the obsolete AC_ISC_POSIX and
+	AC_GNU_SOURCE with AC_USE_SYSTEM_EXTENSIONS
+
+	don't check for more programs then we actually use
+
+	Checking for iconv once is enough
+
+2008-05-06  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Moved sha.h from SOURCES to HEADERS
+
+2008-05-05  David Riebenbauer  <davrieb@liegesta.at>
+
+	small fixes in Makefile.am
+	Replace ':=' assignments with '='. This also fixes a warning by
+	automake/autoconf..
+
+	Quote variables in the git-version comparison.
+
+	use config.h a bit more
+	Include config.h in kkstrtext/conf.h and
+	kkconsui/include/conf.h. These two subdirectories
+	previously had the configure results passed as
+	compiler arguments in previous versions.
+
+	But now taht all configure.ac's and configure.in's
+	are merged into one we explicitely have to include
+	config.h in some places.
+
+2008-04-29  Boris Petersen  <transacid@gmail.com>
+
+	added sha.h to libyahoo2/Makefile.am otherwise it won't get included in the tarball.
+
+2008-04-26  David Riebenbauer  <davrieb@liegesta.at>
+
+	fix build failure in connwrap.c, when building with openssl
+	with_ssl is only set if ssl gets explcitely disabled or when there is no
+	openssl, so we check for "not no", instead of checking for "yes"
+
+2008-04-25  David Riebenbauer  <davrieb@liegesta.at>
+
+	eliminate libyahoo2/configure.ac
+
+	eliminate libmsn/configure.ac
+
+	eliminate libjabber/configure.ac
+
+	eliminate libicq2000/configure.ac
+
+	eliminate libgadu/configure.ac
+
+	eliminate kksystr/configure.ac
+
+	eliminate kkstrtext/configure.ac
+
+	eliminate kkconsui/configure.ac
+
+	eliminate firetalk/configure.ac
+
+2008-04-25  David Riebenbauer  <davrieb@htu.tugraz.at>
+
+	integrate connwrap magic into $top_srcdir
+	move connwrap's configure into main configure.ac and Makefile.am
+
+2008-04-25  David Riebenbauer  <davrieb@liegesta.at>
+
+	don't overwrite $CXXFLAGS with $CFLAGS in configure.ac
+
+2008-04-24  Roger  <roger@jikos.cz>
+
+	Merge branch 'mob' of git+ssh://mob@repo.or.cz/srv/git/centerim into mob
+
+	Bug #98 - Disable message conversion from/to HTML
+
+2008-04-24  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge branch 'mob' of git+ssh://repo.or.cz/srv/git/centerim into mob
+
+2008-04-24  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Fixed ICONV detection; see bug #81
+
+	Updated line numbers in po files
+
+2008-04-20  Boris Petersen  <transacid@gmail.com>
+
+	Removing spec and motor files properly
+
+2008-04-17  Boris Petersen  <transacid@gmail.com>
+
+	Revert "got rid of *.spec and *.motor files, which dun relly belong to the actual source"
+	This reverts commit ceec34a496196954b68e878cc051c83460284c11.
+
+2008-04-17  Roger  <roger@jikos.cz>
+
+	Bug #91 - Restore history position on return to event-list
+
+	Bug #89 - Fix IRC/NickServ password handling
+
+	Bug #66 - Fix regression from newer firetalk lib
+
+2008-04-15  Boris Petersen  <transacid@gmail.com>
+
+	Changed warning display condition for libotr. Now only a warning is given if you build --with-libotr, sine it's not supported yet
+
+2008-04-15  David Riebenbauer  <davrieb@htu.tugraz.at>
+
+	Merge branch 'mob' of git+ssh://mob@repo.or.cz/srv/git/centerim into mob
+
+2008-04-15  Boris Petersen  <transacid@gmail.com>
+
+	Merge branch 'mob' of git+ssh://transacid@repo.or.cz/srv/git/centerim into mob
+
+2008-04-15  David Riebenbauer  <davrieb@htu.tugraz.at>
+
+	correct the node number for the vi keys setting
+
+2008-04-15  Boris Petersen  <transacid@gmail.com>
+
+	got rid of *.spec and *.motor files, which dun relly belong to the actual source
+
+2008-04-14  Roger  <roger@jikos.cz>
+
+	More support for old GCC, now in irchook
+
+	Improve GCC 2.95 support in libyahoo2
+
+2008-04-12  David Riebenbauer  <davrieb@htu.tugraz.at>
+
+	only use order-only targets if we have a GNU make that supports it
+	Adds a test to configure.ac that checks if make supports order-only targets.
+	Change the "|" in src/Makefile.am to $(ORDER_ONLY which is empty if they're not
+	supported.
+
+	This should fix the problem that centerim would only compile with GNU make 3.80
+	and higher.
+
+	Merge branch 'mob' of git://repo.or.cz/centerim into mob
+
+2008-04-12  Jayjay  <jayjay@twek.nl>
+
+	Corrected typo in menu: offile to offline. Also corrected this typo in the language files.
+
+2008-04-08  Boris Petersen  <transacid@gmail.com>
+
+	Updated Changelog
+
+2008-04-07  Roger  <roger@jikos.cz>
+
+	Bug #93 - Don't call unimplemented buddyicon callbacks (thanks Derek)
+
+	Bug #88 - Correctly end loop (thx Anibal and Lenny)
+
+2008-04-04  Mehturt  <mehturt@gmail.com>
+
+	I've implemented (sort of) vi keybindings for moving up/down in contact list and some other windows using 'j' and 'k' keys. The patch also contains configuration. Tested on Ubuntu 7.10 with ncurses 5.6.
+
+2008-04-03  Roger  <roger@jikos.cz>
+
+	Bug #88 - Check if user is created before setting attributes
+
+2008-03-31  Roger  <roger@jikos.cz>
+
+	Yahoo (val)grinding
+
+2008-03-31  Johannes Ott aka Oetzi  <centerim@informatiker2k3.de>
+
+	German translation for new config option
+
+	moved new option to the right topic User Interface
+
+	Added config-option for the enhancement Charlie did this day: showing opened chats. Shortened *Auth*-Tag to "!A"
+
+	Merge branch 'mob' of git+ssh://mob@repo.or.cz/srv/git/centerim into mob
+
+2008-03-31  Charlie  <root@localhost.(none)>
+
+	Added feature to display all opened chats.
+
+2008-03-31  Johannes Ott aka Oetzi  <centerim@informatiker2k3.de>
+
+	Added a tag *Auth* to the usernames at contact-list which are on status Awaiting Authorization.
+	Issues: Showing flag for all users, while connecting to server until list
+	is syncronized with server (2-4 seconds)
+
+2008-03-30  Sven Wegener  <sven.wegener@stealer.net>
+
+	Use browser from config file
+	When loading the config file use the value from the file instead of setting our
+	current value again.
+
+2008-03-29  Boris Petersen  <transacid@gmail.com>
+
+	Updated Changelog
+
+2008-03-27  Roger  <roger@jikos.cz>
+
+	Bug #85 - Split multiline messages before processing
+
+	YIM - Support authorization
+
+2008-03-26  Roger  <roger@jikos.cz>
+
+	Bug #78 - YIM, contact-list managing, new list parsing
+
+	YIM: Comment out another unimplemented callback
+
+2008-03-24  Roger  <roger@jikos.cz>
+
+	YIM: Accept v15 status messages
+
+2008-03-23  Roger  <roger@jikos.cz>
+
+	Bug #78 - Change YIM protocol version
+
+2008-03-20  Roger  <roger@jikos.cz>
+
+	Bug #83 - Better and tested fix
+
+	Bug #83 - Single-quote passed URL and encode single-quotes in it
+
+2008-03-19  Roger  <roger@jikos.cz>
+
+	Bug #82 - NetBSD #ifdefs, patch by Ed Ravin
+
+2008-03-17  Petr Písař  <petr.pisar@atlas.cz>
+
+	Czech translation: Public keys in OTR configuration fix
+
+2008-03-17  Pavel Krush  <pavel.krush@gmail.com>
+
+	add new color to the colorschemer for unread messages
+
+2008-03-14  Sascha Vogt  <FunkyFish@gmx.net>
+
+	Commented out callback of non-implemented method to prevent a segfault while logging into Yahoo!
+
+2008-03-13  Roger  <roger@jikos.cz>
+
+	Backport yahoo login from libpurple.
+
+	Merge changes from libyahoo2 SVN trunk.
+
+2008-03-13  Petr Písař  <petr.pisar@atlas.cz>
+
+	Czech translation synced with POT
+
+	POT update
+
+	Usage help message typo and i18n fix
+
+	Czech translation update
+
+	Content-Type charset= header fix (real charset and header mismatched)
+
+2008-03-11  Boris Petersen  <transacid@gmail.com>
+
+	Added zh_CN to po files in configure.ac
+
+	Updated Changelog
+
+	Sorry, forgot pl. and some moving
+
+	Changed po files to utf-8
+
+2008-03-02  Petr Písař  <petr.pisar@atlas.cz>
+
+	Czech translation spelling correction
+
+	Czech translation update (spelling corrections)
+
+2008-02-29  Roger  <roger@jikos.cz>
+
+	Bug #74: Move cursor back when merging piece of line to previous one.
+
+2008-02-13  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Re-added v2 constant
+
+	Re-added v5 constant
+
+	Merge commit 'origin/mob' into mob
+	Conflicts:
+
+		libicq2000/src/Client.cpp
+		libicq2000/src/SNAC-GEN.cpp
+
+2008-01-28  Andy Stanford  <andy@andystanford.me.uk>
+
+	Further fixes as with preceeding patches. ref bug# 67
+
+	Amendment to previous edit.
+
+	Edit to RSS Parse to prevent infinite looping when parsing <br> tags.
+
+2008-01-27  Boris Petersen  <transacid@gmail.com>
+
+	moved the old Changelog, which only contained log from the old centericq to ChangeLog.old and added our own new ChangeLog generated from git log.
+
+	Fix for Fribidi from gentoo see http://bugs.gentoo.org/show_bug.cgi?id=200900
+
+2008-01-24  Roger  <roger@jikos.cz>
+
+	ICQ: Send authorization replies via SSI.
+
+	ICQ: Update sent capabilities (SSI).
+
+	ICQ: Parse additional SNAC TLVs (version)
+
+2008-01-23  Roger  <roger@jikos.cz>
+
+	ICQ: Update login packet sequence.
+
+2008-01-22  Roger  <roger@jikos.cz>
+
+	ICQ: Rebuild master group when adding/removing group.
+
+	ICQ: Show authorization awaiting info about contacts.
+
+	Preliminary support for ICQ contacts state reporting.
+
+	Respect tag IDs of non-contact SBL entries.
+
+2008-01-21  Roger  <roger@jikos.cz>
+
+	Improve ICQ SBL/SSI handling (user removal, disconnection etc.).
+
+2008-01-19  Roger  <roger@jikos.cz>
+
+	Bug #70 - Improve Jabber presence handling for multiple resources with and one contact.
+
+	Implement contacts and groups removal for ICQ SSI.
+
+2008-01-18  Roger  <roger@jikos.cz>
+
+	Port fix for bug #51 to new SSI infrastructure.
+
+2008-01-17  Roger  <roger@jikos.cz>
+
+	Fix disconnecting with ICQ caused by my previous patch.
+
+2008-01-15  Jayjay  <jayjay@twek.nl>
+
+	Corrected bugzilla.org typo in configure. Reverted part of patch of Apr2007. - in configure.ac, I made a typo of bugzilla.centerim.org, corrected that - I was mistaken by thinking this is incorrect: 'if (c = ....)' But C allows this and the code needed it. Now user details are fetched correctly again.
+
+2008-01-14  Roger  <roger@jikos.cz>
+
+	First part of SSI/SBL support for libicq2000. Implements adding of users and groups.
+
+2008-01-11  Roger  <roger@jikos.cz>
+
+	Bug #67 - don't loop in ruscase() infinitely.
+
+2008-01-09  Roger  <roger@jikos.cz>
+
+	Bug #51 - Use groups from previous packets when importing contacts from server.
+
+2008-01-04  Jayjay  <jayjay@twek.nl>
+
+	Rolled back wrong renames to lists.sourceforge.net.
+
+	Changed sourceforge bug-reporting project to our new bugzilla site.
+
+2008-01-02  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge commit 'origin/mob' into mob
+
+2008-01-01  Roger  <roger@jikos.cz>
+
+	Parse incoming auth. messages sent via SBL/SSI.
+
+2008-01-01  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Use family 0x0013 (Server Stored Information) to add users to list
+
+2007-12-31  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Added request types to rate classes
+
+	Added parsing of Rate limits.
+	Rate limits where completely skipped during parsing. Now they are saved in a
+	map so that in future we may use these to make some controls.
+
+	Adding interpretation and saving of server capabilities. Commented out sending CL at login.
+	Formerly the server capabilities were just ignored. Now they are saved in a
+	vector so that we may re-use them to prevent the sending of unrecognized
+	commands.
+	Also commented out the sending of the Contact List to server at login time
+	since it is not part of the login steps and the server responds with an error.
+
+2007-12-29  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Update translation files
+
+	Resolved a couple of bugs introduced by the latest commits
+
+	Updated translation line references
+
+	Added error handling and logging of error codes and messages
+
+	Fixed incomplete parsing of incoming packet
+
+	Added an error log when receiving error messages from server Corrected the parsing of SSI Rights Reply
+
+2007-12-26  Roger  <roger@jikos.cz>
+
+	Rename "Unicode" to "German UTF-8", as it is source encoding specific.
+
+	Don't un-idle-auto-away when screen is reattached (revert to auto-idle status via previous online).
+
+2007-12-23  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge branch 'bug24' into mob
+	Conflicts:
+
+		po/cs.po
+
+	Fix for bug #24
+
+2007-12-21  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Updated translation lines
+
+2007-12-20  Petr Písař  <petr.pisar@atlas.cz>
+
+	"Request an authorization" fix and other updates
+
+2007-12-19  Martin Nepivoda  <nepim9am@u-pl11.ms.mff.cuni.cz>
+
+	Bug #56 - better initialisation of editor.
+
+2007-12-16  Johannes Ott aka Oetzi  <centerim@informatiker2k3.de>
+
+	added new conversion rule iso-8859-15 to utf-8 named Unicode
+
+2007-12-14  Roger  <roger@jikos.cz>
+
+	Make valgrind happy.
+
+2007-12-13  David Riebenbauer  <davrieb@liegesta.at>
+
+	Merge branch 'mob' of git+ssh://davrieb2@repo.or.cz/srv/git/centerim into mob
+
+	add GPGME_LIBS to LIBS. (fixes Bug54)
+
+2007-12-13  Pavol Rusnak  <stick@gk2.sk>
+
+	Setting all test checks to form "x$string" = "xvalue"
+	http://bugzilla.centerim.org/show_bug.cgi?id=54#c9
+
+2007-12-11  David Riebenbauer  <davrieb@liegesta.at>
+
+	Re-add gnutls_record_send in connwrap.c
+	The fix to bug 40 removed one if-clause to much, which caused SSL
+	connections to time out. Re-adding the statement fixes that
+
+2007-12-10  Boris Petersen  <transacid@gmail.com>
+
+	Typo in GPGME check, Patch by Michael Tatarinov
+
+2007-12-08  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Added a missing format specifier
+
+	Started update of Italian translation
+
+	Corrected bugs introduced by previous commit
+
+	Fixed bug #40
+	Removed printf and fprintf from connwrap which messed the output of centerim
+
+	Fixed bug #52
+	Fixed a bug that prevented to insert a user in your contact list if you had no groups in your list, MSN protocol. Also fixed a bug when removing users that where in no group which incurred in error 224
+
+2007-12-08  Mehturt  <mehturt@gmail.com>
+
+	Fixed bug #47
+	Fixed bug which made centerim crash when built with libotr support. This is a quick workaround until we refactor some code
+
+2007-12-08  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Updated translation references
+
+2007-12-07  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Displayed CXXFLAGS instead of CPPFLAGS at the end of the configure
+
+2007-12-03  Pavol Rusnak  <stick@gk2.sk>
+
+	Allow connecting with more instances of centerim to jabber server by adding random hex number after "/centerim" resource identifier. (At least that is the way libpurple does ...)
+
+2007-11-30  David Riebenbauer  <davrieb@liegesta.at>
+
+	Merge branch 'master' into mob
+
+	replace the libcurl tests with libcurl.m4
+
+	Add m4 macros to check for libgnutls to the repository
+	libssl users who check out git shouldn't need libgnutls
+
+	Change pgpme.m4 to use the old commandline option and help string
+
+	replace configure check for gpgme with the m4 provided by gpgme
+	This also has the advantage that we now check for the correct minimum
+	gpgme version.
+
+2007-11-29  David Riebenbauer  <davrieb@liegesta.at>
+
+	replace occurences of VERSION with centerim::version
+	This patch adds a new file git-version.cc, which intializes static variable
+	centerim::version.
+
+	This helps in cutting down the compile time penalty of generating the
+	version string on every make run. Instead of every file that uses config.h
+	only one file has to be recompiled. The rest of the work is done by the
+	linker.
+
+	Add an autogenerated header git_version.h
+	This information is partly redundant, as config.h contains the version
+	information too.  But git_version.h gets updated on every make run in src. Care
+	is taken to only touch the file when it's version number differs from the one
+	generated by git-version-gen.
+
+2007-11-25  David Riebenbauer  <davrieb@liegesta.at>
+
+	remove superfluous include of string.h
+	seems this was produced by a mis-merge
+
+	Merge branch 'master' into mob
+
+2007-11-25  Roger  <roger@jikos.cz>
+
+	Bug #39: Ack SBL to get status notifications
+
+	Bug #39: Ack SBL to get status notifications
+
+2007-11-24  David Riebenbauer  <davrieb@liegesta.at>
+
+	Merge branch 'master' of git+ssh://davrieb2@repo.or.cz/srv/git/centerim into mob
+
+2007-11-23  Iulian Ciorascu  <iulica@box.co.uk>
+
+	custom contact sorting patch
+	You'll find attached a patch for custom contact sorting.
+	Currently (and the default value in the patch) they are sorted by status
+	and activity.
+	Other possibilities are:
+	by status and nickname
+	by activity
+	by nickname
+
+	chat out keybinding patch
+	Here's a small patch to a direct keybinding from a chat to the contact
+	list. I put it to Ctrl-v keybinding by default.
+
+2007-11-23  David Riebenbauer  <davrieb@liegesta.at>
+
+	Merge branch 'da_master' into mob
+	Conflicts:
+
+		libicq2000/src/ICQ.cpp
+		libicq2000/src/socket.cpp
+		libmsn/msn/connection.cpp
+		libmsn/msn/filetransfer.cpp
+		libmsn/msn/notificationserver.cpp
+		libmsn/msn/util.cpp
+
+	Merge branch 'master' into mob
+
+	add vims swp files to gitignore
+
+	add various includes of cstring to fix compilation with gcc-4.3
+
+	Merge branch 'master' into da_master
+
+2007-11-23  Pavol Rusnak  <stick@gk2.sk>
+
+	comparison with string literal
+
+2007-11-19  Boris Petersen  <transacid@gmail.com>
+
+	adding missing includes; trivial fix - comparison with string literal. by Pavol Rusnak
+
+2007-11-18  David Riebenbauer  <davrieb@liegesta.at>
+
+	little TODO update
+
+2007-11-13  Stephan Schulz  <ss.c@gmx.net>
+
+	Not only change the terminals window title but also the icon name
+	I found it annoying that (at least on my system), centerims title changes
+	were only visible in the title of the xterm window itself but not in the
+	taskbar. It has nothing todo with the xterm settings as midnight
+	commanders title changes appeared in the taskbar (I'm speaking of a gnome
+	desktop right now). I traced the source for title changing function und
+	changed the following line:
+	icqface.cc:3648 in tarball centerim-20071022.tar.gz
+	from: cout << "\x1b]1;\x07\x1b]2;" << [cutted]
+	to: cout << "\x1b]1;\x07\x1b]0;" << [cutted]
+
+	The change from 2 to 0 has the effect of not only changing the window
+	title but also the icon name.
+
+2007-11-12  David Riebenbauer  <davrieb@liegesta.at>
+
+	add .deps to .gitignore
+	also fix the entry for /src/centerim to only be used from the git tree's root
+
+	commit newly generated po files
+
+	remove AM_MAINTAINER_MODE
+	Maintainer mode has annoyed me more and more over time. I forget to pass
+	--enable-maintainer-mode to configure far too often. So I am disabling it now.
+
+	I think any problems this might cause, an be solved by either unpacking the
+	damn tarball again or installing autotools.
+
+2007-11-11  David Riebenbauer  <davrieb@liegesta.at>
+
+	Generate the version info from git
+	Until now the version info was set from configure.ac. From this commit on it is
+	generated by info from git and a script I shamelessly lend from the GNU
+	coreutils source.
+
+	Changes in the version number should be done by adding a signed tag in git.
+
+2007-11-09  Roger  <roger@jikos.cz>
+
+	SF request #1811713: Add nickname to event term title notification
+
+2007-11-05  Boris Petersen  <transacid@gmail.com>
+
+	adding Chinese translation and updated Taiwanese translation by Ying-Chieh Liao
+
+2007-11-03  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git#mob
+
+	Changed the optional build of libotr
+
+2007-10-28  Boris Petersen  <transacid@gmail.com>
+
+	minor changes in the german translation again.
+
+2007-10-27  Chris Donoghue  <cdonoghu@gmail.com>
+
+	Segfaults instead of connecting to Yahoo! on AMD64 arch
+
+2007-10-26  Roger  <roger@jikos.cz>
+
+	ICQ: Handle incoming UCS-2BE messages.
+
+2007-10-25  Roger  <roger@jikos.cz>
+
+	Fix config dialogue mismatch for captcha/ask quit items
+
+2007-10-25  Petr Písař  <petr.pisar@atlas.cz>
+
+	Czech translation update (mainly about OTR)
+
+	Revert "Czech translation update (mainly about OTR)"
+	This reverts commit b0664c09c4400361ed5b077896b5bd97b4640caa.
+
+	Czech translation update (mainly about OTR)
+
+2007-10-22  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git#mob
+
+2007-10-22  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Changed client version reported to server
+
+	Ignored NOT messages by notification Server in libmsn
+
+2007-10-20  Stéphane Bisinger  <sb@tatooine.(none)>
+
+	Move getmd5 back in abstracthook, made it static and public so that it may be used by HTTPClient Substituted sizeof() with a more readable macro
+
+2007-10-16  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Fixed indentation
+
+2007-10-13  Boris Petersen  <transacid@gmail.com>
+
+	minor changes in the german translation.
+
+2007-10-10  Ranyus  <ranyus@gmail.com>
+
+	BUG # 1760159: Commented fprintf of message "getsockopt error"
+
+2007-10-09  Roger  <roger@jikos.cz>
+
+	Notify if stored IP isn't current
+
+2007-10-06  Iulian Ciorascu  <iulica@box.co.uk>
+
+	fixed library inclusion order
+
+2007-10-06  Sascha  <FunkyFish@gmx.net>
+
+	updated the ChangeLog
+
+2007-10-04  Andreas Krennmair  <ak@synflood.at>
+
+	numberous snprintf cleanups; removed code duplication
+
+2007-10-04  aavelar  <aavelar@cofradia.org>
+
+	Feature enhancement, adds configurable dialog window that asks before quit
+
+	Another lj functionality enhancement
+
+	Adds support for lj tags, functionality
+
+	Security patch to fix the CVE-2007-3713 report
+
+	Just removes some unnecessary code on libyahoo2
+
+2007-10-03  Boris Petersen  <transacid@gmail.com>
+
+	made libotr support optional, because it's still buggy
+
+2007-10-02  Andreas Krennmair  <ak@synflood.at>
+
+	add missing ifdef's for libotr patch.
+
+2007-08-24  Jörg Böhnel  <micirio@gmx.net>
+
+	Adding --with-libotr to configure; using _(...) for translateable strings
+
+2007-08-20  Anibal Avelar  <aavelar@cofradia.org>
+
+	Delete to clean the source. Unused file
+
+	Updating with firetalk library coming from naim project. This fixed many bugs relates with AIM and IRC protocols
+
+	Patch to fix a FTBFS with GCC 4.3, reported by the Debian BTS
+
+2007-08-19  Jörg Böhnel  <micirio@gmx.net>
+
+	Added OTR support for jabber - you need to have libotr installed.
+
+2007-08-17  Boris Petersen  <transacid@gmail.com>
+
+	moved cicqconv to cimconv. Wasn't aware that you had to do it with cg mv
+
+	Changed cicqconv to cimconv globaly update, sorry for the inconvenience
+
+	Changed cicqconv to cimconv globaly
+
+2007-08-16  Roger  <roger@jikos.cz>
+
+	Fix --bind: unrecognized re-bind() on reconnect.
+
+2007-08-10  Roger  <roger@jikos.cz>
+
+	Change status description handling for jabber and undo asking for message for Online/FFC
+
+2007-08-09  Michał (Kazik) Kazior  <kazikcz@gmail.com>
+
+	Away messages fix (jabber) I think, that most of today's im protocols support setting a description/away message for available/freeforchat statuses.
+	Also, jabber may be not supporting saving a description/away message for a contanct whose offline, but some of it's transports (Gadu-Gadu for example) do.
+
+2007-08-02  Anibal Avelar  <aavelar@cofradia.org>
+
+	Support for lzo2 for gnutls (check for lzo1 and lzo2)
+
+2007-07-24  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Recoded russian messages to UTF-8
+
+	Corrected ordering of contacts by status by placing out for lunch contacts at the bottom
+
+2007-07-23  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Updated MSNP to version 9
+
+2007-07-21  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git#mob
+
+	Changed Content encoding to utf8
+
+	Added a couple of frees
+
+2007-07-13  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Added a couple of frees to prevent memory leaking
+
+2007-07-10  Roger  <roger@jikos.cz>
+
+	Fixes for patch 4187752098e87ce0e8bfeffa9e6e1f6030549ffa (cursor position after merge, wrapping whitespace...).
+
+2007-07-09  Boris Petersen  <transacid@gmail.com>
+
+	Minor changes to german translation. Spaces basically
+
+2007-07-07  Roger  <roger@jikos.cz>
+
+	Fix for sf.net bug #1710218. Adds "paragraphs", wrapping and merging neighbour lines on deletes and inserts.
+
+2007-07-01  Roger  <roger@jikos.cz>
+
+	Fix missing jabber group conversions - bug #1740881
+
+2007-06-30  Boris Petersen  <transacid@gmail.com>
+
+	wrong coded blanks in German translation updated
+
+2007-06-26  Roger  <roger@jikos.cz>
+
+	Discover services on connect. Find conference and user-search ones.
+
+	Find dialogue fixes, presence error handling.
+
+2007-06-25  Roger  <roger@jikos.cz>
+
+	Initialize services iterator when reopening the Join dialogue. (fixes crash)
+
+	Fix use of unitialized pointer, usually just skipping config reloads.
+
+2007-06-25  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Corrected some errors related to the format specifiers
+
+	Corrected other format specifier errors
+
+	Added missing placeholders in translated string
+
+	Recoded German translation to UTF-8, otherwise it would prevent centerim from compiling
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git#mob
+
+2007-06-23  Boris Petersen  <transacid@gmail.com>
+
+	German translation update
+
+2007-06-23  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Added the man page for centerim to the Makefile so that it is installed. Updated version number
+
+2007-06-23  Dmitry E. Oboukhov  <dimka@avanto.org>
+
+	In case when user's coding and irc's coding do not match each other messages on user's logout and channels' subjets are converted incorrectly.
+	This patch will cure that defect.
+
+2007-06-22  Roger  <roger@jikos.cz>
+
+	Changes to JID handling, avoid adding random hostnames and duplicating contacts and display at least hostname for transports.
+
+2007-06-21  Stephane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge with locmob
+
+2007-06-21  Andrey J. Melnikoff  <temnota@kmv.ru>
+
+	fixed building when using separate build directories.
+
+2007-06-21  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Fix for bug #1724170: removed carriage returns from the string to be signed in the jabber status
+
+	Added an Out for Lunch status
+
+	Changed the mapping of the not available state on MSN
+	In the MSN protocol the "Not Available" state of centerim was mapped to
+	"Out for Lunch". Now it is mapped to Away.
+
+2007-06-18  Petr Písař  <petr.pisar@atlas.cz>
+
+	Czech translation update
+
+2007-06-14  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Fixed bug #1707708 which showed error 501 in the log console when adding contact in Jabber connected to GTalk.
+	Error 501 is a Feature Not Implemented error code and it should not be
+	reported to the user. It informs the client that the operation it attempted
+	is not supported by the server.
+
+	Fixed bug #1734670: when logging off of MSN it did not hide the contacts that were online
+	Some calls to the functions to hide the contacts were missing during the
+	logout process. I added them to the hook so that the contacts are now
+	hidden on signout.
+
+2007-06-13  Anibal Avelar  <debianmx@gmail.com>
+
+	Fixed support for GnuTLS for Jabber and GaduGadu protocols
+
+2007-06-13  Andrey J. Melnikoff  <temnota@kmv.ru>
+
+	This patch simple move setting xterm title, avoid changing title when auth request dropped due to antispam settings.
+
+2007-06-13  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Revert "This patch simple move setting xterm title, avoid changing title when auth"
+	This reverts commit 1a55b206ef400415708ddb5696e7e141581236ba.
+
+	This patch simple move setting xterm title, avoid changing title when auth request dropped due to antispam settings.
+
+2007-06-13  Andrey J. Melnikoff  <temnota@kmv.ru>
+
+	This patch add spk6 sound - simple bell. There is at least two stuppid xterm terminal emulator (xfce-terminal and gnome-terminal) which don't filter timer tunine escape sequences.
+
+2007-06-13  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Incremented version number
+
+2007-06-12  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Fixed bug #1719847 which prevented a user from logging in msn if the contact list is empty.
+	The libmsn library made the wrong assumption that after the group list
+	there is always a user list, which is not true if there are no users. This
+	prevented from setting the correct variable used to check if list
+	synchronization is complete
+
+2007-05-06  z35 [Stephen Stegall]  <z35_11@yahoo.com>
+
+	Fixed a couple bugs in chat resizing
+
+2007-05-04  z35 [Stephen Stegall]  <z35_11@yahoo.com>
+
+	Chat size is now limited by the MinPanelHeight Value, though there is now a bug for when you are at the limits and one resizes the panel, it exits instead of staying in the chat
+
+2007-05-03  z35 [Stephen Stegall]  <z35_11@yahoo.com>
+
+	Chat panel fixes:    redraws chat panel when the history panel is resized    keeps the editor the same size on resize events Todo:    redraw when the window is resized    change the .1 and .9 to MinPanelHeight based values
+
+2007-05-02  z35 [Stephen Stegall]  <z35_11@yahoo.com>
+
+	Fixed the history updating when resizing various panels
+
+2007-04-26  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Git wants to commit nothing, so here it goes :S
+
+2007-04-26  J. Koster  <koster@server.nocturnus>
+
+	Color contact by status bug solved In the config options, when Color contacts according to: status was selected, every contact displayed a short protocol name between the brackets [i] instead of the status [o]. This patch makes it more consistent, but the disadvantage is that in the color-by-status mode, you can't see the protocol used by the contact.
+	Solves bug: [1707935] wrong status of buddies in contact list
+	http://sourceforge.net/tracker/index.php?func=detail&aid=1707935&group_id=190480&atid=933528
+
+2007-04-26  Jayjay  <jayjay@twek.nl>
+
+	Clean up code, remove some warnings I walked through the code using "CXXFLAGS="-pedantic -Wall ./configure" and removed some warnings. Mostly, just code corrections.CG: -----------------------------------------------------------------------
+
+2007-04-24  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Reinserted the check for openssl on the value specified by the user
+
+	Resolved a conflict
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git#mob
+
+	Partly fixed the issue about closing panels. Now the minimum size for a panel is 4.
+	Also fixed automatic detection of the size if the lines on screen are too
+	small. Don't know if ti works as it should, though
+
+	Changed the function mktemp to the safer mkstemp
+
+2007-04-22  Mark Pustjens  <mark@unkie.org>
+
+	Alows you to disable the ICQ plugin. Yes, that means it is now possible to build centerim withouth any plugin enabled.
+
+2007-04-22  Jayjay  <jayjay@twek.nl>
+
+	Renamed old information to reflect current project status. More little stuff. I searched for several old information, such as web addresses and mail addresses and replaced it. I also made some minor changes to several files. Here is a summary: - Renamed every occurrence of Konst's old email address to the current one: konst@konst.org.ua to k@thekonst.net - bug report location renamed in icqconf.cc to http://sourceforge.net/projects/centerim - /po files: CenterICQ List <cicq@mailman.linuxpl.org> renamed to CenterIM SourceForge project; http://sourceforge.net/projects/centerim - /po files: renamed every centericq-bugs@konst.org.ua to http://sourceforge.net/projects/centerim - Updated .gitignore: added mkinstalldirs, changed /src/centericq to /src/centerim - Updated po/.gitignore: centericq.pot to centerim.pot - Changed the --help: added program name and version. Added status options at --statusCG: -----------------------------------------------------------------------
+
+2007-04-21  Mark Pustjens  <mark@unkie.org>
+
+	Cleaned up some debug messages which got into the main branch.
+
+2007-04-20  Jayjay  <jayjay@twek.nl>
+
+	Renamed CICQ to CenterIM at various locations etc - Renamed konst.org.ua to thekonst.net - Fixed some typos: .CenterIM to .centerim - Changed the configure.ac script to show warnings (-Wall) - removed the cicqsync script, since we don't use CVS - mentioned our current developers mailing list (do I break the PO files now?)
+
+2007-04-18  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Cleaned the checks for OpenSSL
+	The configure scripts in the subdirectories (connwrap and libgadu) tested
+	again to find OpenSSL. The code has been cleaned as to leave the checks
+	only in the main configure script.
+
+	Cleaned the checks for OpenSSL
+	The configure scripts in the subdirectories (connwrap and libgadu) tested
+	again to find OpenSSL. The code has been cleaned as to leave the checks
+	only in the main configure script.
+
+2007-04-17  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Remove useless dummy file: m4 directory is created by the autogen.sh script
+
+	Corrected some entries
+
+2007-04-17  Mark Pustjens  <mark@unkie.org>
+
+	Modified configure.ac to make sure that if ssl is enabled automatically libjabber and others are configured with the flag enabled.
+
+2007-04-16  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Improved SSL checking. Enabled SSL by default
+
+	Cleaned SSL detection
+
+	Inserted a couple of fixes from the master branch.
+	Corrected a centericq.h in centerim.h
+	Fixed a bug that prevented from changing the browser.
+
+	Added a check for lzo
+	The configure script was not checking for lzo when ssl support is enabled.
+	I added a check for the library
+
+	Fixed the checking for gpgme
+	Detecting gpgme was broken because it always defined HAVE_GPGME, thus
+	making it mandatory. Now HAVE_GPGME will only be defined if gpgme is
+	available
+
+2007-04-16  Mark Pustjens  <mark@unkie.org>
+
+	This adds automatic testing for openssl Needed for the ssl patch to function properly in more situations
+
+	Changed the default for --with-ssl to auto detect.
+	Without ssl enabled no GPG support will be compiled into libjabber, which
+	breaks Google Talk support.
+
+	When ssl is disabled the configure script will warn the user about this
+	fact.
+
+	This patch needs testing to verify that it works for everyone.
+
+2007-04-15  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Added a check for lzo
+	The configure script was not checking for lzo when ssl support is enabled.
+	I added a check for the library
+
+	Fixed the checking for gpgme
+	Detecting gpgme was broken because it always defined HAVE_GPGME, thus
+	making it mandatory. Now HAVE_GPGME will only be defined if gpgme is
+	available
+
+2007-04-14  Stephane Bisinger  <sb@storm.(none)>
+
+	Corrected a centericq.h in a centerim.h
+
+	Revert "Port/rewrite of the captcha patch for centericq [1]"
+	This reverts commit c14521f605ba4c854a989a3f31c045262783da10.
+
+	Revert "Fix to src/Makefile.am for the captcha patch"
+	This reverts commit 16a5ccc2d6a0a97cbd3b9c2c96a2b8269bc06573.
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git
+
+2007-04-04  Pavol Rusnak  <prusnak@suse.cz>
+
+	Fixed GCC warnings/errors
+
+2007-04-04  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Fixed issue #1693244
+
+2007-04-03  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Corrected a bug that prevented the changing of the browser from the options
+
+	Merge with master Corrected a possible buffer owerflow in src/centerim.cc Improved the checking for .centerim and .centericq folders in src/icqconf.cc
+
+2007-04-02  Mark Pustjens  <mark@unkie.org>
+
+	Fix to src/Makefile.am for the captcha patch
+
+	Merge with git+ssh://mob@repo.or.cz/srv/git/centerim.git#mob
+
+	Port/rewrite of the captcha patch for centericq [1]
+	[1] http://forum.centericq.de/viewtopic.php?t=793
+
+2007-04-01  Jayjay  <jayjay@twek.nl>
+
+	Updated several documentation files to reflect current status.
+
+2007-03-28  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Reverted status log messages to something a little more verbose.
+
+	Made the package compile against ncursesw when available
+
+2007-03-28  Pavol Rusnak  <prusnak@suse.cz>
+
+2007-03-27  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	reduced the text when changing status, according to Feature Request [ 1688383 ]. This text should be made configurable.
+
+2007-03-25  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Modified Makefile to use centerim as filename
+
+2007-03-24  Mark Pustjens  <mark@unkie.org>
+
+	Fixed the drop icq requests issues, and fixed the panel resizing.
+
+2007-03-23  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git
+
+2007-03-22  Oliver Hohlfeld  <centerim@ohohlfeld.com>
+
+	I started changing some names from CENTERICQ to CENTERIM yesterday. So far I only pushed icqface.cc into the repository. This change will modify the most visible name to CENTERIM ;-)
+
+2007-03-22  David Riebenbauer  <davrieb@htu.tugraz.at>
+
+	quick and dirty hack to still support ~/.centericq/ as basedir besides ~/.centerim/
+
+2007-03-21  Mark Pustjens  <mark@unkie.org>
+
+	Added a dummy file to make sure the m4 directory exists. If it is not there, it can cause problems running autogen.sh (it does for me)
+
+	Changed modified: + Option to drop all icq authorisation requests, configurable using the   configuration dialog under anti-spam options * You can now change the width/height of the dialog windows using { } [ and * ]. This is not yet pefect as no redraw is done when a size is changed
+
+2007-03-21  Oliver Hohlfeld  <oliver@oliver.localdomain>
+
+	Partial history loading refinement Author: Oliver Hohlfeld Email: centerim@ohohlfeld.com
+
+2007-03-21  Thomas Graf  <post@thomas-graf.de>
+
+	Some missing renames... I hope it compiles now...
+
+	Some renaming
+
+2007-03-21  Julien LEMOINE  <speedblue@debian.org>
+
+	Fix potential segfault (output of strstr is not checked)
+
+2007-03-21  Julien Lemoine  <speedblue@debian.org>
+
+	Fix buffer overflow in livejournal support For details : http://lists.grok.org.uk/pipermail/full-disclosure/2007-January/051663.html
+
+2007-03-21  Oliver Hohlfeld  <oliver@oliver.localdomain>
+
+	Partial history loading in chat mode - cleanup II
+
+	Partial history loading in chat mode - cleanup
+
+	Partial history loading in chat mode
+
+2007-03-20  Thomas Graf  <post@thomas-graf.de>
+
+	Some missing renames... I hope it compiles now...
+
+2007-03-20  Thomas Graf  <thomas@xengeneral.(none)>
+
+	Some renaming
+
+2007-03-20  Oliver Hohlfeld  <oliver@oliver.localdomain>
+
+2007-03-19  Oliver Hohlfeld  <oliver@oliver.localdomain>
+
+2007-03-16  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git
+
+	Applied Hakan's patch
+
+2007-03-16  David Riebenbauer  <davrieb@htu.tugraz.at>
+
+	Merge with /home/davrieb/git-wc/centerim
+
+	Merge with /home/davrieb/git-wc/centerim
+	commit 70742bd896fdf89a5866b61bf85893d794b4244b
+	Author: Håkan Kvist <hagar@df.lth.se>
+	Date:   Fri Mar 9 22:02:29 2007 +0100
+
+	    patch, getting rid of some compiler errors
+
+	    This patch is just for decreasing the number of gcc warnings.
+
+	        Changed initialization order for some classes,
+	        variables should be initializated in the same order
+	        as they are defined.
+
+	        Changed some destructors to be virtual, since the classes
+	        contained some functions that are defined as virtual.
+
+	        Some unused variables removed.
+
+	        Some functions that was declared as having a return value
+	        did not return a value.
+
+	        Dumping the output (stdin and stdout) of make before my changes
+	        generated a file with 4433 lines.
+
+	        After these changes the log file with 2329 lines.
+
+	        Flags used when compiling was:
+	        CXXFLAGS="-O0 -pedantic -Wall"
+	        CFLAGS="-O0 -pedantic -Wall"
+
+	commit 893475d4cb775a38771354686ff5630af3725c3e
+	Merge: 08a16b1ac65408bfc658ab18ba03c34005b70cd6 32c5d537b7a6d999782a31027d1c6753c9264a7b
+	Author: David Riebenbauer <davrieb@htu.tugraz.at>
+	Date:   Thu Mar 15 20:11:34 2007 +0100
+
+	    Merge with git://repo.or.cz/centerim.git
+
+	commit 32c5d537b7a6d999782a31027d1c6753c9264a7b
+	Author: Stéphane Bisinger <stephane.bisinger@gmail.com>
+	Date:   Tue Mar 13 19:10:06 2007 +0000
+
+	    Made link flags variable depending on selected protocols, eliminated some
+	    warnings
+
+	commit 08a16b1ac65408bfc658ab18ba03c34005b70cd6
+	Author: David Riebenbauer <davrieb@sbox.tugraz.at>
+	Date:   Tue Mar 13 16:59:54 2007 +0100
+
+	    configure.ac: compare with test rather than without
+
+	commit 827ea51d89fa903afc4f394803bfd35ae03bf872
+	Author: David Riebenbauer <davrieb@sbox.tugraz.at>
+	Date:   Tue Mar 13 16:42:55 2007 +0100
+
+	    only display message about checking for gpgme if we really do
+	    don't fail if no gpgme-config is found
+
+	commit 56d56722693aba24c966b08b02edacfe193c4b06
+	Author: David Riebenbauer <davrieb@sbox.tugraz.at>
+	Date:   Tue Mar 13 15:32:27 2007 +0100
+
+	    make it possible to disable gpgme
+
+	commit d3cf844d0a883aecb9ac6cefc0ba75e31e3c6a9f
+	Author: Stéphane Bisinger <stephane.bisinger@gmail.com>
+	Date:   Mon Mar 12 23:45:32 2007 +0000
+
+	    Corrected order of subdirs which prevented a correct build
+
+	commit f762c548b817eff7b53c1b6a6071b17b14c8586f
+	Author: Stéphane Bisinger <stephane.bisinger@gmail.com>
+	Date:   Mon Mar 12 23:12:53 2007 +0000
+
+	    Reverted some changes
+
+	commit ffe847a9ebb5dfe981680fe7a8d9e5cc7f127059
+	Author: Stéphane Bisinger <stephane.bisinger@gmail.com>
+	Date:   Mon Mar 12 22:35:39 2007 +0000
+
+	    Made build of subdirectories conditional
+
+2007-03-16  Håkan Kvist  <hagar@df.lth.se>
+
+	patch, getting rid of some compiler errors
+	This patch is just for decreasing the number of gcc warnings.
+
+	    Changed initialization order for some classes,
+	    variables should be initializated in the same order
+	    as they are defined.
+
+	    Changed some destructors to be virtual, since the classes
+	    contained some functions that are defined as virtual.
+
+	    Some unused variables removed.
+
+	    Some functions that was declared as having a return value
+	    did not return a value.
+
+	    Dumping the output (stdin and stdout) of make before my changes
+	    generated a file with 4433 lines.
+
+	    After these changes the log file with 2329 lines.
+
+	    Flags used when compiling was:
+	    CXXFLAGS="-O0 -pedantic -Wall"
+	    CFLAGS="-O0 -pedantic -Wall"
+
+2007-03-15  David Riebenbauer  <davrieb@htu.tugraz.at>
+
+	Merge with git://repo.or.cz/centerim.git
+
+2007-03-13  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Added header files
+
+	First attempt to correct visualization of UTF-8 characters
+
+	Made link flags variable depending on selected protocols, eliminated some warnings
+
+2007-03-13  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	configure.ac: compare with test rather than without
+
+	only display message about checking for gpgme if we really do don't fail if no gpgme-config is found
+
+	make it possible to disable gpgme
+
+2007-03-13  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Corrected order of subdirs which prevented a correct build
+
+	Reverted some changes
+
+2007-03-12  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Made build of subdirectories conditional
+
+2007-03-09  centerim-dev  <centerim@jonatan.localdomain>
+
+	Changed initialization order for some classes, variables should be initializated in the same order as they are defined.
+	Changed some destructors to be virtual, since the classes
+	contained some functions that are defined as virtual.
+
+	Some unused variables removed.
+
+	Some functions that was declared as having a return value
+	did not return a value.
+
+	Dumping the output (stdin and stdout) of make before my changes
+	generated a file with 4433 lines.
+
+	After these changes the log file with 2329 lines.
+
+	Flags used when compiling was:
+	CXXFLAGS="-O0 -pedantic -Wall"
+	CFLAGS="-O0 -pedantic -Wall"
+
+2007-03-02  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	change the project and executable name to centerim
+
+2007-02-25  Håkan Kvist  <hagar@df.lth.se>
+
+	Compiler warnings when compiling centericq
+	Hello
+
+	I think that centericq would benefit of getting the number of compiler
+	warnings minimized when compiling with the options -Wall -pedantic
+	(with gcc/g++).
+
+	This would hopefully improve the quality of the code, and hopefully
+	get rid of some memory leaks.
+
+	Enabling these today will print out ALOT of thingies that gcc could be
+	improved.
+
+	I have created a small patch wich makes it possible to compile with
+	the -pedantic flag (attatched).
+
+	regards
+	Håkan
+
+	Patch attempting to take care of some memory errors
+	David found an error in my patch (you shouldn't do delete on a
+	void*), and have allready reverted that particular change in the repositry.
+
+	Attatched patch registers a callback for objects of type icqcontact,
+	so that elemnts of this type gets properly deallocated (wtih delete).
+
+2007-02-25  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	Revert the change to delete in this one place. It triggers a compiler warning and doesn't seem to make a difference anyway.
+
+	add dummy.c to sources to avoid failure when attempting to build without libmsn
+
+2007-02-24  Håkan Kvist  <hagar@df.lth.se>
+
+	Checked couplig of malloc with free, new with delete and new[] with delete[]
+
+2007-02-23  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Fixed failure when build with aim and irc disabled. Updated the md5 library
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git
+
+2007-02-23  Andreas Niederl  <rico32@gmx.net>
+
+	Patched make dist, not it works
+
+2007-02-21  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	remove EXTRA_DIST from kkconsui/Makefile.am this should stop make dist from failing
+
+2007-02-21  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Merge with git+ssh://sb@repo.or.cz/srv/git/centerim.git
+
+2007-02-21  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	make git ignore "some" generated files
+
+	rename all configure.in to configure.ac This avoids some odditties on Debian which chooses the autoconf version by looking at each filename
+
+2007-02-21  Andreas Niederl  <rico32@gmx.net>
+
+	Fix build problems with openssl. I found the source of my ssl-related problems: --with-openssl had 'no' as default value in the top configure.ac, so --with-ssl chose gnutls but the other configure scripts in connwrap and libgadu wanted to build with openssl.
+	I've attached a patch which fixes this by removing the default 'no' to
+	with-openssl.
+
+	Additional changes:
+	 * --with-gpgme typo
+	 * reordered ssl output
+	 * with_ssl=no as default for connwrap and libgadu, so consistent
+	   behaviour is guaranteed
+	 * unconditional AC_PROG_CXX in libgadu, libjabber and libyahoo2 for
+	   fixing the conditional errors when built without one of those libs
+
+2007-02-19  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Updated help strings, corrected a spelling error
+
+2007-02-17  Stéphane Bisinger  <stephane.bisinger@gmail.com>
+
+	Updated kkstrtext/configure.in to newer syntax. Moved it to kkstrtext/configure.ac . Added a line that copies config.rpath from the main directory in kkstrtext, needed for the AM_ICONV_LINK macro
+
+2007-02-15  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	update the changelog with my changes
+
+	commit po files with updated line numbers
+
+	add md5.h to the distributed files
+
+	use cd and cd - instead of pushd and popd pushd and popd don't seem to be available in all shells
+
+2007-02-14  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	don't distribute mkinstalldirs any more b ecause a current automake doesn't need it any more
+
+2007-02-13  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	bump version to 4.22.0
+
+	Merge branch 'master' of /home/davrieb/src/centericq/git/centericq
+
+	Merge with external-patches
+
+	seconds_in_timestamps by Sebastien Delafond <seb@debian.org>
+	Add user setting to display timestamps up to the second.
+
+2007-02-12  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	jabber_503.dpatch.dpatch by Charles Plessy <charles-debian-nospam@plessy.org>
+	copied from http://forum.centericq.de/viewtopic.php?p=2295&sid=74c3dc27a23192ccc07a8af8b0a4a758
+	which says "While connecting to server, centericq requests agents list,
+	but due to this feature is deprected, recieves 503 error, thus breaking
+	connection. "
+
+2006-12-31  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	apply patch to fix segv in "MSG" recv in msn
+
+2006-12-28  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	applied patch from <temnota@kmv.ru> to fix segv in libjabber when registering new account
+
+	fix buffer overflow in VGETSTRING macro by replacing vsprintf by vsnprintf
+
+	apply patch from "Steve Langasek" <vorlon@debian.org> to fix remotely segfaultable DOS
+
+	apply patch from "Steve Langasek" <vorlon@debian.org> to fix memory handling clean-ups
+
+	Use sys/statfs.h instead of sys/mount.h on Hurd
+
+	Fix endianess errors (may allow remote attackers to cause a denial of service), CAN-2005-2448
+	Fix memory alignment errors (may allows remote attackers to cause a denial
+	of service (bus error) on certain architectures such as SPARC via an
+	incoming message, CAN-2005-2370
+
+	Fix Multiple integer signedness errors (may allow remote attackers to cause
+	a denial of service or execute arbitrary code.), CAN-2005-2369
+
+	apply patch to fix search/add segfault on amd64
+
+	apply patch from Andreas Jochens <aj@andaco.de> to fix amd64 buid problem
+
+	replace 'esc' msg by 'esc-esc'
+
+	Fix typo in --help command
+
+2006-12-28  Julien LEMOINE  <speedblue@debian.org>
+
+	Allow user to select HTTP browser
+
+2006-12-28  Romain FRANCOIS  <romain@orebokech.com>
+
+	add more emacs bindings (c-u, c-k, ...)
+
+2006-12-28  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	This patch makes centericq not close the connection when it receives a failure unrelated to authentication.
+
+	show info about the protocol in the contact list.
+	show the protocol as in
+	  [p] nickname
+	instead of the status
+	  [s] nickname
+
+	apply centericq-libmsn.patch which updates the included version of libmsn
+
+2006-12-26  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	Merge with external-patches
+
+2006-12-24  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	Merge with external-patches
+
+2006-12-23  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	some fixes to make autotools work
+
+2006-12-16  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	fixes some automake related files
+	new configure.ac
+	rm configure.in
+	add an autogen.sh
+
+	Patch © 2006 Mark Pustjens <mark@unkie.org>
+
+	remove another round of autogenerated files
+
+	remoce superfluous Makefile.in
+
+	remove some autogenerated files from libmsn
+
+2006-12-15  David Riebenbauer  <davrieb@sbox.tugraz.at>
+
+	Merge with /home/davrieb/src/centericq/git/libyahoo2
+
+	prepare merge with centericq
+
+	Merge with /home/davrieb/src/centericq/git/libmsn
+
+	Prepare merge with centericq
+
+	Merge with /home/davrieb/src/centericq/git/libjabber
+
+	prepare to merge with centericq
+
+2006-12-15  David Riebenbauer  <davrieb@androgyn.(none)>
+
+	Merge with /home/davrieb/src/centericq/git/libicq2000/
+
+	prepare merge with centericq
+
+	Merge with /home/davrieb/src/centericq/git/libgadu
+
+	prepare merge with centericq
+
+	Merge with /home/davrieb/src/centericq/git/kksystr
+
+	prepare to merge with centericq
+
+2006-12-14  David Riebenbauer  <davrieb@androgyn.(none)>
+
+	Merge with /home/davrieb/src/centericq/git/kkstrtext
+
+	prepare merge to centericq
+
+	Merge with /home/davrieb/src/centericq/git/kkconsui
+
+	prepare merge with centericq
+
+	Merge with /home/davrieb/src/centericq/git/firetalk
+
+	prepare merge with centericq
+
+	Merge with /home/davrieb/src/centericq/git/connwrap
+
+	prepare merge
+	mv all files to the connwrap dir
+
+2006-01-02  konst  <konst>
+
+	amd64 jab auth patch
+
+2005-09-02  konst  <konst>
+
+	*** empty log message ***
+
+2005-08-31  konst  <konst>
+
+	""
+
+2005-08-29  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+2005-08-28  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2005-08-26  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2005-08-25  konst  <konst>
+
+	logs in after the protocol change
+
+2005-07-08  konst  <konst>
+
+	*** empty log message ***
+
+2005-05-23  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2005-05-20  iulica  <iulica>
+
+	fix double free bug
+
+2005-05-09  konst  <konst>
+
+	*** empty log message ***
+
+2005-05-06  konst  <konst>
+
+	*** empty log message ***
+
+2005-05-02  konst  <konst>
+
+	*** empty log message ***
+
+2005-04-14  konst  <konst>
+
+	*** empty log message ***
+
+2005-02-19  konst  <konst>
+
+	""
+
+	""
+
+2005-02-14  iulica  <iulica>
+
+	removed the chat cycle hotkeys
+
+	fix for chat cycle
+
+2005-02-13  iulica  <iulica>
+
+	Chat cycling
+
+	fixed inconsistency about close fullscreen event view hotkey
+
+	undo changes
+
+2005-02-12  konst  <konst>
+
+	""
+
+2005-02-10  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2005-02-03  konst  <konst>
+
+	*** empty log message ***
+
+2005-02-01  konst  <konst>
+
+	""
+
+	""
+
+2005-01-31  konst  <konst>
+
+	""
+
+	""
+
+2005-01-30  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2005-01-28  konst  <konst>
+
+	""
+
+2005-01-27  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2005-01-26  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	""
+
+	""
+
+2005-01-25  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2005-01-24  konst  <konst>
+
+	""
+
+	""
+
+2005-01-23  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+2005-01-19  konst  <konst>
+
+	*** empty log message ***
+
+2005-01-07  konst  <konst>
+
+	""
+
+	""
+
+2004-12-26  konst  <konst>
+
+	""
+
+	""
+
+2004-12-25  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+2004-12-24  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2004-12-21  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2004-12-20  konst  <konst>
+
+	*** empty log message ***
+
+2004-11-12  konst  <konst>
+
+	""
+
+	""
+
+2004-11-11  konst  <konst>
+
+	""
+
+2004-11-10  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	''
+
+	''
+
+	''
+
+2004-11-09  konst  <konst>
+
+	*** empty log message ***
+
+2004-10-07  konst  <konst>
+
+	*** empty log message ***
+
+2004-09-28  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	""
+
+2004-08-10  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+2004-08-05  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	""
+
+	""
+
+	""
+
+2004-08-04  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2004-07-31  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2004-07-30  konst  <konst>
+
+	*** empty log message ***
+
+2004-07-29  konst  <konst>
+
+	""
+
+2004-07-27  konst  <konst>
+
+	""
+
+2004-07-21  konst  <konst>
+
+	""
+
+2004-07-20  konst  <konst>
+
+	""
+
+2004-07-19  konst  <konst>
+
+	""
+
+	""
+
+2004-07-18  konst  <konst>
+
+	""
+
+2004-07-09  konst  <konst>
+
+	""
+
+2004-07-03  konst  <konst>
+
+	""
+
+2004-06-30  konst  <konst>
+
+	*** empty log message ***
+
+2004-06-29  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2004-06-28  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+	""
+
+	""
+
+2004-06-24  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+2004-06-21  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2004-06-19  konst  <konst>
+
+	""
+
+	""
+
+2004-06-18  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2004-06-17  konst  <konst>
+
+	""
+
+	""
+
+2004-06-14  konst  <konst>
+
+	*** empty log message ***
+
+2004-06-12  konst  <konst>
+
+	""
+
+	""
+
+2004-06-11  konst  <konst>
+
+	""
+
+2004-06-10  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	Initial revision
+
+2004-04-13  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2004-04-11  konst  <konst>
+
+	""
+
+	""
+
+2004-04-10  konst  <konst>
+
+	*** empty log message ***
+
+2004-04-04  konst  <konst>
+
+	""
+
+2004-04-01  konst  <konst>
+
+	""
+
+2004-03-31  konst  <konst>
+
+	*** empty log message ***
+
+2004-03-28  konst  <konst>
+
+	""
+
+	""
+
+2004-03-27  konst  <konst>
+
+	""
+
+2004-03-22  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2004-03-20  konst  <konst>
+
+	""
+
+2004-03-17  konst  <konst>
+
+	""
+
+2004-03-15  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2004-03-13  konst  <konst>
+
+	""
+
+2004-03-10  konst  <konst>
+
+	""
+
+2004-03-09  konst  <konst>
+
+	""
+
+2004-03-07  konst  <konst>
+
+	""
+
+	""
+
+2004-03-03  konst  <konst>
+
+	*** empty log message ***
+
+2004-02-26  konst  <konst>
+
+	""
+
+2004-02-22  konst  <konst>
+
+	""
+
+2004-02-21  konst  <konst>
+
+	*** empty log message ***
+
+2004-02-20  konst  <konst>
+
+	""
+
+2004-02-19  konst  <konst>
+
+	*** empty log message ***
+
+2004-02-17  konst  <konst>
+
+	""
+
+2004-02-15  konst  <konst>
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2004-02-11  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	*** empty log message ***
+
+	Initial revision
+
+2004-02-08  konst  <konst>
+
+	""
+
+2004-02-04  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	msn is back
+
+2004-02-01  konst  <konst>
+
+	""
+
+	""
+
+2004-01-31  konst  <konst>
+
+	*** empty log message ***
+
+2004-01-30  konst  <konst>
+
+	""
+
+	""
+
+2004-01-27  konst  <konst>
+
+	""
+
+	""
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	Initial revision
+
+2004-01-16  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2004-01-15  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	""
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2003-12-11  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2003-12-05  konst  <konst>
+
+	""
+
+	""
+
+2003-11-26  konst  <konst>
+
+	""
+
+2003-11-24  konst  <konst>
+
+	""
+
+	""
+
+2003-11-23  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2003-11-22  konst  <konst>
+
+	""
+
+	""
+
+2003-11-21  konst  <konst>
+
+	""
+
+	""
+
+2003-11-07  konst  <konst>
+
+	""
+
+	""
+
+2003-11-06  konst  <konst>
+
+	""
+
+	""
+
+2003-11-05  konst  <konst>
+
+	yahoo search and groups operations reflection
+
+	yahoo search and groups operations reflection
+
+	*** empty log message ***
+
+	""
+
+	""
+
+	""
+
+	""
+
+2003-10-31  konst  <konst>
+
+	""
+
+2003-10-26  konst  <konst>
+
+	*** empty log message ***
+
+2003-10-21  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2003-10-20  konst  <konst>
+
+	''
+
+	""
+
+	""
+
+	""
+
+	""
+
+2003-10-16  konst  <konst>
+
+	''
+
+2003-10-15  konst  <konst>
+
+	''
+
+2003-10-14  konst  <konst>
+
+	''
+
+	''
+
+2003-10-13  konst  <konst>
+
+	''
+
+	''
+
+2003-10-12  konst  <konst>
+
+	''
+
+2003-10-11  konst  <konst>
+
+	aim buddy-list, lj friends add/remove
+
+2003-10-06  konst  <konst>
+
+	*** empty log message ***
+
+2003-10-05  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+	''
+
+	''
+
+2003-10-03  konst  <konst>
+
+	*** empty log message ***
+
+2003-10-02  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+2003-10-01  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	livejournal plus some yahoo hacks
+
+2003-09-30  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2003-09-28  konst  <konst>
+
+	*** empty log message ***
+
+	yahoo is back
+
+	new auth mechanism
+
+2003-09-26  konst  <konst>
+
+	ljhook.cc
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-09-12  konst  <konst>
+
+	''
+
+2003-09-11  konst  <konst>
+
+	''
+
+	''
+
+2003-08-28  konst  <konst>
+
+	*** empty log message ***
+
+2003-08-21  konst  <konst>
+
+	""
+
+2003-07-25  konst  <konst>
+
+	*** empty log message ***
+
+2003-07-24  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	""
+
+2003-07-22  konst  <konst>
+
+	""
+
+	""
+
+2003-07-20  konst  <konst>
+
+	*** empty log message ***
+
+2003-07-19  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	""
+
+2003-07-18  konst  <konst>
+
+	""
+
+	*** empty log message ***
+
+2003-07-17  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	""
+
+2003-07-16  konst  <konst>
+
+	4.9.5 released
+
+2003-07-13  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+2003-07-12  konst  <konst>
+
+	RSS related stuff was added
+
+	""
+
+2003-07-07  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+2003-07-05  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-06-26  konst  <konst>
+
+	""
+
+	""
+
+2003-06-25  konst  <konst>
+
+	*** empty log message ***
+
+2003-06-24  konst  <konst>
+
+	""
+
+	""
+
+2003-06-20  konst  <konst>
+
+	""
+
+2003-06-19  konst  <konst>
+
+	*** empty log message ***
+
+2003-06-02  konst  <konst>
+
+	some fixes were made
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-05-21  konst  <konst>
+
+	*** empty log message ***
+
+2003-05-14  konst  <konst>
+
+	*** empty log message ***
+
+2003-05-12  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-05-11  konst  <konst>
+
+	*** empty log message ***
+
+2003-05-10  konst  <konst>
+
+	*** empty log message ***
+
+2003-05-09  konst  <konst>
+
+	*** empty log message ***
+
+	the find/add problem was fixed
+
+2003-05-08  konst  <konst>
+
+	*** empty log message ***
+
+2003-05-07  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-05-06  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-05-05  konst  <konst>
+
+	*** empty log message ***
+
+	msn nicknames find/add problem fixed
+
+	Mark Verboom's patch and Jabber users read
+
+2003-04-23  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-04-22  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-04-21  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-04-20  konst  <konst>
+
+	*** empty log message ***
+
+2003-04-19  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-04-18  konst  <konst>
+
+	irc reporting improved
+
+	*** empty log message ***
+
+	IP binding works now for all the IMs
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-04-17  konst  <konst>
+
+	a small build fix
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	a long awaited commit after a long time of inactivity
+
+2003-04-02  konst  <konst>
+
+	ported to cygwin
+
+	ported to cygwin
+
+	ported to cygwin
+
+	ported to cygwin
+
+2003-01-31  konst  <konst>
+
+	""
+
+2003-01-28  konst  <konst>
+
+	''
+
+2003-01-27  konst  <konst>
+
+	""
+
+	""
+
+	''
+
+2003-01-22  konst  <konst>
+
+	""
+
+	''
+
+2003-01-20  konst  <konst>
+
+	""
+
+	""
+
+	''
+
+2003-01-19  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+2003-01-18  konst  <konst>
+
+	""
+
+	""
+
+	''
+
+	''
+
+	''
+
+2003-01-16  konst  <konst>
+
+	""
+
+	""
+
+2003-01-15  konst  <konst>
+
+	""
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2003-01-10  konst  <konst>
+
+	*** empty log message ***
+
+2003-01-06  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	''
+
+2003-01-05  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+2003-01-04  konst  <konst>
+
+	*** empty log message ***
+
+2002-12-30  konst  <konst>
+
+	''
+
+	''
+
+2002-12-29  konst  <konst>
+
+	''
+
+2002-12-28  konst  <konst>
+
+	*** empty log message ***
+
+2002-12-27  konst  <konst>
+
+	''
+
+	""
+
+	""
+
+2002-12-26  konst  <konst>
+
+	''
+
+2002-12-23  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-12-20  konst  <konst>
+
+	""
+
+2002-12-19  konst  <konst>
+
+	''
+
+	*** empty log message ***
+
+	""
+
+2002-12-18  konst  <konst>
+
+	""
+
+2002-12-17  konst  <konst>
+
+	""
+
+2002-12-16  konst  <konst>
+
+	""
+
+2002-12-15  konst  <konst>
+
+	''
+
+	""
+
+	""
+
+2002-12-14  konst  <konst>
+
+	''
+
+	''
+
+2002-12-13  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	''
+
+2002-12-12  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2002-12-11  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	''
+
+2002-12-10  konst  <konst>
+
+	''
+
+	''
+
+	""
+
+	""
+
+	""
+
+2002-12-09  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2002-12-07  konst  <konst>
+
+	*** empty log message ***
+
+2002-12-06  konst  <konst>
+
+	groupchat now works just like it should
+
+2002-12-05  konst  <konst>
+
+	''
+
+	jabber groupchat is almost ready
+
+	channel manager was removed; the channels stuff is unified now
+
+2002-12-04  konst  <konst>
+
+	""
+
+2002-12-03  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-12-02  konst  <konst>
+
+	""
+
+	*** empty log message ***
+
+2002-12-01  konst  <konst>
+
+	*** empty log message ***
+
+	''
+
+	''
+
+	''
+
+	''
+
+2002-11-30  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	Initial revision
+
+	''
+
+	*** empty log message ***
+
+2002-11-29  konst  <konst>
+
+	""
+
+	""
+
+2002-11-28  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2002-11-27  konst  <konst>
+
+	""
+
+2002-11-26  konst  <konst>
+
+	''
+
+	""
+
+	""
+
+	""
+
+2002-11-25  konst  <konst>
+
+	''
+
+	''
+
+	""
+
+	""
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2002-11-24  konst  <konst>
+
+	''
+
+2002-11-23  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+	''
+
+	''
+
+2002-11-22  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2002-11-21  konst  <konst>
+
+	""
+
+2002-11-20  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	""
+
+	*** empty log message ***
+
+2002-11-19  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	Initial revision
+
+2002-11-18  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2002-11-15  konst  <konst>
+
+	""
+
+2002-11-14  konst  <konst>
+
+	""
+
+2002-11-12  konst  <konst>
+
+	""
+
+	''
+
+2002-11-11  konst  <konst>
+
+	""
+
+	""
+
+2002-11-02  konst  <konst>
+
+	''
+
+2002-11-01  konst  <konst>
+
+	''
+
+	''
+
+2002-10-31  konst  <konst>
+
+	''
+
+	''
+
+2002-10-30  konst  <konst>
+
+	''
+
+2002-10-29  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+2002-10-28  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+2002-10-27  konst  <konst>
+
+	''
+
+2002-10-24  konst  <konst>
+
+	''
+
+	''
+
+2002-10-23  konst  <konst>
+
+	''
+
+	''
+
+2002-10-22  konst  <konst>
+
+	''
+
+2002-10-17  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+2002-10-16  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+	*** empty log message ***
+
+2002-10-15  konst  <konst>
+
+	''
+
+	''
+
+2002-10-09  konst  <konst>
+
+	''
+
+2002-10-08  konst  <konst>
+
+	''
+
+2002-10-07  konst  <konst>
+
+	''
+
+2002-10-06  konst  <konst>
+
+	''
+
+	*** empty log message ***
+
+	''
+
+	''
+
+	''
+
+	''
+
+2002-10-04  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+	''
+
+	''
+
+2002-09-30  konst  <konst>
+
+	''
+
+	''
+
+2002-09-26  konst  <konst>
+
+	''
+
+2002-09-24  konst  <konst>
+
+	''
+
+	''
+
+2002-09-23  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+2002-09-20  konst  <konst>
+
+	''
+
+	''
+
+2002-09-19  konst  <konst>
+
+	''
+
+	''
+
+2002-09-17  konst  <konst>
+
+	''
+
+2002-09-13  konst  <konst>
+
+	''
+
+	''
+
+2002-09-12  konst  <konst>
+
+	''
+
+	''
+
+2002-09-11  konst  <konst>
+
+	''
+
+2002-09-10  konst  <konst>
+
+	''
+
+	''
+
+2002-09-09  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+2002-09-06  konst  <konst>
+
+	''
+
+2002-09-05  konst  <konst>
+
+	''
+
+2002-09-04  konst  <konst>
+
+	''
+
+	''
+
+2002-09-03  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+	''
+
+	""
+
+2002-09-02  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+	''
+
+2002-09-01  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-08-30  konst  <konst>
+
+	""
+
+	''
+
+	''
+
+2002-08-29  konst  <konst>
+
+	*** empty log message ***
+
+	''
+
+	""
+
+2002-08-28  konst  <konst>
+
+	''
+
+	''
+
+2002-08-27  konst  <konst>
+
+	''
+
+2002-08-26  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+2002-08-25  konst  <konst>
+
+	''
+
+2002-08-24  konst  <konst>
+
+	''
+
+	""
+
+	""
+
+2002-08-22  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-08-21  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2002-08-20  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2002-08-19  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	""
+
+	""
+
+	""
+
+2002-08-18  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-08-17  konst  <konst>
+
+	""
+
+	""
+
+2002-08-16  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2002-08-15  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+2002-08-14  konst  <konst>
+
+	*** empty log message ***
+
+	""
+
+	""
+
+	""
+
+	""
+
+2002-08-11  konst  <konst>
+
+	""
+
+2002-08-10  konst  <konst>
+
+	""
+
+2002-08-09  konst  <konst>
+
+	""
+
+	""
+
+2002-08-08  konst  <konst>
+
+	""
+
+	""
+
+2002-08-06  konst  <konst>
+
+	""
+
+2002-08-05  konst  <konst>
+
+	""
+
+	""
+
+2002-08-02  konst  <konst>
+
+	""
+
+2002-07-31  konst  <konst>
+
+	""
+
+	""
+
+2002-07-30  konst  <konst>
+
+	""
+
+2002-07-29  konst  <konst>
+
+	""
+
+2002-07-18  konst  <konst>
+
+	""
+
+2002-07-17  konst  <konst>
+
+	""
+
+	""
+
+2002-07-16  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	Fixed a thingie which caused the old gcc to bail out
+
+	*** empty log message ***
+
+	""
+
+2002-07-15  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2002-07-14  konst  <konst>
+
+	""
+
+2002-07-13  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-07-12  konst  <konst>
+
+	The new Yahoo! engine was integrated to get the changed protocol work.
+
+	Initial revision
+
+2002-07-10  konst  <konst>
+
+	""
+
+	""
+
+2002-07-09  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	Ported to Sun Solaris finally
+
+2002-07-08  konst  <konst>
+
+	""
+
+	""
+
+2002-07-06  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-07-05  konst  <konst>
+
+	""
+
+2002-07-04  konst  <konst>
+
+	""
+
+2002-07-03  konst  <konst>
+
+	""
+
+	Now compiles with GCC 3.1 without problems.
+
+	Now compiles with GCC 3.1 without problems.
+
+	Now compiles with GCC 3.1 without problems.
+
+	Now compiles with GCC 3.1 without problems.
+
+	""
+
+	""
+
+	Fixed a Yahoo bug resulted into adding some crazy nicknames.
+
+2002-07-01  konst  <konst>
+
+	""
+
+2002-06-29  konst  <konst>
+
+	*** empty log message ***
+
+2002-06-28  konst  <konst>
+
+	""
+
+	Some mess in the CVS was taken to order. Hopefully.
+
+	check for the cvs version was added
+
+	*** empty log message ***
+
+	remote occupied and dnd modes fixed
+
+	""
+
+2002-06-27  konst  <konst>
+
+	Almost finished the support for talking on IRC channels and issuing of irc commands.
+
+2002-06-25  konst  <konst>
+
+	The ESC key didn't work correctly in the save find profile action.
+
+	Fixed a bug with forwarding messages in chat mode.
+
+	Fixed a bug with forwarding messages in chat mode.
+
+2002-06-21  konst  <konst>
+
+	Added a bug instead of fixing an issue. Fixed finally (hope so) :)
+
+2002-06-20  konst  <konst>
+
+	The "nicks fetched" flags is cleared now as soon as the IRC adapter is disconnected.
+
+2002-06-17  konst  <konst>
+
+	""
+
+2002-06-13  konst  <konst>
+
+	""
+
+2002-06-11  konst  <konst>
+
+	""
+
+2002-06-09  konst  <konst>
+
+	""
+
+2002-06-05  konst  <konst>
+
+	""
+
+	""
+
+2002-06-04  konst  <konst>
+
+	""
+
+2002-06-03  konst  <konst>
+
+	Added a whole-irc-net e-mail search function.
+
+	Implemented the whole-irc-net e-mail search feature.
+
+2002-05-30  konst  <konst>
+
+	""
+
+2002-05-28  konst  <konst>
+
+	""
+
+2002-05-27  konst  <konst>
+
+	""
+
+2002-05-26  konst  <konst>
+
+	Fixed a bug in the birthday reminder feature.
+
+2002-05-24  konst  <konst>
+
+	""
+
+2002-05-23  konst  <konst>
+
+	Birthday reminders were added.
+
+2002-05-22  konst  <konst>
+
+	Added to copy constructor so that title params get copied.
+
+	*** empty log message ***
+
+2002-05-19  konst  <konst>
+
+	""
+
+	""
+
+2002-05-17  konst  <konst>
+
+	""
+
+	*** empty log message ***
+
+2002-05-15  konst  <konst>
+
+	""
+
+2002-05-14  konst  <konst>
+
+	""
+
+2002-05-13  konst  <konst>
+
+	""
+
+2002-05-11  konst  <konst>
+
+	Fixed a small segfault in IRC search results.
+
+2002-05-10  konst  <konst>
+
+	""
+
+2002-05-09  konst  <konst>
+
+	Mass-sending of the first message in chat mode was implemented.
+
+	Chinese translation was updated. IRC name substring search was added.
+
+2002-05-08  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-05-02  konst  <konst>
+
+	*** empty log message ***
+
+	Migrated to the new and nice colorschemer :)
+
+	the colorschemer class was added
+
+	""
+
+2002-05-01  konst  <konst>
+
+	Chat window now doesn't get screwed up because of special characters in messages.
+
+	Fixed the disk space eating issue.
+
+	IRC nicks lookup little weirdness was fixed.
+
+	Optimized the chat mode. Now should work faster.
+
+2002-04-26  konst  <konst>
+
+	Chat mode has been implemented.
+
+2002-04-25  konst  <konst>
+
+	""
+
+	*** empty log message ***
+
+2002-04-24  konst  <konst>
+
+	""
+
+2002-04-23  konst  <konst>
+
+	""
+
+	*** empty log message ***
+
+	French and Malaysian translations were added.
+
+2002-04-22  konst  <konst>
+
+	Fixed the problem with incorrect CRLF's in ICQ messages.
+
+	""
+
+	Fixed an incorrect STL usage.
+
+	""
+
+2002-04-21  konst  <konst>
+
+	4.7.1 release was built
+
+2002-04-20  konst  <konst>
+
+	The broken pipe bug was fixed.
+
+	Fixed the broken pipe thing, and did some other stuff.
+
+2002-04-19  konst  <konst>
+
+	Documented the -b parameter.
+
+	Incorrect STL usage was fixed.
+
+2002-04-18  konst  <konst>
+
+	*** empty log message ***
+
+	CPU hogging in auto-away/na seems to be fixed.
+
+2002-04-17  konst  <konst>
+
+	Fixed a message sending from the find results dialog segfault bug.
+
+	The quick find feature is now available also in multiple contacts selection and find results modes. Made it possible to send messages directly from the find results dialog.
+
+	Groups moving up and down in the group manager was implemented.
+
+2002-04-16  konst  <konst>
+
+	Fixed the IP not showing bug.
+
+	AIM connection failed messages are now more informative
+
+	*** empty log message ***
+
+2002-04-15  konst  <konst>
+
+	The collapsable groups patch was applied.
+
+	Sending SMS to oneself bug was fixed.
+
+2002-04-13  konst  <konst>
+
+	""
+
+2002-04-12  konst  <konst>
+
+	""
+
+	*** empty log message ***
+
+	Away message request log message was detalized.
+
+2002-04-11  konst  <konst>
+
+	""
+
+2002-04-10  konst  <konst>
+
+	IRC away messages reporting was added.
+
+	IRC away messages are now possible to be fetched.
+
+2002-04-09  konst  <konst>
+
+	When an icq contact was re-added after deleting it in the same session, its status wasn't updated and remained offline all the time. Fixed.
+
+	""
+
+	""
+
+2002-04-08  konst  <konst>
+
+	""
+
+	""
+
+	The "Edit away messages on status change" configuration option was added.
+
+	Changing status from the command line was implemented.
+
+2002-04-07  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+	Highlighting items in ignore, visible and invisible lists was implemented.
+
+	*** empty log message ***
+
+	Migrated to the new libicq2000, and fixed up some thin places. ICQ visible and invisible lists finally work. Not a big deal, in fact.
+
+	irc channels load/save was implemented
+
+2002-04-06  konst  <konst>
+
+	Channel manager was added, and channel related things such as finding users was re-written.
+
+	""
+
+2002-04-05  konst  <konst>
+
+	A channel list fetching callback was added.
+
+	IRC support was improved. Now it's able to show list of channels a user is currently on, as well as splits their info into the e-mail address and about fields.
+
+2002-04-04  konst  <konst>
+
+	*** empty log message ***
+
+	Some fixes against IRC segfaults were made.
+
+	IRC support was improved.
+
+	Fixed a bug in the console inactivity time detection.
+
+	Fixed a bug in the console inactivity time detection.
+
+	IRC support was improved dramatically.
+
+	*** empty log message ***
+
+2002-04-03  konst  <konst>
+
+	IRC support, an autoaway/autona bugfix.
+
+	""
+
+2002-04-02  konst  <konst>
+
+	""
+
+2002-04-01  konst  <konst>
+
+	""
+
+	""
+
+2002-03-30  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-03-28  konst  <konst>
+
+	Work zip code is now possible to be edited in the details update dialog. It was also made possible to wrap lines in the actions file with backslashes.
+
+2002-03-27  konst  <konst>
+
+	*** empty log message ***
+
+2002-03-26  konst  <konst>
+
+	*** empty log message ***
+
+	Fixed another little and weird resize segfault.
+
+	ChangeLog was updated, preparing to a new release.
+
+	""
+
+	Configuration and account manager dialogs' incorrect behaviour, AIM hook's logged in incorrect reporting, and wrong disk space checking were fixed.
+
+2002-03-25  konst  <konst>
+
+	""
+
+	""
+
+2002-03-24  konst  <konst>
+
+	SMTP server's address not saving bug was fixed. TODO was extended with some problems experienced at home :)
+
+2002-03-23  konst  <konst>
+
+	Yahoo and MSN details get updated now with "Retrieve". Find/add and Edit user's details dialogs' bugs were fixed.
+
+2002-03-22  konst  <konst>
+
+	Fixed the yahoo library's inability to report the invalid username/password situation. Cleared out the unused timer_reconnect variables.
+
+	Rolled back to older version.
+
+	*** empty log message ***
+
+2002-03-21  konst  <konst>
+
+	*** empty log message ***
+
+	Relaxed re-connect timing was introduced to avoid the turboing problem when centericq is left alone trying to connect over and over again.
+
+2002-03-20  konst  <konst>
+
+	""
+
+	""
+
+2002-03-19  konst  <konst>
+
+	""
+
+2002-03-18  konst  <konst>
+
+	Ukrainian translation was added. A bug with LF symbols in user info was fixed.
+
+2002-03-17  konst  <konst>
+
+	*** empty log message ***
+
+2002-03-15  konst  <konst>
+
+	""
+
+	A little away msgs reading bug fix.
+
+	HD access reduced with moving away msgs reading to another routine.
+
+	Fixed the disk space checking routine, so that FreeBSD users can be happy now.
+
+	""
+
+	Some additional checks were added to aimhook to avoid segfaults.
+
+2002-03-14  konst  <konst>
+
+	Added port numbers and servers addresses to README.
+
+	"Dropped in" users are now added to Yahoo or AIM contact list temporary now, so that we can see their actual status.
+
+	Updated README, and added a check for freebsd used to determine whether it's needed or not to include <sys/vfs.h> *bsd systems lack.
+
+	*** empty log message ***
+
+	a little bug in the script
+
+	*** empty log message ***
+
+	Minor changes. Added automatic resolve for newly added contacts.
+
+	Removed some unused crap, and added the cuthtml function.
+
+	Started implementing support for the AIM TOC protocol. First commit of the stuff.
+
+	Initial revision
+
+	""
+
+2002-03-12  konst  <konst>
+
+	*** empty log message ***
+
+2002-03-11  konst  <konst>
+
+	*** empty log message ***
+
+	iconv() wrapper was added.
+
+	Translation between CP1251 and KOI8-R is now done with iconv() if present. Incorrect displaying of contact list in group mode 2 was fixed. Disk space check was added.
+
+	*** empty log message ***
+
+2002-03-10  konst  <konst>
+
+	*** empty log message ***
+
+2002-03-09  konst  <konst>
+
+	*** empty log message ***
+
+	Added a configure check for libiconv, if any :)
+
+2002-03-08  konst  <konst>
+
+	all your base ;)
+
+	*** empty log message ***
+
+2002-03-07  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	ifstream::attach() call removed. damn the standard.
+
+	A display area in textbrowser became one char wider :)
+
+	MSN friendly get unmimed now.
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2002-03-06  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	""
+
+	""
+
+2002-03-05  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	breakintolines() fix.
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2002-03-04  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	Some "string" type passing speed-ups were made.
+
+	""
+
+	""
+
+2002-03-03  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-03-01  konst  <konst>
+
+	*** empty log message ***
+
+	History leaks problem seems to be fixed now ;)
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2002-02-28  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	Now the status bar and log window contents are saved during the terminal window resize.
+
+	*** empty log message ***
+
+	""
+
+2002-02-27  konst  <konst>
+
+	*** empty log message ***
+
+	Segfault on xterm resize event was fixed. Contact list and log window sizes now depend on the terminal window size. 100% CPU load on registration errors was fixed.
+
+2002-02-26  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2002-02-25  konst  <konst>
+
+	Updated ChangeLog, README and the man page.
+
+	*** empty log message ***
+
+	Applied the patch for transparency and "all protocols". Commented out the line that seems to cause problems with reading incoming events.
+
+2002-02-24  konst  <konst>
+
+	""
+
+	""
+
+2002-02-23  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	*** empty log message ***
+
+	Passing online events to external actions works well now.
+
+	Added URL sending from the command line and color schemes descriptions to the README. New mail messages timestamping added.
+
+2002-02-22  konst  <konst>
+
+	""
+
+	""
+
+	Implemented command line events queuing. Updated README.
+
+	Fixed some auto-respond issues.
+
+	*** empty log message ***
+
+2002-02-21  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2002-02-20  konst  <konst>
+
+	*** empty log message ***
+
+	Feature to auto-respond and process incoming events with external programs was added.
+
+	todo: implement external actions
+
+2002-02-19  konst  <konst>
+
+	*** empty log message ***
+
+	Finally applied the patch for Cyrillic in MSN. Fixed the problem with sockets left unclosed.
+
+2002-02-18  konst  <konst>
+
+	Tried to speed up incoming messages reading. Probably managed.
+
+	""
+
+2002-02-16  konst  <konst>
+
+	""
+
+	*** empty log message ***
+
+2002-02-15  konst  <konst>
+
+	Fixed a possibility to update ICQ nicknames.
+
+2002-02-14  konst  <konst>
+
+	""
+
+2002-02-13  konst  <konst>
+
+	Self details and our contact on the list issue was fixed.
+
+	Updated TODO and README. "https://" URLs are now fetched from the context as well.
+
+2002-02-08  konst  <konst>
+
+	''
+
+	logging problem got fixed once again
+
+2002-02-07  konst  <konst>
+
+	''
+
+	Fixed the one-line-away-message-storing bug.
+
+2002-02-06  konst  <konst>
+
+	Fixed some away messages issues. It's getting closer to being perfect :)
+
+	Setting and fetching away messages was finally implemented.
+
+2002-02-05  konst  <konst>
+
+	*** empty log message ***
+
+	Age range search parameter now works fine.
+
+	Login processes were taken in account too in the lastkeypress() routine.
+
+	Zip code incorrect update/show was fixed. Online sound didn't work. Fixed.
+
+2002-02-04  konst  <konst>
+
+	*** empty log message ***
+
+	Fixed a minor issue in the logger related to statuses written in inverse order.
+
+2002-02-01  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	Fixed the RH62 segfault. Dammit.
+
+	''
+
+2002-01-31  konst  <konst>
+
+	Fixed some kind of a minor issue.
+
+2002-01-30  konst  <konst>
+
+	Some changes of more or less cosmetic kind were made.
+
+	*** empty log message ***
+
+	Support for "You were added" messages was added. Authorization request packets parsing was fixed.
+
+2002-01-29  konst  <konst>
+
+	E-mail express messages support was added.
+
+2002-01-28  konst  <konst>
+
+	Fixed the RH62 STL incompatibility issue.
+
+	*** empty log message ***
+
+2002-01-27  konst  <konst>
+
+	Some pre-release actions were taken.
+
+2002-01-26  konst  <konst>
+
+	*** empty log message ***
+
+	Users' local time is now displayed correctly.
+
+2002-01-25  konst  <konst>
+
+	*** empty log message ***
+
+2002-01-24  konst  <konst>
+
+	Russian PO translation was updated.
+
+	Empty authorization request messages bug in libicq2000 was fixed.
+
+	*** empty log message ***
+
+	Quickfind segfault was fixed.
+
+2002-01-23  konst  <konst>
+
+	Authorization messages showing up on history was fixed. It only displayed empty lines before.
+
+2002-01-22  konst  <konst>
+
+	Fixed a minor bug in groups mode 2.
+
+	Group modes 1 and 2 were implemented.
+
+2002-01-21  konst  <konst>
+
+	Fixed a minor quickfind bug. It couldn't point to the last item in the contact list.
+
+	*** empty log message ***
+
+	Timezone displaying was added.
+
+	Tried to speed up events reading, updated ChangeLog and README.
+
+2002-01-19  konst  <konst>
+
+	User info is displayed in a more detailed way now, with interest categories and background names.
+
+	Personal details update now works.
+
+2002-01-18  konst  <konst>
+
+	*** empty log message ***
+
+	Some small fixes were made. Event log was implemented.
+
+2002-01-17  konst  <konst>
+
+	Fixed a little icq.mirabilis.com issue :)
+
+	Languages are now displayed on the user info dialog. White pages search was implemented.
+
+	Now it's possible to specify another server for ICQ. Invisible mode was fixed. FAQ was updated.
+
+2002-01-14  konst  <konst>
+
+	''
+
+2001-12-27  konst  <konst>
+
+	*** empty log message ***
+
+2001-12-23  konst  <konst>
+
+	''
+
+2001-12-20  konst  <konst>
+
+	MSN connection establishing code was a bit tweaken. Can fix the segfaults :)
+
+	*** empty log message ***
+
+	Background and interests information is now displayed.
+
+2001-12-19  konst  <konst>
+
+	*** empty log message ***
+
+	Login parameters are now re-read on exit from the account manager dialog.
+
+	Details and gender are now fetched well, lastseen and lastIP parameters are now being set correctly as well.
+
+2001-12-18  konst  <konst>
+
+	""
+
+2001-12-17  konst  <konst>
+
+	""
+
+2001-12-14  konst  <konst>
+
+	""
+
+	""
+
+	Now works well with Barnaby's recent ickle modifications. Had to extend the set of descriptors being select()'ed.
+
+	''
+
+2001-12-13  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+	""
+
+2001-12-12  konst  <konst>
+
+	""
+
+	""
+
+	""
+
+2001-12-11  konst  <konst>
+
+	""
+
+	""
+
+	Yahoo! empty messages bug was fixed. sms.wav was added.
+
+2001-12-10  konst  <konst>
+
+	Status change bugs were fixed.
+
+2001-12-09  konst  <konst>
+
+	''
+
+	''
+
+	*** empty log message ***
+
+	''
+
+	*** empty log message ***
+
+	''
+
+2001-12-08  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2001-12-07  konst  <konst>
+
+	Two methods were marked "const"
+
+	SMS support was added.
+
+	History search now works well.
+
+	""
+
+	""
+
+	""
+
+	""
+
+	""
+
+2001-12-06  konst  <konst>
+
+	Authorization mechanism seems to work now.
+
+	Russian win->koi translation has been re-implemented in yahoo hook.
+
+	Event system was completely rewritten. Now I'm quite proud of the C++ design I made instead of an ugly previous implementation. Though gotta test this stuff a lot.
+
+2001-12-05  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2001-12-04  konst  <konst>
+
+	*** empty log message ***
+
+	Events dynamic pointers issue was taken in account.
+
+2001-12-03  konst  <konst>
+
+	''
+
+	Started migrating to icq2000 protocol. Goes well.
+
+2001-12-01  konst  <konst>
+
+	''
+
+2001-11-30  konst  <konst>
+
+	*** empty log message ***
+
+	Two bugs were fixed. One with segfault on attempt to browse history, and second was related to passwords remembering.
+
+	4.2.0 release preparations.
+
+2001-11-29  konst  <konst>
+
+	''
+
+2001-11-28  konst  <konst>
+
+	""
+
+	refresh() call was added to textinputline class so that screen contents are up-to-date.
+
+	Fixed a textinputline bug.
+
+2001-11-27  konst  <konst>
+
+	Color hightlight for different IM protocols in multi selection box was implemented.
+	Sounds for every protocol and every contact were repaired.
+
+	KOI8-win1251 conversion was added to MSN and Yahoo protocols.
+
+	Connections initialization messages were added to MSN protocol module.
+
+	Adding info cards was moved to the find/add dialog.
+
+	Context menu was repaired so that now "Remove contact" item does exist
+	on it.
+
+	Info cards are now possible to put to any group.
+
+	*** empty log message ***
+
+	''
+
+	*** empty log message ***
+
+2001-11-26  konst  <konst>
+
+	Fixed a segfault on adding a yahoo contact.
+
+	MSN support now works more or less stable. Status bar looks better, showing statuses for all of three supported IM networks.
+
+2001-11-25  konst  <konst>
+
+	added msnhook
+
+2001-11-24  konst  <konst>
+
+	*** empty log message ***
+
+2001-11-23  konst  <konst>
+
+	MSN engine segfaults. It's natural.
+
+	MSN messenger support added. Untested. Reorganized icq hook code.
+
+2001-11-22  konst  <konst>
+
+	*** empty log message ***
+
+2001-11-21  konst  <konst>
+
+	*** empty log message ***
+
+	Removed some more "::"
+
+	*** empty log message ***
+
+2001-11-20  konst  <konst>
+
+	Restructured the hooks code. ICQ reconnect now seems to work fine.
+
+	Fixed redraw() being disabled in texteditor. And removed "::" from calls to tolower and toupper from dialogbox.
+
+2001-11-19  konst  <konst>
+
+	started the abstract class implementation
+
+2001-11-16  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+2001-11-15  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+	''
+
+	''
+
+	*** empty log message ***
+
+2001-11-14  konst  <konst>
+
+	''
+
+	Find/add users improved. now it can add yahoo users.
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	Still working on multiple IM protocols support.
+
+2001-11-13  konst  <konst>
+
+	''
+
+	''
+
+2001-11-12  konst  <konst>
+
+	Started implementing yahoo support. Goes very well so far.
+
+2001-11-11  konst  <konst>
+
+	''
+
+2001-11-09  konst  <konst>
+
+	insert() now works correctly with blocks containing tab chars.
+
+	*** empty log message ***
+
+2001-11-08  konst  <konst>
+
+	''
+
+	Replaced uin and nonicq pair with one descriptive structure everywhere. A lot of bugs appearing is expected.
+
+2001-11-07  konst  <konst>
+
+	*** empty log message ***
+
+2001-11-06  konst  <konst>
+
+	Smart check for direct or through server mode added.
+
+2001-11-04  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2001-11-01  konst  <konst>
+
+	*** empty log message ***
+
+2001-10-31  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2001-10-30  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+2001-10-29  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2001-10-26  konst  <konst>
+
+	CVS sync script was updated. The "already on the list while on not-in-list folder" bug was fixed.
+
+2001-10-25  konst  <konst>
+
+	cvs sync script was added
+
+	*** empty log message ***
+
+	Fixed some problems.
+
+2001-10-24  konst  <konst>
+
+	''
+
+	*** empty log message ***
+
+	Highlight issues fixed once again :)
+
+	Highlight issues fixed once again :)
+
+	fixed a lot of quotes related issues. now should work excellent :)
+
+	fixed a lot of quotes related issues. now should work excellent :)
+
+	''
+
+2001-10-23  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+2001-10-22  konst  <konst>
+
+	''
+
+	''
+
+	''
+
+2001-10-19  konst  <konst>
+
+	*** empty log message ***
+
+	Made some updates to menu related code and to the new implementations of textinputline and fileselector.
+
+	Moved the UI code to the new implementations of textinputline and fileselector classes.
+
+2001-10-18  konst  <konst>
+
+	At last wrote new implementations of textinputline and fileselector classes.
+
+	Started migrating to the new implementation of textinputline and fileselector.
+
+	Updated the doc.
+
+2001-10-17  konst  <konst>
+
+	Fixed a bug with a contact that had unknown status spoiled all the look of contact list with groups.
+
+	Finalized the first very draft version of README :)
+
+2001-10-16  konst  <konst>
+
+	Applied patch from Kapuzin which added dialogbox::addautokeys() method.
+
+	A check for ncurses lib was added to configure.in. Patch from kapuzin was applied, so now all the dialogs have hot keys. Fixed the bug with "update details" dialog popping up over others.
+
+2001-10-15  konst  <konst>
+
+	*** empty log message ***
+
+2001-10-12  konst  <konst>
+
+	filefind() added.
+
+	*** empty log message ***
+
+2001-10-09  konst  <konst>
+
+	kxicq2 and gnomeicu added to the list of icq client data formats supported by the cicqconv script.
+	"Send contacts" item added to the context menu.
+
+	The "Update user's details" dialog was fixed. Now Enter can be pressed
+	any number of times without any bad effects.
+
+	Now "add to contact list" function asks to select a group, if the
+	corresponding facility is enabled.
+
+2001-10-08  konst  <konst>
+
+	*** empty log message ***
+
+	Some segfaults caused by missing checks for open files were fixed.
+
+2001-10-07  konst  <konst>
+
+	*** empty log message ***
+
+	Added Makefile.am's.
+
+	Updated man page and ChangeLog for releasing the 4.0.0 version.
+
+2001-10-05  konst  <konst>
+
+	*** empty log message ***
+
+	Romanian PO updated (thanks, Ovidiu :). The first version of contact list conversion script has been added.
+
+2001-10-04  konst  <konst>
+
+	Configuration dialog was re-arranged a bit.
+
+	*** empty log message ***
+
+2001-10-03  konst  <konst>
+
+	Russian PO file updated.
+
+	icqhook::disconnect() was fixed a little bit.
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	Fixed FreeBSD related problems. At least I hope so. It worked just great with my gettext 0.10.35.
+
+	Timezones support added. Update and display functions.
+
+	*** empty log message ***
+
+2001-10-02  konst  <konst>
+
+	groups, quick hide/show offline switch, and much more..
+
+2001-10-01  konst  <konst>
+
+	Bug with the reconnect timer seems now to be fixed.
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	The contact groups facility is almost done.
+
+2001-09-30  konst  <konst>
+
+	Continued implementing the groups.
+
+	Basic internal logic support for groups was implemented.
+
+2001-09-27  konst  <konst>
+
+	*** empty log message ***
+
+	Contacts sending feature was added.
+
+2001-09-26  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	A minor interface change was made. It now checks if we're online before asking whether user should be notified about being added or not.
+
+	Polish PO updated.
+
+	Invisible list support was added.
+
+2001-09-25  konst  <konst>
+
+	FAQ and TODO documents were updated.
+
+	Started implementing the invisible list feature. Added Spanish docs.
+
+2001-09-24  konst  <konst>
+
+	A lot of brand new changes, such as whitepages search, and work section update possibility.
+
+2001-09-18  konst  <konst>
+
+	string2key() function was fixed. It worked absolutely incorrectly.
+
+2001-09-14  konst  <konst>
+
+	Some minor GCC3 related changes were made, I guess :)
+
+	Some minor GCC3 related changes were made, I guess :)
+
+	Some minor GCC3 related changes were made, I guess :)
+
+2001-09-03  konst  <konst>
+
+	Minor bug in kkconsui has been fixed. It allowed control chars to be displayed.
+
+2001-08-23  konst  <konst>
+
+	*** empty log message ***
+
+	removed from vcs control
+
+2001-08-21  konst  <konst>
+
+	Unificated the message sending function. Fixed some known problems, such as not installing the man page, added basic support for screen resize in xterm. Some cosmetic changes were also made.
+
+	*** empty log message ***
+
+2001-08-20  konst  <konst>
+
+	removed from vcs control
+
+	removed from vcs control
+
+2001-08-19  konst  <konst>
+
+	Some updates were made.
+
+	internal update :)
+
+2001-08-18  konst  <konst>
+
+	Some iscntrl() fix related things were modified.
+
+	removed from vcs control
+
+	Updated some namespaces related issues.
+
+	Some updates were made. ktool:: namespace prefix was removed, particulary so that the library compiles well with C++ without namespaces support.
+
+	Some updates were made. ktool:: namespace prefix was removed, particulary so that the library compiles well with C++ without namespaces support.
+
+	Some updates were made. ktool:: namespace prefix was removed, particulary so that the library compiles well with C++ without namespaces support.
+
+2001-08-17  konst  <konst>
+
+	lots of pre-release changes were made
+
+2001-08-14  konst  <konst>
+
+	removed from vcs control
+
+	*** empty log message ***
+
+	removed from vcs control
+
+2001-08-09  konst  <konst>
+
+	there is no need to pass strdupped file ids to texteditor::load anymore
+
+2001-08-06  konst  <konst>
+
+	Some updates were made.
+
+2001-08-03  konst  <konst>
+
+	Initial revision
+
+	basic bidi support
+
+	basic bidi support
+
+	basic bidi support
+
+2001-07-03  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2001-06-30  konst  <konst>
+
+	Mail checking setting. ncurses raw() mode
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2001-06-27  konst  <konst>
+
+	The raw() ncurses library call was added to kinterface() so that now all the shit like Ctrl-Z, Ctrl-C and other are now blocked.
+	A bunch of small changes.
+
+2001-06-07  konst  <konst>
+
+	Snapshot release ChangeLog updates were done.
+
+	Manual page has been added.
+
+	*** empty log message ***
+
+	Fixed a bug with some messages' not going to history, being lost, etc..
+
+2001-06-04  konst  <konst>
+
+	*** empty log message ***
+
+	removed include/common.h
+
+	removed src/common.cc
+
+2001-06-03  konst  <konst>
+
+	GNU copyright notice was added to every source file.
+
+	GNU copyright notice was added to every source file.
+
+	GNU copyright notice was added to every source file.
+
+	Some syntax (comments) highlight problems were fixed.
+
+	*** empty log message ***
+
+	Migrated to the new incarnation of ktools :)
+
+	Initial revision
+
+	Initial revision
+
+	Initial revision
+
+2001-06-02  konst  <konst>
+
+	*** empty log message ***
+
+	GNU copyright notice was added to every source file as the FSF Vice President requested.
+
+2001-05-15  konst  <konst>
+
+	*** empty log message ***
+
+	*** empty log message ***
+
+2001-05-14  konst  <konst>
+
+	3.29.12 major feature improvement release
+
+2001-05-12  konst  <konst>
+
+	quickfind feature invoked with alt-s was improved now it performs case insensitive search also it's possible to use it in multiple contact selection mode
+
+2001-05-11  konst  <konst>
+
+	changes include
+	facility to display both real and intranet IPs of a user
+	message postponing on ESC
+	searching for substrings in events history
+	date/time representation taking from locale
+	
+	visible list is now works great. because of being fixed.
+
+2001-05-05  konst  <konst>
+
+	*** empty log message ***
+
+	Lotta useful changes, such as URL view, msg split, etc.
+
+2001-04-17  konst  <konst>
+
+	3.22.8 release
+
+2001-04-15  konst  <konst>
+
+	Settings sclerosis and empty msg segfault were fixed. Search on "/" has been added. Czech translation has been added. Sort order changed. Now the contact list is sorted by lastread.
+
+2001-04-12  konst  <konst>
+
+	removed po/Makefile.am
+
+2001-04-08  konst  <konst>
+
+	*** empty log message ***
+
+2001-04-07  konst  <konst>
+
+	*** empty log message ***
+
+	Initial revision

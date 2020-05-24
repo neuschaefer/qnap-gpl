@@ -1,0 +1,156 @@
+'\" t
+.\"     Title: passwd
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10/05/2009
+.\"    Manual: Formats et conversions de fichiers
+.\"    Source: Formats et conversions de fichiers
+.\"  Language: French
+.\"
+.TH "PASSWD" "5" "10/05/2009" "Formats et conversions de fich" "Formats et conversions de fich"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOM"
+passwd \- fichier des mots de passe
+.SH "DESCRIPTION"
+.PP
+/etc/passwd
+contient diff\('erentes informations sur les comptes utilisateurs\&. Ces informations consistent en sept champs s\('epar\('es par des deux\-points (\(Fo\ \&:\ \&\(Fc)\ \&:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+nom de connexion de l\'utilisateur (\(Fo\ \&login\ \&\(Fc)
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+un mot de passe chiffr\('e optionnel
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+l\'identifiant num\('erique de l\'utilisateur
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+l\'identifiant num\('erique du groupe de l\'utilisateur
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+le nom complet de l\'utilisateur ou un champ de commentaires
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+le r\('epertoire personnel de l\'utilisateur
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+l\'interpr\('eteur de commandes de l\'utilisateur (optionnel)
+.RE
+.PP
+Le champ du mot de passe chiffr\('e peut \(^etre vide\&. Dans ce cas, aucun mot de passe n\'est n\('ecessaire pour s\'authentifier avec le compte donn\('e\&. Cependant, certaines applications qui lisent le fichier
+/etc/passwd
+peuvent d\('ecider de ne donner aucun acc\(`es si le
+\fImot de\fR
+passe est vide\&. Si le mot de passe est un
+\(Fo\ \&x\ \&\(Fc
+minuscule, alors le mot de passe chiffr\('e se trouve dans le fichier
+\fBshadow\fR(5)\ \&; il
+\fIdoit\fR
+y avoir une ligne correspondante dans le fichier
+shadow, sinon le compte de l\'utilisateur n\'est pas valide\&. Si le mot de passe est constitu\('e d\'une autre cha\(^ine, alors il est consid\('er\('e comme un mot de passe chiffr\('e, comme indiqu\('e dans
+\fBcrypt\fR(3)\&.
+.PP
+Le champ de commentaire est utilis\('e par diff\('erents utilitaires syst\(`eme, tels que
+\fBfinger\fR(1)\&.
+.PP
+Le champ du r\('epertoire personnel de l\'utilisateur correspond au nom du r\('epertoire de travail initial\&.
+\fBLogin\fR
+utilise cette information pour d\('efinir la valeur de la variable d\'environnement
+\fB$HOME\fR\&.
+.PP
+Le champ de l\'interpr\('eteur de commandes correspond au nom de l\'interpr\('eteur de commandes de l\'utilisateur, ou au nom d\'un programme initial \(`a ex\('ecuter\&.
+\fBLogin\fR
+utilise cette information pour d\('efinir la valeur de la variable d\'environnement
+\fB$SHELL\fR\&. Si ce champ est vide,
+/bin/sh
+est utilis\('e par d\('efaut\&.
+.SH "FICHIERS"
+.PP
+/etc/passwd
+.RS 4
+Informations sur les comptes des utilisateurs\&.
+.RE
+.PP
+/etc/shadow
+.RS 4
+un mot de passe chiffr\('e optionnel
+.RE
+.SH "VOIR AUSSI"
+.PP
+
+\fBcrypt\fR(3),
+\fBgetent\fR(1),
+\fBgetpwnam\fR(3),
+\fBlogin\fR(1),
+\fBpasswd\fR(1),
+\fBpwck\fR(8),
+\fBpwconv\fR(8),
+\fBpwunconv\fR(8),
+\fBshadow\fR(5),
+\fBsu\fR(1),
+\fBsulogin\fR(8)\&.

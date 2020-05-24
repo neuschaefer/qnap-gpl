@@ -1,0 +1,234 @@
+'\" t
+.\"     Title: pwck
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10/05/2009
+.\"    Manual: Commandes de gestion du syst\(`eme
+.\"    Source: Commandes de gestion du syst\(`eme
+.\"  Language: French
+.\"
+.TH "PWCK" "8" "10/05/2009" "Commandes de gestion du syst\(`em" "Commandes de gestion du syst\(`em"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOM"
+pwck \- V\('erifier l\'int\('egrit\('e des fichiers de mots de passe
+.SH "SYNOPSIS"
+.HP \w'\fBpwck\fR\ 'u
+\fBpwck\fR [\-q] [\-s] [\fIpasswd\fR\ [\ \fIshadow\fR\ ]]
+.HP \w'\fBpwck\fR\ 'u
+\fBpwck\fR [\-q] [\-r] [\fIpasswd\fR\ \fIshadow\fR]
+.SH "DESCRIPTION"
+.PP
+The
+\fBpwck\fR
+command verifies the integrity of the system authentication information\&. All entries in the
+/etc/passwd
+and
+/etc/shadow
+are checked to see that the entry has the proper format and valid data in each field\&. The user is prompted to delete entries that are improperly formatted or which have other uncorrectable errors\&.
+.PP
+Voici les v\('erifications effectu\('ees\ \&:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+nombre correct de champs
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+unicit\('e des noms d\'utilisateur
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+validit\('e des identifiants d\'utilisateur et de groupe
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+validit\('e du groupe primaire
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+validit\('e du r\('epertoire personnel
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+validit\('e de l\'interpr\('eteur de commandes initial (\(Fo\ \&login shell\ \&\(Fc)
+.RE
+.PP
+Une erreur dans le nombre de champs ou la non unicit\('e d\'un nom d\'utilisateur sera fatale\&. Si le nombre de champs n\'est pas correct, il sera demand\('e \(`a l\'utilisateur de supprimer la ligne\&. Si l\'utilisateur ne r\('epond pas par l\'affirmative, les v\('erifications suivantes ne seront pas effectu\('ees\&. Il sera \('egalement demand\('e de supprimer les entr\('ees correspondant aux noms d\'utilisateur redondants, mais dans ce cas, les autres v\('erifications seront effectu\('ees\&. Toutes les autres erreurs ne sont que des avertissements et l\'utilisateur est encourag\('e \(`a utiliser
+\fBusermod\fR
+pour les corriger\&.
+.PP
+Les commandes qui op\(`erent sur le fichier
+/etc/passwd
+ne peuvent pas modifier les entr\('ees corrompues ou redondantes\&.
+\fBPwck\fR
+doit \(^etre utilis\('e dans ce cas pour retirer ces entr\('ees\&.
+.SH "OPTIONS"
+.PP
+Les options disponibles pour la commande
+\fBpwck\fR
+sont\ \&:
+.PP
+\fB\-q\fR
+.RS 4
+Ne signaler que les erreurs\&. Les avertissements qui ne n\('ecessite pas une action de la part de l\'utilisateur ne seront pas affich\('es\&.
+.RE
+.PP
+\fB\-r\fR
+.RS 4
+Permet d\'ex\('ecuter
+\fBpwck\fR
+dans le mode lecture seule\&.
+.RE
+.PP
+\fB\-s\fR
+.RS 4
+Trie les entr\('ees de
+/etc/passwd
+et
+/etc/shadow
+par UID\&.
+.RE
+.PP
+Par d\('efaut,
+\fBpwck\fR
+op\(`ere sur les fichiers
+/etc/passwd
+et
+/etc/shadow\&. L\'utilisateur peut sp\('ecifier d\'autres fichiers avec les param\(`etres
+\fIfichier_passwd\fR
+et
+\fIfichier_shadow\fR\&.
+.SH "CONFIGURATION"
+.PP
+The following configuration variables in
+/etc/login\&.defs
+change the behavior of this tool:
+.PP
+\fBPASS_MAX_DAYS\fR (number)
+.RS 4
+Nombre maximum de jours de validit\('e d\'un mot de passe\&. Apr\(`es cette dur\('ee, une modification du mot de passe est obligatoire\&. S\'il n\'est pas pr\('ecis\('e, la valeur de \-1 est utilis\('ee (ce qui enl\(`eve toute restriction)\&.
+.RE
+.PP
+\fBPASS_MIN_DAYS\fR (number)
+.RS 4
+Nombre minimum de jours autoris\('e avant la modification d\'un mot de passe\&. Toute tentative de modification du mot de passe avant cette dur\('ee est rejet\('ee\&. S\'il n\'est pas pr\('ecis\('e, la valeur de \-1 est utilis\('ee (ce qui enl\(`eve toute restriction)\&.
+.RE
+.PP
+\fBPASS_WARN_AGE\fR (number)
+.RS 4
+Nombre de jours durant lesquels l\'utilisateur recevra un avertissement avant que son mot de passe n\'arrive en fin de validit\('e\&. Une valeur n\('egative signifie qu\'aucun avertissement n\'est donn\('e\&. S\'il n\'est pas pr\('ecis\('e, aucun avertissement n\'est donn\('e\&.
+.RE
+.SH "FICHIERS"
+.PP
+/etc/group
+.RS 4
+Informations sur les groupes\&.
+.RE
+.PP
+/etc/passwd
+.RS 4
+Informations sur les comptes des utilisateurs\&.
+.RE
+.PP
+/etc/shadow
+.RS 4
+Informations s\('ecuris\('ees sur les comptes utilisateurs\&.
+.RE
+.SH "VOIR AUSSI"
+.PP
+
+\fBgroup\fR(5),
+\fBgrpck\fR(8),
+\fBpasswd\fR(5),
+\fBshadow\fR(5),
+\fBusermod\fR(8)\&.
+.SH "VALEURS DE RETOUR"
+.PP
+La commande
+\fBpwck\fR
+retourne les valeurs suivantes en quittant\ \&:
+.PP
+\fI0\fR
+.RS 4
+succ\(`es
+.RE
+.PP
+\fI1\fR
+.RS 4
+erreur de syntaxe
+.RE
+.PP
+\fI2\fR
+.RS 4
+une entr\('ee de mot de passe ou plus est incorrecte
+.RE
+.PP
+\fI3\fR
+.RS 4
+impossible d\'ouvrir les fichiers de mots de passe
+.RE
+.PP
+\fI4\fR
+.RS 4
+impossible de verrouiller les fichiers de mots de passe
+.RE
+.PP
+\fI5\fR
+.RS 4
+impossible de mettre \(`a jour les fichiers des mots de passe
+.RE
+.PP
+\fI6\fR
+.RS 4
+can\'t sort password files
+.RE

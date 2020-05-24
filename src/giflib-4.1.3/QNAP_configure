@@ -1,0 +1,1 @@
+./configure --host=powerpc-linux --prefix=/root/freescale-dev/build_powerpc

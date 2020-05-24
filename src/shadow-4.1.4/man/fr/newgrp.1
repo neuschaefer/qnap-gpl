@@ -1,0 +1,90 @@
+'\" t
+.\"     Title: newgrp
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10/05/2009
+.\"    Manual: Commandes utilisateur
+.\"    Source: Commandes utilisateur
+.\"  Language: French
+.\"
+.TH "NEWGRP" "1" "10/05/2009" "Commandes utilisateur" "Commandes utilisateur"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOM"
+newgrp \- se connecter avec un nouveau groupe
+.SH "SYNOPSIS"
+.HP \w'\fBnewgrp\fR\ 'u
+\fBnewgrp\fR [\-] [\fIgroupe\fR]
+.SH "DESCRIPTION"
+.PP
+The
+\fBnewgrp\fR
+command is used to change the current group ID during a login session\&. If the optional
+\fB\-\fR
+flag is given, the user\'s environment will be reinitialized as though the user had logged in, otherwise the current environment, including current working directory, remains unchanged\&.
+.PP
+\fBNewgrp\fR
+change l\'identifiant de groupe r\('eel actuel \(`a la valeur du groupe indiqu\('e, ou au groupe par d\('efaut d\('efini dans
+/etc/passwd
+si aucun nom de groupe n\'est fourni\&.
+\fBNewgrp\fR
+essaiera \('egalement d\'ajouter le groupe \(`a l\'ensemble des groupes de l\'utilisateur\&. Si l\'utilisateur n\'est pas superutilisateur, un mot de passe lui sera demand\('e s\'il n\'utilise pas de mot de passe (dans
+/etc/shadow, si cet utilisateur a une entr\('ee dans le fichier des mots de passe cach\('es, ou dans
+/etc/passwd
+sinon), mais que le groupe en a un, ou si l\'utilisateur n\'est pas dans la liste des membres de ce groupe et que ce groupe utilise un mot de passe\&. L\'acc\(`es sera refus\('e si le mot de passe du groupe est vide et que l\'utilisateur ne fait pas partie de ses membres\&.
+.PP
+S\'il y a une entr\('ee pour ce groupe dans
+/etc/gshadow, alors la liste des membres et le mot de passe de ce groupe seront pris dans ce fichier, sinon, l\'entr\('ee du fichier
+/etc/group
+est utilis\('ee\&.
+.SH "CONFIGURATION"
+.PP
+The following configuration variables in
+/etc/login\&.defs
+change the behavior of this tool:
+.PP
+\fBSYSLOG_SG_ENAB\fR (boolean)
+.RS 4
+Enable "syslog" logging of
+\fBsg\fR
+activity\&.
+.RE
+.SH "FICHIERS"
+.PP
+/etc/passwd
+.RS 4
+Informations sur les comptes des utilisateurs\&.
+.RE
+.PP
+/etc/shadow
+.RS 4
+Informations s\('ecuris\('ees sur les comptes utilisateurs\&.
+.RE
+.PP
+/etc/group
+.RS 4
+Informations sur les groupes\&.
+.RE
+.PP
+/etc/gshadow
+.RS 4
+Informations s\('ecuris\('ees sur les groupes\&.
+.RE
+.SH "VOIR AUSSI"
+.PP
+
+\fBid\fR(1),
+\fBlogin\fR(1),
+\fBsu\fR(1),
+\fBsg\fR(1),
+\fBgpasswd\fR(1),
+\fBgroup\fR(5),
+\fBgshadow\fR(5)\&.

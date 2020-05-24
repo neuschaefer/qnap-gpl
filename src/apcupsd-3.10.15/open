@@ -1,0 +1,1431 @@
+autoconf/configure.in:1279:	platforms/debian/ups-monitor \
+configure:13479:	platforms/debian/ups-monitor \
+doc/techlogs/2002/kam03Jan02:15:        - added code to obey ups->trimeventsfile
+doc/techlogs/2002/kam03Jan02:20:          then ups->eventfile will be left in a bad state.  Also it occurs
+doc/techlogs/2002/kam03Jan02:21:          to me that truncate_events_file() should manage ups->eventfile
+doc/techlogs/2002/kam03Jan02:23:          ups->eventfile close/re-open code into truncate_events_file().
+doc/techlogs/2002/jp09Jan02:25:apcconfig.c:    strcpy(ups->configfile, cfgfile);
+doc/techlogs/2002/jp09Jan02:26:apcconfig.c:    strcpy(ups->lockpath, LOCK_DEFAULT);
+doc/techlogs/2002/jp09Jan02:27:apcconfig.c:    strcat(ups->lockpath, APC_LOCK_PREFIX);
+doc/techlogs/2002/kam05Jan02:21:As I see it, any truncation scheme which closes and reopens the ups->evend_fd
+doc/techlogs/2002/kam05Jan02:26:ups->event_fd -- that's probably just "better" anyway.  The basic premise is
+doc/techlogs/2000/kes12Feb00:27:        if (ups->mode.type > SHAREBASIC)
+doc/techlogs/2001/ric15Sep01:21:    .core dump solved, patch modified by me so that ups->driver checks are
+doc/techlogs/2001/ric15Sep01:32:- Moved ups-specific code in drivers/
+doc/techlogs/2001/ric15Sep01:77:- Always, when accessing ups->driver, a NULL ptr check is done.
+doc/techlogs/3.8.2/kes27Jun01:49:  ups-monitor (in Debian). Made the same changes in
+doc/old_documents/multi-ups-design.txt:94:2. upses sections for ups-specific config directives
+doc/old_documents/old_manual/new_features_3_7_0.html:490:        Fixed an unknown error for the forced ups-kill for the
+doc/old_documents/old_manual/new_features_3_7_0.html:623:Disable lockfiles if slave is a netslave with (ups->cable == APC_NET),
+doc/old_documents/old_manual/win32.html:288:ups-events
+doc/old_documents/old_manual/win32.html:289:ups-status
+doc/old_documents/old_manual/win32.html:300:<p>The functions of <b>Stop</b>, <b>ups-events</b>, and <b>ups-status</b>
+doc/old_documents/old_manual/new_features_3_8_1.html:539:        Fixed an unknown error for the forced ups-kill for the
+doc/old_documents/old_manual/new_features_3_8_1.html:672:Disable lockfiles if slave is a netslave with (ups->cable == APC_NET),
+doc/old_documents/old_manual/new_features_3_8_0.html:522:        Fixed an unknown error for the forced ups-kill for the
+doc/old_documents/old_manual/new_features_3_8_0.html:655:Disable lockfiles if slave is a netslave with (ups->cable == APC_NET),
+doc/old_documents/old_manual/bugs.html:238:       if ((ups->fd = open(ups->device, O_RDWR | O_NOCTTY | O_NDELAY)) < 0) {
+doc/old_documents/old_manual/bugs.html:240:                                        ups->device, strerror(errno));
+doc/old_documents/old_manual/bugs.html:243:        cmd = fcntl(ups->fd, F_GETFL, 0);
+doc/old_documents/old_manual/bugs.html:244:        fcntl(ups->fd, F_SETFL, cmd & ~O_NDELAY);
+doc/old_documents/old_manual/bugs.html:256:-       if ((ups->fd = open(ups->device ,O_RDWR | O_NOCTTY )) < 0) {
+doc/old_documents/old_manual/bugs.html:258:+       if ((ups->fd = open(ups->device, O_RDWR | O_NOCTTY | O_NDELAY)) < 0) {
+doc/old_documents/old_manual/bugs.html:260:                                        ups->device, strerror(errno));
+doc/old_documents/old_manual/bugs.html:263:+       cmd = fcntl(ups->fd, F_GETFL, 0);
+doc/old_documents/old_manual/bugs.html:264:+       fcntl(ups->fd, F_SETFL, cmd & ~O_NDELAY);
+doc/old_documents/old_manual/bugs.html:286:                      if (ups->BattLow == 0) {
+doc/old_documents/old_manual/bugs.html:288:                              ups->Status = UPS_ONBATT;
+doc/old_documents/old_manual/bugs.html:291:                              ups->Status = UPS_BATTLOW;
+doc/old_documents/old_manual/bugs.html:294:              s_write("STATFLAG : 0x%02X Status Flag\n", ups->Status);
+doc/old_documents/old_manual/bugs.html:300:              if (ups->UPS_Cap[CI_IDEN]) {
+doc/old_documents/old_manual/bugs.html:301:                      s_write("UPSNAME  : %s\n", ups->name);
+doc/old_documents/old_manual/bugs.html:313:               s_write("STATFLAG : 0x%02X Status Flag\n", ups->Status);
+doc/old_documents/old_manual/events.html:44:<p class="tty">apccontrol &lt;event&gt; &lt;ups-name&gt; &lt;connected&gt; &lt;powered&gt;</p>
+doc/old_documents/old_manual/events.html:48:     <dt>ups-name</dt> <dd>is the name of the UPS as specified in
+doc/old_documents/ChangeLog-3.x:500:        Fixed an unknown error for the forced ups-kill for the
+doc/old_documents/ChangeLog-3.x:633:Disable lockfiles if slave is a netslave with (ups->cable == APC_NET),
+doc/docbook/events.hml:47:<para>apccontrol &lt;event&gt; &lt;ups-name&gt; &lt;connected&gt;
+doc/docbook/events.hml:60:    <term>ups-name</term>
+doc/docbook/manual.html:3813:arguments as:</p><p>apccontrol &lt;event&gt; &lt;ups-name&gt; &lt;connected&gt;
+doc/docbook/manual.html:3815:      described in the next section.</p></dd><dt><span class="term">ups-name</span></dt><dd><p>is the name of the UPS as specified in the configuration file
+doc/docbook/manual.html:4560:ups-events
+doc/docbook/manual.html:4561:ups-status
+doc/docbook/manual.html:4573:<span class="bold"><b>ups-events</b></span>, and <span class="bold"><b>ups-status</b></span> can be more easily invoked by right
+doc/docbook/win32.hml:395:ups-events
+doc/docbook/win32.hml:396:ups-status
+doc/docbook/win32.hml:415:<emphasis role="bold">ups-events</emphasis>, and <emphasis
+doc/docbook/win32.hml:416:role="bold">ups-status</emphasis> can be more easily invoked by right
+doc/developers_manual/multiups.html:74:upses sections for ups-specific config directives</li>
+doc/developers_manual/changelog.html:515:        Fixed an unknown error for the forced ups-kill for the
+doc/developers_manual/changelog.html:648:Disable lockfiles if slave is a netslave with (ups->cable == APC_NET),
+include/apc_defines.h:96:/* bit values for APC UPS Status Byte (ups->Status) */
+include/apc_defines.h:128:/* Macro to set/clear/test bit values in ups->Status */
+include/apc_defines.h:129:#define is_ups_set(bit) ((ups->Status) & (bit))
+include/apc_defines.h:130:#define set_ups(bit) ((ups->Status) |= (bit))
+include/apc_defines.h:131:#define clear_ups(bit) ((ups->Status) &= ~(bit))
+include/apc_defines.h:152:#define UPS_ISSET(bit) ((ups->Status) & (bit))
+include/apc_defines.h:153:#define UPS_SET(bit) ((ups->Status) |= (bit))
+include/apc_defines.h:154:#define UPS_CLEAR(bit) ((ups->Status) &= ~(bit))
+include/apc_drivers.h:148:    if (ups->driver) ups->driver->open(ups)
+include/apc_drivers.h:150:    if (ups->driver) ups->driver->setup(ups)
+include/apc_drivers.h:152:    if (ups->driver) ups->driver->close(ups)
+include/apc_drivers.h:154:    if (ups->driver) ups->driver->kill_power(ups)
+include/apc_drivers.h:156:    if (ups->driver) ups->driver->read_ups_static_data(ups)
+include/apc_drivers.h:158:    if (ups->driver) ups->driver->read_ups_volatile_data(ups)
+include/apc_drivers.h:160:    if (ups->driver) ups->driver->get_ups_capabilities(ups)
+include/apc_drivers.h:162:    if (ups->driver) ups->driver->check_ups_state(ups)
+include/apc_drivers.h:164:    if (ups->driver) ups->driver->ups_program_eeprom(ups, command, data)
+include/apc_drivers.h:166:    if (ups->driver) ups->driver->ups_entry_point(ups, command, data)
+platforms/debian/Makefile.in:36:	@if test -e /etc/init.d/ups-monitor; then \
+platforms/debian/Makefile.in:37:		echo "Found a pre-existing copy of /etc/init.d/ups-monitor." ; \
+platforms/debian/Makefile.in:38:		echo "Saving as /etc/init.d/ups-monitor.old..." ; \
+platforms/debian/Makefile.in:39:		mv -i /etc/init.d/ups-monitor /etc/init.d/ups-monitor.old ; \
+platforms/debian/Makefile.in:42:	@echo "Installing /etc/init.d/ups-monitor..."
+platforms/debian/Makefile.in:43:	$(INSTALL_PROGRAM) -m 744 ups-monitor /etc/init.d/ups-monitor
+platforms/debian/Makefile.in:49:	@echo "       at /etc/init.d/halt properly calls /etc/init.d/ups-monitor"
+platforms/debian/Makefile.in:64:	@echo "Removing ups-monitor script..."
+platforms/debian/Makefile.in:65:	@rm -f /etc/init.d/ups-monitor 
+platforms/debian/Makefile.in:70:	@rm -f Makefile apccontrol.sh apcupsd ups-monitor 
+platforms/debian/examples/halt.ex:11:if [ -x /etc/init.d/ups-monitor ]
+platforms/debian/examples/halt.ex:13:	/etc/init.d/ups-monitor poweroff
+platforms/debian/packageinfo/rules:61:       dh_installinit --init-script=ups-monitor
+platforms/debian/packageinfo/changelog:4:  * Provide ups-monitor. (closes: #78058)
+platforms/debian/packageinfo/control:10:Provides: ups-monitor
+platforms/debian/packageinfo/control:11:Conflicts: ups-monitor
+src/apcreports.c:56:    logstats = ups->logstats;
+src/apcreports.c:136:    if (ups->datatime == 0)
+src/apcreports.c:139:    switch (ups->mode.type) {
+src/apcreports.c:216:		 ups->LineMin,
+src/apcreports.c:217:		 ups->LineMax,
+src/apcreports.c:218:		 ups->OutputVoltage,
+src/apcreports.c:219:		 ups->BattVoltage,
+src/apcreports.c:220:		 ups->LineFreq,
+src/apcreports.c:221:		 ups->UPSLoad,
+src/apcreports.c:222:		 ups->UPSTemp,
+src/apcreports.c:223:		 ups->ambtemp,
+src/apcreports.c:224:		 ups->humidity,
+src/apcreports.c:225:		 ups->LineVoltage,
+src/apcreports.c:226:		 ups->BattChg,
+src/apcreports.c:249:	if (ups->stattime != 0) {
+src/apcreports.c:250:            if ((statusfile = fopen(ups->statfile,"w")) == NULL)
+src/apcreports.c:252:			  ups->statfile, strerror(errno));
+src/apcreports.c:254:	    unlink(ups->statfile);
+src/apcreports.c:259:    if ((ups->datatime > 0) && (now - last_time_logging) > ups->datatime) {
+src/apcreports.c:265:    if ((statusfile != NULL) && (now - last_time_status) > ups->stattime) {
+src/devicedbg.c:101:    if (ups->driver == NULL) {
+src/devicedbg.c:105:    printf("Attached to driver: %s\n", ups->driver->driver_name);        
+src/apcdevice.c:75:    if ((ups->fd != -1) && create_lockfile(ups) == LCKERROR) {
+src/apcdevice.c:91:    if (ups->mode.type <= SHAREBASIC) {
+src/apcdevice.c:106:	    (ups->mode.type != BK)) ||
+src/apcdevice.c:108:	    (is_ups_set(UPS_ONBATT)) && (ups->mode.type == BK))) {
+src/apcdevice.c:132:	if ((ups->upsclass.type == SHAREMASTER) ||
+src/apcdevice.c:133:	    (ups->upsclass.type == SHARENETMASTER)) {
+src/apcdevice.c:137:	} else if (ups->upsclass.type == NETMASTER) {
+src/apcdevice.c:148:	if (ups->mode.type == BK) {
+src/apcdevice.c:158:	} else if (ups->mode.type == SHAREBASIC) {
+src/apcdevice.c:189:    if (ups->upsname[0] == 0) {       /* no name given */
+src/apcdevice.c:190:	gethostname(ups->upsname, sizeof(ups->upsname)-1);
+src/apcdevice.c:191:	if (ups->upsname[0] == 0) {   /* error */
+src/apcdevice.c:192:            astrncpy(ups->upsname, "default", sizeof(ups->upsname));
+src/apcdevice.c:221:	ups->wait_time = device_wait_time(ups); /* compute appropriate wait time */
+src/apcdevice.c:223:        Dmsg2(70, "Before device_check_state: 0x%x (OB:%d).\n", ups->Status,
+src/apcdevice.c:231:	ups->wait_time = device_wait_time(ups); /* compute appropriate wait time */
+src/apcdevice.c:233:        Dmsg2(70, "Before do_action: 0x%x (OB:%d).\n", ups->Status,
+src/apcdevice.c:238:        Dmsg2(70, "Before fillUPS: 0x%x (OB:%d).\n", ups->Status,
+src/apcdevice.c:244:        Dmsg2(70, "Before do_reports: 0x%x (OB:%d).\n", ups->Status,
+src/apcdevice.c:270:     if (ups->datatime && ups->datatime < wait_time) {
+src/apcdevice.c:271:	 wait_time = ups->datatime;
+src/apcdevice.c:273:     if (ups->stattime && ups->stattime < wait_time) {
+src/apcdevice.c:274:	 wait_time = ups->stattime;
+Binary file src/apcaccess matches
+src/powerflute.c:146:        fp = fopen(ups->eventfile, "r");
+src/powerflute.c:327:        mvwprintw(statwin, 2, 1, "Model      : %s", ups->mode.long_name);
+src/powerflute.c:328:        mvwprintw(statwin, 3, 1, "Cable      : %s", ups->cable.long_name);
+src/powerflute.c:329:        mvwprintw(statwin, 4, 1, "Mode       : %s", ups->upsclass.long_name);
+src/powerflute.c:339:			xlate_history(ups->G[0]));
+src/apcnet.c:256:	slaves[who].addr.sin_port = htons(ups->NetUpsPort);
+src/apcnet.c:304:     * problems with htonl(ups->OnBatt);
+src/apcnet.c:310:    l = (long)ups->BattChg;
+src/apcnet.c:312:    l = ups->ShutDown;
+src/apcnet.c:314:    l = ups->nettime;
+src/apcnet.c:316:    l = (long)ups->TimeLeft;
+src/apcnet.c:328:    l = ups->UPS_Cap[CI_BATTLEV];
+src/apcnet.c:330:    l = ups->UPS_Cap[CI_RUNTIM];
+src/apcnet.c:457:    if (ups->nisip[0]) {
+src/apcnet.c:458:	if (inet_pton(AF_INET, ups->nisip, &local_ip) != 1) {
+src/apcnet.c:459:            log_event(ups, LOG_WARNING, "Invalid NISIP specified: '%s'", ups->nisip);
+src/apcnet.c:464:    astrncpy(ups->mode.long_name, "Network Slave", sizeof(ups->mode.long_name)); /* don't know model */
+src/apcnet.c:467:    if ((mastent = gethostbyname(ups->master_name)) == NULL) {
+src/apcnet.c:469:	    ups->master_name, strerror(errno));
+src/apcnet.c:502:    my_adr.sin_port = htons(ups->NetUpsPort);
+src/apcnet.c:507:            log_event(ups, LOG_WARNING, "Cannot bind to port %d, retrying ...", ups->NetUpsPort);
+src/apcnet.c:515:        log_event(ups, LOG_ERR, "Cannot bind port %d, probably already in use", ups->NetUpsPort);
+src/apcnet.c:528:    Dmsg1(100, "Slave listening on port %d\n", ups->NetUpsPort);
+src/apcnet.c:530:    astrncpy(slaves[0].name, ups->master_name, sizeof(slaves[0].name));
+src/apcnet.c:686:	astrncpy(get_data.usermagic, ups->usermagic, sizeof(get_data.usermagic));
+src/apcnet.c:696:    if (strcmp(ups->usermagic, get_data.usermagic) == 0) {
+src/apcnet.c:708:	ups->BattChg	   = ntohl(get_data.BattChg);
+src/apcnet.c:710:	ups->nettime	   = ntohl(get_data.nettime);
+src/apcnet.c:711:	ups->TimeLeft	   = ntohl(get_data.TimeLeft);
+src/apcnet.c:742:	ups->remote_state  = ntohl(get_data.remote_state);
+src/apcnet.c:743:	ups->UPS_Cap[CI_BATTLEV] = ntohl(get_data.cap_battlev);
+src/apcnet.c:744:	ups->UPS_Cap[CI_RUNTIM] = ntohl(get_data.cap_runtim);
+src/apcnet.c:747:	       ups->usermagic, get_data.usermagic);
+src/apcnet.c:776:    ups->last_master_connect_time = time(NULL);
+src/apcnet.c:907:	if (((now - last_time_net) > ups->nettime) || is_ups_set(UPS_FASTPOLL) ||
+src/apcaccess.c:109:    printf("\nValid EPROM values for the %s\n\n", ups->mode.long_name);
+src/apcaccess.c:189:    if (!ups->UPS_Cap[CI_EPROM])
+src/apcaccess.c:191:    if (ups->UPS_Cap[CI_REVNO])
+src/apcaccess.c:192:       locale1 = *(ups->firmrev + strlen(ups->firmrev) - 1);
+src/apcaccess.c:195:    if (ups->UPS_Cap[CI_UPSMODEL])
+src/apcaccess.c:196:       locale2 = *(ups->upsmodel + strlen(ups->upsmodel) - 1);
+src/apcaccess.c:208:    parse_eprom_cmds(ups->eprom, locale);
+src/apcaccess.c:346:	  if (ups->nisip && ups->nisip[0]) {
+src/apcaccess.c:347:	    host = ups->nisip;
+src/apcaccess.c:349:	  if (ups->statusport) {
+src/apcaccess.c:350:	    port = ups->statusport;
+src/apcnis.c:195:   if (ups->nisip[0]) {
+src/apcnis.c:196:      if (inet_pton(AF_INET, ups->nisip, &local_ip) != 1) {
+src/apcnis.c:197:         log_event(ups, LOG_WARNING, "Invalid NISIP specified: '%s'", ups->nisip);
+src/apcnis.c:226:   serv_addr.sin_port = htons(ups->statusport);
+src/apcnis.c:232:	    ups->statusport, strerror(errno));
+src/apcnis.c:348:	    if ((ups->eventfile[0] == 0) ||
+src/apcnis.c:349:                 ((events_file = fopen(ups->eventfile, "r")) == NULL)) {
+src/apcnis.c:372:	    len = strlen(ups->eprom) + 1;
+src/apcnis.c:373:	    net_send(nsockfd, ups->eprom, len);
+src/apcnis.c:374:	    len = strlen(ups->firmrev) + 1;
+src/apcnis.c:375:	    net_send(nsockfd, ups->firmrev, len);
+src/apcnis.c:376:	    len = strlen(ups->upsmodel) + 1;
+src/apcnis.c:377:	    net_send(nsockfd, ups->upsmodel, len);
+Binary file src/apcupsd matches
+Binary file src/apctest matches
+src/apcupsd.c:239:    openlog("apcupsd", LOG_CONS|LOG_PID, ups->sysfac);   
+src/apcupsd.c:255:    if (ups->driver == NULL) {
+src/apcupsd.c:259:    Dmsg1(10, "Attached to driver: %s\n", ups->driver->driver_name);
+src/apcupsd.c:262:    ups->start_time = time(NULL);
+src/apcupsd.c:268:       openlog("apcupsd", LOG_CONS|LOG_PID, ups->sysfac);   
+src/apcupsd.c:276:    if (!kill_ups_power && ups->eventfile[0] != 0) {
+src/apcupsd.c:277:	ups->event_fd = open(ups->eventfile, O_RDWR|O_CREAT|O_APPEND, 0644);
+src/apcupsd.c:278:	if (ups->event_fd < 0) {
+src/apcupsd.c:280:		      ups->eventfile, strerror(errno));
+src/apcupsd.c:284:    switch(ups->sharenet.type) {
+src/apcupsd.c:290:	switch(ups->upsclass.type) {
+src/apcupsd.c:337:        Error_abort1(_("Failed to reacquire serial port lock file on device %s\n"), ups->device);
+src/apcupsd.c:366:    if (ups->netstats) {
+src/apcnet.c.new:174:            slaves[who].addr.sin_port = htons(ups->NetUpsPort);
+src/apcnet.c.new:372:    int base_time = (slave_count * ups->nettime);
+src/apcnet.c.new:428:        waittime.tv_sec = ups->nettime - (time(NULL) - start_time);
+src/apcnet.c.new:823:     * problems with htonl(ups->OnBatt);
+src/apcnet.c.new:829:    l = (long)ups->BattChg;
+src/apcnet.c.new:831:    l = ups->ShutDown;
+src/apcnet.c.new:833:    l = ups->nettime;
+src/apcnet.c.new:835:    l = (long)ups->TimeLeft;
+src/apcnet.c.new:847:    l = ups->UPS_Cap[CI_BATTLEV];
+src/apcnet.c.new:849:    l = ups->UPS_Cap[CI_RUNTIM];
+src/apcnet.c.new:1191:    if (ups->nisip[0]) {
+src/apcnet.c.new:1192:        if (inet_pton(AF_INET, ups->nisip, &local_ip) != 1) {
+src/apcnet.c.new:1193:            log_event(ups, LOG_WARNING, "Invalid NISIP specified: '%s'", ups->nisip);
+src/apcnet.c.new:1198:    strcpy(ups->mode.long_name, "Network Slave"); /* don't know model */
+src/apcnet.c.new:1201:    if ((mastent = gethostbyname(ups->master_name)) == NULL) {
+src/apcnet.c.new:1203:            ups->master_name, strerror(errno));
+src/apcnet.c.new:1236:    my_adr.sin_port = htons(ups->NetUpsPort);
+src/apcnet.c.new:1241:            log_event(ups, LOG_WARNING, "Cannot bind to port %d, retrying ...", ups->NetUpsPort);
+src/apcnet.c.new:1249:        log_event(ups, LOG_ERR, "Cannot bind port %d, probably already in use", ups->NetUpsPort);
+src/apcnet.c.new:1262:    Dmsg1(100, "Slave listening on port %d\n", ups->NetUpsPort);
+src/apcnet.c.new:1264:    strcpy(slaves[0].name, ups->master_name);
+src/apcnet.c.new:1420:        strcpy(get_data.usermagic, ups->usermagic);
+src/apcnet.c.new:1429:    if (strcmp(ups->usermagic, get_data.usermagic) == 0) {
+src/apcnet.c.new:1441:        ups->BattChg       = ntohl(get_data.BattChg);
+src/apcnet.c.new:1443:        ups->nettime       = ntohl(get_data.nettime);
+src/apcnet.c.new:1444:        ups->TimeLeft      = ntohl(get_data.TimeLeft);
+src/apcnet.c.new:1475:        ups->remote_state  = ntohl(get_data.remote_state);
+src/apcnet.c.new:1476:        ups->UPS_Cap[CI_BATTLEV] = ntohl(get_data.cap_battlev);
+src/apcnet.c.new:1477:        ups->UPS_Cap[CI_RUNTIM] = ntohl(get_data.cap_runtim);
+src/apcnet.c.new:1480:               ups->usermagic, get_data.usermagic);
+src/apcnet.c.new:1508:    ups->last_master_connect_time = time(NULL);
+src/apcnet.c.new:1625:    time_t sleeptime = ups->nettime;
+src/apcnet.c.new:1638:        if (((now - last_time_net) > ups->nettime)
+src/apcnet.c.new:1670:            sleeptime = ups->nettime - (last_time_net - now); 
+src/apctest.c:280:    if (ups->driver == NULL) {
+src/apctest.c:284:    pmsg("Attached to driver: %s\n", ups->driver->driver_name);        
+src/apctest.c:287:    ups->start_time = time(NULL);
+src/apctest.c:290:    switch(ups->sharenet.type) {
+src/apctest.c:300:	switch(ups->upsclass.type) {
+src/apctest.c:337:    switch (ups->cable.type) {
+src/apctest.c:399:       pmsg("Unknown cable type: %d\n", ups->cable.type);
+src/apctest.c:403:    if (ups->cable.type == USB_CABLE) {
+src/apctest.c:406:    } else if (ups->cable.type >= CUSTOM_SMART) {
+src/apctest.c:411:    switch (ups->mode.type) {
+src/apctest.c:452:       pmsg("Unknown mode.type: %d\n", ups->mode.type);
+src/apctest.c:454:    if (ups->mode.type > SHAREBASIC) {
+src/apctest.c:462:    switch(ups->sharenet.type) {
+src/apctest.c:469:	switch(ups->upsclass.type) {
+src/apctest.c:516:        Error_abort1(_("failed to reacquire device lock file on device %s\n"), ups->device);
+src/apctest.c:521:    if (ups->fd != -1) {
+src/apctest.c:532:            write(ups->fd, "R", 1);  /* enter dumb mode */
+src/apctest.c:542:    if (ups->fd != -1) {
+src/apctest.c:669:      if (ioctl(ups->fd, TIOCMGET, &nbits) < 0) {
+src/apctest.c:758:      if (ioctl(ups->fd, TIOCMGET, &bits) < 0) {
+src/apctest.c:799:      if (ioctl(ups->fd, TIOCMGET, &bits) < 0) {
+src/apctest.c:832:   if (ioctl(ups->fd, TIOCMGET, &bits) < 0) {
+src/apctest.c:843:   if (ioctl(ups->fd, TIOCMGET, &bits) < 0) {
+src/apctest.c:977:   tcflush(ups->fd, TCIOFLUSH);
+src/apctest.c:981:      FD_SET(ups->fd, &rfds);
+src/apctest.c:982:      stat = select((ups->fd)+1, &rfds, NULL, NULL, NULL);  
+src/apctest.c:994:	 write(ups->fd, &ch, 1);
+src/apctest.c:996:      if (FD_ISSET(ups->fd, &rfds)) {
+src/apctest.c:997:	 if (read(ups->fd, &ch, 1) != 1) { 
+src/apctest.c:1020:   tcflush(ups->fd, TCIOFLUSH);
+src/apctest.c:1023:   stat = write(ups->fd, &cmd, 1);
+src/apctest.c:1139:      FD_SET(ups->fd, &rfds);
+src/apctest.c:1144:      retval = select((ups->fd)+1, &rfds, NULL, NULL, &tv);
+src/apctest.c:1192:      if (FD_ISSET(ups->fd, &rfds)) {
+src/apctest.c:1193:	 read(ups->fd, &cmd, 1);
+src/apctest.c:1348:   tcflush(ups->fd, TCIOFLUSH);
+src/apctest.c:1351:   stat = write(ups->fd, &cmd, 1);
+src/apctest.c:1373:   stat = write(ups->fd, &cmd, 1);
+src/apctest.c:1379:      stat = read(ups->fd, &cmd, 1);
+src/apctest.c:1426:   pmsg("UPS Status: %s\n", smart_poll(ups->UPS_Cmd[CI_STATUS], ups));
+src/apctest.c:1428:   pmsg("Line quality: %s\n", smart_poll(ups->UPS_Cmd[CI_LQUAL], ups));
+src/apctest.c:1431:	smart_poll(ups->UPS_Cmd[CI_WHY_BATT], ups));
+src/apctest.c:1433:   pmsg("Self-Test Status: %s\n", smart_poll(ups->UPS_Cmd[CI_ST_STAT], ups));
+src/apctest.c:1435:   pmsg("Line Voltage: %s\n", smart_poll(ups->UPS_Cmd[CI_VLINE], ups));
+src/apctest.c:1437:   pmsg("Line Voltage Max: %s\n", smart_poll(ups->UPS_Cmd[CI_VMAX], ups));
+src/apctest.c:1439:   pmsg("Line Voltage Min: %s\n", smart_poll(ups->UPS_Cmd[CI_VMIN], ups));
+src/apctest.c:1441:   pmsg("Output Voltage: %s\n", smart_poll(ups->UPS_Cmd[CI_VOUT], ups));
+src/apctest.c:1443:   pmsg("Batt level percent: %s\n", smart_poll(ups->UPS_Cmd[CI_BATTLEV], ups));
+src/apctest.c:1445:   pmsg("Batt voltage: %s\n", smart_poll(ups->UPS_Cmd[CI_VBATT], ups));
+src/apctest.c:1447:   pmsg("UPS Load: %s\n", smart_poll(ups->UPS_Cmd[CI_LOAD], ups));
+src/apctest.c:1449:   pmsg("Line freq: %s\n", smart_poll(ups->UPS_Cmd[CI_FREQ], ups));
+src/apctest.c:1451:   pmsg("Runtime left: %s\n", smart_poll(ups->UPS_Cmd[CI_RUNTIM], ups));
+src/apctest.c:1453:   pmsg("UPS Internal temp: %s\n", smart_poll(ups->UPS_Cmd[CI_ITEMP], ups));
+src/apctest.c:1455:   pmsg("Dip switch settings: %s\n", smart_poll(ups->UPS_Cmd[CI_DIPSW], ups));
+src/apctest.c:1457:   pmsg("Register 1: %s\n", smart_poll(ups->UPS_Cmd[CI_REG1], ups));
+src/apctest.c:1459:   pmsg("Register 2: %s\n", smart_poll(ups->UPS_Cmd[CI_REG2], ups));
+src/apctest.c:1463:   pmsg("Sensitivity: %s\n", smart_poll(ups->UPS_Cmd[CI_SENS], ups));
+src/apctest.c:1465:   pmsg("Wakeup delay: %s\n", smart_poll(ups->UPS_Cmd[CI_DWAKE], ups));
+src/apctest.c:1467:   pmsg("Sleep delay: %s\n", smart_poll(ups->UPS_Cmd[CI_DSHUTD], ups));
+src/apctest.c:1469:   pmsg("Low transfer voltage: %s\n", smart_poll(ups->UPS_Cmd[CI_LTRANS], ups));
+src/apctest.c:1471:   pmsg("High transfer voltage: %s\n", smart_poll(ups->UPS_Cmd[CI_HTRANS], ups));
+src/apctest.c:1473:   pmsg("Batt charge for return: %s\n", smart_poll(ups->UPS_Cmd[CI_RETPCT], ups));
+src/apctest.c:1475:   pmsg("Alarm status: %s\n", smart_poll(ups->UPS_Cmd[CI_DALARM], ups));
+src/apctest.c:1477:   pmsg("Low battery shutdown level: %s\n", smart_poll(ups->UPS_Cmd[CI_DLBATT], ups));
+src/apctest.c:1479:   pmsg("UPS Name: %s\n", smart_poll(ups->UPS_Cmd[CI_IDEN], ups));
+src/apctest.c:1481:   pmsg("UPS Self test interval: %s\n", smart_poll(ups->UPS_Cmd[CI_STESTI], ups));
+src/apctest.c:1483:   pmsg("UPS manufacture date: %s\n", smart_poll(ups->UPS_Cmd[CI_MANDAT], ups));
+src/apctest.c:1485:   pmsg("UPS serial number: %s\n", smart_poll(ups->UPS_Cmd[CI_SERNO], ups));
+src/apctest.c:1487:   pmsg("Date battery replaced: %s\n", smart_poll(ups->UPS_Cmd[CI_BATTDAT], ups));
+src/apctest.c:1489:   pmsg("Output voltage when on batteries: %s\n", smart_poll(ups->UPS_Cmd[CI_NOMOUTV], ups)); 
+src/apctest.c:1491:   pmsg("Nominal battery voltage: %s\n", smart_poll(ups->UPS_Cmd[CI_NOMBATTV], ups)); 
+src/apctest.c:1493:   pmsg("Percent humidity: %s\n", smart_poll(ups->UPS_Cmd[CI_HUMID], ups));
+src/apctest.c:1495:   pmsg("Ambient temperature: %s\n", smart_poll(ups->UPS_Cmd[CI_ATEMP], ups));
+src/apctest.c:1497:   pmsg("Firmware revision: %s\n", smart_poll(ups->UPS_Cmd[CI_REVNO], ups));
+src/apctest.c:1499:   pmsg("Number of external batteries installed: %s\n", smart_poll(ups->UPS_Cmd[CI_EXTBATTS], ups));
+src/apctest.c:1501:   pmsg("Number of bad batteries installed: %s\n", smart_poll(ups->UPS_Cmd[CI_BADBATTS], ups));
+src/apctest.c:1503:   pmsg("UPS model as defined by UPS: %s\n", smart_poll(ups->UPS_Cmd[CI_UPSMODEL], ups));
+src/apctest.c:1505:   pmsg("UPS EPROM capabilities string: %s\n", (ans=smart_poll(ups->UPS_Cmd[CI_EPROM], ups)));
+src/apctest.c:1508:   pmsg("Hours since last self test: %s\n", smart_poll(ups->UPS_Cmd[CI_ST_TIME], ups));
+src/apctest.c:1651:    pmsg("\nValid EEPROM values for the %s\n\n", ups->mode.long_name);
+src/apctest.c:1681:    tcflush(ups->fd, TCIOFLUSH);
+src/apctest.c:1685:    pmsg("Battery date: %s\n", smart_poll(ups->UPS_Cmd[CI_BATTDAT], ups));
+src/apctest.c:1686:    pmsg("UPS Name    : %s\n", smart_poll(ups->UPS_Cmd[CI_IDEN], ups));
+src/apctest.c:1736:    if (!ups->UPS_Cap[CI_EPROM]) {
+src/apctest.c:1739:    if (ups->UPS_Cap[CI_REVNO]) {
+src/apctest.c:1740:       locale1 = *(ups->firmrev + strlen(ups->firmrev) - 1);
+src/apctest.c:1744:    if (ups->UPS_Cap[CI_UPSMODEL]) {
+src/apctest.c:1745:       locale2 = *(ups->upsmodel + strlen(ups->upsmodel) - 1);
+src/apctest.c:1761:    parse_eeprom_cmds(ups->eprom, locale);
+src/lib/apcconfig.c:99:    { NULL,             "*invalid-ups-class*",   NO_CLASS },
+src/lib/apcconfig.c:116:    { NULL,       "*invalid-ups-mode*",          NO_SHARE_NET },
+src/lib/apcconfig.c:140:    { NULL,            "*invalid-ups-type*",        NO_UPS },
+src/lib/apcconfig.c:327:	if (strncmp(x, ups->upsname, UPSNAMELEN) == 0) {
+src/lib/apcconfig.c:329:		argvalue, ups->upsname);
+src/lib/apcconfig.c:369:    if (strncmp(x, ups->upsname, UPSNAMELEN) != 0) {
+src/lib/apcconfig.c:371:	    argvalue, ups->upsname);
+src/lib/apcconfig.c:557:    oldfac = ups->sysfac;
+src/lib/apcconfig.c:560:	    ups->sysfac=facnames[i].fi;
+src/lib/apcconfig.c:562:	    if (ups->sysfac != oldfac) {
+src/lib/apcconfig.c:564:                openlog("apcupsd", LOG_CONS|LOG_PID, ups->sysfac);
+src/lib/apcconfig.c:681:    ups->buf = (char *)malloc(BUF_SIZE);
+src/lib/apcconfig.c:682:    if (ups->buf) {
+src/lib/apcconfig.c:683:       ups->buf_len = BUF_SIZE;
+src/lib/apcconfig.c:687:    astrncpy(ups->id, UPSINFO_ID, sizeof(ups->id));
+src/lib/apcconfig.c:688:    ups->version = UPSINFO_VERSION;
+src/lib/apcconfig.c:689:    ups->size = sizeof(UPSINFO);
+src/lib/apcconfig.c:690:    astrncpy(ups->release, APCUPSD_RELEASE, sizeof(ups->release));
+src/lib/apcconfig.c:692:    ups->fd		       = -1;
+src/lib/apcconfig.c:696:    astrncpy(ups->enable_access.name, accesses[0].name, sizeof(ups->enable_access.name));
+src/lib/apcconfig.c:697:    astrncpy(ups->enable_access.long_name, accesses[0].long_name,
+src/lib/apcconfig.c:698:       sizeof(ups->enable_access.long_name));
+src/lib/apcconfig.c:699:    ups->enable_access.type = accesses[0].type;
+src/lib/apcconfig.c:701:    astrncpy(ups->nologin.name, logins[0].name, sizeof(ups->nologin.name));
+src/lib/apcconfig.c:702:    astrncpy(ups->nologin.long_name, logins[0].long_name,
+src/lib/apcconfig.c:703:       sizeof(ups->nologin.long_name));
+src/lib/apcconfig.c:704:    ups->nologin.type	       = logins[0].type;
+src/lib/apcconfig.c:706:    ups->annoy		       = 5 * 60;  /* annoy every 5 mins */
+src/lib/apcconfig.c:707:    ups->annoydelay	       = 60;	  /* must be > than annoy to work, why???? */
+src/lib/apcconfig.c:708:    ups->onbattdelay	       = 6;
+src/lib/apcconfig.c:709:    ups->maxtime	       = 0;
+src/lib/apcconfig.c:710:    ups->nologin_time	       = 0;
+src/lib/apcconfig.c:711:    ups->nologin_file	       = FALSE;
+src/lib/apcconfig.c:713:    ups->stattime	       = 0;
+src/lib/apcconfig.c:714:    ups->datatime	       = 0;
+src/lib/apcconfig.c:715:    ups->reports	       = FALSE;
+src/lib/apcconfig.c:716:    ups->nettime	       = 60;
+src/lib/apcconfig.c:717:    ups->percent	       = 10;
+src/lib/apcconfig.c:718:    ups->runtime	       = 5;
+src/lib/apcconfig.c:719:    ups->netstats	       = TRUE;
+src/lib/apcconfig.c:720:    ups->statusport	       = 7000;
+src/lib/apcconfig.c:721:    ups->upsmodel[0]	       = 0;    /* end of string */
+src/lib/apcconfig.c:726:    astrncpy(ups->sensitivity, "-1", sizeof(ups->sensitivity)); /* no value */
+src/lib/apcconfig.c:727:    ups->dwake		       = -1;
+src/lib/apcconfig.c:728:    ups->dshutd 	       = -1;
+src/lib/apcconfig.c:729:    astrncpy(ups->selftest, "-1", sizeof(ups->selftest)); /* no value */
+src/lib/apcconfig.c:730:    ups->lotrans	       = -1;
+src/lib/apcconfig.c:731:    ups->hitrans	       = -1;
+src/lib/apcconfig.c:732:    ups->rtnpct 	       = -1;
+src/lib/apcconfig.c:733:    ups->dlowbatt	       = -1;
+src/lib/apcconfig.c:734:    ups->NomOutputVoltage      = -1;
+src/lib/apcconfig.c:735:    astrncpy(ups->beepstate,  "-1", sizeof(ups->beepstate)); /* no value */
+src/lib/apcconfig.c:739:    ups->nisip[0] = 0;	    /* no nis IP file as default */
+src/lib/apcconfig.c:740:    ups->NetUpsPort	       = 0;
+src/lib/apcconfig.c:742:    ups->lockfile	       = -1;
+src/lib/apcconfig.c:749:    ups->remote_state	       = TRUE;
+src/lib/apcconfig.c:751:    ups->sysfac 	       = LOG_DAEMON;
+src/lib/apcconfig.c:753:    ups->statfile[0] = 0;	  /* no stats file default */
+src/lib/apcconfig.c:754:    ups->eventfile[0] = 0;	  /* no events file as default */
+src/lib/apcconfig.c:755:    ups->eventfilemax = 10;	  /* trim the events file at 10K as default */
+src/lib/apcconfig.c:756:    ups->event_fd = -1; 	  /* no file open */
+src/lib/apcconfig.c:759:    ups->UPS_Cmd[CI_STATUS] = APC_CMD_STATUS;
+src/lib/apcconfig.c:760:    ups->UPS_Cmd[CI_LQUAL] = APC_CMD_LQUAL;
+src/lib/apcconfig.c:761:    ups->UPS_Cmd[CI_WHY_BATT] = APC_CMD_WHY_BATT;
+src/lib/apcconfig.c:762:    ups->UPS_Cmd[CI_ST_STAT] = APC_CMD_ST_STAT;
+src/lib/apcconfig.c:763:    ups->UPS_Cmd[CI_VLINE] = APC_CMD_VLINE;
+src/lib/apcconfig.c:764:    ups->UPS_Cmd[CI_VMAX] = APC_CMD_VMAX;
+src/lib/apcconfig.c:765:    ups->UPS_Cmd[CI_VMIN] = APC_CMD_VMIN;
+src/lib/apcconfig.c:766:    ups->UPS_Cmd[CI_VOUT] = APC_CMD_VOUT;
+src/lib/apcconfig.c:767:    ups->UPS_Cmd[CI_BATTLEV] = APC_CMD_BATTLEV;
+src/lib/apcconfig.c:768:    ups->UPS_Cmd[CI_VBATT] = APC_CMD_VBATT;
+src/lib/apcconfig.c:769:    ups->UPS_Cmd[CI_LOAD] = APC_CMD_LOAD;
+src/lib/apcconfig.c:770:    ups->UPS_Cmd[CI_FREQ] = APC_CMD_FREQ;
+src/lib/apcconfig.c:771:    ups->UPS_Cmd[CI_RUNTIM] = APC_CMD_RUNTIM;
+src/lib/apcconfig.c:772:    ups->UPS_Cmd[CI_ITEMP] = APC_CMD_ITEMP;
+src/lib/apcconfig.c:773:    ups->UPS_Cmd[CI_DIPSW] = APC_CMD_DIPSW;
+src/lib/apcconfig.c:774:    ups->UPS_Cmd[CI_SENS] = APC_CMD_SENS;
+src/lib/apcconfig.c:775:    ups->UPS_Cmd[CI_DWAKE] = APC_CMD_DWAKE;
+src/lib/apcconfig.c:776:    ups->UPS_Cmd[CI_DSHUTD] = APC_CMD_DSHUTD;
+src/lib/apcconfig.c:777:    ups->UPS_Cmd[CI_LTRANS] = APC_CMD_LTRANS;
+src/lib/apcconfig.c:778:    ups->UPS_Cmd[CI_HTRANS] = APC_CMD_HTRANS;
+src/lib/apcconfig.c:779:    ups->UPS_Cmd[CI_RETPCT] = APC_CMD_RETPCT;
+src/lib/apcconfig.c:780:    ups->UPS_Cmd[CI_DALARM] = APC_CMD_DALARM;
+src/lib/apcconfig.c:781:    ups->UPS_Cmd[CI_DLBATT] = APC_CMD_DLBATT;
+src/lib/apcconfig.c:782:    ups->UPS_Cmd[CI_IDEN] = APC_CMD_IDEN;
+src/lib/apcconfig.c:783:    ups->UPS_Cmd[CI_STESTI] = APC_CMD_STESTI;
+src/lib/apcconfig.c:784:    ups->UPS_Cmd[CI_MANDAT] = APC_CMD_MANDAT;
+src/lib/apcconfig.c:785:    ups->UPS_Cmd[CI_SERNO] = APC_CMD_SERNO;
+src/lib/apcconfig.c:786:    ups->UPS_Cmd[CI_BATTDAT] = APC_CMD_BATTDAT;
+src/lib/apcconfig.c:787:    ups->UPS_Cmd[CI_NOMBATTV] = APC_CMD_NOMBATTV;
+src/lib/apcconfig.c:788:    ups->UPS_Cmd[CI_HUMID] = APC_CMD_HUMID;
+src/lib/apcconfig.c:789:    ups->UPS_Cmd[CI_REVNO] = APC_CMD_REVNO;
+src/lib/apcconfig.c:790:    ups->UPS_Cmd[CI_REG1] = APC_CMD_REG1;
+src/lib/apcconfig.c:791:    ups->UPS_Cmd[CI_REG2] = APC_CMD_REG2;
+src/lib/apcconfig.c:792:    ups->UPS_Cmd[CI_REG3] = APC_CMD_REG3;
+src/lib/apcconfig.c:793:    ups->UPS_Cmd[CI_EXTBATTS] = APC_CMD_EXTBATTS;
+src/lib/apcconfig.c:794:    ups->UPS_Cmd[CI_ATEMP] = APC_CMD_ATEMP;
+src/lib/apcconfig.c:795:    ups->UPS_Cmd[CI_UPSMODEL] = APC_CMD_UPSMODEL;
+src/lib/apcconfig.c:796:    ups->UPS_Cmd[CI_NOMOUTV] = APC_CMD_NOMOUTV;
+src/lib/apcconfig.c:797:    ups->UPS_Cmd[CI_BADBATTS] = APC_CMD_BADBATTS;
+src/lib/apcconfig.c:798:    ups->UPS_Cmd[CI_EPROM] = APC_CMD_EPROM;
+src/lib/apcconfig.c:799:    ups->UPS_Cmd[CI_ST_TIME] = APC_CMD_ST_TIME;
+src/lib/apcconfig.c:800:    ups->UPS_Cmd[CI_CYCLE_EPROM] = APC_CMD_CYCLE_EPROM;
+src/lib/apcconfig.c:801:    ups->UPS_Cmd[CI_UPS_CAPS] = APC_CMD_UPS_CAPS;
+src/lib/apcconfig.c:815:    astrncpy(ups->configfile, cfgfile, sizeof(ups->configfile));
+src/lib/apcconfig.c:878:    if (ups->upsclass.type != NETSLAVE)
+src/lib/apcconfig.c:879:        ups->usermagic[0] = '\0';
+src/lib/apcconfig.c:885:    if (ups->annoy >= ups->annoydelay)
+src/lib/apcconfig.c:886:	ups->annoydelay = 0;
+src/lib/apcconfig.c:888:    if ((ups->sharenet.type == SHAREMASTER) ||
+src/lib/apcconfig.c:889:	(ups->sharenet.type == SHARENETMASTER)) {
+src/lib/apcconfig.c:890:	ups->maxtime = 0;
+src/lib/apcconfig.c:891:	ups->percent = 10;
+src/lib/apcconfig.c:892:	ups->runtime = 5;
+src/lib/apcconfig.c:895:    if ((ups->cable.type < CUSTOM_SMART) && ups->mode.type >= BKPRO) {
+src/lib/apcconfig.c:897:		argvalue, ups->mode.long_name);
+src/lib/apcconfig.c:906:		ups->mode.long_name);
+src/lib/apcconfig.c:929:    if (ups->lockpath[0] == '\0')
+src/lib/apcconfig.c:930:	astrncpy(ups->lockpath, LOCK_DEFAULT, sizeof(ups->lockpath));
+src/lib/apcconfig.c:935:    if (ups->cable.type != APC_NET) {
+src/lib/apcconfig.c:936:        char *dev = strrchr(ups->device, '/');
+src/lib/apcconfig.c:938:	astrncat(ups->lockpath, APC_LOCK_PREFIX, sizeof(ups->lockpath));
+src/lib/apcconfig.c:939:	astrncat(ups->lockpath, dev?++dev:ups->device, sizeof(ups->lockpath));
+src/lib/apcconfig.c:941:	ups->lockpath[0] = 0;
+src/lib/apcconfig.c:942:	ups->lockfile = -1;
+src/lib/apcconfig.c:945:    if ((slave_count > 0) && ups->master_name[0]) {
+src/lib/apcconfig.c:949:    switch (ups->nologin.type) {
+src/lib/apcconfig.c:951:	if (ups->maxtime != 0)
+src/lib/apcconfig.c:952:	    ups->nologin_time = (int)(ups->maxtime * 0.9);
+src/lib/apcconfig.c:955:	ups->nologin_time = (int)(ups->percent * 1.1);
+src/lib/apcconfig.c:956:	if (ups->nologin_time == ups->percent)
+src/lib/apcconfig.c:957:	    ups->nologin_time++;
+src/lib/apcconfig.c:960:	ups->nologin_time = (int)(ups->runtime * 1.1);
+src/lib/apcconfig.c:961:	if (ups->nologin_time == ups->runtime)
+src/lib/apcconfig.c:962:	    ups->nologin_time++;
+src/lib/apcconfig.c:968:    if (ups->PoweredByUPS) {
+src/lib/apclog.c:68:    event_fd = ups ? ups->event_fd : -1;
+src/lib/apclist.c:90:    return ups->next;
+src/lib/apclist.c:98:	if (strncmp(name, ups->upsname, strlen(ups->upsname)) == 0)
+src/lib/apcexec.c:178:	if (!strcmp(ups->upsname, CORENAME))
+src/lib/apcexec.c:276:	argv[2] = ups->upsname;   /* UPS name */
+src/lib/apcexec.c:300:	if (ups->num_execed_children < 0) {
+src/lib/apcexec.c:301:	    ups->num_execed_children = 1;
+src/lib/apcexec.c:303:	    ups->num_execed_children++;
+src/lib/apcexec.c:305:	while (ups->num_execed_children > 0 && waitpid(-1, NULL, WNOHANG) > 0) {
+src/lib/apcexec.c:306:	    ups->num_execed_children--;
+src/lib/apcevents.c:36: * If the ups->eventfile exceeds ups->eventfilemax kilobytes, trim it to
+src/lib/apcevents.c:51:    if (ups->eventfilemax==0 || ups->event_fd<0 || ups->eventfile[0]==0)
+src/lib/apcevents.c:54:    maxb = ups->eventfilemax*1024;
+src/lib/apcevents.c:55:    if (fstat(ups->event_fd, &statbuf) < 0)
+src/lib/apcevents.c:72:    if (lseek(ups->event_fd, -maxb, SEEK_END) < 0) {
+src/lib/apcevents.c:78:	int r = read(ups->event_fd, buf+nbytes, maxb-nbytes);
+src/lib/apcevents.c:95:    lseek(ups->event_fd, 0, SEEK_SET);
+src/lib/apcevents.c:96:    ftruncate(ups->event_fd, 0);
+src/lib/apcevents.c:98:       int r = write(ups->event_fd, buf+i, nbytes);
+src/lib/apcevents.c:190:    if (!shm_OK || core_ups->event_fd > 0) {
+src/lib/apcevents.c:196:    flen = lseek(core_ups->event_fd, (off_t)0, SEEK_END);
+src/lib/apcevents.c:204:    lseek(core_ups->event_fd, fpos, SEEK_SET);
+src/lib/apcevents.c:205:    len = read(core_ups->event_fd, buf, flen);
+src/lib/apcevents.c:206:    lseek(core_ups->event_fd, (off_t)0, SEEK_END);
+Binary file src/lib/libapc.a matches
+src/lib/apcwinipc.c:110:   if (ups == NULL || ups->event_fd < 0) {
+Binary file src/lib/apcconfig.o matches
+src/lib/apcstatus.c:52:    if (ups->poll_time == 0) {	  /* this is always zero on slave */
+src/lib/apcstatus.c:53:       ups->poll_time = now;
+src/lib/apcstatus.c:57:    localtime_r(&ups->poll_time, &tm);
+src/lib/apcstatus.c:64:    s_write(ups, "RELEASE  : %s\n", ups->release);
+src/lib/apcstatus.c:66:    if (*ups->upsname)	 
+src/lib/apcstatus.c:67:        s_write(ups, "UPSNAME  : %s\n", ups->upsname);
+src/lib/apcstatus.c:68:    s_write(ups, "CABLE    : %s\n", ups->cable.long_name);
+src/lib/apcstatus.c:69:    s_write(ups, "MODEL    : %s\n", ups->mode.long_name);
+src/lib/apcstatus.c:70:    s_write(ups, "UPSMODE  : %s\n", ups->upsclass.long_name);
+src/lib/apcstatus.c:71:    localtime_r(&ups->start_time, &tm);
+src/lib/apcstatus.c:74:    if (ups->sharenet.type != DISABLE) {
+src/lib/apcstatus.c:75:        s_write(ups, "SHARE    : %s\n", ups->sharenet.long_name);
+src/lib/apcstatus.c:80:       if (ups->last_master_connect_time == 0) {
+src/lib/apcstatus.c:83:	  localtime_r(&ups->last_master_connect_time, &tm);
+src/lib/apcstatus.c:87:       s_write(ups,"MASTER   : %s\n", ups->master_name);
+src/lib/apcstatus.c:90:    switch(ups->mode.type) {
+src/lib/apcstatus.c:106:        s_write(ups, "STATFLAG : 0x%08X Status Flag\n", ups->Status);
+src/lib/apcstatus.c:143:        s_write(ups, "STATFLAG : 0x%08X Status Flag\n", ups->Status);
+src/lib/apcstatus.c:184:	if (ups->UPS_Cap[CI_VLINE]) {
+src/lib/apcstatus.c:185:            s_write(ups, "LINEV    : %05.1f Volts\n", ups->LineVoltage);
+src/lib/apcstatus.c:190:	if (ups->UPS_Cap[CI_LOAD])
+src/lib/apcstatus.c:191:            s_write(ups, "LOADPCT  : %5.1f Percent Load Capacity\n", ups->UPSLoad);
+src/lib/apcstatus.c:193:	if (ups->UPS_Cap[CI_BATTLEV])
+src/lib/apcstatus.c:194:            s_write(ups, "BCHARGE  : %05.1f Percent\n", ups->BattChg);
+src/lib/apcstatus.c:196:	if (ups->UPS_Cap[CI_RUNTIM])
+src/lib/apcstatus.c:197:            s_write(ups, "TIMELEFT : %5.1f Minutes\n", ups->TimeLeft);
+src/lib/apcstatus.c:199:        s_write(ups, "MBATTCHG : %d Percent\n", ups->percent);
+src/lib/apcstatus.c:200:        s_write(ups, "MINTIMEL : %d Minutes\n", ups->runtime);
+src/lib/apcstatus.c:201:        s_write(ups, "MAXTIME  : %d Seconds\n", ups->maxtime);
+src/lib/apcstatus.c:203:	if (ups->UPS_Cap[CI_VMAX])
+src/lib/apcstatus.c:204:            s_write(ups, "MAXLINEV : %05.1f Volts\n", ups->LineMax);
+src/lib/apcstatus.c:206:	if (ups->UPS_Cap[CI_VMIN])
+src/lib/apcstatus.c:207:            s_write(ups, "MINLINEV : %05.1f Volts\n", ups->LineMin);
+src/lib/apcstatus.c:209:	if (ups->UPS_Cap[CI_VOUT])
+src/lib/apcstatus.c:210:            s_write(ups, "OUTPUTV  : %05.1f Volts\n", ups->OutputVoltage);
+src/lib/apcstatus.c:212:	if (ups->UPS_Cap[CI_SENS]) {
+src/lib/apcstatus.c:230:	if (ups->UPS_Cap[CI_DWAKE])
+src/lib/apcstatus.c:231:            s_write(ups, "DWAKE    : %03d Seconds\n", ups->dwake);
+src/lib/apcstatus.c:233:	if (ups->UPS_Cap[CI_DSHUTD])
+src/lib/apcstatus.c:234:            s_write(ups, "DSHUTD   : %03d Seconds\n", ups->dshutd);
+src/lib/apcstatus.c:236:	if (ups->UPS_Cap[CI_DLBATT])
+src/lib/apcstatus.c:237:            s_write(ups, "DLOWBATT : %02d Minutes\n", ups->dlowbatt);
+src/lib/apcstatus.c:239:	if (ups->UPS_Cap[CI_LTRANS])
+src/lib/apcstatus.c:240:            s_write(ups, "LOTRANS  : %03d.0 Volts\n", ups->lotrans);
+src/lib/apcstatus.c:242:	if (ups->UPS_Cap[CI_HTRANS])
+src/lib/apcstatus.c:243:            s_write(ups, "HITRANS  : %03d.0 Volts\n", ups->hitrans);
+src/lib/apcstatus.c:245:	if (ups->UPS_Cap[CI_RETPCT])
+src/lib/apcstatus.c:246:            s_write(ups, "RETPCT   : %03d.0 Percent\n", ups->rtnpct);
+src/lib/apcstatus.c:249:	if (ups->UPS_Cap[CI_ITEMP])
+src/lib/apcstatus.c:250:            s_write(ups, "ITEMP    : %04.1f C Internal\n", ups->UPSTemp);
+src/lib/apcstatus.c:252:	if (ups->UPS_Cap[CI_DALARM]) {
+src/lib/apcstatus.c:272:	if (ups->UPS_Cap[CI_VBATT])
+src/lib/apcstatus.c:273:            s_write(ups, "BATTV    : %04.1f Volts\n", ups->BattVoltage);
+src/lib/apcstatus.c:275:	if (ups->UPS_Cap[CI_FREQ])
+src/lib/apcstatus.c:276:            s_write(ups, "LINEFREQ : %03.1f Hz\n", ups->LineFreq);
+src/lib/apcstatus.c:279:	if (ups->UPS_Cap[CI_WHY_BATT]) {
+src/lib/apcstatus.c:300:                s_write(ups, "LASTXFER : UNKNOWN EVENT %s\n", ups->G);
+src/lib/apcstatus.c:304:        s_write(ups, "NUMXFERS : %d\n", ups->num_xfers);
+src/lib/apcstatus.c:305:	if (ups->num_xfers > 0) {
+src/lib/apcstatus.c:306:	    localtime_r(&ups->last_onbatt_time, &tm);
+src/lib/apcstatus.c:310:	if (is_ups_set(UPS_ONBATT) && ups->last_onbatt_time > 0)
+src/lib/apcstatus.c:311:	    time_on_batt = now - ups->last_onbatt_time;
+src/lib/apcstatus.c:315:        s_write(ups, "CUMONBATT: %d seconds\n", ups->cum_time_on_batt + time_on_batt);
+src/lib/apcstatus.c:316:	if (ups->last_offbatt_time > 0) {
+src/lib/apcstatus.c:317:	    localtime_r(&ups->last_offbatt_time, &tm);
+src/lib/apcstatus.c:324:	if (ups->LastSelfTest != 0) {
+src/lib/apcstatus.c:325:	    localtime_r(&ups->LastSelfTest, &tm);
+src/lib/apcstatus.c:331:	if (ups->UPS_Cap[CI_ST_STAT])
+src/lib/apcstatus.c:332:            s_write(ups, "SELFTEST : %s\n", ups->X);
+src/lib/apcstatus.c:335:	if (ups->UPS_Cap[CI_STESTI])
+src/lib/apcstatus.c:336:            s_write(ups, "STESTI   : %s\n", ups->selftest);
+src/lib/apcstatus.c:339:        s_write(ups, "STATFLAG : 0x%08X Status Flag\n", ups->Status);
+src/lib/apcstatus.c:341:	if (ups->UPS_Cap[CI_DIPSW])
+src/lib/apcstatus.c:342:            s_write(ups, "DIPSW    : 0x%02X Dip Switch\n", ups->dipsw);
+src/lib/apcstatus.c:345:	if (ups->UPS_Cap[CI_REG1])
+src/lib/apcstatus.c:346:            s_write(ups, "REG1     : 0x%02X Register 1\n", ups->reg1);
+src/lib/apcstatus.c:348:	if (ups->UPS_Cap[CI_REG2])  
+src/lib/apcstatus.c:349:            s_write(ups, "REG2     : 0x%02X Register 2\n", ups->reg2);
+src/lib/apcstatus.c:351:	if (ups->UPS_Cap[CI_REG3]) 
+src/lib/apcstatus.c:352:            s_write(ups, "REG3     : 0x%02X Register 3\n", ups->reg3);
+src/lib/apcstatus.c:354:	if (ups->UPS_Cap[CI_MANDAT])
+src/lib/apcstatus.c:355:            s_write(ups, "MANDATE  : %s\n", ups->birth);
+src/lib/apcstatus.c:357:	if (ups->UPS_Cap[CI_SERNO])
+src/lib/apcstatus.c:358:            s_write(ups, "SERIALNO : %s\n", ups->serial);
+src/lib/apcstatus.c:360:	if (ups->UPS_Cap[CI_BATTDAT] || ups->UPS_Cap[CI_BattReplaceDate])
+src/lib/apcstatus.c:361:            s_write(ups, "BATTDATE : %s\n", ups->battdat);
+src/lib/apcstatus.c:363:	if (ups->UPS_Cap[CI_NOMOUTV])
+src/lib/apcstatus.c:364:            s_write(ups, "NOMOUTV  : %03d\n", ups->NomOutputVoltage);
+src/lib/apcstatus.c:366:	if (ups->UPS_Cap[CI_NOMBATTV])
+src/lib/apcstatus.c:367:            s_write(ups, "NOMBATTV : %5.1f\n", ups->nombattv);
+src/lib/apcstatus.c:369:	if (ups->UPS_Cap[CI_HUMID])
+src/lib/apcstatus.c:370:            s_write(ups, "HUMIDITY : %5.1f\n", ups->humidity);
+src/lib/apcstatus.c:372:	if (ups->UPS_Cap[CI_ATEMP])
+src/lib/apcstatus.c:373:            s_write(ups, "AMBTEMP  : %5.1f\n", ups->ambtemp);
+src/lib/apcstatus.c:375:	if (ups->UPS_Cap[CI_EXTBATTS])
+src/lib/apcstatus.c:376:            s_write(ups, "EXTBATTS : %d\n", ups->extbatts);
+src/lib/apcstatus.c:378:	if (ups->UPS_Cap[CI_BADBATTS])
+src/lib/apcstatus.c:379:            s_write(ups, "BADBATTS : %d\n", ups->badbatts);
+src/lib/apcstatus.c:382:	if (ups->UPS_Cap[CI_REVNO])
+src/lib/apcstatus.c:383:            s_write(ups, "FIRMWARE : %s\n", ups->firmrev);
+src/lib/apcstatus.c:385:	if (ups->UPS_Cap[CI_UPSMODEL])
+src/lib/apcstatus.c:386:            s_write(ups, "APCMODEL : %s\n", ups->upsmodel);
+src/lib/apcstatus.c:461:    switch(ups->mode.type) {
+src/lib/apcstatus.c:501:	if (!is_ups_set(UPS_ONBATT) && ups->UPS_Cap[CI_BATTLEV])
+src/lib/apcstatus.c:502:	    battstat = (int)ups->BattChg;
+src/lib/apclock.c:66:    if (ups->cable.type == APC_NET)
+src/lib/apclock.c:69:    if (ups->lockpath[0] == '\0') {
+src/lib/apclock.c:79:    if ((ups->lockfile = open(ups->lockpath, O_RDONLY)) < 0) {
+src/lib/apclock.c:95:    if ((size = read(ups->lockfile, &pidbuffer, 11)) == -1) {
+src/lib/apclock.c:139:	if (unlink(ups->lockpath) < 0) {
+src/lib/apclock.c:142:		   ups->lockpath, strerror(errno));
+src/lib/apclock.c:158:    close(ups->lockfile);
+src/lib/apclock.c:159:    ups->lockfile = -1;
+src/lib/apclock.c:211:    if ((ups->lockfile = open(ups->lockpath,
+src/lib/apclock.c:219:	    ups->lockpath, strerror(errno));
+src/lib/apclock.c:232:    if (write(ups->lockfile, pidbuffer, strlen(pidbuffer)+1) != (int)strlen(pidbuffer)+1) {
+src/lib/apclock.c:238:	   ups->lockpath, strerror(errno));
+src/lib/apclock.c:248:    close(ups->lockfile);
+src/lib/apclock.c:249:    ups->lockfile = -1;
+src/lib/apclock.c:259:    if (ups->lockpath[0] != '\0') {
+src/lib/apclock.c:265:	    if (ups->lockfile != -1) {
+src/lib/apclock.c:266:		close(ups->lockfile);
+src/lib/apclock.c:267:		ups->lockfile = -1;
+src/lib/apclock.c:269:	    unlink(ups->lockpath);
+src/lib/apclock.c:272:         * Now ups->lockfile is == -1 so there's no need to
+src/lib/apclock.c:273:	 * blank ups->lockfile too.
+src/lib/apcipc.c:59:    if ((stat = pthread_mutex_init(&ups->mutex, NULL)) != 0) {
+src/lib/apcipc.c:65:    ups->refcnt = 1;
+src/lib/apcipc.c:77:    P(ups->mutex);
+src/lib/apcipc.c:78:    ups->refcnt++;
+src/lib/apcipc.c:79:    V(ups->mutex);
+src/lib/apcipc.c:85:    ups->refcnt--;
+src/lib/apcipc.c:86:    if (ups->refcnt == 0) {
+src/lib/apcipc.c:94:    pthread_mutex_destroy(&ups->mutex);
+src/lib/apcipc.c:95:    if (ups->refcnt == 0) {
+src/lib/apcipc.c:104:    P(ups->mutex);
+src/lib/apcipc.c:111:    V(ups->mutex);
+src/lib/apcipc.c:118:    P(ups->mutex);
+src/lib/apcipc.c:125:    V(ups->mutex);
+src/lib/apcipc.c:131:#define SEMBUF ((struct sembuf *)(&(ups->semUPS)))
+src/lib/apcipc.c:185:	ups, ups->shm_id, ups->sem_id, ups->idshmUPS);
+src/lib/apcipc.c:216:    ups->semUPS[0].sem_num = WRITE_LCK;
+src/lib/apcipc.c:217:    ups->semUPS[0].sem_op = -1;
+src/lib/apcipc.c:218:    ups->semUPS[0].sem_flg = SEM_UNDO;
+src/lib/apcipc.c:222:    ups->semUPS[1].sem_num = READ_CNT;
+src/lib/apcipc.c:223:    ups->semUPS[1].sem_op = +1;
+src/lib/apcipc.c:224:    ups->semUPS[1].sem_flg = SEM_UNDO;
+src/lib/apcipc.c:228:    ups->semUPS[2].sem_num = WRITE_LCK;
+src/lib/apcipc.c:229:    ups->semUPS[2].sem_op = +1;
+src/lib/apcipc.c:230:    ups->semUPS[2].sem_flg = SEM_UNDO;
+src/lib/apcipc.c:235:    if (semop(ups->idsemUPS, SEMBUF, 3) == -1) {
+src/lib/apcipc.c:249:    ups->semUPS[0].sem_num = READ_CNT;
+src/lib/apcipc.c:250:    ups->semUPS[0].sem_op = -1;
+src/lib/apcipc.c:251:    ups->semUPS[0].sem_flg = SEM_UNDO;
+src/lib/apcipc.c:253:    if (semop(ups->idsemUPS, SEMBUF, 1) == -1) {
+src/lib/apcipc.c:267:    ups->semUPS[0].sem_num = WRITE_LCK;
+src/lib/apcipc.c:268:    ups->semUPS[0].sem_op = -1;
+src/lib/apcipc.c:269:    ups->semUPS[0].sem_flg = SEM_UNDO;
+src/lib/apcipc.c:270:    if (semop(ups->idsemUPS, SEMBUF, 1) == -1) {
+src/lib/apcipc.c:278:    ups->semUPS[0].sem_num = READ_CNT;
+src/lib/apcipc.c:279:    ups->semUPS[0].sem_op = 0;
+src/lib/apcipc.c:280:    ups->semUPS[0].sem_flg = 0;
+src/lib/apcipc.c:282:    if (semop(ups->idsemUPS, SEMBUF, 1) == -1) {
+src/lib/apcipc.c:307:    ups->semUPS[0].sem_num = WRITE_LCK;
+src/lib/apcipc.c:308:    ups->semUPS[0].sem_op = +1;
+src/lib/apcipc.c:309:    ups->semUPS[0].sem_flg = SEM_UNDO;
+src/lib/apcipc.c:311:    if (semop(ups->idsemUPS, SEMBUF, 1) == -1) {
+src/lib/apcipc.c:333:	if ((ups->idsemUPS =
+src/lib/apcipc.c:353:    if (semctl(ups->idsemUPS, 0, SETALL, apcsun) == -1) {
+src/lib/apcipc.c:358:    ups->sem_id = sem_id;
+src/lib/apcipc.c:359:    Dmsg2(100, "ups=%x sem_id=%x\n", ups, ups->sem_id);
+src/lib/apcipc.c:365:    if (semget(ups->sem_id, NUM_SEM, 0) == -1) {
+src/lib/apcipc.c:377:    if (ups->idsemUPS == -1)
+src/lib/apcipc.c:379:    if (semctl(ups->idsemUPS, 0, IPC_RMID, arg) == -1) {
+src/lib/apcipc.c:384:    ups->idsemUPS = -1;
+src/lib/apcipc.c:439:    ups->shm_id = shm_id;
+src/lib/apcipc.c:440:    ups->sem_id = sem_id;
+src/lib/apcipc.c:441:    ups->idshmUPS = idshmUPS;
+src/lib/apcipc.c:442:    ups->idsemUPS = -1;
+src/lib/apcipc.c:444:	ups, ups->shm_id, ups->sem_id, ups->idshmUPS);
+src/lib/apcipc.c:479:    if (strcmp(ups->id, UPSINFO_ID) != 0
+src/lib/apcipc.c:480:	|| ups->version != UPSINFO_VERSION
+src/lib/apcipc.c:481:	|| ups->size != sizeof(UPSINFO)) {
+src/lib/apcipc.c:498:    if (ups->idshmUPS == -1)
+src/lib/apcipc.c:500:    if (shmctl(ups->idshmUPS, IPC_RMID, NULL) == -1) {
+src/lib/apcipc.c:505:    ups->idshmUPS = -1;
+src/apcaction.c:210:    if (ups->nologin_file)
+src/apcaction.c:213:    ups->nologin_file = true;
+src/apcaction.c:223:    ups->ShutDown = time(NULL);
+src/apcaction.c:278:	    if (ups->SelfTest) {       /* see if UPS is doing self test */
+src/apcaction.c:314:	ups->last_time_nologon = ups->last_time_annoy = now;
+src/apcaction.c:315:	ups->last_time_on_line = now;
+src/apcaction.c:336:	if (now - ups->start_time < 60 * 10 || ups->ChangeBattCounter > 5) {
+src/apcaction.c:338:	    ups->ChangeBattCounter = 0;
+src/apcaction.c:339:	} else if (now - ups->last_time_changeme > 60 * 60 * 9) {
+src/apcaction.c:341:	    ups->last_time_changeme = now;
+src/apcaction.c:342:	    ups->ChangeBattCounter++;
+src/apcaction.c:361:	ups->last_time_nologon = ups->last_time_annoy = now;
+src/apcaction.c:362:	ups->last_time_on_line = now;
+src/apcaction.c:372:        Dmsg1(80, "Power failure detected. 0x%x\n", ups->Status);
+src/apcaction.c:374:	if (ups->SelfTest) {
+src/apcaction.c:379:	ups->last_time_nologon = ups->last_time_annoy = now;
+src/apcaction.c:380:	ups->last_time_on_line = now;
+src/apcaction.c:381:	ups->last_onbatt_time = now;
+src/apcaction.c:382:	ups->num_xfers++;
+src/apcaction.c:391:       if (now - ups->SelfTest < 12 && !is_ups_set(UPS_BATTLOW))
+src/apcaction.c:394:       ups->SelfTest = 0;
+src/apcaction.c:395:       Dmsg1(80, "UPS Self Test cancelled, fall-thru to On Battery. 0x%x\n", ups->Status);
+src/apcaction.c:402:	     time(NULL) - ups->last_time_on_line >= ups->onbattdelay) {
+src/apcaction.c:405:	    ups->last_time_nologon = ups->last_time_annoy = now;
+src/apcaction.c:406:	    ups->last_time_on_line = now;
+src/apcaction.c:412:	   if (ups->killdelay && now - ups->ShutDown >= ups->killdelay) {
+src/apcaction.c:415:	       ups->ShutDown = now;   /* wait a bit before doing again */
+src/apcaction.c:433:	    if ((ups->maxtime > 0) && 
+src/apcaction.c:434:		((now - ups->last_time_on_line) > ups->maxtime)) {
+src/apcaction.c:443:	    if (ups->UPS_Cap[CI_BATTLEV] && ups->BattChg <= ups->percent) {
+src/apcaction.c:447:	    } else if (ups->UPS_Cap[CI_RUNTIM] && ups->TimeLeft <= ups->runtime) {
+src/apcaction.c:472:	    if (((now - ups->last_time_on_line) > ups->annoydelay) &&
+src/apcaction.c:473:		((now - ups->last_time_annoy) > ups->annoy) &&
+src/apcaction.c:474:		  ups->nologin_file) {
+src/apcaction.c:482:		    time(&ups->last_time_annoy);
+src/apcaction.c:488:	    if (!ups->nologin_file) {
+src/apcaction.c:489:		switch(ups->nologin.type) {
+src/apcaction.c:493:		    if ((now - ups->last_time_nologon) > ups->nologin_time) {
+src/apcaction.c:498:		    if (ups->UPS_Cap[CI_BATTLEV] && ups->nologin_time >= ups->BattChg) {
+src/apcaction.c:503:		    if (ups->UPS_Cap[CI_RUNTIM] && ups->nologin_time >= ups->TimeLeft) {
+src/apcaction.c:528:	    ups->ShutDown = 0;
+src/apcaction.c:535:	if (ups->SelfTest) {
+src/apcaction.c:536:	    ups->LastSelfTest = ups->SelfTest;
+src/apcaction.c:537:	    ups->SelfTest = 0;
+src/apcaction.c:543:		ups->selftestmsg);
+src/apcaction.c:549:	if (ups->nologin_file) {
+src/apcaction.c:553:	ups->nologin_file = false;
+src/apcaction.c:556:	ups->last_offbatt_time = now;
+src/apcaction.c:559:	if (ups->last_onbatt_time <= 0)
+src/apcaction.c:560:	   ups->last_onbatt_time = ups->last_offbatt_time;
+src/apcaction.c:561:	ups->cum_time_on_batt += (ups->last_offbatt_time - ups->last_onbatt_time);
+src/apcaction.c:569:    if (ups->num_execed_children > 0) {
+src/apcaction.c:571:	    ups->num_execed_children--;
+src/drivers/drivers.c:167:    ups->driver = NULL;
+src/drivers/drivers.c:171:	    ups->driver = &drivers[i];
+src/drivers/drivers.c:176:    if (!ups->driver) {
+src/drivers/drivers.c:188:    Dmsg1(99, "Driver ptr=0x%x\n", ups->driver);
+src/drivers/drivers.c:189:    return ups->driver;
+src/drivers/drivers.c:197:    switch(ups->mode.type) {
+src/drivers/drivers.c:233:        Dmsg1(000, "Warning: no UPS driver found (ups->mode.type=%d).\n",
+src/drivers/drivers.c:234:		    ups->mode.type);
+src/drivers/test/testdriver.c:16:   ups->fd = 1;
+src/drivers/test/testdriver.c:37:			ups->device);
+src/drivers/test/testdriver.c:57:    ups->fd = -1;
+src/drivers/test/testdriver.c:72:       ups->UPS_Cap[k] = TRUE;
+src/drivers/test/testdriver.c:90:    strcpy(ups->upsmodel, "Test Driver");
+src/drivers/test/testdriver.c:91:    strcpy(ups->firmrev, "Rev 1.0");
+src/drivers/test/testdriver.c:92:    strcpy(ups->selftestmsg, "Test Battery OK");
+src/drivers/test/testdriver.c:93:    strcpy(ups->selftest, "336");
+src/drivers/test/testdriver.c:96:    ups->dwake = 2 * 60;
+src/drivers/test/testdriver.c:99:    ups->dshutd = 2 * 60;
+src/drivers/test/testdriver.c:102:    ups->lotrans = 190;
+src/drivers/test/testdriver.c:105:    ups->hitrans = 240;
+src/drivers/test/testdriver.c:108:    ups->rtnpct = 15;
+src/drivers/test/testdriver.c:111:    ups->dlowbatt = 2;
+src/drivers/test/testdriver.c:114:    strcpy(ups->birth, "2001-09-21");
+src/drivers/test/testdriver.c:117:    strcpy(ups->battdat, "2001-09-21");
+src/drivers/test/testdriver.c:120:    strcpy(ups->serial, "NO-123456");
+src/drivers/test/testdriver.c:123:    ups->NomOutputVoltage = 230;
+src/drivers/test/testdriver.c:126:    ups->nombattv = (double)12;
+src/drivers/test/testdriver.c:140:    time(&ups->poll_time);	  /* save time stamp */
+src/drivers/test/testdriver.c:147:    ups->Status = 0;
+src/drivers/test/testdriver.c:152:    ups->LineVoltage = 229.5;
+src/drivers/test/testdriver.c:153:    ups->LineMin = 225.0;
+src/drivers/test/testdriver.c:154:    ups->LineMax = 230.0;
+src/drivers/test/testdriver.c:157:    ups->OutputVoltage = 228.5;
+src/drivers/test/testdriver.c:160:    ups->BattChg = 100;
+src/drivers/test/testdriver.c:163:    ups->BattVoltage = 12.5;
+src/drivers/test/testdriver.c:166:    ups->UPSLoad = 40.5;
+src/drivers/test/testdriver.c:169:    ups->LineFreq = 50;
+src/drivers/test/testdriver.c:172:    ups->TimeLeft = ((double)20*60);   /* seconds */
+src/drivers/test/testdriver.c:175:    ups->UPSTemp = 32.4;
+src/drivers/test/testdriver.c:178:    ups->humidity = 50.1;
+src/drivers/test/testdriver.c:181:    ups->ambtemp = 22.5;
+src/drivers/test/testdriver.c:184:    strcpy(ups->X, "OK");
+src/drivers/net/net.c:96:    struct driver_data *nid = (struct driver_data *)ups->driver_internal_data;
+src/drivers/net/net.c:99:    astrncpy(nid->device, ups->device, sizeof(nid->device));
+src/drivers/net/net.c:100:    astrncpy(ups->master_name, ups->device, sizeof(ups->master_name));
+src/drivers/net/net.c:101:    astrncpy(ups->upsclass.long_name, "Net Slave", sizeof(ups->upsclass.long_name));  
+src/drivers/net/net.c:114:	nid->port = ups->statusport;  /* use NIS port as default */
+src/drivers/net/net.c:138:    struct driver_data *nid = (struct driver_data *)ups->driver_internal_data;
+src/drivers/net/net.c:177:    struct driver_data *nid = (struct driver_data *)ups->driver_internal_data;
+src/drivers/net/net.c:232:    struct driver_data *nid = (struct driver_data *)ups->driver_internal_data;
+src/drivers/net/net.c:282:    struct driver_data *nid = (struct driver_data *)ups->driver_internal_data;
+src/drivers/net/net.c:327:	ups->Status &= UPS_LOCAL_BITS;	  /* clear non-local bits */
+src/drivers/net/net.c:328:	ups->Status |= newStatus;	  /* set new non-local bits */
+src/drivers/net/net.c:334:	ups->Status |= newStatus;
+src/drivers/net/net.c:337:    Dmsg2(100, "Got Status = %s 0x%x\n", answer, ups->Status);
+src/drivers/net/net.c:377:    ups->driver_internal_data = nid;
+src/drivers/net/net.c:382:     * Fake core code. Will go away when ups->fd is cleaned up.
+src/drivers/net/net.c:384:    ups->fd = 1;
+src/drivers/net/net.c:391:    free(ups->driver_internal_data);
+src/drivers/net/net.c:393:     * Fake core code. Will go away when ups->fd will be cleaned up.
+src/drivers/net/net.c:395:    ups->fd = -1;
+src/drivers/net/net.c:409:    struct driver_data *nid = (struct driver_data *)ups->driver_internal_data;
+src/drivers/net/net.c:415:       ups->UPS_Cap[CI_VLINE] = getupsvar(ups, "utility", answer, sizeof(answer));
+src/drivers/net/net.c:416:       ups->UPS_Cap[CI_LOAD] = getupsvar(ups, "loadpct", answer, sizeof(answer));
+src/drivers/net/net.c:417:       ups->UPS_Cap[CI_BATTLEV] =
+src/drivers/net/net.c:419:       ups->UPS_Cap[CI_RUNTIM] =
+src/drivers/net/net.c:421:       ups->UPS_Cap[CI_VMAX] = getupsvar(ups, "linemax", answer, sizeof(answer));
+src/drivers/net/net.c:422:       ups->UPS_Cap[CI_VMIN] = getupsvar(ups, "linemin", answer, sizeof(answer));
+src/drivers/net/net.c:423:       ups->UPS_Cap[CI_VOUT] = getupsvar(ups, "outputv", answer, sizeof(answer));
+src/drivers/net/net.c:424:       ups->UPS_Cap[CI_SENS] = getupsvar(ups, "sense", answer, sizeof(answer));
+src/drivers/net/net.c:425:       ups->UPS_Cap[CI_DLBATT] =
+src/drivers/net/net.c:427:       ups->UPS_Cap[CI_LTRANS] =
+src/drivers/net/net.c:429:       ups->UPS_Cap[CI_HTRANS] =
+src/drivers/net/net.c:431:       ups->UPS_Cap[CI_RETPCT] =
+src/drivers/net/net.c:433:       ups->UPS_Cap[CI_ITEMP] =
+src/drivers/net/net.c:435:       ups->UPS_Cap[CI_VBATT] =
+src/drivers/net/net.c:437:       ups->UPS_Cap[CI_FREQ] =
+src/drivers/net/net.c:439:       ups->UPS_Cap[CI_WHY_BATT] =
+src/drivers/net/net.c:441:       ups->UPS_Cap[CI_ST_STAT] =
+src/drivers/net/net.c:443:       ups->UPS_Cap[CI_SERNO] =
+src/drivers/net/net.c:445:       ups->UPS_Cap[CI_BATTDAT] =
+src/drivers/net/net.c:447:       ups->UPS_Cap[CI_NOMBATTV] =
+src/drivers/net/net.c:449:       ups->UPS_Cap[CI_REVNO] =
+src/drivers/net/net.c:474:    sleep_time = ups->wait_time;
+src/drivers/net/net.c:475:    if (ups->nettime && ups->nettime < ups->wait_time) {
+src/drivers/net/net.c:476:       sleep_time = ups->nettime;
+src/drivers/net/net.c:498:    ups->poll_time = time(NULL);
+src/drivers/net/net.c:499:    ups->last_master_connect_time = ups->poll_time;
+src/drivers/net/net.c:501:    if (ups->UPS_Cap[CI_VLINE] && 
+src/drivers/net/net.c:503:	ups->LineVoltage = atof(answer);
+src/drivers/net/net.c:505:    if (ups->UPS_Cap[CI_LOAD] && 
+src/drivers/net/net.c:507:	ups->UPSLoad = atof(answer);
+src/drivers/net/net.c:509:    if (ups->UPS_Cap[CI_BATTLEV] && 
+src/drivers/net/net.c:511:	ups->BattChg = atof(answer);
+src/drivers/net/net.c:513:    if (ups->UPS_Cap[CI_RUNTIM] && 
+src/drivers/net/net.c:515:	ups->TimeLeft = atof(answer);
+src/drivers/net/net.c:517:    if (ups->UPS_Cap[CI_VMAX] && 
+src/drivers/net/net.c:519:	ups->LineMax = atof(answer);
+src/drivers/net/net.c:521:    if (ups->UPS_Cap[CI_VMIN] && 
+src/drivers/net/net.c:523:	ups->LineMin = atof(answer);
+src/drivers/net/net.c:525:    if (ups->UPS_Cap[CI_VOUT] && 
+src/drivers/net/net.c:527:	ups->OutputVoltage = atof(answer);
+src/drivers/net/net.c:529:    if (ups->UPS_Cap[CI_SENS] && 
+src/drivers/net/net.c:531:	ups->sensitivity[0] = answer[0];
+src/drivers/net/net.c:533:    if (ups->UPS_Cap[CI_DLBATT] && 
+src/drivers/net/net.c:535:	ups->dlowbatt = (int)atof(answer);
+src/drivers/net/net.c:537:    if (ups->UPS_Cap[CI_LTRANS] && 
+src/drivers/net/net.c:539:	ups->lotrans = (int)atof(answer);
+src/drivers/net/net.c:541:    if (ups->UPS_Cap[CI_HTRANS] && 
+src/drivers/net/net.c:543:	ups->hitrans = (int)atof(answer);
+src/drivers/net/net.c:545:    if (ups->UPS_Cap[CI_RETPCT] && 
+src/drivers/net/net.c:547:	ups->rtnpct = (int)atof(answer);
+src/drivers/net/net.c:549:    if (ups->UPS_Cap[CI_ITEMP] && 
+src/drivers/net/net.c:551:	ups->UPSTemp = atof(answer);
+src/drivers/net/net.c:553:    if (ups->UPS_Cap[CI_VBATT] && 
+src/drivers/net/net.c:555:	ups->BattVoltage = atof(answer);
+src/drivers/net/net.c:557:    if (ups->UPS_Cap[CI_FREQ] && 
+src/drivers/net/net.c:559:	ups->LineFreq = atof(answer);
+src/drivers/net/net.c:562:    if (ups->UPS_Cap[CI_LTRANS] && 
+src/drivers/net/net.c:565:            ups->G[0] = 'O';
+src/drivers/net/net.c:567:            ups->G[0] = 'S';
+src/drivers/net/net.c:569:            ups->G[0] = 'L';
+src/drivers/net/net.c:571:            ups->G[0] = 'H';
+src/drivers/net/net.c:573:            ups->G[0] = 'T';
+src/drivers/net/net.c:575:            ups->G[0] = 'R';
+src/drivers/net/net.c:577:	    ups->G[0] = *(answer+15);
+src/drivers/net/net.c:580:	astrncpy(ups->X, answer, sizeof(ups->X));
+src/drivers/net/net.c:592:   struct driver_data *nid = (struct driver_data *)ups->driver_internal_data;
+src/drivers/net/net.c:598:       if (!getupsvar(ups, "upsname", ups->upsname, sizeof(ups->upsname))) {
+src/drivers/net/net.c:601:       if (!getupsvar(ups, "model", ups->mode.long_name,
+src/drivers/net/net.c:602:		   sizeof(ups->mode.long_name))) {
+src/drivers/net/net.c:605:       if (!getupsvar(ups, "upsmode", ups->upsclass.long_name,
+src/drivers/net/net.c:606:		   sizeof(ups->upsclass.long_name))) {
+src/drivers/net/net.c:609:       if (ups->UPS_Cap[CI_SERNO] &&
+src/drivers/net/net.c:611:	   astrncpy(ups->serial, answer, sizeof(ups->serial));
+src/drivers/net/net.c:613:       if (ups->UPS_Cap[CI_BATTDAT] &&
+src/drivers/net/net.c:615:	   astrncpy(ups->battdat, answer, sizeof(ups->battdat));
+src/drivers/net/net.c:617:       if (ups->UPS_Cap[CI_NOMBATTV] &&
+src/drivers/net/net.c:619:	   ups->nombattv = atof(answer);
+src/drivers/net/net.c:621:       if (ups->UPS_Cap[CI_REVNO] &&
+src/drivers/net/net.c:623:	   astrncpy(ups->firmrev, answer, sizeof(ups->firmrev));
+src/drivers/apcsmart/smart.c:84:    if (ups->X[0] == 'O' && ups->X[1] == 'K') {
+src/drivers/apcsmart/smart.c:86:    } else if (ups->X[0] == 'B' && ups->X[1] == 'T') {
+src/drivers/apcsmart/smart.c:88:    } else if (ups->X[0] == 'N' && ups->X[1] == 'G') {
+src/drivers/apcsmart/smart.c:93:    astrncpy(ups->selftestmsg, msg, sizeof(ups->selftestmsg));
+src/drivers/apcsmart/smart.c:116:    if (ups->mode.type <= SHAREBASIC)
+src/drivers/apcsmart/smart.c:118:    write(ups->fd, &cmd, 1);
+src/drivers/apcsmart/smart.c:141:    SMART_DATA *my_data = (SMART_DATA *)ups->driver_internal_data;
+src/drivers/apcsmart/smart.c:165:	FD_SET(ups->fd, &rfds);
+src/drivers/apcsmart/smart.c:169:	    tv.tv_sec = ups->wait_time;
+src/drivers/apcsmart/smart.c:174:	retval = select((ups->fd)+1, &rfds, NULL, NULL, &tv);
+src/drivers/apcsmart/smart.c:192:	   retval =  read(ups->fd, &c, 1);
+src/drivers/apcsmart/smart.c:314:    tcflush(ups->fd, TCIOFLUSH);
+src/drivers/apcsmart/smart.c:321:    tcflush(ups->fd, TCIOFLUSH);
+src/drivers/apcsmart/smart.c:339:	tcflush(ups->fd, TCIOFLUSH);
+src/drivers/apcsmart/smart.c:343:	tcflush(ups->fd, TCIOFLUSH);
+src/drivers/apcsmart/smart.c:369:    ups->poll_time = time(NULL);	/* save time stamp */
+src/drivers/apcsmart/smart.c:372:    if (ups->UPS_Cap[CI_STATUS]) {
+src/drivers/apcsmart/smart.c:377:	strncpy(status, smart_poll(ups->UPS_Cmd[CI_STATUS], ups),
+src/drivers/apcsmart/smart.c:396:	ups->Status &= ~0xFF;	      /* clear APC byte */
+src/drivers/apcsmart/smart.c:397:	ups->Status |= strtoul(status,NULL,16) & 0xFF;	/* set APC byte */
+src/drivers/apcsmart/smart.c:401:    if (ups->UPS_Cap[CI_LQUAL])
+src/drivers/apcsmart/smart.c:402:	strncpy(ups->linequal, smart_poll(ups->UPS_Cmd[CI_LQUAL], ups),
+src/drivers/apcsmart/smart.c:403:	       sizeof(ups->linequal));
+src/drivers/apcsmart/smart.c:406:    if (ups->UPS_Cap[CI_WHY_BATT]) {
+src/drivers/apcsmart/smart.c:407:	strncpy(ups->G, smart_poll(ups->UPS_Cmd[CI_WHY_BATT], ups), 
+src/drivers/apcsmart/smart.c:408:	       sizeof(ups->G));
+src/drivers/apcsmart/smart.c:421:    if (ups->UPS_Cap[CI_ST_STAT]) {
+src/drivers/apcsmart/smart.c:422:	strncpy(ups->X,smart_poll(ups->UPS_Cmd[CI_ST_STAT], ups), 
+src/drivers/apcsmart/smart.c:423:	       sizeof(ups->X));
+src/drivers/apcsmart/smart.c:431:    if (ups->UPS_Cap[CI_VLINE])
+src/drivers/apcsmart/smart.c:432:	ups->LineVoltage = atof(smart_poll(ups->UPS_Cmd[CI_VLINE], ups));
+src/drivers/apcsmart/smart.c:435:    if (ups->UPS_Cap[CI_VMAX])
+src/drivers/apcsmart/smart.c:436:	ups->LineMax = atof(smart_poll(ups->UPS_Cmd[CI_VMAX], ups));
+src/drivers/apcsmart/smart.c:439:    if (ups->UPS_Cap[CI_VMIN])
+src/drivers/apcsmart/smart.c:440:	ups->LineMin = atof(smart_poll(ups->UPS_Cmd[CI_VMIN], ups));
+src/drivers/apcsmart/smart.c:443:    if (ups->UPS_Cap[CI_VOUT])
+src/drivers/apcsmart/smart.c:444:	ups->OutputVoltage = atof(smart_poll(ups->UPS_Cmd[CI_VOUT], ups));
+src/drivers/apcsmart/smart.c:447:    if (ups->UPS_Cap[CI_BATTLEV])
+src/drivers/apcsmart/smart.c:448:	ups->BattChg = atof(smart_poll(ups->UPS_Cmd[CI_BATTLEV], ups));
+src/drivers/apcsmart/smart.c:451:    if (ups->UPS_Cap[CI_VBATT])
+src/drivers/apcsmart/smart.c:452:	ups->BattVoltage = atof(smart_poll(ups->UPS_Cmd[CI_VBATT], ups));
+src/drivers/apcsmart/smart.c:455:    if (ups->UPS_Cap[CI_LOAD])
+src/drivers/apcsmart/smart.c:456:	ups->UPSLoad = atof(smart_poll(ups->UPS_Cmd[CI_LOAD], ups));
+src/drivers/apcsmart/smart.c:459:    if (ups->UPS_Cap[CI_FREQ])
+src/drivers/apcsmart/smart.c:460:	ups->LineFreq = atof(smart_poll(ups->UPS_Cmd[CI_FREQ], ups));
+src/drivers/apcsmart/smart.c:463:    if (ups->UPS_Cap[CI_RUNTIM])
+src/drivers/apcsmart/smart.c:464:	ups->TimeLeft = atof(smart_poll(ups->UPS_Cmd[CI_RUNTIM], ups));
+src/drivers/apcsmart/smart.c:467:    if (ups->UPS_Cap[CI_ITEMP])
+src/drivers/apcsmart/smart.c:468:	ups->UPSTemp = atof(smart_poll(ups->UPS_Cmd[CI_ITEMP], ups));
+src/drivers/apcsmart/smart.c:471:    if (ups->UPS_Cap[CI_DIPSW])
+src/drivers/apcsmart/smart.c:472:	ups->dipsw = strtoul(smart_poll(ups->UPS_Cmd[CI_DIPSW], ups), NULL, 16);
+src/drivers/apcsmart/smart.c:475:    if (ups->UPS_Cap[CI_REG1])
+src/drivers/apcsmart/smart.c:476:	ups->reg1 = strtoul(smart_poll(ups->UPS_Cmd[CI_REG1], ups), NULL, 16);
+src/drivers/apcsmart/smart.c:479:    if (ups->UPS_Cap[CI_REG2])
+src/drivers/apcsmart/smart.c:480:	ups->reg2 = strtoul(smart_poll(ups->UPS_Cmd[CI_REG2], ups), NULL, 16);
+src/drivers/apcsmart/smart.c:483:    if (ups->UPS_Cap[CI_REG3])
+src/drivers/apcsmart/smart.c:484:	ups->reg3 = strtoul(smart_poll(ups->UPS_Cmd[CI_REG3], ups), NULL, 16);
+src/drivers/apcsmart/smart.c:487:    if (ups->UPS_Cap[CI_HUMID])
+src/drivers/apcsmart/smart.c:488:	ups->humidity = atof(smart_poll(ups->UPS_Cmd[CI_HUMID], ups));
+src/drivers/apcsmart/smart.c:491:    if (ups->UPS_Cap[CI_ATEMP])
+src/drivers/apcsmart/smart.c:492:	ups->ambtemp = atof(smart_poll(ups->UPS_Cmd[CI_ATEMP], ups));
+src/drivers/apcsmart/smart.c:495:    if (ups->UPS_Cap[CI_ST_TIME])
+src/drivers/apcsmart/smart.c:496:	ups->LastSTTime = atof(smart_poll(ups->UPS_Cmd[CI_ST_TIME], ups));
+src/drivers/apcsmart/smart.c:520:    if (ups->UPS_Cap[CI_SENS])
+src/drivers/apcsmart/smart.c:521:	strncpy(ups->sensitivity, smart_poll(ups->UPS_Cmd[CI_SENS], ups),
+src/drivers/apcsmart/smart.c:522:	       sizeof(ups->sensitivity));
+src/drivers/apcsmart/smart.c:525:    if (ups->UPS_Cap[CI_DWAKE])
+src/drivers/apcsmart/smart.c:526:	ups->dwake = (int)atof(smart_poll(ups->UPS_Cmd[CI_DWAKE], ups));
+src/drivers/apcsmart/smart.c:529:    if (ups->UPS_Cap[CI_DSHUTD])
+src/drivers/apcsmart/smart.c:530:	ups->dshutd = (int)atof(smart_poll(ups->UPS_Cmd[CI_DSHUTD], ups));
+src/drivers/apcsmart/smart.c:533:    if (ups->UPS_Cap[CI_LTRANS])
+src/drivers/apcsmart/smart.c:534:	ups->lotrans = (int)atof(smart_poll(ups->UPS_Cmd[CI_LTRANS], ups));
+src/drivers/apcsmart/smart.c:537:    if (ups->UPS_Cap[CI_HTRANS])
+src/drivers/apcsmart/smart.c:538:	ups->hitrans = (int)atof(smart_poll(ups->UPS_Cmd[CI_HTRANS], ups));
+src/drivers/apcsmart/smart.c:541:    if (ups->UPS_Cap[CI_RETPCT])
+src/drivers/apcsmart/smart.c:542:	ups->rtnpct = (int)atof(smart_poll(ups->UPS_Cmd[CI_RETPCT], ups));
+src/drivers/apcsmart/smart.c:545:    if (ups->UPS_Cap[CI_DALARM])
+src/drivers/apcsmart/smart.c:546:	strncpy(ups->beepstate, smart_poll(ups->UPS_Cmd[CI_DALARM], ups), 
+src/drivers/apcsmart/smart.c:547:	       sizeof(ups->beepstate));
+src/drivers/apcsmart/smart.c:550:    if (ups->UPS_Cap[CI_DLBATT])
+src/drivers/apcsmart/smart.c:551:	ups->dlowbatt = (int)atof(smart_poll(ups->UPS_Cmd[CI_DLBATT], ups));
+src/drivers/apcsmart/smart.c:554:    if (ups->upsname[0] == 0 && ups->UPS_Cap[CI_IDEN])
+src/drivers/apcsmart/smart.c:555:	strncpy(ups->upsname, smart_poll(ups->UPS_Cmd[CI_IDEN], ups), 
+src/drivers/apcsmart/smart.c:556:	       sizeof(ups->upsname));
+src/drivers/apcsmart/smart.c:559:    if (ups->UPS_Cap[CI_STESTI])
+src/drivers/apcsmart/smart.c:560:	strncpy(ups->selftest, smart_poll(ups->UPS_Cmd[CI_STESTI], ups), 
+src/drivers/apcsmart/smart.c:561:	       sizeof(ups->selftest));
+src/drivers/apcsmart/smart.c:564:    if (ups->UPS_Cap[CI_MANDAT])
+src/drivers/apcsmart/smart.c:565:	strncpy(ups->birth, smart_poll(ups->UPS_Cmd[CI_MANDAT], ups), 
+src/drivers/apcsmart/smart.c:566:	       sizeof(ups->birth));
+src/drivers/apcsmart/smart.c:569:    if (ups->UPS_Cap[CI_SERNO])
+src/drivers/apcsmart/smart.c:570:	strncpy(ups->serial, smart_poll(ups->UPS_Cmd[CI_SERNO], ups), 
+src/drivers/apcsmart/smart.c:571:	       sizeof(ups->serial));
+src/drivers/apcsmart/smart.c:574:    if (ups->UPS_Cap[CI_BATTDAT])
+src/drivers/apcsmart/smart.c:575:	strncpy(ups->battdat, smart_poll(ups->UPS_Cmd[CI_BATTDAT], ups), 
+src/drivers/apcsmart/smart.c:576:	       sizeof(ups->battdat));
+src/drivers/apcsmart/smart.c:579:    if (ups->UPS_Cap[CI_NOMOUTV])
+src/drivers/apcsmart/smart.c:580:	ups->NomOutputVoltage = (int)atof(smart_poll(ups->UPS_Cmd[CI_NOMOUTV], ups));
+src/drivers/apcsmart/smart.c:583:    if (ups->UPS_Cap[CI_NOMBATTV]) 
+src/drivers/apcsmart/smart.c:584:	ups->nombattv = atof(smart_poll(ups->UPS_Cmd[CI_NOMBATTV], ups));
+src/drivers/apcsmart/smart.c:587:    if (ups->UPS_Cap[CI_REVNO])
+src/drivers/apcsmart/smart.c:588:	strncpy(ups->firmrev, smart_poll(ups->UPS_Cmd[CI_REVNO], ups), 
+src/drivers/apcsmart/smart.c:589:	       sizeof(ups->firmrev));
+src/drivers/apcsmart/smart.c:592:    if (ups->UPS_Cap[CI_EXTBATTS])
+src/drivers/apcsmart/smart.c:593:	ups->extbatts = (int) atof(smart_poll(ups->UPS_Cmd[CI_EXTBATTS], ups));
+src/drivers/apcsmart/smart.c:596:    if (ups->UPS_Cap[CI_BADBATTS])
+src/drivers/apcsmart/smart.c:597:	ups->badbatts = (int) atof(smart_poll(ups->UPS_Cmd[CI_BADBATTS], ups));
+src/drivers/apcsmart/smart.c:600:    if (ups->UPS_Cap[CI_UPSMODEL])
+src/drivers/apcsmart/smart.c:601:	strncpy(ups->upsmodel, smart_poll(ups->UPS_Cmd[CI_UPSMODEL], ups),
+src/drivers/apcsmart/smart.c:602:	       sizeof(ups->upsmodel));
+src/drivers/apcsmart/smart.c:606:    if (ups->UPS_Cap[CI_EPROM]) {
+src/drivers/apcsmart/smart.c:607:	strncpy(ups->eprom, smart_poll(ups->UPS_Cmd[CI_EPROM], ups),
+src/drivers/apcsmart/smart.c:608:	       sizeof(ups->eprom));
+src/drivers/apcsmart/smart.c:628:            write(ups->fd, "R", 1);  /* enter dumb mode */
+src/drivers/apcsmart/smart.c:636:	    if (ups->UPS_Cap[CI_ST_STAT]) {
+src/drivers/apcsmart/smart.c:637:		strncpy(ups->X,smart_poll(ups->UPS_Cmd[CI_ST_STAT], ups), 
+src/drivers/apcsmart/smart.c:638:			sizeof(ups->X));
+src/drivers/apcsmart/smart.c:657:	    if (ups->UPS_Cap[CI_WHY_BATT]) {
+src/drivers/apcsmart/smart.c:658:		ups->G[0] = 0;
+src/drivers/apcsmart/smart.c:659:		strncpy(ups->G, smart_poll(ups->UPS_Cmd[CI_WHY_BATT], ups), 
+src/drivers/apcsmart/smart.c:660:			sizeof(ups->G));
+src/drivers/apcsmart/smart.c:661:                Dmsg1(80, "Transfer reason: %c\n", ups->G[0]);
+src/drivers/apcsmart/smart.c:662:                if (ups->G[0] == 'N' && ups->G[1] == 'A') {
+src/drivers/apcsmart/smart.c:679:                if (ups->G[0] == 'S') {
+src/drivers/apcsmart/smart.c:683:		    ups->SelfTest = time(NULL);
+src/drivers/apcsmart/smart.c:684:                    Dmsg1(80, "Self Test time: %s", ctime(&ups->SelfTest));
+src/drivers/apcsmart/smartoper.c:45:    a = ups->UPS_Cmd[CI_DSHUTD]; /* shutdown delay */
+src/drivers/apcsmart/smartoper.c:46:    write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:50:    write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:81:	write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:84:	write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:87:	write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:106:	write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:109:	write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:112:	write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:114:	if ((ups->mode.type == BKPRO) || (ups->mode.type == VS)) {
+src/drivers/apcsmart/smartoper.c:121:	write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:125:	write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:127:	write(ups->fd, &a, 1);
+src/drivers/apcsmart/smartoper.c:130:		(ups->mode.type >= BKPRO)) {
+src/drivers/apcsmart/smartsetup2.c:95:    return(ups->mode.long_name);
+src/drivers/apcsmart/smartsetup2.c:123:	return ups->mode.long_name; 
+src/drivers/apcsmart/smartsetup2.c:137:	write(ups->fd, &b, 1);
+src/drivers/apcsmart/smartsetup2.c:143:        ups->mode.long_name[0] = '\0';
+src/drivers/apcsmart/smartsetup2.c:144:        sprintf(ups->mode.long_name, "%s", response);
+src/drivers/apcsmart/smartsetup2.c:149:    astrncpy(response, smart_poll(ups->UPS_Cmd[CI_UPSMODEL], ups), sizeof(response));
+src/drivers/apcsmart/smartsetup2.c:153:	if (cp != ups->mode.long_name)
+src/drivers/apcsmart/smartsetup2.c:154:            sprintf(ups->mode.long_name, "%s", cp);
+src/drivers/apcsmart/smartsetup2.c:159:    astrncpy(response, smart_poll(ups->UPS_Cmd[CI_REVNO], ups), sizeof(response));
+src/drivers/apcsmart/smartsetup2.c:181:    astrncpy(caps, smart_poll(ups->UPS_Cmd[CI_UPS_CAPS], ups), sizeof(caps));
+src/drivers/apcsmart/smartsetup2.c:183:	ups->UPS_Cap[CI_UPS_CAPS] = TRUE;
+src/drivers/apcsmart/smartsetup2.c:193:	   ups->UPS_Cap[CI_UPS_CAPS] = FALSE;
+src/drivers/apcsmart/smartsetup2.c:206:	if (!cmds || strchr(cmds, ups->UPS_Cmd[i]) != NULL) {
+src/drivers/apcsmart/smartsetup2.c:207:	    astrncpy(answer, smart_poll(ups->UPS_Cmd[i], ups), sizeof(answer));
+src/drivers/apcsmart/smartsetup2.c:209:		ups->UPS_Cap[i] = true;
+src/drivers/apcsmart/smartsetup.c:43:    SMART_DATA *my_data = (SMART_DATA *)ups->driver_internal_data;
+src/drivers/apcsmart/smartsetup.c:52:       ups->driver_internal_data = my_data;
+src/drivers/apcsmart/smartsetup.c:61:       ups->fd = -1;
+src/drivers/apcsmart/smartsetup.c:65:    if ((ups->fd = open(ups->device, O_RDWR | O_NOCTTY | O_NDELAY)) < 0) {
+src/drivers/apcsmart/smartsetup.c:67:		ups->device, strerror(errno));
+src/drivers/apcsmart/smartsetup.c:71:    cmd = fcntl(ups->fd, F_GETFL, 0);
+src/drivers/apcsmart/smartsetup.c:72:    fcntl(ups->fd, F_SETFL, cmd & ~O_NDELAY);
+src/drivers/apcsmart/smartsetup.c:74:    tcgetattr(ups->fd, &my_data->oldtio); /* Save old settings */
+src/drivers/apcsmart/smartsetup.c:97:    tcflush(ups->fd, TCIFLUSH);
+src/drivers/apcsmart/smartsetup.c:98:    tcsetattr(ups->fd, TCSANOW, &my_data->newtio);
+src/drivers/apcsmart/smartsetup.c:99:    tcflush(ups->fd, TCIFLUSH);
+src/drivers/apcsmart/smartsetup.c:110:    SMART_DATA *my_data = (SMART_DATA *)ups->driver_internal_data;
+src/drivers/apcsmart/smartsetup.c:116:    if (ups->fd >= 0) {
+src/drivers/apcsmart/smartsetup.c:117:       tcflush(ups->fd, TCIFLUSH);
+src/drivers/apcsmart/smartsetup.c:118:       tcsetattr(ups->fd, TCSANOW, &my_data->oldtio);
+src/drivers/apcsmart/smartsetup.c:119:       tcflush(ups->fd, TCIFLUSH);
+src/drivers/apcsmart/smartsetup.c:121:       close(ups->fd);
+src/drivers/apcsmart/smartsetup.c:123:    ups->fd = -1;
+src/drivers/apcsmart/smartsetup.c:124:    free(ups->driver_internal_data);
+src/drivers/apcsmart/smartsetup.c:125:    ups->driver_internal_data = NULL;
+src/drivers/apcsmart/smartsetup.c:135:    if (ups->fd == -1) {
+src/drivers/apcsmart/smartsetup.c:142:    switch(ups->cable.type) {
+src/drivers/apcsmart/smartsetup.c:149:	    (void)ioctl(ups->fd, TIOCMBIC, &rts_bit);
+src/drivers/apcsmart/smartsetup.c:156:    write(ups->fd, &a, 1);	  /* This one might not work, if UPS is */
+src/drivers/apcsmart/smartsetup.c:158:    tcflush(ups->fd, TCIOFLUSH);  /* Discard UPS's response, if any */
+src/drivers/apcsmart/smartsetup.c:169:	write(ups->fd, &a, 1); /* enter smart mode */
+src/drivers/apcsmart/smarteeprom.c:47:	if (ups->UPS_Cap[CI_BATTDAT]) {
+src/drivers/apcsmart/smarteeprom.c:57:	if (ups->UPS_Cap[CI_IDEN]) {
+src/drivers/apcsmart/smarteeprom.c:68:	if (ups->UPS_Cap[CI_SENS]) {
+src/drivers/apcsmart/smarteeprom.c:70:            change_ups_eeprom_item(ups, "sensitivity", ups->UPS_Cmd[CI_SENS], setting);
+src/drivers/apcsmart/smarteeprom.c:79:	if (ups->UPS_Cap[CI_DALARM]) {
+src/drivers/apcsmart/smarteeprom.c:81:            change_ups_eeprom_item(ups, "alarm status", ups->UPS_Cmd[CI_DALARM], setting);
+src/drivers/apcsmart/smarteeprom.c:90:	if (ups->UPS_Cap[CI_DLBATT]) {
+src/drivers/apcsmart/smarteeprom.c:93:		   ups->UPS_Cmd[CI_DLBATT], setting);
+src/drivers/apcsmart/smarteeprom.c:102:	if (ups->UPS_Cap[CI_DWAKE]) {
+src/drivers/apcsmart/smarteeprom.c:104:            change_ups_eeprom_item(ups, "wakeup delay", ups->UPS_Cmd[CI_DWAKE], setting);
+src/drivers/apcsmart/smarteeprom.c:114:	if (ups->UPS_Cap[CI_DSHUTD]) {
+src/drivers/apcsmart/smarteeprom.c:116:            change_ups_eeprom_item(ups, "shutdown delay", ups->UPS_Cmd[CI_DSHUTD], setting);
+src/drivers/apcsmart/smarteeprom.c:125:	if (ups->UPS_Cap[CI_LTRANS]) {
+src/drivers/apcsmart/smarteeprom.c:128:		   ups->UPS_Cmd[CI_LTRANS], setting);
+src/drivers/apcsmart/smarteeprom.c:137:	if (ups->UPS_Cap[CI_HTRANS]) {
+src/drivers/apcsmart/smarteeprom.c:140:		   ups->UPS_Cmd[CI_HTRANS], setting);
+src/drivers/apcsmart/smarteeprom.c:149:	if (ups->UPS_Cap[CI_RETPCT]) {
+src/drivers/apcsmart/smarteeprom.c:152:		   ups->UPS_Cmd[CI_RETPCT], setting);
+src/drivers/apcsmart/smarteeprom.c:161:	if (ups->UPS_Cap[CI_STESTI]) {
+src/drivers/apcsmart/smarteeprom.c:168:            change_ups_eeprom_item(ups, "self test interval", ups->UPS_Cmd[CI_STESTI], setting);
+src/drivers/apcsmart/smarteeprom.c:177:	if (ups->UPS_Cap[CI_NOMOUTV]) {
+src/drivers/apcsmart/smarteeprom.c:180:		   ups->UPS_Cmd[CI_NOMOUTV], setting);
+src/drivers/apcsmart/smarteeprom.c:213:    char a = ups->UPS_Cmd[CI_CYCLE_EPROM];
+src/drivers/apcsmart/smarteeprom.c:214:    char c = ups->UPS_Cmd[CI_IDEN];
+src/drivers/apcsmart/smarteeprom.c:234:    write(ups->fd, &c, 1);  /* c = 'c' */
+src/drivers/apcsmart/smarteeprom.c:239:    write(ups->fd, &a, 1);  /* a = '-' */
+src/drivers/apcsmart/smarteeprom.c:244:	write(ups->fd, n++, 1);
+src/drivers/apcsmart/smarteeprom.c:255:    ups->upsname[0] = '\0';
+src/drivers/apcsmart/smarteeprom.c:256:    smart_poll(ups->UPS_Cmd[CI_IDEN], ups);
+src/drivers/apcsmart/smarteeprom.c:257:    astrncpy(ups->upsname, smart_poll(ups->UPS_Cmd[CI_IDEN], ups), sizeof(ups->upsname));
+src/drivers/apcsmart/smarteeprom.c:259:    fprintf(stderr, "The new UPS name is: %s\n", ups->upsname);
+src/drivers/apcsmart/smarteeprom.c:270:    char a = ups->UPS_Cmd[CI_CYCLE_EPROM];
+src/drivers/apcsmart/smarteeprom.c:271:    char c = ups->UPS_Cmd[CI_BATTDAT];
+src/drivers/apcsmart/smarteeprom.c:285:    write(ups->fd, &c, 1);  /* c = 'x' */
+src/drivers/apcsmart/smarteeprom.c:290:    write(ups->fd, &a, 1);  /* a = '-' */
+src/drivers/apcsmart/smarteeprom.c:295:	write(ups->fd, n++, 1);
+src/drivers/apcsmart/smarteeprom.c:306:    ups->battdat[0] = '\0';
+src/drivers/apcsmart/smarteeprom.c:307:    smart_poll(ups->UPS_Cmd[CI_BATTDAT], ups);
+src/drivers/apcsmart/smarteeprom.c:308:    astrncpy(ups->battdat, smart_poll(ups->UPS_Cmd[CI_BATTDAT], ups), 
+src/drivers/apcsmart/smarteeprom.c:309:       sizeof(ups->battdat));
+src/drivers/apcsmart/smarteeprom.c:311:    fprintf(stderr, "The new UPS battery date is: %s\n", ups->battdat);
+src/drivers/apcsmart/smarteeprom.c:322:    char a = ups->UPS_Cmd[CI_CYCLE_EPROM];
+src/drivers/apcsmart/smarteeprom.c:327:    write(ups->fd, &cmd, 1);
+src/drivers/apcsmart/smarteeprom.c:342:    write(ups->fd, &cmd, 1);
+src/drivers/apcsmart/smarteeprom.c:354:	write(ups->fd, &cmd, 1);
+src/drivers/apcsmart/smarteeprom.c:358:        write(ups->fd, &a, 1);  /* a = '-' */
+src/drivers/apcsmart/smarteeprom.c:371:	write(ups->fd, &cmd, 1);
+src/drivers/apcsmart/smarteeprom.c:375:	write(ups->fd, &cmd, 1);
+src/drivers/apcsmart/smarteeprom.c:426:    if (ups->UPS_Cap[CI_SENS] && strcmp(ups->sensitivity, "-1") != 0) {
+src/drivers/apcsmart/smarteeprom.c:427:        sprintf(setting, "%.1s", ups->sensitivity);
+src/drivers/apcsmart/smarteeprom.c:428:        change_ups_eeprom_item(ups, "sensitivity", ups->UPS_Cmd[CI_SENS], setting);
+src/drivers/apcsmart/smarteeprom.c:432:    if (ups->UPS_Cap[CI_DWAKE] && ups->dwake != -1) {
+src/drivers/apcsmart/smarteeprom.c:433:        sprintf(setting, "%03d", (int)ups->dwake);
+src/drivers/apcsmart/smarteeprom.c:434:        change_ups_eeprom_item(ups, "wakeup delay", ups->UPS_Cmd[CI_DWAKE], setting);
+src/drivers/apcsmart/smarteeprom.c:439:    if (ups->UPS_Cap[CI_DSHUTD] && ups->dshutd != -1) {
+src/drivers/apcsmart/smarteeprom.c:440:        sprintf(setting, "%03d", (int)ups->dshutd);
+src/drivers/apcsmart/smarteeprom.c:441:        change_ups_eeprom_item(ups, "shutdown delay", ups->UPS_Cmd[CI_DSHUTD], setting);
+src/drivers/apcsmart/smarteeprom.c:445:    if (ups->UPS_Cap[CI_LTRANS] && ups->lotrans != -1) {
+src/drivers/apcsmart/smarteeprom.c:446:        sprintf(setting, "%03d", (int)ups->lotrans);
+src/drivers/apcsmart/smarteeprom.c:448:	       ups->UPS_Cmd[CI_LTRANS], setting);
+src/drivers/apcsmart/smarteeprom.c:452:    if (ups->UPS_Cap[CI_HTRANS] && ups->hitrans != -1) {
+src/drivers/apcsmart/smarteeprom.c:453:        sprintf(setting, "%03d", (int)ups->hitrans);
+src/drivers/apcsmart/smarteeprom.c:455:	       ups->UPS_Cmd[CI_HTRANS], setting);
+src/drivers/apcsmart/smarteeprom.c:459:    if (ups->UPS_Cap[CI_RETPCT] && ups->rtnpct != -1) {
+src/drivers/apcsmart/smarteeprom.c:460:        sprintf(setting, "%02d", (int)ups->rtnpct);
+src/drivers/apcsmart/smarteeprom.c:462:	       ups->UPS_Cmd[CI_RETPCT], setting);
+src/drivers/apcsmart/smarteeprom.c:466:    if (ups->UPS_Cap[CI_DALARM] && strcmp(ups->beepstate, "-1") != 0) {
+src/drivers/apcsmart/smarteeprom.c:467:        sprintf(setting, "%.1s", ups->beepstate);
+src/drivers/apcsmart/smarteeprom.c:469:	       ups->UPS_Cmd[CI_DALARM], setting);
+src/drivers/apcsmart/smarteeprom.c:473:    if (ups->UPS_Cap[CI_DLBATT] && ups->dlowbatt != -1) {
+src/drivers/apcsmart/smarteeprom.c:474:        sprintf(setting, "%02d", (int)ups->dlowbatt);
+src/drivers/apcsmart/smarteeprom.c:476:	       ups->UPS_Cmd[CI_DLBATT], setting);
+src/drivers/apcsmart/smarteeprom.c:480:    if (ups->UPS_Cap[CI_STESTI] && strcmp(ups->selftest, "-1") != 0) {
+src/drivers/apcsmart/smarteeprom.c:481:        sprintf(setting, "%.3s", ups->selftest);
+src/drivers/apcsmart/smarteeprom.c:487:        change_ups_eeprom_item(ups, "self test interval", ups->UPS_Cmd[CI_STESTI], setting);
+src/drivers/apcsmart/smarteeprom.c:491:    if (ups->UPS_Cap[CI_NOMOUTV] && ups->NomOutputVoltage != -1) {
+src/drivers/apcsmart/smarteeprom.c:492:        sprintf(setting, "%03d", (int)ups->NomOutputVoltage);
+src/drivers/apcsmart/smarteeprom.c:494:	       ups->UPS_Cmd[CI_NOMOUTV], setting);
+src/drivers/snmp/snmp.h:66:    char device[MAXSTRING];                 /* Copy of ups->device */
+src/drivers/snmp/snmp.c:41:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/snmp.c:45:    if (ups->device == NULL || *ups->device == '\0') {
+src/drivers/snmp/snmp.c:50:    astrncpy(Sid->device, ups->device, sizeof(Sid->device));
+src/drivers/snmp/snmp.c:121:    ups->driver_internal_data = Sid;
+src/drivers/snmp/snmp.c:190:    free(ups->driver_internal_data);
+src/drivers/snmp/snmp.c:191:    ups->driver_internal_data = NULL;
+src/drivers/snmp/snmp.c:205:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/snmp.c:229:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/snmp.c:244:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/snmp.c:250:    sleep(ups->wait_time);
+src/drivers/snmp/snmp.c:269:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/snmp.c:274:    ups->poll_time = time(NULL);	/* save time stamp */
+src/drivers/snmp/snmp.c:290:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_rfc1628.c:36:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_rfc1628.c:58: *  struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_rfc1628.c:68: *  struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_rfc1628.c:80:	ups->UPS_Cap[i] = TRUE;
+src/drivers/snmp/drv_rfc1628.c:88: *  struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_rfc1628.c:99: *  struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_rfc1628.c:110: *  struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/README.MIBS:16:        ups-mib-mgr.c
+src/drivers/snmp/README.MIBS:17:        ups-mib.h
+src/drivers/snmp/drv_powernet.c:38:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_powernet.c:73:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_powernet.c:122: *  struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_powernet.c:132:	ups->UPS_Cap[i] = TRUE;
+src/drivers/snmp/drv_powernet.c:143:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_powernet.c:153:	strncpy(ups->upsmodel, data->upsBasicIdent->upsBasicIdentModel,
+src/drivers/snmp/drv_powernet.c:154:		sizeof(ups->upsmodel));
+src/drivers/snmp/drv_powernet.c:155:	strncpy(ups->upsname, data->upsBasicIdent->upsBasicIdentName,
+src/drivers/snmp/drv_powernet.c:156:		sizeof(ups->upsname));
+src/drivers/snmp/drv_powernet.c:162:	strncpy(ups->firmrev, data->upsAdvIdent->upsAdvIdentFirmwareRevision,
+src/drivers/snmp/drv_powernet.c:163:		sizeof(ups->firmrev));
+src/drivers/snmp/drv_powernet.c:164:	strncpy(ups->birth, data->upsAdvIdent->upsAdvIdentDateOfManufacture,
+src/drivers/snmp/drv_powernet.c:165:		sizeof(ups->birth));
+src/drivers/snmp/drv_powernet.c:166:	strncpy(ups->serial, data->upsAdvIdent->upsAdvIdentSerialNumber,
+src/drivers/snmp/drv_powernet.c:167:		sizeof(ups->serial));
+src/drivers/snmp/drv_powernet.c:173:	strncpy(ups->battdat,
+src/drivers/snmp/drv_powernet.c:175:		sizeof(ups->battdat));
+src/drivers/snmp/drv_powernet.c:181:	ups->extbatts = data->upsAdvBattery->__upsAdvBatteryNumOfBattPacks;
+src/drivers/snmp/drv_powernet.c:182:	ups->badbatts = data->upsAdvBattery->__upsAdvBatteryNumOfBadBattPacks;
+src/drivers/snmp/drv_powernet.c:183:        ups->nombattv = 0.0; /* PowerNet MIB doesn't give this value */
+src/drivers/snmp/drv_powernet.c:189:	ups->NomOutputVoltage =
+src/drivers/snmp/drv_powernet.c:191:	ups->hitrans = data->upsAdvConfig->__upsAdvConfigHighTransferVolt;
+src/drivers/snmp/drv_powernet.c:192:	ups->lotrans = data->upsAdvConfig->__upsAdvConfigLowTransferVolt;
+src/drivers/snmp/drv_powernet.c:196:                    strncpy(ups->beepstate, "0 Seconds",
+src/drivers/snmp/drv_powernet.c:197:			    sizeof(ups->beepstate));
+src/drivers/snmp/drv_powernet.c:199:                    strncpy(ups->beepstate, "Timed",
+src/drivers/snmp/drv_powernet.c:200:			    sizeof(ups->beepstate));
+src/drivers/snmp/drv_powernet.c:204:                strncpy(ups->beepstate, "LowBatt",
+src/drivers/snmp/drv_powernet.c:205:			    sizeof(ups->beepstate));
+src/drivers/snmp/drv_powernet.c:208:                strncpy(ups->beepstate, "NoAlarm",
+src/drivers/snmp/drv_powernet.c:209:			    sizeof(ups->beepstate));
+src/drivers/snmp/drv_powernet.c:212:                strncpy(ups->beepstate, "Timed",
+src/drivers/snmp/drv_powernet.c:213:			    sizeof(ups->beepstate));
+src/drivers/snmp/drv_powernet.c:216:	ups->rtnpct = data->upsAdvConfig->__upsAdvConfigMinReturnCapacity;
+src/drivers/snmp/drv_powernet.c:219:                strncpy(ups->sensitivity, "auto", sizeof(ups->sensitivity));
+src/drivers/snmp/drv_powernet.c:222:                strncpy(ups->sensitivity, "low", sizeof(ups->sensitivity));
+src/drivers/snmp/drv_powernet.c:225:                strncpy(ups->sensitivity, "medium", sizeof(ups->sensitivity));
+src/drivers/snmp/drv_powernet.c:228:                strncpy(ups->sensitivity, "high", sizeof(ups->sensitivity));
+src/drivers/snmp/drv_powernet.c:231:                strncpy(ups->sensitivity, "unknown", sizeof(ups->sensitivity));
+src/drivers/snmp/drv_powernet.c:235:	ups->dlowbatt =
+src/drivers/snmp/drv_powernet.c:237:	ups->dwake = data->upsAdvConfig->__upsAdvConfigReturnDelay/100;
+src/drivers/snmp/drv_powernet.c:238:	ups->dshutd = data->upsAdvConfig->__upsAdvConfigShutoffDelay/100;
+src/drivers/snmp/drv_powernet.c:246:                strncpy(ups->selftest, "unknown", sizeof(ups->selftest));
+src/drivers/snmp/drv_powernet.c:249:                strncpy(ups->selftest, "biweekly", sizeof(ups->selftest));
+src/drivers/snmp/drv_powernet.c:252:                strncpy(ups->selftest, "weekly", sizeof(ups->selftest));
+src/drivers/snmp/drv_powernet.c:255:                strncpy(ups->selftest, "atTurnOn", sizeof(ups->selftest));
+src/drivers/snmp/drv_powernet.c:258:                strncpy(ups->selftest, "never", sizeof(ups->selftest));
+src/drivers/snmp/drv_powernet.c:261:                strncpy(ups->selftest, "unknown", sizeof(ups->selftest));
+src/drivers/snmp/drv_powernet.c:266:                strncpy(ups->X, "OK", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:267:                strncpy(ups->selftestmsg, "Self Test Ok",
+src/drivers/snmp/drv_powernet.c:268:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:271:                strncpy(ups->X, "BT", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:272:                strncpy(ups->selftestmsg, "Self Test Failed",
+src/drivers/snmp/drv_powernet.c:273:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:276:                strncpy(ups->X, "BT", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:277:                strncpy(ups->selftestmsg, "Invalid Self Test",
+src/drivers/snmp/drv_powernet.c:278:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:281:                strncpy(ups->X, "NO", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:282:                strncpy(ups->selftestmsg, "Self Test in Progress",
+src/drivers/snmp/drv_powernet.c:283:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:286:                strncpy(ups->X, "NO", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:287:                strncpy(ups->selftestmsg, "Unknown Result",
+src/drivers/snmp/drv_powernet.c:288:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:297:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_powernet.c:323:	ups->BattChg = data->upsAdvBattery->__upsAdvBatteryCapacity;
+src/drivers/snmp/drv_powernet.c:324:	ups->UPSTemp = data->upsAdvBattery->__upsAdvBatteryTemperature;
+src/drivers/snmp/drv_powernet.c:325:	ups->UPSTemp = data->upsAdvBattery->__upsAdvBatteryTemperature;
+src/drivers/snmp/drv_powernet.c:326:	ups->TimeLeft =
+src/drivers/snmp/drv_powernet.c:338:	ups->InputPhase = data->upsBasicInput->__upsBasicInputPhase;
+src/drivers/snmp/drv_powernet.c:344:	ups->LineVoltage = data->upsAdvInput->__upsAdvInputLineVoltage;
+src/drivers/snmp/drv_powernet.c:345:	ups->LineMax = data->upsAdvInput->__upsAdvInputMaxLineVoltage;
+src/drivers/snmp/drv_powernet.c:346:	ups->LineMin = data->upsAdvInput->__upsAdvInputMinLineVoltage;
+src/drivers/snmp/drv_powernet.c:347:	ups->LineFreq = data->upsAdvInput->__upsAdvInputFrequency;
+src/drivers/snmp/drv_powernet.c:350:                strncpy(ups->G, "O-No Transfer", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:353:                strncpy(ups->G, "High Line Voltage", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:356:                strncpy(ups->G, "R-Brownout", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:359:                strncpy(ups->G, "R-Blackout", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:362:                strncpy(ups->G, "T-Small Sag", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:365:                strncpy(ups->G, "T-Deep Sag", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:368:                strncpy(ups->G, "T-Small Spike", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:371:                strncpy(ups->G, "T-Deep Spike", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:374:                strncpy(ups->G, "Self Test", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:377:                strncpy(ups->G, "R-Rate of Volt Change", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:380:                strncpy(ups->G, "Unknown", sizeof(ups->G));
+src/drivers/snmp/drv_powernet.c:389:        Dmsg1(99, "Status before clearing: %d\n", ups->Status);
+src/drivers/snmp/drv_powernet.c:394:        Dmsg1(99, "Status after clearing: %d\n", ups->Status);
+src/drivers/snmp/drv_powernet.c:419:	ups->OutputPhase = data->upsBasicOutput->__upsBasicOutputPhase;
+src/drivers/snmp/drv_powernet.c:425:	ups->OutputVoltage = data->upsAdvOutput->__upsAdvOutputVoltage;
+src/drivers/snmp/drv_powernet.c:426:	ups->OutputFreq = data->upsAdvOutput->__upsAdvOutputFrequency;
+src/drivers/snmp/drv_powernet.c:427:	ups->UPSLoad = data->upsAdvOutput->__upsAdvOutputLoad;
+src/drivers/snmp/drv_powernet.c:428:	ups->OutputCurrent = data->upsAdvOutput->__upsAdvOutputCurrent;
+src/drivers/snmp/drv_powernet.c:436:                strncpy(ups->X, "OK", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:437:                strncpy(ups->selftestmsg, "Self Test Ok",
+src/drivers/snmp/drv_powernet.c:438:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:441:                strncpy(ups->X, "BT", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:442:                strncpy(ups->selftestmsg, "Self Test Failed",
+src/drivers/snmp/drv_powernet.c:443:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:446:                strncpy(ups->X, "BT", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:447:                strncpy(ups->selftestmsg, "Invalid Self Test",
+src/drivers/snmp/drv_powernet.c:448:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:451:                strncpy(ups->X, "NO", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:452:                strncpy(ups->selftestmsg, "Self Test in Progress",
+src/drivers/snmp/drv_powernet.c:453:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:456:                strncpy(ups->X, "NO", sizeof(ups->X));
+src/drivers/snmp/drv_powernet.c:457:                strncpy(ups->selftestmsg, "Unknown Result",
+src/drivers/snmp/drv_powernet.c:458:			sizeof(ups->selftestmsg));
+src/drivers/snmp/drv_powernet.c:462:	// ups->LastSTTime = data->upsAdvTest->upsAdvTestLastDiagnosticsDate;
+src/drivers/snmp/drv_powernet.c:475:    struct snmp_ups_internal_data *Sid = ups->driver_internal_data;
+src/drivers/snmp/drv_powernet.c:512:        Dmsg1(99, "Status before clearing: %d\n", ups->Status);
+src/drivers/snmp/drv_powernet.c:517:        Dmsg1(99, "Status after clearing: %d\n", ups->Status);
+Binary file src/drivers/libdrivers.a matches
+src/drivers/usb/linux-usb.c:281:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:289:	ups->UPS_Cap[k] = false;
+src/drivers/usb/linux-usb.c:309:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:317:    if (ups->device[0] == 0) {
+src/drivers/usb/linux-usb.c:322:       astrncpy(my_data->orig_device, ups->device, sizeof(my_data->orig_device));
+src/drivers/usb/linux-usb.c:352:     * Note, we set ups->fd here so the "core" of apcupsd doesn't
+src/drivers/usb/linux-usb.c:356:    ups->fd = 1;
+src/drivers/usb/linux-usb.c:373:	  astrncpy(ups->device, devname, sizeof(ups->device));
+src/drivers/usb/linux-usb.c:412:       astrncpy(ups->device, devname, sizeof(ups->device));
+src/drivers/usb/linux-usb.c:415:       ups->device[0] = 0;
+src/drivers/usb/linux-usb.c:430:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:482:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:499:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:503:    if (!ups->UPS_Cap[ci] || !my_data->info[ci]) {
+src/drivers/usb/linux-usb.c:527:	strncpy(ups->buf, sdesc.value, ups->buf_len);
+src/drivers/usb/linux-usb.c:529:	info->sValue = ups->buf;
+src/drivers/usb/linux-usb.c:598:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:601:    tv.tv_sec = ups->wait_time;
+src/drivers/usb/linux-usb.c:688:	    if (ev[i].hid == ups->UPS_Cmd[CI_Discharging]) {
+src/drivers/usb/linux-usb.c:698:	    } else if (ev[i].hid == ups->UPS_Cmd[CI_BelowRemCapLimit]) {
+src/drivers/usb/linux-usb.c:705:	    } else if (ev[i].hid == ups->UPS_Cmd[CI_ACPresent]) {
+src/drivers/usb/linux-usb.c:715:	    } else if (ev[i].hid == ups->UPS_Cmd[CI_RemainingCapacity]) {
+src/drivers/usb/linux-usb.c:716:		ups->BattChg = ev[i].value;
+src/drivers/usb/linux-usb.c:717:	    } else if (ev[i].hid == ups->UPS_Cmd[CI_RunTimeToEmpty]) {
+src/drivers/usb/linux-usb.c:719:		    ups->TimeLeft = ((double)ev[i].value) / 60;  /* seconds */
+src/drivers/usb/linux-usb.c:721:		    ups->TimeLeft = ev[i].value;  /* minutes */
+src/drivers/usb/linux-usb.c:723:	    } else if (ev[i].hid == ups->UPS_Cmd[CI_NeedReplacement]) {
+src/drivers/usb/linux-usb.c:729:	    } else if (ev[i].hid == ups->UPS_Cmd[CI_ShutdownImminent]) {
+src/drivers/usb/linux-usb.c:737:            Dmsg1(200, "Status=%d\n", ups->Status);
+src/drivers/usb/linux-usb.c:755:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:766:       ups->driver_internal_data = my_data;
+src/drivers/usb/linux-usb.c:771:       astrncpy(my_data->orig_device, ups->device, sizeof(my_data->orig_device));
+src/drivers/usb/linux-usb.c:780:	if (ups->device[0]) {
+src/drivers/usb/linux-usb.c:783:              "please see <http://www.apcupsd.com/support.html>.\n"), ups->device);
+src/drivers/usb/linux-usb.c:813:    if (ups->driver_internal_data) {
+src/drivers/usb/linux-usb.c:814:	free(ups->driver_internal_data);
+src/drivers/usb/linux-usb.c:815:	ups->driver_internal_data = NULL;
+src/drivers/usb/linux-usb.c:827:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:874:			     !ups->UPS_Cap[ci] &&
+src/drivers/usb/linux-usb.c:878:			    ups->UPS_Cap[ci] = true;
+src/drivers/usb/linux-usb.c:880:			    ups->UPS_Cmd[ci] = uref.usage_code;
+src/drivers/usb/linux-usb.c:903:    ups->UPS_Cap[CI_STATUS] = true;   /* we have status flag */
+src/drivers/usb/linux-usb.c:919:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:929:    if (ups->UPS_Cap[CI_DALARM])
+src/drivers/usb/linux-usb.c:930:	strncpy(ups->beepstate, smart_poll(ups->UPS_Cmd[CI_DALARM], ups), 
+src/drivers/usb/linux-usb.c:931:	       sizeof(ups->beepstate));
+src/drivers/usb/linux-usb.c:934:	ups->selftest = uinfo.uref.value;
+src/drivers/usb/linux-usb.c:940:    if (ups->upsname[0] == 0 && get_value(ups, CI_IDEN, &uinfo)) {
+src/drivers/usb/linux-usb.c:941:	if (ups->buf[0] != 0) {
+src/drivers/usb/linux-usb.c:942:	    strncpy(ups->upsname, ups->buf, sizeof(ups->upsname)-1);
+src/drivers/usb/linux-usb.c:943:	    ups->upsname[sizeof(ups->upsname)-1] = 0;
+src/drivers/usb/linux-usb.c:951:        if ((p=strchr(ups->buf, 'F')) && *(p+1) == 'W' && *(p+2) == ':') {
+src/drivers/usb/linux-usb.c:953:	    strncpy(ups->firmrev, p+4, sizeof(ups->firmrev)-1);
+src/drivers/usb/linux-usb.c:954:	    ups->firmrev[sizeof(ups->firmrev)-1] = 0;
+src/drivers/usb/linux-usb.c:955:	    ups->UPS_Cap[CI_REVNO] = true;
+src/drivers/usb/linux-usb.c:957:	strncpy(ups->upsmodel, ups->buf, sizeof(ups->upsmodel)-1);
+src/drivers/usb/linux-usb.c:958:	ups->upsmodel[sizeof(ups->upsmodel)-1] = 0;
+src/drivers/usb/linux-usb.c:959:	strncpy(ups->mode.long_name, ups->buf, sizeof(ups->mode.long_name)-1);
+src/drivers/usb/linux-usb.c:960:	ups->mode.long_name[sizeof(ups->mode.long_name)-1] = 0;
+src/drivers/usb/linux-usb.c:966:	ups->dwake = (int)uinfo.dValue;
+src/drivers/usb/linux-usb.c:971:	ups->dshutd = (int)uinfo.dValue;
+src/drivers/usb/linux-usb.c:976:	ups->lotrans = (int)uinfo.dValue;
+src/drivers/usb/linux-usb.c:981:	ups->hitrans = (int)uinfo.dValue;
+src/drivers/usb/linux-usb.c:986:	ups->rtnpct = (int)uinfo.dValue;
+src/drivers/usb/linux-usb.c:992:	ups->dlowbatt = (int)uinfo.dValue;
+src/drivers/usb/linux-usb.c:998:        sprintf(ups->birth, "%4d-%02d-%02d", (uinfo.uref.value >> 9) + 1980,
+src/drivers/usb/linux-usb.c:1004:        sprintf(ups->battdat, "%4d-%02d-%02d", (uinfo.uref.value >> 9) + 1980,
+src/drivers/usb/linux-usb.c:1016:        sprintf(ups->battdat, "%4d-%02d-%02d", yy, mm, dd);
+src/drivers/usb/linux-usb.c:1023:	astrncpy(ups->serial, ups->buf, sizeof(ups->serial));
+src/drivers/usb/linux-usb.c:1027:	for (p=ups->serial; *p; p++) {
+src/drivers/usb/linux-usb.c:1029:	       *ups->serial = 0;
+src/drivers/usb/linux-usb.c:1030:	       ups->UPS_Cap[CI_SERNO] = false;
+src/drivers/usb/linux-usb.c:1038:	ups->NomOutputVoltage = (int)uinfo.dValue;
+src/drivers/usb/linux-usb.c:1043:	ups->nombattv = uinfo.dValue;
+src/drivers/usb/linux-usb.c:1058:    time_t last_poll = ups->poll_time;
+src/drivers/usb/linux-usb.c:1073:    ups->poll_time = now;	      /* save time stamp */
+src/drivers/usb/linux-usb.c:1077:    ups->Status &= ~0xff;	     /* Clear APC part of Status */
+src/drivers/usb/linux-usb.c:1079:	ups->Status |= (uinfo.iValue & 0xff); /* set new APC part */
+src/drivers/usb/linux-usb.c:1116:	ups->LineVoltage = uinfo.dValue;
+src/drivers/usb/linux-usb.c:1117:        Dmsg1(200, "LineVoltage = %d\n", (int)ups->LineVoltage);
+src/drivers/usb/linux-usb.c:1122:	ups->OutputVoltage = uinfo.dValue;
+src/drivers/usb/linux-usb.c:1123:        Dmsg1(200, "OutputVoltage = %d\n", (int)ups->OutputVoltage);
+src/drivers/usb/linux-usb.c:1128:	ups->BattChg = uinfo.dValue;
+src/drivers/usb/linux-usb.c:1129:        Dmsg1(200, "BattCharge = %d\n", (int)ups->BattChg);
+src/drivers/usb/linux-usb.c:1134:	ups->BattVoltage = uinfo.dValue;
+src/drivers/usb/linux-usb.c:1135:        Dmsg1(200, "BattVoltage = %d\n", (int)ups->BattVoltage);
+src/drivers/usb/linux-usb.c:1140:	ups->UPSLoad = uinfo.dValue;
+src/drivers/usb/linux-usb.c:1141:        Dmsg1(200, "UPSLoad = %d\n", (int)ups->UPSLoad);
+src/drivers/usb/linux-usb.c:1146:	ups->LineFreq = uinfo.dValue;
+src/drivers/usb/linux-usb.c:1151:	ups->TimeLeft = uinfo.dValue / 60;   /* convert to minutes */
+src/drivers/usb/linux-usb.c:1152:        Dmsg1(200, "TimeLeft = %d\n", (int)ups->TimeLeft);
+src/drivers/usb/linux-usb.c:1157:	ups->UPSTemp = uinfo.dValue - 273.15; /* convert to deg C. */
+src/drivers/usb/linux-usb.c:1162:	ups->humidity = uinfo.dValue;
+src/drivers/usb/linux-usb.c:1167:	ups->ambtemp = uinfo.dValue;
+src/drivers/usb/linux-usb.c:1174:           astrncpy(ups->X, "OK", sizeof(ups->X));
+src/drivers/usb/linux-usb.c:1177:           astrncpy(ups->X, "WN", sizeof(ups->X));
+src/drivers/usb/linux-usb.c:1181:           astrncpy(ups->X, "NG", sizeof(ups->X));
+src/drivers/usb/linux-usb.c:1184:           astrncpy(ups->X, "IP", sizeof(ups->X));
+src/drivers/usb/linux-usb.c:1187:           astrncpy(ups->X, "NO", sizeof(ups->X));
+src/drivers/usb/linux-usb.c:1202:    USB_DATA *my_data = (USB_DATA *)ups->driver_internal_data;
+src/drivers/usb/linux-usb.c:1208:    if (ups->UPS_Cap[ci] && my_data->info[ci]) {
+src/drivers/dumb/dumboper.c:68:    switch(ups->cable.type) {
+src/drivers/dumb/dumboper.c:74:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:75:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:76:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:78:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:87:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:88:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:89:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:98:	    (void) ioctl(ups->fd, TIOCMBIC, &serial_bits);
+src/drivers/dumb/dumboper.c:100:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:101:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:102:	    (void) ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:130:    ups->UPS_Cap[CI_STATUS] = TRUE;   /* We create a Status word */
+src/drivers/dumb/dumboper.c:144:    SIMPLE_DATA *my_data = (SIMPLE_DATA *)ups->driver_internal_data;
+src/drivers/dumb/dumboper.c:151:    if (ups->wait_time > TIMER_DUMB) {
+src/drivers/dumb/dumboper.c:152:	ups->wait_time = TIMER_DUMB;
+src/drivers/dumb/dumboper.c:154:    sleep(ups->wait_time);
+src/drivers/dumb/dumboper.c:158:    ioctl(ups->fd, TIOCMGET, &my_data->sp_flags);
+src/drivers/dumb/dumboper.c:159:    switch(ups->mode.type) {
+src/drivers/dumb/dumboper.c:173:    switch(ups->cable.type) {
+src/drivers/dumb/dumboper.c:311:	    if (ups->cable.type == CUSTOM_SIMPLE) {
+src/drivers/dumb/dumboper.c:320:		(void)ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumboper.c:325:	    if (ups->cable.type == CUSTOM_SIMPLE) {
+src/drivers/dumb/dumboper.c:333:/*		(void)ioctl(ups->fd, TIOCMBIC, &serial_bits);
+src/drivers/dumb/dumbsetup.c:70:    SIMPLE_DATA *my_data = (SIMPLE_DATA *)ups->driver_internal_data;
+src/drivers/dumb/dumbsetup.c:79:       ups->driver_internal_data = my_data;
+src/drivers/dumb/dumbsetup.c:84:    if ((ups->fd = open(ups->device, O_RDWR | O_NOCTTY | O_NDELAY)) < 0) {
+src/drivers/dumb/dumbsetup.c:86:		ups->device, strerror(errno));
+src/drivers/dumb/dumbsetup.c:90:    cmd = fcntl(ups->fd, F_GETFL, 0);
+src/drivers/dumb/dumbsetup.c:91:    fcntl(ups->fd, F_SETFL, cmd & ~O_NDELAY);
+src/drivers/dumb/dumbsetup.c:93:    tcgetattr(ups->fd, &my_data->oldtio); /* Save old settings */
+src/drivers/dumb/dumbsetup.c:115:    tcflush(ups->fd, TCIFLUSH);
+src/drivers/dumb/dumbsetup.c:116:    tcsetattr(ups->fd, TCSANOW, &my_data->newtio);
+src/drivers/dumb/dumbsetup.c:117:    tcflush(ups->fd, TCIFLUSH);
+src/drivers/dumb/dumbsetup.c:144:    switch(ups->cable.type) {
+src/drivers/dumb/dumbsetup.c:149:	    (void)ioctl(ups->fd, TIOCMBIC, &rts_bit);
+src/drivers/dumb/dumbsetup.c:150:	    (void)ioctl(ups->fd, TIOCMBIC, &rts_bit);
+src/drivers/dumb/dumbsetup.c:151:	    (void)ioctl(ups->fd, TIOCMBIC, &st_bit);
+src/drivers/dumb/dumbsetup.c:159:	    (void)ioctl(ups->fd, TIOCMBIC, &dtr_bit);
+src/drivers/dumb/dumbsetup.c:160:	    (void)ioctl(ups->fd, TIOCMBIC, &dtr_bit);
+src/drivers/dumb/dumbsetup.c:161:	    (void)ioctl(ups->fd, TIOCMBIC, &dtr_bit);
+src/drivers/dumb/dumbsetup.c:168:    close(ups->fd);
+src/drivers/dumb/dumbsetup.c:169:    ups->fd = -1;
+src/drivers/dumb/dumbsetup.c:170:    free(ups->driver_internal_data);
+src/drivers/dumb/dumbsetup.c:171:    ups->driver_internal_data = NULL;
+src/drivers/dumb/dumbsetup.c:179:    switch(ups->cable.type) {
+src/drivers/dumb/dumbsetup.c:185:	    (void) ioctl(ups->fd, TIOCMBIC, &serial_bits);
+src/drivers/dumb/dumbsetup.c:190:	    (void)ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumbsetup.c:203:	    (void)ioctl(ups->fd, TIOCMBIC, &serial_bits);
+src/drivers/dumb/dumbsetup.c:205:	    (void)ioctl(ups->fd, TIOCMBIS, &serial_bits);
+src/drivers/dumb/dumbsetup.c:215:	    (void)ioctl(ups->fd, TIOCMBIC, &serial_bits);
+src/drivers/dumb/dumbsetup.c:221:	    (void) ioctl(ups->fd, TIOCMBIC, &serial_bits);
+src/drivers/dumb/dumbsetup.c:223:	    (void) ioctl(ups->fd, TIOCMBIC, &serial_bits);
+Binary file src/drivers/drivers.o matches
+src/apcnisd.c:103:   logstats = ups->logstats;
+src/apcnisd.c:368:	   if ((ups->eventfile[0] == 0)  ||
+src/apcnisd.c:369:               (events_file = fopen(ups->eventfile, "r")) == NULL) {

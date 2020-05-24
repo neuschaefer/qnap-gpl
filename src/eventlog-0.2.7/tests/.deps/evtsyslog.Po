@@ -1,0 +1,31 @@
+evtsyslog.o: evtsyslog.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/syslog.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/syslog.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/syslog-path.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/syslog.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/syslog.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/syslog-path.h:

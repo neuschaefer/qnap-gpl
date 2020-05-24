@@ -1,0 +1,34 @@
+# Defaults for linux-igd initscript
+# sourced by /etc/init.d/linux-igd
+# installed at /etc/default/linux-igd by the maintainer scripts
+
+# Options for upnpd
+
+# External interface name.  If undefined then upnpd will not be started.
+#EXTIFACE=ppp0
+
+# Internal interface name.  If undefined then upnpd will not be started.
+#INTIFACE=eth0
+
+# Options for initscript
+
+# Setup multicast route ?
+# "yes" = add/del route to 224.0.0.0 through internal interface when starting/stopping daemon,
+# "no" or unset = leave as-is, I will configure multicast routing by another method.
+#ALLOW_MULTICAST=yes
+
+# Options for start-stop-daemon
+
+# User or user:group to run upnpd as, if not root.  This user will need
+# suitable capabilities (I believe this is CAP_NET_ADMIN; untested).
+# If undefined then upnpd will run as root.
+#UPNPD_USER=$NAME:$NAME
+
+# Supplementary group to run as (beyond those normally defined for
+# UPNPD_USER).  If undefined then upnpd will run with the groups defined
+# for the user, or if UPNPD_USER is also undefined then as gid=root.
+#UPNPD_GROUP=$NAME
+
+# Chroot directory (you need to maintain the chroot yourself with a program
+# like 'jailer').  If undefined then upnpd will not be chrooted before starting.
+#CHROOT_DIR=/var/chroot/$NAME

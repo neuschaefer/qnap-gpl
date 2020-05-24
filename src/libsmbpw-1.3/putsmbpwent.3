@@ -1,0 +1,72 @@
+.\" Copyright 1993 David Metcalfe (david@prism.demon.co.uk)
+.\" Adapted 1999 atp for SMB routines.
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one
+.\" 
+.\" Since the Linux kernel and libraries are constantly changing, this
+.\" manual page may be incorrect or out-of-date.  The author(s) assume no
+.\" responsibility for errors or omissions, or for damages resulting from
+.\" the use of the information contained herein.  The author(s) may not
+.\" have taken the same level of care in the production of this manual,
+.\" which is licensed free of charge, as they might when working
+.\" professionally.
+.\" 
+.\" Formatted or processed versions of this manual, if unaccompanied by
+.\" the source, must acknowledge the copyright and authors of this work.
+.\"
+.\" References consulted:
+.\"     Linux libc source code
+.\"     Lewine's _POSIX Programmer's Guide_ (O'Reilly & Associates, 1991)
+.\"     386BSD man pages
+.\" Modified Sat Jul 24 18:43:46 1993 by Rik Faith (faith@cs.unc.edu)
+.TH PUTSMBPWENT 3  "October 12, 1999" "GNU" "Linux Programmer's Manual"
+.SH NAME
+putsmbpwent \- write a smb password file entry
+.SH SYNOPSIS
+.nf
+.B #include "smbpwd.h"
+.sp
+.BI "int putsmbpwent(const struct smb_passwd *" p ", FILE *" stream );
+.fi
+.SH DESCRIPTION
+The \fBputsmbpwent()\fP function writes a password entry from the
+structure \fIp\fP in the file associated with \fIstream\fP.
+.PP
+The \fIsmb_passwd\fP structure is defined in \fI"smbpwd.h"\fP as follows:
+.sp
+.nf
+.ta 8n 16n 32n
+  struct smb_passwd
+   {
+     uid_t smb_userid;     /* this is actually the unix uid_t */
+     char *smb_name;       /* username string */
+     unsigned char *smb_passwd;    /* Null if no password */
+     unsigned char *smb_nt_passwd; /* Null if no password */
+     unsigned short int smb_acct_ctrl; /* account info (ACB_xxxx bit-mask) */
+     time_t smb_pwlst;    /* password last set time */
+     char *smb_gecos;     /* realname */
+  }; 
+.ta
+.fi
+.sp
+You are responsible for maintaining the password last set time (number
+of seconds since the epoch). putsmbpwent() will do any necessary binary
+to ascii conversions to store binary fields in the smbpasswd file.
+.SH "RETURN VALUE"
+The \fBputsmbpwent()\fP function returns 0 on success, or \-1 if an error
+occurs.
+.SH ERRORS
+.TP
+.B EINVAL
+Invalid (NULL) argument given.
+.SH "CONFORMING TO"
+.SH "SEE ALSO"
+.BR getsmbpwent "(3), " setsmbpwent (3),
+.BR endsmbpwent "(3), " smbd (8),  smb.conf (5) 

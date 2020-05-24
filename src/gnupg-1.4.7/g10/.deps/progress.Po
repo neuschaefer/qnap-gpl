@@ -1,0 +1,162 @@
+progress.o: progress.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h ../config.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdio.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/libio.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/_G_config.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/wchar.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sys_errlist.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio.h \
+ ../include/iobuf.h ../include/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/inttypes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/time.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/select.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/select.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sigset.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/time.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/sysmacros.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/pthreadtypes.h filter.h \
+ ../include/types.h ../include/cipher.h ../include/mpi.h \
+ ../include/iobuf.h ../include/memory.h ../include/../cipher/random.h \
+ status.h ../include/util.h ../include/errors.h ../include/compat.h \
+ options.h main.h ../include/mpi.h keydb.h global.h packet.h \
+ ../include/assuan.h /root/CT/x86_64-QNAP-linux-gnu/fs/include/unistd.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix_opt.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/environments.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/confname.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/getopt.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+../config.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdio.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/libio.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/_G_config.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/wchar.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sys_errlist.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio.h:
+
+../include/iobuf.h:
+
+../include/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/inttypes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/time.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/select.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/select.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sigset.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/time.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/sysmacros.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/pthreadtypes.h:
+
+filter.h:
+
+../include/types.h:
+
+../include/cipher.h:
+
+../include/mpi.h:
+
+../include/iobuf.h:
+
+../include/memory.h:
+
+../include/../cipher/random.h:
+
+status.h:
+
+../include/util.h:
+
+../include/errors.h:
+
+../include/compat.h:
+
+options.h:
+
+main.h:
+
+../include/mpi.h:
+
+keydb.h:
+
+global.h:
+
+packet.h:
+
+../include/assuan.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/unistd.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix_opt.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/environments.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/confname.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/getopt.h:

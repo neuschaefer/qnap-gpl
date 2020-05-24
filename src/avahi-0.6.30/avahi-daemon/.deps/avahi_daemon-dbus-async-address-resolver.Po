@@ -1,0 +1,221 @@
+avahi_daemon-dbus-async-address-resolver.o: dbus-async-address-resolver.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h ../config.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/string.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/xlocale.h \
+ ../avahi-common/malloc.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/time.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/select.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/select.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sigset.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/time.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/sysmacros.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/pthreadtypes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/limits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/syslimits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/limits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix1_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/local_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/limits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix2_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/xopen_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/assert.h \
+ ../avahi-common/cdecl.h ../avahi-common/gccmacro.h \
+ ../avahi-common/dbus.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-arch-deps.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-macros.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-address.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-types.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-errors.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-protocol.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-bus.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-connection.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-memory.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-message.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-shared.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-misc.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-pending-call.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-server.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-signature.h \
+ /root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-threads.h \
+ ../avahi-common/error.h ../avahi-core/log.h dbus-util.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/inttypes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h \
+ ../avahi-common/strlst.h ../avahi-common/defs.h dbus-internal.h \
+ ../avahi-core/core.h ../avahi-common/address.h ../avahi-common/watch.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/poll.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/poll.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/time.h \
+ ../avahi-common/timeval.h ../avahi-core/rr.h ../avahi-core/publish.h \
+ ../avahi-core/lookup.h ../avahi-common/llist.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+../config.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/string.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/xlocale.h:
+
+../avahi-common/malloc.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/time.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/select.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/select.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sigset.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/time.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/sysmacros.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/pthreadtypes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/limits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/syslimits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/limits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix1_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/local_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/limits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix2_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/xopen_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/assert.h:
+
+../avahi-common/cdecl.h:
+
+../avahi-common/gccmacro.h:
+
+../avahi-common/dbus.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-arch-deps.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-macros.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-address.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-types.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-errors.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-protocol.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-bus.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-connection.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-memory.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-message.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-shared.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-misc.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-pending-call.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-server.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-signature.h:
+
+/root/daily_build/64_01/4.4.1/SysUtil/dbus-1.4.16/dbus/dbus-threads.h:
+
+../avahi-common/error.h:
+
+../avahi-core/log.h:
+
+dbus-util.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/inttypes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h:
+
+../avahi-common/strlst.h:
+
+../avahi-common/defs.h:
+
+dbus-internal.h:
+
+../avahi-core/core.h:
+
+../avahi-common/address.h:
+
+../avahi-common/watch.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/poll.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/poll.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/time.h:
+
+../avahi-common/timeval.h:
+
+../avahi-core/rr.h:
+
+../avahi-core/publish.h:
+
+../avahi-core/lookup.h:
+
+../avahi-common/llist.h:

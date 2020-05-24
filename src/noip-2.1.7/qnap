@@ -1,0 +1,2 @@
+noip2 -C -u kenttsai@qnap.com -p kenttsai -c no-ip2.conf -n kentest.no-ip.org -U 300
+

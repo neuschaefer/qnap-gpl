@@ -1,0 +1,104 @@
+Index: kernel/libiscsi.c
+===================================================================
+RCS file: /home/cvsroot/NasX86/StorMgmt/open-iscsi-2.0-871/kernel/libiscsi.c,v
+retrieving revision 1.3
+diff -r1.3 libiscsi.c
+435c435
+< 	__kfifo_put(session->cmdpool.queue, (void*)&task, sizeof(void*));
+---
+> 	kfifo_in(session->cmdpool.queue, (void*)&task, sizeof(void*)); 
+621c621
+< 		if (!__kfifo_get(session->cmdpool.queue,
+---
+> 		if (!kfifo_out(session->cmdpool.queue, 
+1392c1392
+< 	if (!__kfifo_get(conn->session->cmdpool.queue,
+---
+> 	if (!kfifo_out(conn->session->cmdpool.queue, 
+2141c2141
+<  * should be accessed via kfifo_{get,put} on q->queue.
+---
+>  * should be accessed via kfifo_{in,out} on q->queue. 
+2162,2163c2162,2167
+< 	q->queue = kfifo_init((void*)q->pool, max * sizeof(void*),
+< 			      GFP_KERNEL, NULL);
+---
+> 	q->queue = kmalloc(sizeof(struct kfifo), GFP_KERNEL); 
+> 	if (IS_ERR(q->queue)) {
+> 		kfree(q->pool);
+> 		return -ENOMEM;
+> 	}
+> 	kfifo_init(q->queue, (void*)q->pool, max * sizeof(void*));
+2175c2179
+< 		__kfifo_put(q->queue, (void*)&q->pool[i], sizeof(void*));
+---
+> 		kfifo_in(q->queue, (void*)&q->pool[i], sizeof(void*)); 
+2523c2527
+< 	if (!__kfifo_get(session->cmdpool.queue,
+---
+> 	if (!kfifo_out(session->cmdpool.queue,
+2543c2547
+< 	__kfifo_put(session->cmdpool.queue, (void*)&conn->login_task,
+---
+> 	kfifo_in(session->cmdpool.queue, (void*)&conn->login_task,
+2606c2610
+< 	__kfifo_put(session->cmdpool.queue, (void*)&conn->login_task,
+---
+> 	kfifo_in(session->cmdpool.queue, (void*)&conn->login_task, 
+Index: kernel/libiscsi_tcp.c
+===================================================================
+RCS file: /home/cvsroot/NasX86/StorMgmt/open-iscsi-2.0-871/kernel/libiscsi_tcp.c,v
+retrieving revision 1.1
+diff -r1.1 libiscsi_tcp.c
+448,449c448,449
+< 	while (__kfifo_get(tcp_task->r2tqueue, (void*)&r2t, sizeof(void*))) {
+< 		__kfifo_put(tcp_task->r2tpool.queue, (void*)&r2t,
+---
+> 	while (kfifo_out(tcp_task->r2tqueue, (void*)&r2t, sizeof(void*))) {
+> 		kfifo_in(tcp_task->r2tpool.queue, (void*)&r2t, 
+456c456
+< 		__kfifo_put(tcp_task->r2tpool.queue, (void*)&r2t,
+---
+> 		kfifo_in(tcp_task->r2tpool.queue, (void*)&r2t, 
+544c544
+< 	rc = __kfifo_get(tcp_task->r2tpool.queue, (void*)&r2t, sizeof(void*));
+---
+> 	rc = kfifo_out(tcp_task->r2tpool.queue, (void*)&r2t, sizeof(void*)); 
+557c557
+< 		__kfifo_put(tcp_task->r2tpool.queue, (void*)&r2t,
+---
+> 		kfifo_in(tcp_task->r2tpool.queue, (void*)&r2t, 
+573c573
+< 		__kfifo_put(tcp_task->r2tpool.queue, (void*)&r2t,
+---
+> 		kfifo_in(tcp_task->r2tpool.queue, (void*)&r2t,
+583c583
+< 	__kfifo_put(tcp_task->r2tqueue, (void*)&r2t, sizeof(void*));
+---
+> 	kfifo_in(tcp_task->r2tqueue, (void*)&r2t, sizeof(void*));
+954c954
+< 	BUG_ON(__kfifo_len(tcp_task->r2tqueue));
+---
+> 	BUG_ON(kfifo_len(tcp_task->r2tqueue));
+985c985
+< 				__kfifo_put(tcp_task->r2tpool.queue,
+---
+> 				kfifo_in(tcp_task->r2tpool.queue,
+993c993
+< 			__kfifo_get(tcp_task->r2tqueue,
+---
+> 			kfifo_out(tcp_task->r2tqueue,
+1107a1108
+> 	int alloc_ret;
+1130,1132c1131,1137
+< 		tcp_task->r2tqueue = kfifo_alloc(
+< 		      session->max_r2t * 4 * sizeof(void*), GFP_KERNEL, NULL);
+< 		if (tcp_task->r2tqueue == ERR_PTR(-ENOMEM)) {
+---
+> 		tcp_task->r2tqueue = kmalloc(sizeof(struct kfifo), GFP_KERNEL); 
+> 		if (IS_ERR(tcp_task->r2tqueue)) 
+> 			goto r2t_alloc_fail; 
+> 		alloc_ret = kfifo_alloc(tcp_task->r2tqueue, 
+> 		session->max_r2t * 4 * sizeof(void*), GFP_KERNEL); 
+> 		if (alloc_ret == -ENOMEM) { 
+> 			kfree(tcp_task->r2tqueue); 

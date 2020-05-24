@@ -1,0 +1,103 @@
+libsmbpw 1.1  Copyright atp  October 1999.
+libsmbpw 1.2  Copyright atp  June 2001.
+libsmbpw 1.3  Released atp   Sept 2001.
+              
+
+  This is a quick library to provide access to the smbpasswd
+  file maintained by the samba daemon which implements the 
+  SMB protocol under linux and other linux like systems. 
+  
+  The smbpasswd file holds the NT and SMB encrypted passwords
+  for each windows user on the system running samba. 
+  
+  The functions provided by this library mirror the 
+  *pwent functions for the standard passwd file. 
+  
+  
+  struct smb_passwd *getsmbpwent(void);
+  
+  void setpwent(void);
+  
+  void endpwent(void);
+  
+  int putpwent(const struct smb_passwd *p, FILE *stream);
+  
+  int setsmbfilepath(char *path);
+
+  void smbcrypt (unsigned char *plain, 
+                 unsigned char nt_pass[16], 
+		 unsigned char smb_pass[16]);
+		 
+  Include the file "smbpwd.h" to get the prototypes for these
+  routines and the smb_passwd structure definition.
+
+   The path to the smbpasswd file is set by calling setsmbfilepath,
+  as there are many places that the smbpasswd file can be found. If 
+  you do not call setsmbfilepath with the location of your smbpasswd
+  file, which can be one of;
+  
+   	/etc/smbpasswd				RedHat Linux
+	/usr/local/samba/private/smbpasswd	Standard Dist
+  	
+	Or whatever path you set in your smb.conf file.
+ 
+  Then the default (RedHat) path of /etc/smbpasswd will be tried.
+  
+  The first call to getsmbpwent will open the smbpasswd file.
+  Each successive call returns the next valid entry, and will 
+  overwrite the smb_passwd structure returned in the previous 
+  call. 
+  
+  Any entries which are empty lines or start with the '#' comment 
+  character will be skipped until getsmbpwent reads a valid 
+  entry. The fields of the entry in the file are broken out and 
+  decoded into a smb_passwd structure. This is defined in 
+  smbpwd.h and looks like this;
+  
+  struct smb_passwd
+   {
+     uid_t smb_userid;     /* this is actually the unix uid_t */
+     char *smb_name;       /* username string */
+     unsigned char *smb_passwd;    /* Null if no password */
+     unsigned char *smb_nt_passwd; /* Null if no password */
+     unsigned short int smb_acct_ctrl; /* account info (ACB_xxxx bit-mask) */
+     time_t smb_pwlst;    /* password last set time */
+     char *smb_gecos;     /* realname */
+  }; 
+  
+  This structure can be written to an open file using putsmbpwent,
+  which will take care of the encoding back into an ascii format. 
+  
+  setsmbpwent and endsmbpwent both act as their normal counterparts
+  in resetting the password reading to the start of the file, and in
+  closing the smbpasswd file respectively.
+	
+  smbcrypt will, given the plain text password, return the NT and SMB
+  passwords in the 16 byte character arrays, in a form suitable for
+  putting into the above smb_passwd structure.
+  
+  Both a static and shared library are built. If you use the shared
+  library, copt it to some place on your library path (see /etc/ld.so.conf) 
+  or set LD_LIBRARY_PATH to include the directory in which it resides.
+  A test application that exercises the library is also built. 
+  An example of running it in the build directory 
+  (using bash) is;
+    
+  LD_LIBRARY_PATH=. ./testsmb
+
+  You may need to run it as root to access the smbpasswd file as most
+  systems have the smbpasswd file permissions set to 0600 
+
+  This code is protected by the GPL version 2.0 or later.
+  Large chunks of the  routines have been lifted from the 
+  sources of the samba 2.0.5a distribution, and are copyrighted 
+  by their respective authors.
+  
+  This library has only been tested under Redhat Linux 6.0/i386.
+  Other platforms may work. Work is progressing on that.
+  
+  Thanks go to the Samba Team for all their hard work, and the people
+  listed in the CREDITS file for their help. 
+  
+  atp@pergamentum.com
+  

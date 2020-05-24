@@ -1,0 +1,189 @@
+'\" t
+.\"     Title: grpck
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.74.3 <http://docbook.sf.net/>
+.\"      Date: 10/05/2009
+.\"    Manual: Commandes de gestion du syst\(`eme
+.\"    Source: Commandes de gestion du syst\(`eme
+.\"  Language: French
+.\"
+.TH "GRPCK" "8" "10/05/2009" "Commandes de gestion du syst\(`em" "Commandes de gestion du syst\(`em"
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NOM"
+grpck \- V\('erifier l\'int\('egrit\('e des fichiers d\'administration des groupes
+.SH "SYNOPSIS"
+.HP \w'\fBgrpck\fR\ 'u
+\fBgrpck\fR [\-r] [\fIgroupe\fR\ [\ \fIshadow\fR\ ]]
+.HP \w'\fBgrpck\fR\ 'u
+\fBgrpck\fR [\-s] [\fIgroupe\fR\ [\ \fIshadow\fR\ ]]
+.SH "DESCRIPTION"
+.PP
+The
+\fBgrpck\fR
+command verifies the integrity of the system authentication information\&. All entries in
+/etc/group
+and /etc/gshadow
+are checked to see that the entry has the proper format and valid data in each field\&. The user is prompted to delete entries that are improperly formatted or which have other uncorrectable errors\&.
+.PP
+Voici les v\('erifications effectu\('ees\ \&:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+nombre correct de champs
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+unicit\('e des noms de groupe
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+validit\('e des membres et administrateurs
+.RE
+.PP
+Une erreur dans le nombre de champs ou la non unicit\('e d\'un nom de groupe sera fatale\&. Si le nombre de champs n\'est pas correct, il sera demand\('e \(`a l\'utilisateur de supprimer la ligne\&. Si l\'utilisateur ne r\('epond pas par l\'affirmative, les v\('erifications suivantes ne seront pas effectu\('ees\&. Il sera \('egalement demand\('e de supprimer les entr\('ees correspondant aux noms de groupe redondants, mais dans ce cas, les autres v\('erifications seront effectu\('ees\&. Toutes les autres erreurs ne sont que des avertissements et l\'utilisateur est encourag\('e \(`a utiliser
+\fBgroupmod\fR
+pour les corriger\&.
+.PP
+Les commandes qui op\(`erent sur le fichier
+/etc/group
+ne peuvent pas modifier les entr\('ees corrompues ou redondantes\&.
+\fBGrpck\fR
+doit \(^etre utilis\('e dans ce cas pour supprimer ces entr\('ees\&.
+.SH "OPTIONS"
+.PP
+The options which apply to the
+\fBgrpck\fR
+command are:
+.PP
+\fB\-r\fR
+.RS 4
+Execute the
+\fBgrpck\fR
+command in read\-only mode\&. This causes all questions regarding changes to be answered
+\fIno\fR
+without user intervention\&.
+.RE
+.PP
+\fB\-s\fR
+.RS 4
+Sort entries in
+/etc/group
+and /etc/gshadow
+by GID\&.
+.RE
+.PP
+By default,
+\fBgrpck\fR
+operates on
+/etc/groupand /etc/gshadow\&. The user may select alternate files with the
+\fIgroup\fR
+and \fIshadow\fR parameters\&.
+.SH "CONFIGURATION"
+.PP
+The following configuration variables in
+/etc/login\&.defs
+change the behavior of this tool:
+.PP
+\fBMAX_MEMBERS_PER_GROUP\fR (nombre)
+.RS 4
+Nombre maximum de membres par entr\('ee de groupe\&. Lorsque le maximum est atteint, une nouvelle entr\('ee de groupe (ligne) est d\('emarr\('ee dans
+/etc/group
+(avec le m\(^eme nom, m\(^eme mot de passe, et m\(^eme GID)\&.
+.sp
+La valeur par d\('efaut est 0, ce qui signifie qu\'il n\'y a pas de limites pour le nombre de membres dans un groupe\&.
+.sp
+Cette fonctionnalit\('e (groupe d\('ecoup\('e) permet de limiter la longueur des lignes dans le fichier de groupes\&. Ceci est utile pour s\'assurer que les lignes pour les groupes NIS ne sont pas plus grandes que 1024 caract\(`eres\&.
+.sp
+Si vous avez besoin de fixer cette limite, vous pouvez utiliser 25\&.
+.sp
+Note: split groups may not be supported by all tools (even in the Shadow toolsuite)\&. You should not use this variable unless you really need it\&.
+.RE
+.SH "FICHIERS"
+.PP
+/etc/group
+.RS 4
+Informations sur les groupes\&.
+.RE
+.PP
+/etc/gshadow
+.RS 4
+Informations s\('ecuris\('ees sur les groupes\&.
+.RE
+.PP
+/etc/passwd
+.RS 4
+Informations sur les comptes des utilisateurs\&.
+.RE
+.SH "VOIR AUSSI"
+.PP
+
+\fBgroup\fR(5),
+\fBgroupmod\fR(8),
+\fBgshadow\fR(5)
+\fBpasswd\fR(5),
+\fBpwck\fR(8),
+\fBshadow\fR(5)\&.
+.SH "VALEURS DE RETOUR"
+.PP
+La commande
+\fBgrpck\fR
+retourne les valeurs suivantes en quittant\ \&:
+.PP
+\fI0\fR
+.RS 4
+succ\(`es
+.RE
+.PP
+\fI1\fR
+.RS 4
+erreur de syntaxe
+.RE
+.PP
+\fI2\fR
+.RS 4
+une entr\('ee de groupe ou plus est incorrecte
+.RE
+.PP
+\fI3\fR
+.RS 4
+impossible d\'ouvrir les fichiers group
+.RE
+.PP
+\fI4\fR
+.RS 4
+impossible de verrouiller les fichiers group
+.RE
+.PP
+\fI5\fR
+.RS 4
+impossible de mettre \(`a jour les fichiers group
+.RE

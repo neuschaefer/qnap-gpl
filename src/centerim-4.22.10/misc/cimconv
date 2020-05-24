@@ -1,0 +1,348 @@
+#!/usr/bin/env perl
+
+#
+# Contact list, history and other stuff conversion script from
+# various flavours of icq client software to centerim format.
+#
+# by Konstantin Klyagin <k@thekonst.net>
+# trillian support by Vassilios Karakoidas <bkarak@aueb.gr>
+#
+# $Id: cimconv,v 1.1.1.1 2011/04/18 03:47:16 johnsonlee Exp $
+#
+
+use Time::Local;
+
+my $ourUIN = 0;
+
+#
+# cicq_adduser
+#
+# Adds a user to contact list.
+# One arguments: user's UIN.
+#
+
+sub cicq_adduser {
+    local ($uin) = @_;
+    system("mkdir -p $ENV{HOME}/.centerim/$uin");
+}
+
+#
+# cicq_addhistoryitem
+#
+# Adds a message to a user's events history.
+# Requires the following parameters to be passed:
+#
+# to_UIN
+#	Uin of the receiver.
+# from_UIN
+#	Sender's uin.
+# timestamp
+#	UNIX timestamp (seconds since 1980).
+# text
+#	Message text.
+#
+
+sub cicq_addhistoryitem {
+    local ($touin, $fromuin, $timestamp, $text) = @_;
+
+    if($ourUIN) {
+	$histuin = ($touin == $ourUIN) ? $fromuin : $touin;
+
+	if(open(UF, ">>$ENV{HOME}/.centerim/$histuin/history")) {
+	    print UF "\f\n";
+	    print UF ($touin == $ourUIN) ? "IN" : "OUT", "\nMSG\n";
+	    print UF "$timestamp\n$timestamp\n";
+	    print UF "$text\n\n";
+	    close UF;
+	}
+
+	if(open(UF, ">$ENV{HOME}/.centerim/$histuin/lastread")) {
+	    print UF "$timestamp\n";
+	    close UF;
+	}
+    }
+}
+
+#
+# LICQ specific functions
+#
+
+sub licq_conv_history {
+    local ($uin) = @_;
+
+    local $uto = 0;
+    local $ufrom = 0;
+    local $utimestamp = 0;
+    local $text = "";
+
+    if(open(HF, "<$ENV{HOME}/.licq/history/$uin.history")) {
+	while(<HF>) {
+	    chomp;
+	    $buf = $_;
+
+	    if($buf =~ m/\[ (.?) .+ ([0-9]+) \]$/) {
+		if($text ne "") {
+		    cicq_addhistoryitem($uto, $ufrom, $timestamp, $text);
+		    $text = "";
+		}
+
+		$timestamp = $2;
+
+		if($1 eq "R") {
+		    $ufrom = $uin;
+		    $uto = $ourUIN;
+		} elsif($1 eq "S") {
+		    $ufrom = $ourUIN;
+		    $uto = $uin;
+		}
+	    } else {
+		$buf = substr($buf, 1) if substr($buf, 0, 1) eq ":";
+		$text .= $buf;
+	    }
+	}
+
+	cicq_addhistoryitem($uto, $ufrom, $timestamp, $text)
+	    if $text ne "";
+
+	close HF;
+    }
+}
+
+sub licq {
+    if(open(F, "<$ENV{HOME}/.licq/owner.uin")) {
+	while(<F>) {
+	    chomp; $buf = $_;
+
+	    if($buf =~ m/^Uin = ([0-9]+)$/) {
+		$ourUIN = $1;
+		last;
+	    }
+	}
+
+	close F;
+    }
+
+    open(F, "<$ENV{HOME}/.licq/users.conf")
+	or die "cannot find licq users file $ENV{HOME}/.licq/users.conf";
+
+    while(<F>) {
+	chomp; $buf = $_;
+
+	if($buf =~ m/^User[0-9]+ = ([0-9]+)$/) {
+	    cicq_adduser($1);
+	    licq_conv_history($1);
+	}
+    }
+
+    close F;
+}
+
+#
+# micq specific functions
+#
+
+sub micq {
+    $contsection = 0;
+    $fname = "$ENV{HOME}/.micq/micqrc";
+    
+    open(F, "<$fname")
+	or die "cannot find micq config file $fname";
+
+    while(<F>) {
+	chomp;
+	s/#.*//;
+	s/^\s+//;
+	next unless length;
+	$buf = $_;
+	if($contsection) {
+	    if($buf =~ m/^([0-9]+)\s.+$/) {
+		cicq_adduser($1);
+	    }
+	} else {
+	    $contsection = $buf =~ m/^\[Contacts\]$/;
+	}
+    }
+    
+    close F;
+}
+
+#
+# GnomeICU specific functions
+#
+
+sub gnomeicu {
+    $contsection = 0;
+    $fname = "$ENV{HOME}/.gnome/GnomeICU";
+
+    open(F, "<$fname")
+	or die "cannot find GnomeICU config file $fname";
+
+    while(<F>) {
+	chomp;
+	$buf = $_;
+
+	if($contsection) {
+	    if($buf =~ m/^([0-9]+)=.+$/) {
+		cicq_adduser($1);
+	    }
+	} else {
+	    $contsection = $buf =~ m/^\[NewContacts\]$/;
+	}
+    }
+
+    close F;
+}
+
+#
+# KXicq2 specific functions
+#
+
+sub kxicq2 {
+    if(open(F, "<$ENV{HOME}/.kde/share/config/kxicq2rc")) {
+	while(<F>) {
+	    chomp; $buf = $_;
+	    if($buf =~ m/^UIN=([0-9]+)$/) {
+		$ourUIN = $1;
+		last;
+	    }
+	}
+
+	close F;
+    }
+
+    $fname = "$ENV{HOME}/.kde/share/apps/kxicq2/contacts.kxicq";
+
+    open(F, "<$fname")
+	or die "cannot find kxicq2 contacts file $fname";
+
+    while(<F>) {
+	chomp; $buf = $_;
+
+	if($buf =~ m/^UIN=([0-9]+)$/) {
+	    cicq_adduser($1);
+	}
+    }
+
+    close F;
+
+    #
+    # Now convert messages history
+    #
+
+    $fname = "$ENV{HOME}/.kde/share/apps/kxicq2/messages.kxicq2";
+
+    local $uto = 0;
+    local $ufrom = 0;
+    local $utimestamp = 0;
+    local $text = "";
+    local $msgmode = "R";
+
+    if(open(F, "<$fname")) {
+	while(<F>) {
+	    chomp; $buf = $_;
+
+	    if($buf =~ m/^\[Message [0-9]+\]$/) {
+		cicq_addhistoryitem($uto, $ufrom, $timestamp, $text)
+		    if $text ne "";
+		$text = "";
+	    } elsif($buf =~ m/Options=[0-9]+ [0-9]+ ([0-9]+) [0-9]+$/) {
+		$msgmode = $1 ? "S" : "R";
+	    } elsif($buf =~ m/Uin=([0-9]+)$/) {
+		if($msgmode eq "R") {
+		    $ufrom = $1;
+		    $uto = $ourUIN;
+		} else {
+		    $ufrom = $ourUIN;
+		    $uto = $1;
+		}
+	    } elsif($buf =~ m/DateTime=([0-9]+)-([0-9]+)-([0-9]+) ([0-9]+):([0-9]+)$/) {
+		$timestamp = timelocal(0, $5, $4, $1, $2, $3);
+	    } elsif($buf =~ m/Message=(.+)$/) {
+		$text = $1;
+		$text =~ s/\\r//g;
+		$text =~ s/\\n/\n/g;
+	    }
+	}
+
+	cicq_addhistoryitem($uto, $ufrom, $timestamp, $text)
+	    if $text ne "";
+
+	close F;
+    }
+}
+
+# Trillian specific functions
+
+sub create_account_irc {
+    local $OUTPUT_DIR = "$ENV{HOME}/.centerim/";
+    local $buddy_dir = $OUTPUT_DIR."i".$_[0];
+    
+    mkdir($buddy_dir);
+}
+
+sub create_account_msn {
+    local $OUTPUT_DIR = "$ENV{HOME}/.centerim/";
+    local @buddy_mail = split("@",$_[0]);
+    local $buddy_dir = $OUTPUT_DIR."m".$buddy_mail[0];
+    
+    mkdir($buddy_dir);	    
+    open(INFO_FP,">".$buddy_dir."/info");
+    print INFO_FP $buddy_mail[0]."\n\n\n".$_[0]."\n";
+    close(INFO_FP);
+}
+
+sub trillian {
+    open(TRILLIAN_XML,"Buddies.xml") or
+	die "Can not open Buddies.xml";
+    @lines = <TRILLIAN_XML>;
+    close(TRILLIAN_XML);
+
+    foreach(@lines){
+	if($_ =~ /\<buddy uri=\"ICQ:1%3A(.*)\"\>(.*)\<\/buddy\>/) {
+	    @buddy_icq_array = split("%3A",$1);
+	    cicq_adduser($buddy_icq_array[0]);
+	} elsif($_ =~ /\<buddy uri=\"MSN:1%3A(.*)\"\>(.*)\<\/buddy\>/) {
+	    @buddy_msn_array = split("%3A",$1);
+	    $buddy_msn_array[0] =~ s/%([0-9A-Za-z]{2})/pack("H2",$1)/ge;
+	    create_account_msn($buddy_msn_array[0]);
+	} elsif($_ =~ /\<buddy uri=\"IRC:(.*)\"\>(.*)\<\/buddy\>/) {
+	    $buddy_irc = $2;
+	    $buddy_irc =~ s/%([0-9A-Za-z]{2})/pack("H2",$1)/ge;
+	    create_account_irc($buddy_irc);
+	}
+    }
+}
+
+sub usage {
+
+    print <<EOF
+Centerim contact list and history convertor usage:
+    $0 <client>
+
+Where <client> is the name of program you can to convert from.
+Can be: licq, kxicq2, gnomeicu, micq, trillian.
+
+EOF
+
+}
+
+my $flavour = $ARGV[0];
+
+if($flavour eq "licq") {
+    print "Converting from $flavour.. ";
+    licq; print "done.\n";
+} elsif($flavour eq "kxicq2") {
+    print "Converting from $flavour.. ";
+    kxicq2; print "done.\n";
+} elsif($flavour eq "gnomeicu") {
+    print "Converting from $flavour.. ";
+    gnomeicu; print "done.\n";
+} elsif($flavour eq "micq") {
+    print "Converting from $flavour.. ";
+    micq; print "done.\n";
+} elsif($flavour eq "trillian") {
+    print "Converting from $flavour.. ";
+    trillian; print "done.\n";
+} else {
+    usage;
+}

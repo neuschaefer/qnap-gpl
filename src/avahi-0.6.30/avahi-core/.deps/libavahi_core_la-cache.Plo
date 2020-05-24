@@ -1,0 +1,315 @@
+libavahi_core_la-cache.lo: cache.c \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h ../config.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/string.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/xlocale.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdlib.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/waitflags.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/waitstatus.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/time.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/select.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/select.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sigset.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/time.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/sysmacros.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/pthreadtypes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/alloca.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdlib-float.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/timex.h \
+ ../avahi-common/timeval.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/inttypes.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/time.h \
+ ../avahi-common/cdecl.h ../avahi-common/malloc.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/limits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/syslimits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/limits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix1_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/local_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/limits.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix2_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/xopen_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio_lim.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/assert.h \
+ ../avahi-common/gccmacro.h cache.h ../avahi-common/llist.h prioq.h \
+ internal.h ../avahi-common/watch.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/poll.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/poll.h core.h \
+ ../avahi-common/address.h ../avahi-common/defs.h ../avahi-core/rr.h \
+ ../avahi-common/strlst.h iface.h response-sched.h query-sched.h \
+ probe-sched.h dns.h rr.h hashmap.h announce.h timeeventq.h publish.h \
+ ../avahi-core/core.h browse.h lookup.h querier.h iface-linux.h netlink.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/socket.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/uio.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/uio.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/socket.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/socket_type.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sockaddr.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/socket.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/socket.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/sockios.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/sockios.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/int-ll64.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/bitsperlong.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/bitsperlong.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/netlink.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/kernel.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/sysinfo.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/posix_types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/stddef.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/posix_types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/posix_types_64.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/posix_types.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/socket.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/rtnetlink.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/if_link.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/if_addr.h \
+ /root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/neighbour.h rrlist.h \
+ wide-area.h multicast-lookup.h dns-srv-rr.h ../avahi-core/publish.h \
+ log.h rr-util.h
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdc-predef.h:
+
+../config.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/string.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/features.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/cdefs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wordsize.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/gnu/stubs-64.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stddef.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/xlocale.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdlib.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/waitflags.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/waitstatus.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/endian.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/typesizes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/byteswap-16.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/time.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/select.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/select.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sigset.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/time.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/sysmacros.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/pthreadtypes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/alloca.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdlib-float.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/timex.h:
+
+../avahi-common/timeval.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/inttypes.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/stdint.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/wchar.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/time.h:
+
+../avahi-common/cdecl.h:
+
+../avahi-common/malloc.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include/stdarg.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/limits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/cross-tools/lib/gcc/x86_64-QNAP-linux-gnu/4.9.2/include-fixed/syslimits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/limits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix1_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/local_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/limits.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/posix2_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/xopen_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/stdio_lim.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/assert.h:
+
+../avahi-common/gccmacro.h:
+
+cache.h:
+
+../avahi-common/llist.h:
+
+prioq.h:
+
+internal.h:
+
+../avahi-common/watch.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/poll.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/poll.h:
+
+core.h:
+
+../avahi-common/address.h:
+
+../avahi-common/defs.h:
+
+../avahi-core/rr.h:
+
+../avahi-common/strlst.h:
+
+iface.h:
+
+response-sched.h:
+
+query-sched.h:
+
+probe-sched.h:
+
+dns.h:
+
+rr.h:
+
+hashmap.h:
+
+announce.h:
+
+timeeventq.h:
+
+publish.h:
+
+../avahi-core/core.h:
+
+browse.h:
+
+lookup.h:
+
+querier.h:
+
+iface-linux.h:
+
+netlink.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/socket.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/sys/uio.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/uio.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/socket.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/socket_type.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/bits/sockaddr.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/socket.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/socket.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/sockios.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/sockios.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/int-ll64.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/bitsperlong.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/bitsperlong.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/netlink.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/kernel.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/sysinfo.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/posix_types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/stddef.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/posix_types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm/posix_types_64.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/asm-generic/posix_types.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/socket.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/rtnetlink.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/if_link.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/if_addr.h:
+
+/root/CT/x86_64-QNAP-linux-gnu/fs/include/linux/neighbour.h:
+
+rrlist.h:
+
+wide-area.h:
+
+multicast-lookup.h:
+
+dns-srv-rr.h:
+
+../avahi-core/publish.h:
+
+log.h:
+
+rr-util.h:
